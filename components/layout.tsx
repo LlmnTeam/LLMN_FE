@@ -1,20 +1,21 @@
-import React from "react";
-import { cls } from "@/libs/utils";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Header from "./header";
 
 interface LayoutProps {
-  title?: string;
   children: React.ReactNode;
 }
 
-export default function Layout({ title, children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
+
   const onClick = () => {
     router.back();
   };
+
   return (
     <div>
-      <div className="bg-slate-200">{title}</div>
+      <Header />
       <div>{children}</div>
     </div>
   );

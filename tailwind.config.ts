@@ -12,8 +12,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      screens: { xs: "430px" },
     },
   },
   plugins: [],
 };
+
 export default config;
