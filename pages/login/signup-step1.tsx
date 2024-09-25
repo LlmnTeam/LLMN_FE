@@ -9,10 +9,11 @@ export default function SignupStep1() {
         <Image src="/images/logo.svg" alt="logo" width={46} height={54} />
         <span className="text-3xl font-semibold">LLMN</span>
       </div>
-      <Input name="email" label="이메일" />
-      {/* <div className="w-full max-w-[605px] -mt-2 text-[13px] xs:text-[15px] font-semibold text-red-500">
+      <Input type="email" label="이메일" placeholder="이메일을 입력해주세요." />
+      {/* <div className="w-full max-w-[605px] px-1 -mt-2 text-[13px] xs:text-[15px] font-semibold text-red-500">
         이미 존재하는 이메일입니다.
-      </div> */}
+      </div>
+      <Button label="중복확인" kind="check" /> */}
       <div className="flex flex-row justify-end items-center w-full max-w-[605px] -mt-2 text-[14px] xs:text-[16px] font-semibold text-[#717478] cursor-pointer">
         재전송하기
       </div>
@@ -21,8 +22,8 @@ export default function SignupStep1() {
         <br />
         아래에 인증코드를 입력해주세요.
       </div>
-      <Input name="code" label="" />
-      <Button label="중복확인" kind="check" />
+      <Input type="code" label="" placeholder="인증 코드를 입력해주세요." />
+      <Button label="인증하기" kind="check" />
     </div>
   );
 }
