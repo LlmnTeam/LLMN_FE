@@ -12,7 +12,7 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      screens: { xs: "430px" },
+      screens: { xs: "450px" },
     },
   },
   plugins: [],
