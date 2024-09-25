@@ -1,19 +1,29 @@
 import Image from "next/image";
 
-export default function Header() {
+interface HeaderProps {
+  toggleSidebar: () => void;
+}
+
+export default function Header({ toggleSidebar }: HeaderProps) {
   return (
-    <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full bg-white border-b border-[#717478] pt-5 pb-3 px-8">
+    <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 px-8">
       <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]">
-        <div className="absolute -left-7">
+        <div className="absolute -left-7 lg:hidden cursor-pointer">
           <Image
             src="/images/menu.svg"
             alt="menu"
             width={40}
             height={40}
-            className="xs:hidden"
+            onClick={toggleSidebar}
           />
         </div>
-        <Image src="/images/logo.svg" alt="logo" width={30} height={30} />
+        <Image
+          src="/images/logo.svg"
+          alt="logo"
+          width={30}
+          height={30}
+          className="ml-4"
+        />
         <span className="text-2xl font-semibold">LLMN</span>
       </div>
       {/* <div className="hidden xs:flex flex-row justify-center items-center relative w-[271px] h-[36px]">
