@@ -8,7 +8,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
   return (
     <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 px-8">
       <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]">
-        <div className="absolute -left-7 lg:hidden cursor-pointer">
+        <div className="absolute -left-7 xl:hidden cursor-pointer">
           <Image
             src="/images/menu.svg"
             alt="menu"

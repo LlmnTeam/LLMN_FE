@@ -9,8 +9,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
   return (
     <div
       className={cls(
-        "flex flex-col justify-start items-start fixed left-0 gap-1 w-[290px] h-[calc(100%-69px)] mt-[69px] pt-[30px] px-3 border border-r-[#E5E7EB]",
-        `lg:translate-x-0 transform ${
+        "flex flex-col justify-start items-start fixed left-0 gap-1 w-[290px] h-[calc(100%-69px)] mt-[69px] pt-[30px] px-3 bg-white border-r border-[#E5E7EB]",
+        `xl:translate-x-0 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`
       )}

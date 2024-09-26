@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
 
@@ -15,10 +14,10 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div>
+    <div className="w-screen h-screen overflow-hidden">
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isSidebarOpen={isSidebarOpen} />
-      <div className="pt-[70px] w-screen lg:ml-[290px] lg:w-[calc(100%-290px)]">
+      <div className="w-full h-full pt-[90px] xl:ml-[290px] xl:w-[calc(100%-290px)] px-5 xs:px-7 sm:px-10 overflow-y-auto">
         {children}
       </div>
     </div>
