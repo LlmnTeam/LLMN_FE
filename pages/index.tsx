@@ -239,7 +239,7 @@ export default function Home() {
           조정하는 것을 권장합니다.
         </div>
       </div>
-      <div className="flex flex-wrap gap-x-[4%] gap-y-6 xs:gap-y-7 mt-5 xs:mt-7 mb-[40px]">
+      <div className="flex flex-wrap gap-x-[4%] gap-y-6 xs:gap-y-7 mt-5 xs:mt-7">
         <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
           <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
             CPU
