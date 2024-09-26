@@ -26,9 +26,11 @@ export default function Button({
               회원가입
             </span>
           </Link>
-          <span className="absolute right-0.5 top-[55px] xs:top-[70px] text-[14px] xs:text-[16px] font-semibold text-[#717478] cursor-pointer">
-            비밀번호 찾기
-          </span>
+          <Link href="/login/find-account-step1">
+            <span className="absolute right-0.5 top-[55px] xs:top-[70px] text-[14px] xs:text-[16px] font-semibold text-[#717478] cursor-pointer">
+              비밀번호 찾기
+            </span>
+          </Link>
         </>
       ) : null}
     </div>
