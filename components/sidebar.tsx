@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import { cls } from "@/libs/utils";
 import Image from "next/image";
 
@@ -6,6 +8,33 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isSidebarOpen }: SidebarProps) {
+  const router = useRouter();
+
+  const getInitialMenu = () => {
+    const path = router.pathname;
+    if (path.includes("/new-item")) {
+      return "new-item";
+    } else if (path.includes("/log")) {
+      return "log";
+    } else if (path.includes("/insight")) {
+      return "insight";
+    } else if (path.includes("/setting")) {
+      return "setting";
+    }
+    return null;
+  };
+
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(
+    getInitialMenu
+  );
+
+  const handleMenuClick = (menu: string, path: string) => {
+    if (selectedMenu !== menu) {
+      setSelectedMenu(menu);
+      router.push(path);
+    }
+  };
+
   return (
     <div
       className={cls(
@@ -15,19 +44,43 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         } transition-transform duration-300 ease-in-out`
       )}
     >
-      <div className="flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-100">
+      <div
+        className={cls(
+          "flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-200",
+          selectedMenu === "new-item"
+            ? "bg-gray-100 cursor-not-allowed"
+            : "cursor-pointer"
+        )}
+        onClick={() => handleMenuClick("new-item", "/new-item")}
+      >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image src="/images/add_icon.svg" alt="menu" width={15} height={15} />
         </div>
         <span className="text-[20px] font-semibold">새로운 아이템</span>
       </div>
-      <div className="flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-100">
+      <div
+        className={cls(
+          "flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-200",
+          selectedMenu === "log"
+            ? "bg-gray-100 cursor-not-allowed"
+            : "cursor-pointer"
+        )}
+        onClick={() => handleMenuClick("log", "/log")}
+      >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image src="/images/log_icon.svg" alt="menu" width={25} height={28} />
         </div>
         <span className="text-[20px] font-semibold">로그 기록</span>
       </div>
-      <div className="flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-100">
+      <div
+        className={cls(
+          "flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-200",
+          selectedMenu === "insight"
+            ? "bg-gray-100 cursor-not-allowed"
+            : "cursor-pointer"
+        )}
+        onClick={() => handleMenuClick("insight", "/insight")}
+      >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image
             src="/images/insight_icon.svg"
@@ -38,7 +91,15 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         </div>
         <span className="text-[20px] font-semibold">인사이트</span>
       </div>
-      <div className="flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-100">
+      <div
+        className={cls(
+          "flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-200",
+          selectedMenu === "setting"
+            ? "bg-gray-100 cursor-not-allowed"
+            : "cursor-pointer"
+        )}
+        onClick={() => handleMenuClick("setting", "/setting")}
+      >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image
             src="/images/setting_icon.svg"

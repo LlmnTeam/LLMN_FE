@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className="w-screen h-screen overflow-hidden">
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isSidebarOpen={isSidebarOpen} />
-      <div className="w-full h-[calc(100%-70px)] mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] px-5 xs:px-7 sm:px-10 overflow-y-auto">
+      <div className="w-full h-[calc(100%-70px)] mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] overflow-y-auto">
         {children}
       </div>
     </div>
