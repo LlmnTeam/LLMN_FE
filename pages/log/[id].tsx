@@ -1,9 +1,14 @@
+import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
 import LogTable from "@/components/log-table";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function LogDetail() {
+  const handleMenuSelect = (option: string) => {
+    console.log("Selected option:", option);
+    // 필요한 동작 수행
+  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
@@ -28,13 +33,22 @@ export default function LogDetail() {
               height={44}
               className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
             />
-            <Image
+            <DropdownMenu
+              options={[
+                "수정하기",
+                "컨테이너 재시작",
+                "컨테이너 종료",
+                "삭제하기",
+              ]}
+              onSelect={handleMenuSelect}
+            />
+            {/* <Image
               src="/images/ellipsis-vertical.svg"
               alt="ellipsis-vertical"
               width={44}
               height={44}
               className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px]"
-            />
+            /> */}
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2">
