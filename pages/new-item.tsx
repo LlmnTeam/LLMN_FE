@@ -6,10 +6,18 @@ import Layout from "@/components/layout";
 export default function NewItem() {
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
+  const [cloudName, setCloudName] = useState("");
   const [containerName, setContainerName] = useState("");
-
+  const cloudOptions = [
+    "Ubuntu (54.180.244.93)",
+    "Amazon Linux (72.180.244.93)",
+    "연결하지 않음",
+  ];
   const containerOptions = ["Spring", "FastAPI", "React", "연결하지 않음"];
 
+  const handleCloudSelect = (name: string) => {
+    setCloudName(name);
+  };
   const handleContainerSelect = (name: string) => {
     setContainerName(name);
   };
@@ -46,7 +54,15 @@ export default function NewItem() {
             maxWidth="1000px"
           />
           <InputWithDropdown
-            label="컨테이너 이름"
+            label="클라우드 인스턴스"
+            placeholder="연결할 인스턴스를 선택해주세요."
+            value={cloudName}
+            options={cloudOptions}
+            onSelect={handleCloudSelect}
+            maxWidth="1000px"
+          />
+          <InputWithDropdown
+            label="컨테이너"
             placeholder="연결할 컨테이너를 선택해주세요."
             value={containerName}
             options={containerOptions}
