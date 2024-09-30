@@ -69,7 +69,6 @@ export default function NewItem() {
             onSelect={handleContainerSelect}
             maxWidth="1000px"
           />
-
           <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-40 xs:mt-44 sm:mt-48">
             <button className="w-[64px] xs:w-[80px] h-[40px] xs:h-[50px] text-[16px] xs:text-[20px] text-white bg-[#0F172A] rounded-md">
               생성

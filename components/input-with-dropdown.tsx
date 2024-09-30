@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "@/components/input"; // Input 컴포넌트 임포트
+import Input from "@/components/input";
 
 interface InputWithDropdownProps {
   label: string;
