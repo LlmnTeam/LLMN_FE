@@ -42,13 +42,6 @@ export default function LogDetail() {
               ]}
               onSelect={handleMenuSelect}
             />
-            {/* <Image
-              src="/images/ellipsis-vertical.svg"
-              alt="ellipsis-vertical"
-              width={44}
-              height={44}
-              className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px]"
-            /> */}
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2">
@@ -109,7 +102,7 @@ export default function LogDetail() {
               className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
             />
           </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
+          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium break-all">
             [2024-09-10T10:59:04.342Z] INFO: 2024-09-10T19:59:04.339+09:00 INFO
             1 --- [MessageBroker-3] o.s.w.s.c.WebSocketMessageBrokerStats :
             WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total,
