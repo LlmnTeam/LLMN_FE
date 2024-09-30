@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Input from "@/components/input";
 
 interface InputWithDropdownProps {
@@ -19,9 +19,11 @@ export default function InputWithDropdown({
   maxWidth = "1000px",
 }: InputWithDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(true);
+    // setIsDropdownOpen((prev) => !prev);
   };
 
   const handleSelect = (option: string) => {
@@ -29,8 +31,29 @@ export default function InputWithDropdown({
     setIsDropdownOpen(false);
   };
 
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
-    <div className="relative w-full" style={{ maxWidth }}>
+    <div className="relative w-full" style={{ maxWidth }} ref={dropdownRef}>
       <div onClick={toggleDropdown} className="cursor-pointer">
         <Input
           type="text"
