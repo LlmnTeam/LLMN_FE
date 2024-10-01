@@ -6,7 +6,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export default function ModalLogFile({
+export default function LogFileModal({
   isOpen,
   onClose,
   children,
@@ -20,6 +20,17 @@ export default function ModalLogFile({
         onClick={onClose}
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold ml-1">
+            로그 파일
+          </div>
+          <div
+            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
+            onClick={onClose}
+          >
+            ✕
+          </div>
+        </div>
         <div>{children}</div>
         <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
           <button

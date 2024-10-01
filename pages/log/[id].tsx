@@ -1,15 +1,14 @@
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
-import LogTable from "@/components/log-table";
-import ModalLogFile from "@/components/modal-log-file";
+import ModalLogFile from "@/components/log-file-modal";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function LogDetail() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openLogFileModal = () => setIsLogFileModalOpen(true);
+  const closeLogFileModal = () => setIsLogFileModalOpen(false);
 
   const handleMenuSelect = (option: string) => {
     console.log("Selected option:", option);
@@ -30,7 +29,7 @@ export default function LogDetail() {
               width={33}
               height={24}
               className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
-              onClick={openModal}
+              onClick={openLogFileModal}
             />
             <Image
               src="/images/log-list.svg"
@@ -125,18 +124,7 @@ export default function LogDetail() {
           </div>
         </div>
       </div>
-      <ModalLogFile isOpen={isModalOpen} onClose={closeModal}>
-        <div className="flex flex-row justify-between items-center">
-          <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold ml-1">
-            로그 파일
-          </div>
-          <div
-            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-5"
-            onClick={closeModal}
-          >
-            ✕
-          </div>
-        </div>
+      <ModalLogFile isOpen={isLogFileModalOpen} onClose={closeLogFileModal}>
         <div className="flex flex-col justify-start items-start h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto px-2 py-2 mt-3 xs:mt-4 sm:mt-5">
           <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
             mongo-log-2024-09-10_12.txt
