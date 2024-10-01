@@ -6,6 +6,14 @@ interface DropdownMenuProps {
   onSelect: (option: string) => void;
 }
 
+// 영어 옵션과 한글 텍스트를 매핑하는 객체
+const optionLabelMap: { [key: string]: string } = {
+  edit: "수정하기",
+  restart: "컨테이너 재시작",
+  stop: "컨테이너 종료",
+  delete: "삭제하기",
+};
+
 export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -61,13 +69,14 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
           {options.map((option) => (
             <div
               key={option}
-              className="text-[12px] xs:text-[14px] sm:text-[16px] font-medium last:text-[#FD5252] border-b-[1px] last:border-b-0 border-[#DBDBDB] first:rounded-tl-xl first:rounded-tr-xl last:rounded-bl-xl last:rounded-br-xl  px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 text-center hover:bg-gray-100 cursor-pointer"
+              className="text-[12px] xs:text-[14px] sm:text-[16px] font-medium last:text-[#FD5252] border-b-[1px] last:border-b-0 border-[#DBDBDB] first:rounded-tl-xl first:rounded-tr-xl last:rounded-bl-xl last:rounded-br-xl px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 text-center hover:bg-gray-100 cursor-pointer"
               onClick={() => {
                 onSelect(option);
                 setIsMenuOpen(false);
               }}
             >
-              {option}
+              {optionLabelMap[option] || option}
+              {/* optionLabelMap에 없는 값이 들어올 경우 기본 option을 표시 */}
             </div>
           ))}
         </div>

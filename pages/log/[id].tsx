@@ -39,12 +39,7 @@ export default function LogDetail() {
               className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
             />
             <DropdownMenu
-              options={[
-                "수정하기",
-                "컨테이너 재시작",
-                "컨테이너 종료",
-                "삭제하기",
-              ]}
+              options={["edit", "restart", "stop", "delete"]}
               onSelect={handleMenuSelect}
             />
           </div>
