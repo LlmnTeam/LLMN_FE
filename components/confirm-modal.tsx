@@ -1,20 +1,52 @@
-import React, { ReactNode } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
-  message: string;
-  buttonText: string;
+  option: string;
 }
 
-export default function LogFileModal({
-  isOpen,
-  onClose,
-  title,
-  message,
-  buttonText,
-}: ModalProps) {
+export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    message: "",
+    buttonText: "",
+  });
+
+  useEffect(() => {
+    switch (option) {
+      case "restart":
+        setModalContent({
+          title: "컨테이너를 재시작하시겠습니까?",
+          message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
+          buttonText: "재시작",
+        });
+        break;
+      case "stop":
+        setModalContent({
+          title: "컨테이너를 종료하시겠습니까?",
+          message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
+          buttonText: "종료",
+        });
+        break;
+      case "delete":
+        setModalContent({
+          title: "정말 프로젝트를 삭제하시겠습니까?",
+          message:
+            "관련된 모든 로그 파일과 기록이 삭제되며, 복구가 불가능합니다.",
+          buttonText: "삭제",
+        });
+        break;
+      default:
+        setModalContent({
+          title: "알 수 없는 동작",
+          message: "올바른 동작을 선택해주세요.",
+          buttonText: "확인",
+        });
+        break;
+    }
+  }, [option]);
+
   if (!isOpen) return null;
 
   return (
@@ -25,23 +57,25 @@ export default function LogFileModal({
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold ml-1">
-            {title}
+          <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold">
+            {modalContent.title}
           </div>
           <div
-            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
+            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] cursor-pointer"
             onClick={onClose}
           >
             ✕
           </div>
         </div>
-        <div>{message}</div>
-        <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
+        <div className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4">
+          {modalContent.message}
+        </div>
+        <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
           <button
             onClick={onClose}
             className="w-[84px] xs:w-[90px] sm:w-[96px] h-[34px] xs:h-[36px] sm:h-[39px] text-[14px] xs:text-[15px] sm:text-[16px] text-white font-semibold bg-[#0F172A] rounded-md"
           >
-            {buttonText}
+            {modalContent.buttonText}
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import ConfirmModal from "@/components/confirm-modal";
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
 import ModalLogFile from "@/components/log-file-modal";
@@ -6,12 +7,22 @@ import { useEffect, useState } from "react";
 
 export default function LogDetail() {
   const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
   const openLogFileModal = () => setIsLogFileModalOpen(true);
   const closeLogFileModal = () => setIsLogFileModalOpen(false);
 
+  const openConfirmModal = (option: string) => {
+    setSelectedOption(option);
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => setIsConfirmModalOpen(false);
+
   const handleMenuSelect = (option: string) => {
-    console.log("Selected option:", option);
+    if (option === "edit") return;
+    openConfirmModal(option);
   };
   return (
     <Layout>
@@ -153,6 +164,11 @@ export default function LogDetail() {
           </div>
         </div>
       </ModalLogFile>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option={selectedOption}
+      />
     </Layout>
   );
 }
