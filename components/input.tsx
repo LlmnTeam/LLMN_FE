@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRef } from "react";
 
 interface InputProps {
   type: string;
@@ -21,6 +22,22 @@ export default function Input({
   readOnly = false,
   ...rest
 }: InputProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageClick = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.preventDefault();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("Selected file:", file.name);
+      // 추가로 파일을 처리하는 로직 작성
+    }
+  };
   return (
     <div
       className="flex flex-col justify-center items-center relative w-full mt-5 xs:mt-8"
@@ -45,15 +62,21 @@ export default function Input({
         {...rest}
       />
       {label === "프라이빗 키" ? (
-        <div className="flex flex-row justify-center items-center absolute top-3 right-4 cursor-pointer">
+        <div className="flex flex-row justify-center items-center absolute top-2 sm:top-3 right-4 xs:right-5 sm:right-6 cursor-pointer">
           <Image
             src="/images/upload.svg"
             alt="upload"
             width={36}
             height={33}
             className="xs:w-[36px] xs:h-[33px] w-[26px] h-[25px]"
+            onClick={handleImageClick}
           />
-          <input type="file" className="hidden" />
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={handleFileChange}
+          />
         </div>
       ) : null}
     </div>
