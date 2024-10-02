@@ -47,8 +47,8 @@ export default function Input({
       {label === "프라이빗 키" ? (
         <div className="flex flex-row justify-center items-center absolute top-3 right-4 cursor-pointer">
           <Image
-            src="/images/download_icon.svg"
-            alt="download_icon"
+            src="/images/upload_icon.svg"
+            alt="upload_icon"
             width={36}
             height={33}
             className="xs:w-[36px] xs:h-[33px] w-[26px] h-[25px]"

@@ -44,8 +44,8 @@ export default function LogMessage() {
               />
             </div>
             <Image
-              src="/images/log-download_icon.svg"
-              alt="log-download_icon"
+              src="/images/download_icon.svg"
+              alt="download_icon"
               width={35}
               height={35}
               className="w-[30px] h-[30px] xs:w-[33px] xs:h-[33px] sm:w-[35px] sm:h-[35px] ml-2 sm:ml-3"
