@@ -16,8 +16,8 @@ export default function Home() {
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
             <Image
-              src="/images/box-icon.svg"
-              alt="box-icon"
+              src="/images/shell.svg"
+              alt="shell"
               width={33}
               height={24}
               className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"

@@ -34,16 +34,16 @@ export default function LogDetail() {
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
             <Image
-              src="/images/box-icon.svg"
-              alt="box-icon"
+              src="/images/shell.svg"
+              alt="shell"
               width={33}
               height={24}
               className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
             <div>
               <Image
-                src="/images/log-list.svg"
-                alt="log-list"
+                src="/images/chatbot.svg"
+                alt="chatbot"
                 width={44}
                 height={44}
                 className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"

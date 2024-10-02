@@ -54,7 +54,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         onClick={() => handleMenuClick("new-item", "/new-item")}
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
-          <Image src="/images/add_icon.svg" alt="menu" width={15} height={15} />
+          <Image src="/images/add.svg" alt="add" width={15} height={15} />
         </div>
         <span className="text-[20px] font-semibold">새로운 아이템</span>
       </div>
@@ -68,7 +68,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         onClick={() => handleMenuClick("log", "/log")}
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
-          <Image src="/images/log_icon.svg" alt="menu" width={25} height={28} />
+          <Image src="/images/log.svg" alt="log" width={25} height={28} />
         </div>
         <span className="text-[20px] font-semibold">로그 기록</span>
       </div>
@@ -83,8 +83,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image
-            src="/images/insight_icon.svg"
-            alt="menu"
+            src="/images/insight.svg"
+            alt="insight"
             width={31}
             height={30}
           />
@@ -102,8 +102,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image
-            src="/images/setting_icon.svg"
-            alt="menu"
+            src="/images/setting.svg"
+            alt="setting"
             width={27}
             height={27}
           />
