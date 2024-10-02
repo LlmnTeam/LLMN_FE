@@ -46,7 +46,7 @@ export default function Input({
       {label?.trim() ? (
         <label
           htmlFor={label}
-          className="absolute -top-6 xs:-top-7 sm:-top-8 left-1 text-[17px] xs:text-[18px] sm:text-[19px]"
+          className="absolute -top-7 xs:-top-8 sm:-top-9 left-1 text-[18px] xs:text-[20px] sm:text-[22px]"
         >
           {label}
         </label>
@@ -68,7 +68,7 @@ export default function Input({
             alt="upload"
             width={36}
             height={33}
-            className="xs:w-[36px] xs:h-[33px] w-[26px] h-[25px]"
+            className="w-[26px] h-[25px] xs:w-[36px] xs:h-[33px]"
             onClick={handleImageClick}
           />
           <input

@@ -1,5 +1,5 @@
 import Input from "@/components/input";
-import { cls } from "@/libs/utils";
+import ToggleButton from "@/components/toggle-button";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -7,7 +7,7 @@ export default function SignupStep3() {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
-    setIsToggled(!isToggled);
+    setIsToggled((prev) => !prev);
   };
   return (
     <div className="flex flex-col justify-start items-center w-screen h-screen gap-7 px-6 pt-[15vh] overflow-hidden">
@@ -17,20 +17,7 @@ export default function SignupStep3() {
       </div>
       <div className="flex flex-row justify-between items-center w-full max-w-[605px] px-1">
         <div className="text-[16px] xs:text-[20px]">알람 설정</div>
-        <div
-          className={cls(
-            "w-[41px] xs:w-[52px] h-[22px] xs:h-[28px] flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300",
-            isToggled ? "bg-[#0F172A]" : "bg-gray-300"
-          )}
-          onClick={handleToggle}
-        >
-          <div
-            className={cls(
-              "bg-white w-4 xs:w-5 h-4 xs:h-5 rounded-full shadow-md transform transition-transform duration-300",
-              isToggled ? "translate-x-4 xs:translate-x-6" : "translate-x-0"
-            )}
-          ></div>
-        </div>
+        <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
       </div>
       <Input
         type="text"

@@ -12,6 +12,9 @@ const optionLabelMap: { [key: string]: string } = {
   restart: "컨테이너 재시작",
   stop: "컨테이너 종료",
   delete: "삭제하기",
+  license: "오픈소스 라이센스",
+  key: "API 키 관리",
+  withdraw: "계정 삭제",
 };
 
 export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
@@ -64,7 +67,7 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
       {isMenuOpen && (
         <div
           ref={menuRef}
-          className="absolute right-0 mt-2 w-28 xs:w-32 sm:w-36 bg-white border border-gray-300 rounded-xl shadow-lg z-10"
+          className="absolute right-0 mt-0 xs:mt-0.5 sm:mt-1 w-28 xs:w-32 sm:w-36 bg-white border border-gray-300 rounded-xl shadow-lg z-10"
         >
           {options.map((option) => (
             <div
