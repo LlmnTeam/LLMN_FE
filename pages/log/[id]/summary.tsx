@@ -1,12 +1,28 @@
+import ConfirmModal from "@/components/confirm-modal";
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
-import LogTable from "@/components/log-table";
+import LogFileModal from "@/components/log-file-modal";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function LogSummary() {
+  const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
+  const openLogFileModal = () => setIsLogFileModalOpen(true);
+  const closeLogFileModal = () => setIsLogFileModalOpen(false);
+
+  const openConfirmModal = (option: string) => {
+    setSelectedOption(option);
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => setIsConfirmModalOpen(false);
+
   const handleMenuSelect = (option: string) => {
-    console.log("Selected option:", option);
+    if (option === "edit") return;
+    openConfirmModal(option);
   };
   return (
     <Layout>
@@ -25,25 +41,67 @@ export default function LogSummary() {
               height={24}
               className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
-            <Image
-              src="/images/log-list.svg"
-              alt="log-list"
-              width={44}
-              height={44}
-              className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
-            />
-            <DropdownMenu
-              options={[
-                "수정하기",
-                "컨테이너 재시작",
-                "컨테이너 종료",
-                "삭제하기",
-              ]}
-              onSelect={handleMenuSelect}
-            />
+            <div>
+              <Image
+                src="/images/log-list.svg"
+                alt="log-list"
+                width={44}
+                height={44}
+                className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
+                onClick={openLogFileModal}
+              />
+              <LogFileModal
+                isOpen={isLogFileModalOpen}
+                onClose={closeLogFileModal}
+              >
+                <div className="flex flex-col justify-start items-start h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto px-2 py-2 mt-3 xs:mt-4 sm:mt-5">
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+                    mongo-log-2024-09-10_12.txt
+                  </div>
+                </div>
+              </LogFileModal>
+            </div>
+            <div>
+              <DropdownMenu
+                options={["edit", "restart", "stop", "delete"]}
+                onSelect={handleMenuSelect}
+              />
+              <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={closeConfirmModal}
+                option={selectedOption}
+              />
+            </div>
           </div>
         </div>
-        <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2">
+        <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
           ForPaw BE의 스프링 프로젝트
         </div>
         <div className="flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">

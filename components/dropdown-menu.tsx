@@ -58,7 +58,7 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
           alt="ellipsis-vertical"
           width={44}
           height={44}
-          className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px]"
+          className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5"
         />
       </button>
       {isMenuOpen && (
