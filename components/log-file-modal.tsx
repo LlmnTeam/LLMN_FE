@@ -1,16 +1,17 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
 }
 
-export default function LogFileModal({
-  isOpen,
-  onClose,
-  children,
-}: ModalProps) {
+export default function LogFileModal({ isOpen, onClose }: ModalProps) {
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+
+  const handleFileSelect = (fileName: string) => {
+    setSelectedFile(fileName);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -22,7 +23,7 @@ export default function LogFileModal({
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold ml-1">
-            로그 파일
+            질문할 로그
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
@@ -31,7 +32,38 @@ export default function LogFileModal({
             ✕
           </div>
         </div>
-        <div>{children}</div>
+        <div className="flex flex-col justify-start items-start h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto px-2 py-2 mt-3 xs:mt-4 sm:mt-5">
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+          <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
+            mongo-log-2024-09-10_12.txt
+          </div>
+        </div>
         <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
           <button
             onClick={onClose}

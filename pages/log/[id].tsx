@@ -17,7 +17,6 @@ export default function LogDetail() {
     setSelectedOption(option);
     setIsConfirmModalOpen(true);
   };
-
   const closeConfirmModal = () => setIsConfirmModalOpen(false);
 
   const handleMenuSelect = (option: string) => {
@@ -53,40 +52,7 @@ export default function LogDetail() {
               <LogFileModal
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
-              >
-                <div className="flex flex-col justify-start items-start h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto px-2 py-2 mt-3 xs:mt-4 sm:mt-5">
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                  <div className="w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0">
-                    mongo-log-2024-09-10_12.txt
-                  </div>
-                </div>
-              </LogFileModal>
+              />
             </div>
             <div>
               <DropdownMenu
