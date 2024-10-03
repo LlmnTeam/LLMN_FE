@@ -22,7 +22,7 @@ export default function LogFileModal({ isOpen, onClose }: ModalProps) {
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold ml-1">
+          <div className="text-[20px] xs:text-[22px] sm:text-[24px] font-bold ml-1">
             질문할 로그
           </div>
           <div
