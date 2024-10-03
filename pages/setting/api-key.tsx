@@ -4,6 +4,7 @@ import InputMedium from "@/components/input-medium";
 import InstanceModal from "@/components/instance-modal";
 import Layout from "@/components/layout";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Setting() {
@@ -34,8 +35,17 @@ export default function Setting() {
       <div className="px-5 xs:px-7 sm:px-10">
         <div className="h-[650px] xs:h-[685px] sm:h-[720px]">
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
-              <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
+            <div className="flex flex-row justify-start items-center">
+              <Link href="/setting">
+                <Image
+                  src="/images/back.svg"
+                  alt="back"
+                  width={45}
+                  height={45}
+                  className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                />
+              </Link>
+              <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
                 API 키 관리
               </span>
             </div>

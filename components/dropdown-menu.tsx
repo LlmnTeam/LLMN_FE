@@ -58,7 +58,7 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
   } = {
     edit: {
       label: "수정하기",
-      action: () => console.log("Edit action triggered"),
+      action: () => router.push("/log/1/edit"),
     },
     restart: {
       label: "컨테이너 재시작",

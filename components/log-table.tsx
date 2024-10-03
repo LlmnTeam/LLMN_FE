@@ -1,7 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function LogTable() {
+  const router = useRouter();
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export default function LogTable() {
     };
   }, []);
   return (
-    <>
+    <div className="log-table">
       {isLargeScreen ? (
         <div className="overflow-x-hidden">
           <table
@@ -36,8 +39,11 @@ export default function LogTable() {
               </tr>
             </thead>
             <tbody>
-              <tr className="text-center bg-white">
-                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden">
+              <tr
+                className="text-center bg-white cursor-pointer"
+                onClick={() => router.push("/log/1")}
+              >
+                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden border-l border-t border-b border-transparent">
                   <div className="flex flex-row justify-center items-center">
                     <Image
                       src="/images/working.svg"
@@ -47,20 +53,27 @@ export default function LogTable() {
                     />
                   </div>
                 </td>
-                <td className="w-[15%] px-4 py-2 text-left truncate">Spring</td>
-                <td className="w-[20%] px-4 py-2 text-left truncate">
+                <td className="w-[15%] px-4 py-2 text-left truncate border-t border-b border-transparent">
+                  Spring
+                </td>
+                <td className="w-[20%] px-4 py-2 text-left truncate border-t border-b border-transparent">
                   ForPaw BE - 스프링
                 </td>
-                <td className="w-[13%] px-4 py-2 truncate">8.46%</td>
-                <td className="w-[27%] px-4 py-2 truncate">
+                <td className="w-[13%] px-4 py-2 truncate border-t border-b border-transparent">
+                  8.46%
+                </td>
+                <td className="w-[27%] px-4 py-2 truncate border-t border-b border-transparent">
                   89.98MiB / 949.2MiB
                 </td>
-                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden">
+                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden border-r border-t border-b border-transparent">
                   실행중
                 </td>
               </tr>
-              <tr className="text-center bg-white">
-                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden">
+              <tr
+                className="text-center bg-white cursor-pointer"
+                onClick={() => router.push("/log/1")}
+              >
+                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden border-l border-t border-b border-transparent">
                   <div className="flex flex-row justify-center items-center">
                     <Image
                       src="/images/working.svg"
@@ -70,20 +83,27 @@ export default function LogTable() {
                     />
                   </div>
                 </td>
-                <td className="w-[15%] px-4 py-2 text-left truncate">
+                <td className="w-[15%] px-4 py-2 text-left truncate border-t border-b border-transparent">
                   MongoDB
                 </td>
-                <td className="w-[20%] px-4 py-2 text-left truncate">
+                <td className="w-[20%] px-4 py-2 text-left truncate border-t border-b border-transparent">
                   No RDBMS DB
                 </td>
-                <td className="w-[13%] px-4 py-2 truncate">N/A</td>
-                <td className="w-[27%] px-4 py-2 truncate">N/A</td>
-                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden">
+                <td className="w-[13%] px-4 py-2 truncate border-t border-b border-transparent">
+                  N/A
+                </td>
+                <td className="w-[27%] px-4 py-2 truncate border-t border-b border-transparent">
+                  N/A
+                </td>
+                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden border-r border-t border-b border-transparent">
                   종료됨
                 </td>
               </tr>
-              <tr className="text-center bg-white">
-                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden">
+              <tr
+                className="text-center bg-white cursor-pointer"
+                onClick={() => router.push("/log/1")}
+              >
+                <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden border-l border-t border-b border-transparent">
                   <div className="flex flex-row justify-center items-center">
                     <Image
                       src="/images/not-working.svg"
@@ -93,15 +113,19 @@ export default function LogTable() {
                     />
                   </div>
                 </td>
-                <td className="w-[15%] px-4 py-2 text-left truncate">
+                <td className="w-[15%] px-4 py-2 text-left truncate border-t border-b border-transparent">
                   FastAPI
                 </td>
-                <td className="w-[20%] px-4 py-2 text-left truncate">
+                <td className="w-[20%] px-4 py-2 text-left truncate border-t border-b border-transparent">
                   ForPaw BE - FastAPI
                 </td>
-                <td className="w-[13%] px-4 py-2 truncate">N/A</td>
-                <td className="w-[27%] px-4 py-2 truncate">N/A</td>
-                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden">
+                <td className="w-[13%] px-4 py-2 truncate border-t border-b border-transparent">
+                  N/A
+                </td>
+                <td className="w-[27%] px-4 py-2 truncate border-t border-b border-transparent">
+                  N/A
+                </td>
+                <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden border-r border-t border-b border-transparent">
                   연결되지 않음
                 </td>
               </tr>
@@ -110,7 +134,10 @@ export default function LogTable() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 xs:gap-3 text-[13px] xs:text-[14px] mt-1 xs:mt-2">
-          <div className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2">
+          <div
+            className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
+            onClick={() => router.push("/log/1")}
+          >
             <div className="flex">
               <div className="min-w-[80px] px-4 py-1 xs:py-2 font-bold">
                 상태
@@ -168,7 +195,10 @@ export default function LogTable() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2">
+          <div
+            className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
+            onClick={() => router.push("/log/1")}
+          >
             <div className="flex">
               <div className="min-w-[80px] px-4 py-1 xs:py-2 font-bold">
                 상태
@@ -226,7 +256,10 @@ export default function LogTable() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2">
+          <div
+            className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
+            onClick={() => router.push("/log/1")}
+          >
             <div className="flex">
               <div className="min-w-[80px] px-4 py-1 xs:py-2 font-bold">
                 상태
@@ -286,6 +319,6 @@ export default function LogTable() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import Input from "@/components/input";
 import InputWithDropdown from "@/components/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
 import Layout from "@/components/layout";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function NewItem() {
   const [projectName, setProjectName] = useState("");
@@ -27,9 +29,20 @@ export default function NewItem() {
       <div className="px-5 xs:px-7 sm:px-10">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
-              새로운 아이템
-            </span>
+            <div className="flex flex-row justify-start items-center">
+              <Link href="/log/1">
+                <Image
+                  src="/images/back.svg"
+                  alt="back"
+                  width={45}
+                  height={45}
+                  className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                />
+              </Link>
+              <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
+                수정하기
+              </span>
+            </div>
             <span className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold">
               {"<주의>"} 컨테이너의 이름이 잘못 입력되면 기능이 정상적으로
               작동하지 않을 수 있습니다.
@@ -69,7 +82,7 @@ export default function NewItem() {
             onSelect={handleContainerSelect}
             maxWidth="1000px"
           />
-          <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-40 xs:mt-44 sm:mt-48">
+          <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-12 xs:mt-16 sm:mt-20">
             <button className="w-[64px] xs:w-[80px] h-[40px] xs:h-[50px] text-[16px] xs:text-[20px] text-white bg-[#0F172A] rounded-md">
               완료
             </button>

@@ -4,6 +4,7 @@ import EmptyBox from "@/components/empty-box";
 import Layout from "@/components/layout";
 import LogFileModal from "@/components/log-file-modal";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function LogDetail() {
@@ -20,8 +21,17 @@ export default function LogDetail() {
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
+          <div className="flex flex-row justify-start items-center">
+            <Link href="/log">
+              <Image
+                src="/images/back.svg"
+                alt="back"
+                width={45}
+                height={45}
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+              />
+            </Link>
+            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
               Spring
             </span>
           </div>
@@ -62,13 +72,15 @@ export default function LogDetail() {
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
               요약
             </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
+            <Link href="/log/1/summary" className="cursor-pointer">
+              <Image
+                src="/images/chevron-right.svg"
+                alt="chevron-right"
+                width={20}
+                height={20}
+                className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+              />
+            </Link>
             <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
               2024.09.10_18 업데이트됨
             </div>
@@ -104,13 +116,15 @@ export default function LogDetail() {
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
               최근 로그
             </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
+            <Link href="/log/1/message" className="cursor-pointer">
+              <Image
+                src="/images/chevron-right.svg"
+                alt="chevron-right"
+                width={20}
+                height={20}
+                className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+              />
+            </Link>
           </div>
           <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium break-all">
             [2024-09-10T10:59:04.342Z] INFO: 2024-09-10T19:59:04.339+09:00 INFO

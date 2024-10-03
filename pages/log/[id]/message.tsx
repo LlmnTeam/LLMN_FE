@@ -3,6 +3,7 @@ import Layout from "@/components/layout";
 import LogFileModal from "@/components/log-file-modal";
 import LogTable from "@/components/log-table";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function LogMessage() {
@@ -14,8 +15,17 @@ export default function LogMessage() {
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
+          <div className="flex flex-row justify-start items-center">
+            <Link href="/log/1">
+              <Image
+                src="/images/back.svg"
+                alt="back"
+                width={45}
+                height={45}
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+              />
+            </Link>
+            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
               Spring - 로그 메세지
             </span>
           </div>

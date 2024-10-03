@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.log-table tr:hover td {
+  border-color: rgba(156, 163, 175, 1);
+}
