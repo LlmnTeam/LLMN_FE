@@ -65,7 +65,7 @@ export default function LogMessage() {
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
           ForPaw BE의 스프링 프로젝트
         </div>
-        <div className="flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
+        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
           <div className="flex flex-row justify-between items-center w-full mb-1 xs:mb-2">
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
               mongo-log-2024-09-10_16.txt

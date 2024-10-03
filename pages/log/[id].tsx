@@ -67,7 +67,7 @@ export default function LogDetail() {
           ForPaw BE의 스프링 프로젝트
         </div>
         <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
-        <div className="flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
+        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
           <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
               요약
@@ -111,7 +111,7 @@ export default function LogDetail() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
+        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
           <div className="flex flex-row justify-between items-center w-full mb-1 xs:mb-2">
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
               최근 로그
