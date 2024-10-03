@@ -1,24 +1,19 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import ConfirmModal from "./confirm-modal";
+import { useRouter } from "next/router";
 
 interface DropdownMenuProps {
   options: string[];
   onSelect: (option: string) => void;
 }
 
-// 영어 옵션과 한글 텍스트를 매핑하는 객체
-const optionLabelMap: { [key: string]: string } = {
-  edit: "수정하기",
-  restart: "컨테이너 재시작",
-  stop: "컨테이너 종료",
-  delete: "삭제하기",
-  license: "오픈소스 라이센스",
-  key: "API 키 관리",
-  withdraw: "계정 삭제",
-};
-
 export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -49,9 +44,56 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    console.log("menu is open: ", isMenuOpen);
-  }, [isMenuOpen]);
+  const handleOptionClick = (option: string) => {
+    optionActionsMap[option]?.action();
+    setIsMenuOpen(false); // 메뉴 닫기
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false); // 모달 닫기
+  };
+
+  const optionActionsMap: {
+    [key: string]: { label: string; action: () => void };
+  } = {
+    edit: {
+      label: "수정하기",
+      action: () => console.log("Edit action triggered"),
+    },
+    restart: {
+      label: "컨테이너 재시작",
+      action: () => {
+        setSelectedOption("restart");
+        setIsConfirmModalOpen(true);
+      },
+    },
+    stop: {
+      label: "컨테이너 종료",
+      action: () => {
+        setSelectedOption("stop");
+        setIsConfirmModalOpen(true);
+      },
+    },
+    delete: {
+      label: "삭제하기",
+      action: () => {
+        setSelectedOption("delete");
+        setIsConfirmModalOpen(true);
+      },
+    },
+    license: {
+      label: "오픈소스 라이센스",
+      action: () => router.push("/setting/license"),
+    },
+    key: {
+      label: "API 키 관리",
+      action: () => router.push("/setting/api-key"),
+    },
+    withdraw: {
+      label: "계정 삭제",
+      action: () => console.log("Withdraw action triggered"),
+    },
+  };
 
   return (
     <div className="relative">
@@ -73,17 +115,19 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
             <div
               key={option}
               className="text-[12px] xs:text-[14px] sm:text-[16px] font-medium last:text-[#FD5252] border-b-[1px] last:border-b-0 border-[#DBDBDB] first:rounded-tl-xl first:rounded-tr-xl last:rounded-bl-xl last:rounded-br-xl px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 text-center hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                onSelect(option);
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleOptionClick(option)}
             >
-              {optionLabelMap[option] || option}
+              {optionActionsMap[option].label || option}
               {/* optionLabelMap에 없는 값이 들어올 경우 기본 option을 표시 */}
             </div>
           ))}
         </div>
       )}
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option={selectedOption}
+      />
     </div>
   );
 }

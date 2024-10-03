@@ -7,21 +7,13 @@ import { useEffect, useState } from "react";
 
 export default function LogSummary() {
   const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
 
   const openLogFileModal = () => setIsLogFileModalOpen(true);
   const closeLogFileModal = () => setIsLogFileModalOpen(false);
 
-  const openConfirmModal = (option: string) => {
-    setSelectedOption(option);
-    setIsConfirmModalOpen(true);
-  };
-  const closeConfirmModal = () => setIsConfirmModalOpen(false);
-
   const handleMenuSelect = (option: string) => {
-    if (option === "edit") return;
-    openConfirmModal(option);
+    setSelectedOption(option);
   };
   return (
     <Layout>
@@ -56,17 +48,10 @@ export default function LogSummary() {
                 onClose={closeLogFileModal}
               />
             </div>
-            <div>
-              <DropdownMenu
-                options={["edit", "restart", "stop", "delete"]}
-                onSelect={handleMenuSelect}
-              />
-              <ConfirmModal
-                isOpen={isConfirmModalOpen}
-                onClose={closeConfirmModal}
-                option={selectedOption}
-              />
-            </div>
+            <DropdownMenu
+              options={["edit", "restart", "stop", "delete"]}
+              onSelect={handleMenuSelect}
+            />
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
