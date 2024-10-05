@@ -6,9 +6,8 @@ interface ButtonProps {
   [key: string]: any;
 }
 
-export default function Button({
+export default function ButtonLarge({
   label,
-  marginTop,
   kind = "login",
   ...rest
 }: ButtonProps) {

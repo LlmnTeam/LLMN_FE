@@ -1,4 +1,4 @@
-import Button from "@/components/button";
+import Button from "@/components/button-large";
 import Input from "@/components/input";
 import Image from "next/image";
 

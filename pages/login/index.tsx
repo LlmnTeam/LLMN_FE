@@ -1,7 +1,6 @@
-import Button from "@/components/button";
+import ButtonLarge from "@/components/button-large";
 import Input from "@/components/input";
 import Logo from "@/components/logo";
-import Image from "next/image";
 
 export default function Login() {
   return (
@@ -13,7 +12,7 @@ export default function Login() {
         label="비밀번호"
         placeholder="비밀번호를 입력해주세요."
       />
-      <Button label="로그인" kind="login" />
+      <ButtonLarge label="로그인" kind="login" />
     </div>
   );
 }

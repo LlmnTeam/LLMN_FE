@@ -1,17 +1,22 @@
-import Button from "@/components/button";
+import ButtonLarge from "@/components/button-large";
 import Input from "@/components/input";
 import Logo from "@/components/logo";
-import Image from "next/image";
 
 export default function SignupStep1() {
   return (
-    <div className="flex flex-col justify-start items-center w-screen h-screen gap-1 xs:gap-2 sm:gap-3 px-6 pt-[15vh] overflow-hidden">
+    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-hidden">
       <Logo />
-      <Input type="email" label="이메일" placeholder="이메일을 입력해주세요." />
-      <div className="w-full max-w-[605px] px-1 -mt-2 text-[13px] xs:text-[15px] font-semibold text-red-500">
-        이미 존재하는 이메일입니다.
+      <div className="flex flex-col justify-start items-center w-screen px-6">
+        <Input
+          type="email"
+          label="이메일"
+          placeholder="이메일을 입력해주세요."
+        />
+        <div className="w-full max-w-[605px] text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-1 mt-0.5 text-red-500">
+          이미 존재하는 이메일입니다.
+        </div>
       </div>
-      <Button label="중복확인" kind="check" />
+      <ButtonLarge label="중복확인" kind="check" />
       {/* <div className="flex flex-row justify-end items-center w-full max-w-[605px] -mt-2 text-[14px] xs:text-[16px] font-semibold text-[#717478] cursor-pointer">
         재전송하기
       </div>
