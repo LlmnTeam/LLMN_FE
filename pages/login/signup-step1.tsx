@@ -4,9 +4,9 @@ import Logo from "@/components/logo";
 
 export default function SignupStep1() {
   return (
-    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-hidden">
+    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
-      <div className="flex flex-col justify-start items-center w-screen px-6">
+      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="email"
           label="이메일"

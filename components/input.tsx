@@ -46,7 +46,7 @@ export default function Input({
       {label?.trim() ? (
         <label
           htmlFor={label}
-          className="absolute -top-6 xs:-top-7 sm:-top-8 left-1 text-[16px] xs:text-[18px] sm:text-[20px]"
+          className="absolute -top-7 xs:-top-8 sm:-top-9 left-1 text-[18px] xs:text-[20px] sm:text-[22px]"
         >
           {label}
         </label>
@@ -62,13 +62,13 @@ export default function Input({
         {...rest}
       />
       {label === "프라이빗 키" ? (
-        <div className="flex flex-row justify-center items-center absolute top-2 sm:top-3 right-4 xs:right-5 sm:right-6 cursor-pointer">
+        <div className="flex flex-row justify-center items-center absolute top-2 xs:top-2.5 sm:top-3 right-3 xs:right-3.5 sm:right-4 cursor-pointer">
           <Image
             src="/images/upload.svg"
             alt="upload"
             width={36}
             height={33}
-            className="w-[26px] h-[25px] xs:w-[36px] xs:h-[33px]"
+            className="w-[29px] h-[26px] xs:w-[32px] xs:h-[30px] sm:w-[36px] sm:h-[33px]"
             onClick={handleImageClick}
           />
           <input

@@ -4,7 +4,7 @@ import Logo from "@/components/logo";
 
 export default function Login() {
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-hidden">
+    <div className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
       <Input type="email" label="이메일" placeholder="이메일을 입력해주세요." />
       <Input

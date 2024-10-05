@@ -4,9 +4,9 @@ import Logo from "@/components/logo";
 
 export default function SignupStep2() {
   return (
-    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-hidden">
+    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
-      <div className="flex flex-col justify-start items-center w-screen px-6">
+      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="text"
           label="닉네임"
@@ -16,7 +16,7 @@ export default function SignupStep2() {
           닉네임을 2자에서 8자 사이로 입력해주세요.
         </div>
       </div>
-      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2 xs:mt-2.5 sm:mt-3">
+      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="password"
           label="비밀번호"
@@ -26,7 +26,7 @@ export default function SignupStep2() {
           비밀번호가 유효하지 않습니다.
         </div>
       </div>
-      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2 xs:mt-2.5 sm:mt-3">
+      <div className="flex flex-col justify-start items-center w-screen px-6 mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="password"
           label="비밀번호 확인"
