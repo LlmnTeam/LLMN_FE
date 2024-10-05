@@ -16,7 +16,9 @@ export default function SignupStep3() {
         <span className="text-3xl font-semibold">LLMN</span>
       </div>
       <div className="flex flex-row justify-between items-center w-full max-w-[605px] px-1">
-        <div className="text-[16px] xs:text-[20px]">알람 설정</div>
+        <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
+          알람 설정
+        </div>
         <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
       </div>
       <Input

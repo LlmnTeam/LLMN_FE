@@ -1,14 +1,12 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
+import Logo from "@/components/logo";
 import Image from "next/image";
 
 export default function SignupStep1() {
   return (
-    <div className="flex flex-col justify-start items-center w-screen h-screen gap-3 px-6 pt-[15vh] overflow-hidden">
-      <div className="flex flex-row justify-center items-center gap-3 mb-4">
-        <Image src="/images/logo.svg" alt="logo" width={46} height={54} />
-        <span className="text-3xl font-semibold">LLMN</span>
-      </div>
+    <div className="flex flex-col justify-start items-center w-screen h-screen gap-1 xs:gap-2 sm:gap-3 px-6 pt-[15vh] overflow-hidden">
+      <Logo />
       <Input type="email" label="이메일" placeholder="이메일을 입력해주세요." />
       <div className="w-full max-w-[605px] px-1 -mt-2 text-[13px] xs:text-[15px] font-semibold text-red-500">
         이미 존재하는 이메일입니다.

@@ -1,14 +1,12 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
+import Logo from "@/components/logo";
 import Image from "next/image";
 
 export default function Login() {
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen gap-3 px-6 pb-[15vh] overflow-hidden">
-      <div className="flex flex-row justify-center items-center gap-3 mb-4">
-        <Image src="/images/logo.svg" alt="logo" width={46} height={54} />
-        <span className="text-3xl font-semibold">LLMN</span>
-      </div>
+    <div className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-hidden">
+      <Logo />
       <Input type="email" label="이메일" placeholder="이메일을 입력해주세요." />
       <Input
         type="password"
