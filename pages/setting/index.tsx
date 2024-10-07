@@ -1,6 +1,7 @@
+import ButtonSmall from "@/components/button-small";
 import ConfirmModal from "@/components/confirm-modal";
 import DropdownMenu from "@/components/dropdown-menu";
-import InputMedium from "@/components/input-medium";
+import Input from "@/components/input";
 import InstanceModal from "@/components/instance-modal";
 import Layout from "@/components/layout";
 import ToggleButton from "@/components/toggle-button";
@@ -33,9 +34,9 @@ export default function Setting() {
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
-        <div className="h-[650px] xs:h-[685px] sm:h-[720px]">
+        <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
+            <div className="flex flex-row justify-start items-center">
               <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
                 설정
               </span>
@@ -60,13 +61,16 @@ export default function Setting() {
             </div>
             <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
           </div>
-          <div className="mt-14">
-            <InputMedium
+          <div className="mt-10 xs:mt-12 sm:mt-14">
+            <Input
               type="text"
               label="닉네임"
               placeholder="닉네임을 입력해주세요."
               maxWidth="700px"
             />
+            <div className="w-full max-w-[605px] text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-1 mt-0.5 text-gray-400">
+              닉네임을 2자에서 8자 사이로 입력해주세요.
+            </div>
           </div>
           <div className="flex flex-row justify-between items-center w-full max-w-[700px] px-1 mt-3 xs:mt-4 sm:mt-5">
             <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
@@ -136,10 +140,8 @@ export default function Setting() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row justify-end items-center w-full max-w-[700px] font-semibold">
-          <button className="w-[52px] xs:w-[58px] sm:w-[64px] h-[29px] xs:h-[32px] sm:h-[36px] text-[14px] xs:text-[15px] sm:text-[16px] text-white bg-[#0F172A] rounded-md">
-            수정
-          </button>
+        <div className="flex flex-row justify-end items-center w-full max-w-[700px] mt-12 xs:mt-16 sm:mt-20">
+          <ButtonSmall label="수정" />
         </div>
       </div>
     </Layout>
