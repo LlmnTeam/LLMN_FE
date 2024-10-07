@@ -36,7 +36,7 @@ export default function LogMessage() {
                 alt="shell"
                 width={33}
                 height={24}
-                className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+                className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
               />
             </div>
             <div>
@@ -45,7 +45,7 @@ export default function LogMessage() {
                 alt="chatbot"
                 width={44}
                 height={44}
-                className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
                 onClick={openLogFileModal}
               />
               <LogFileModal
@@ -58,7 +58,7 @@ export default function LogMessage() {
               alt="download"
               width={35}
               height={35}
-              className="w-[30px] h-[30px] xs:w-[33px] xs:h-[33px] sm:w-[35px] sm:h-[35px] ml-2 sm:ml-3"
+              className="w-[28px] h-[28px] xs:w-[32px] xs:h-[32px] sm:w-[35px] sm:h-[35px] ml-2 sm:ml-3"
             />
           </div>
         </div>

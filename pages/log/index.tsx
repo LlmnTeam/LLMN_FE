@@ -19,7 +19,7 @@ export default function Log() {
           <div className="flex flex-row justify-start items-center gap-0.5">
             <Image
               src="/images/rotate-right.svg"
-              alt="box-icon"
+              alt="rotate-right"
               width={31}
               height={34}
               className="w-[25px] h-[27px] xs:w-[28px] xs:h-[31px] sm:w-[31px] sm:h-[34px]"

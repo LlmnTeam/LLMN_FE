@@ -20,14 +20,14 @@ export default function Home() {
               alt="shell"
               width={33}
               height={24}
-              className="w-[27px] h-[20px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+              className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
             <Image
               src="/images/ellipsis-vertical.svg"
               alt="ellipsis-vertical"
               width={44}
               height={44}
-              className="w-[36px] h-[36px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px]"
+              className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5"
             />
           </div>
         </div>

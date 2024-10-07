@@ -133,7 +133,7 @@ export default function LogTable() {
           </table>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 xs:gap-3 text-[13px] xs:text-[14px] mt-1 xs:mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 xs:gap-3 text-[14px] xs:text-[15px] mt-1 xs:mt-2">
           <div
             className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
             onClick={() => router.push("/log/1")}
