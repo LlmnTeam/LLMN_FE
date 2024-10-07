@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
+import { cls } from "@/libs/utils";
 
 interface DropdownMenuProps {
   options: string[];
@@ -93,6 +94,10 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
       label: "계정 삭제",
       action: () => console.log("Withdraw action triggered"),
     },
+    change: {
+      label: "클라우드 변경",
+      action: () => console.log("Withdraw action triggered"),
+    },
   };
 
   return (
@@ -111,10 +116,15 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
           ref={menuRef}
           className="absolute right-0 mt-0 xs:mt-0.5 sm:mt-1 w-28 xs:w-32 sm:w-36 bg-white border border-gray-300 rounded-xl shadow-lg z-10"
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <div
               key={option}
-              className="text-[12px] xs:text-[14px] sm:text-[16px] font-medium last:text-[#FD5252] border-b-[1px] last:border-b-0 border-[#DBDBDB] first:rounded-tl-xl first:rounded-tr-xl last:rounded-bl-xl last:rounded-br-xl px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 text-center hover:bg-gray-100 cursor-pointer"
+              className={cls(
+                "text-[12px] xs:text-[14px] sm:text-[16px] font-medium border-b-[1px] last:border-b-0 border-[#DBDBDB] first:rounded-tl-xl first:rounded-tr-xl last:rounded-bl-xl last:rounded-br-xl px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 text-center hover:bg-gray-100 cursor-pointer",
+                index === options.length - 1 && options.length > 1
+                  ? "text-[#FD5252]"
+                  : "text-black"
+              )}
               onClick={() => handleOptionClick(option)}
             >
               {optionActionsMap[option].label || option}

@@ -1,7 +1,15 @@
+import Container from "@/components/container";
+import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
+  const handleMenuSelect = (option: string) => {
+    setSelectedOption(option);
+  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
@@ -22,13 +30,7 @@ export default function Home() {
               height={24}
               className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
-            <Image
-              src="/images/ellipsis-vertical.svg"
-              alt="ellipsis-vertical"
-              width={44}
-              height={44}
-              className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5"
-            />
+            <DropdownMenu options={["change"]} onSelect={handleMenuSelect} />
           </div>
         </div>
         <div className="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 w-full rounded-lg border border-[#E5E7EB] shadow-md px-6 py-2 sm:px-10 sm:py-3 mt-5 xs:mt-7">
@@ -65,19 +67,7 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              요약
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-          </div>
+        <Container title="요약" link="">
           <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
             [⚠️ Warning] 2024-09-10 13:45: CPU 사용량이 85% 이상입니다. 시스템
             점검이 필요합니다.
@@ -96,7 +86,7 @@ export default function Home() {
             급증합니다. 해당 시간대에 불필요한 작업을 줄이거나 리소스 할당을
             조정하는 것을 권장합니다.
           </div>
-        </div>
+        </Container>
         <div className="flex flex-wrap gap-x-[4%] gap-y-6 xs:gap-y-7 mt-5 xs:mt-7">
           <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
