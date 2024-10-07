@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "@/components/input";
 import InputWithDropdown from "@/components/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
 import Layout from "@/components/layout";
+import ButtonSmall from "@/components/button-small";
 
 export default function NewItem() {
   const [projectName, setProjectName] = useState("");
@@ -26,7 +27,7 @@ export default function NewItem() {
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">
+          <div className="flex flex-col justify-start items-start gap-1 xs:gap-1.5 sm:gap-2">
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
               새로운 아이템
             </span>
@@ -36,7 +37,7 @@ export default function NewItem() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start gap-5 xs:gap-7 sm:gap-8 mt-3 xs:mt-4 sm:mt-5">
+        <div className="flex flex-col justify-start items-start gap-12 xs:gap-14 sm:gap-16 mt-12 xs:mt-14 sm:mt-16">
           <Input
             type="text"
             label="프로젝트 이름"
@@ -70,9 +71,7 @@ export default function NewItem() {
             maxWidth="1000px"
           />
           <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-12 xs:mt-16 sm:mt-20">
-            <button className="w-[64px] xs:w-[80px] h-[40px] xs:h-[50px] text-[16px] xs:text-[20px] text-white bg-[#0F172A] rounded-md">
-              생성
-            </button>
+            <ButtonSmall label="생성" />
           </div>
         </div>
       </div>
