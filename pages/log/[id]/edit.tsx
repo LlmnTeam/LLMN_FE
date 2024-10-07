@@ -4,6 +4,7 @@ import InputWithDropdown from "@/components/input-with-dropdown"; // 수정된 �
 import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
+import ButtonSmall from "@/components/button-small";
 
 export default function NewItem() {
   const [projectName, setProjectName] = useState("");
@@ -49,7 +50,7 @@ export default function NewItem() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start gap-5 xs:gap-7 sm:gap-8 mt-3 xs:mt-4 sm:mt-5">
+        <div className="flex flex-col justify-start items-start gap-12 xs:gap-14 sm:gap-16 mt-12 xs:mt-14 sm:mt-16">
           <Input
             type="text"
             label="프로젝트 이름"
@@ -83,9 +84,7 @@ export default function NewItem() {
             maxWidth="1000px"
           />
           <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-12 xs:mt-16 sm:mt-20">
-            <button className="w-[64px] xs:w-[80px] h-[40px] xs:h-[50px] text-[16px] xs:text-[20px] text-white bg-[#0F172A] rounded-md">
-              완료
-            </button>
+            <ButtonSmall label="완료" />
           </div>
         </div>
       </div>
