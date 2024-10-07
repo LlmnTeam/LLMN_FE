@@ -7,7 +7,7 @@ interface EmptyBoxProps {
 
 export default function EmptyBox({ title, content }: EmptyBoxProps) {
   return (
-    <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8">
+    <div className="flex flex-col justify-start items-start w-full max-w-[1200px] min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8">
       <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
         <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
           {title}

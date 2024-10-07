@@ -23,7 +23,7 @@ export default function ApiKey() {
   };
   return (
     <Layout>
-      <div className="px-5 xs:px-7 sm:px-10">
+      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row justify-start items-center">
@@ -40,29 +40,22 @@ export default function ApiKey() {
                 API 키 관리
               </span>
             </div>
-            <div className="flex flex-row justify-start items-center gap-0.5">
-              <div>
-                <DropdownMenu
-                  options={["license", "key", "withdraw"]}
-                  onSelect={handleMenuSelect}
-                />
-                <ConfirmModal
-                  isOpen={isConfirmModalOpen}
-                  onClose={closeConfirmModal}
-                  option={selectedOption}
-                />
-              </div>
+            <div className="flex flex-row justify-start items-center">
+              <DropdownMenu
+                options={["license", "key", "withdraw"]}
+                onSelect={handleMenuSelect}
+              />
             </div>
           </div>
           <div className="mt-12 xs:mt-16 sm:mt-20">
             <Input
               type="text"
               label="Open AI Key"
-              placeholder="닉네임을 입력해주세요."
-              maxWidth="700px"
+              placeholder="***************************"
+              maxWidth="1200px"
             />
           </div>
-          <div className="flex flex-col justify-start items-start w-full max-w-[700px] rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 mt-6 xs:mt-7 sm:mt-8">
+          <div className="flex flex-col justify-start items-start w-full rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 mt-6 xs:mt-7 sm:mt-8">
             <ul className="list-disc pl-5">
               <li>OpenAI API 키는 openai.com에서 발급받으세요.</li>
               <li>API 키를 입력하지 않으면 일부 기능이 제한될 수 있습니다.</li>
@@ -75,7 +68,7 @@ export default function ApiKey() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-row justify-end items-center w-full max-w-[700px] mt-12 xs:mt-16 sm:mt-20">
+        <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
           <ButtonSmall label="수정" />
         </div>
       </div>

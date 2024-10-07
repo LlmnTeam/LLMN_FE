@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function License() {
   return (
     <Layout>
-      <div className="px-5 xs:px-7 sm:px-10">
-        <div className="flex flex-row justify-between items-center w-full max-w-[863px]">
+      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
+        <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">
             <Link href="/setting">
               <Image
@@ -26,7 +26,7 @@ export default function License() {
             ver_1.00
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start w-full max-w-[863px] rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 pl-4 xs:pl-6 sm:pl-8 pr-8 xs:pr-12 sm:pr-16 py-2 xs:py-4 sm:py-6 mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-col justify-start items-start w-full max-w-[1200px] rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 pl-4 xs:pl-6 sm:pl-8 pr-8 xs:pr-12 sm:pr-16 py-2 xs:py-4 sm:py-6 mt-6 xs:mt-7 sm:mt-8">
           <div className="text-[12px] xs:text-[15px] sm:text-[18px] font-normal">
             Copyright (c) 2024 hoyaii
           </div>
@@ -54,9 +54,9 @@ export default function License() {
             SOFTWARE.
           </div>
         </div>
-      </div>
-      <div className="flex flex-row justify-center items-center w-full max-w-[863px] mt-12 xs:mt-14 sm:mt-16">
-        <ButtonSmall label="수정" />
+        <div className="flex flex-row justify-center items-center w-full mt-12 xs:mt-14 sm:mt-16">
+          <ButtonSmall label="수정" />
+        </div>
       </div>
     </Layout>
   );

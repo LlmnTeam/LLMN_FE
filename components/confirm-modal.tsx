@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ButtonSmall from "./button-small";
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,45 +8,36 @@ interface ModalProps {
 }
 
 export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
-  const [modalContent, setModalContent] = useState({
-    title: "",
-    message: "",
-    buttonText: "",
-  });
+  const modalContents: {
+    [key: string]: { title: string; message: string; buttonText: string };
+  } = {
+    restart: {
+      title: "컨테이너를 재시작하시겠습니까?",
+      message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
+      buttonText: "재시작",
+    },
+    stop: {
+      title: "컨테이너를 종료하시겠습니까?",
+      message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
+      buttonText: "종료",
+    },
+    delete: {
+      title: "정말 프로젝트를 삭제하시겠습니까?",
+      message: "관련된 모든 로그 파일과 기록이 삭제되며, 복구가 불가능합니다.",
+      buttonText: "삭제",
+    },
+    withdraw: {
+      title: "정말 탈퇴하시겠습니까?",
+      message: "탈퇴 시 데이터 복구가 불가능합니다.",
+      buttonText: "탈퇴",
+    },
+  };
 
-  useEffect(() => {
-    switch (option) {
-      case "restart":
-        setModalContent({
-          title: "컨테이너를 재시작하시겠습니까?",
-          message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
-          buttonText: "재시작",
-        });
-        break;
-      case "stop":
-        setModalContent({
-          title: "컨테이너를 종료하시겠습니까?",
-          message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
-          buttonText: "종료",
-        });
-        break;
-      case "delete":
-        setModalContent({
-          title: "정말 프로젝트를 삭제하시겠습니까?",
-          message:
-            "관련된 모든 로그 파일과 기록이 삭제되며, 복구가 불가능합니다.",
-          buttonText: "삭제",
-        });
-        break;
-      default:
-        setModalContent({
-          title: "알 수 없는 동작",
-          message: "올바른 동작을 선택해주세요.",
-          buttonText: "확인",
-        });
-        break;
-    }
-  }, [option]);
+  const modalContent = modalContents[option] || {
+    title: "알 수 없는 동작",
+    message: "올바른 동작을 선택해주세요.",
+    buttonText: "확인",
+  };
 
   if (!isOpen) return null;
 
@@ -71,12 +63,13 @@ export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
           {modalContent.message}
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
-          <button
+          <ButtonSmall label={modalContent.buttonText} />
+          {/* <button
             onClick={onClose}
             className="w-[84px] xs:w-[90px] sm:w-[96px] h-[34px] xs:h-[36px] sm:h-[39px] text-[14px] xs:text-[15px] sm:text-[16px] text-white font-semibold bg-[#0F172A] rounded-md"
           >
             {modalContent.buttonText}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

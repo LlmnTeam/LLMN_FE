@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 export default function Log() {
   return (
     <Layout>
-      <div className="px-5 xs:px-7 sm:px-10">
-        <div className="flex flex-row justify-between items-center w-full max-w-[1200px]">
+      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
+        <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
               프로젝트

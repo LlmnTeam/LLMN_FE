@@ -92,7 +92,10 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
     },
     withdraw: {
       label: "계정 삭제",
-      action: () => console.log("Withdraw action triggered"),
+      action: () => {
+        setSelectedOption("withdraw");
+        setIsConfirmModalOpen(true);
+      },
     },
     change: {
       label: "클라우드 변경",
@@ -108,7 +111,7 @@ export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
           alt="ellipsis-vertical"
           width={44}
           height={44}
-          className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5"
+          className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5 cursor-pointer"
         />
       </button>
       {isMenuOpen && (

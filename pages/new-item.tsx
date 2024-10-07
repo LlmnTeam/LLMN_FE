@@ -25,7 +25,7 @@ export default function NewItem() {
 
   return (
     <Layout>
-      <div className="px-5 xs:px-7 sm:px-10">
+      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-1.5 sm:gap-2">
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
@@ -44,7 +44,7 @@ export default function NewItem() {
             placeholder="이름을 입력해주세요."
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            maxWidth="1000px"
+            maxWidth="1200px"
           />
           <Input
             type="text"
@@ -52,7 +52,7 @@ export default function NewItem() {
             placeholder="설명을 입력해주세요."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            maxWidth="1000px"
+            maxWidth="1200px"
           />
           <InputWithDropdown
             label="클라우드 인스턴스"
@@ -60,7 +60,7 @@ export default function NewItem() {
             value={cloudName}
             options={cloudOptions}
             onSelect={handleCloudSelect}
-            maxWidth="1000px"
+            maxWidth="1200px"
           />
           <InputWithDropdown
             label="컨테이너"
@@ -68,9 +68,9 @@ export default function NewItem() {
             value={containerName}
             options={containerOptions}
             onSelect={handleContainerSelect}
-            maxWidth="1000px"
+            maxWidth="1200px"
           />
-          <div className="flex flex-row justify-end items-center w-full max-w-[1000px] mt-12 xs:mt-16 sm:mt-20">
+          <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
             <ButtonSmall label="생성" />
           </div>
         </div>

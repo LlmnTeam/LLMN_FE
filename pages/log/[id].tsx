@@ -20,7 +20,7 @@ export default function LogDetail() {
   };
   return (
     <Layout>
-      <div className="px-5 xs:px-7 sm:px-10">
+      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
             <Link href="/log">
