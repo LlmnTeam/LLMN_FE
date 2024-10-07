@@ -1,0 +1,46 @@
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+interface LayoutProps {
+  title: string;
+  link: string;
+  children: React.ReactNode;
+}
+
+export default function Container({ title, link, children }: LayoutProps) {
+  return (
+    <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8">
+      <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
+        <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
+          {title}
+        </span>
+        {link ? (
+          <Link href={link} className="cursor-pointer">
+            <Image
+              src="/images/chevron-right.svg"
+              alt="chevron-right"
+              width={20}
+              height={20}
+              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+            />
+          </Link>
+        ) : (
+          <Image
+            src="/images/chevron-right.svg"
+            alt="chevron-right"
+            width={20}
+            height={20}
+            className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+          />
+        )}
+        <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
+          2024.09.10_18 업데이트됨
+        </div>
+      </div>
+      <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium break-all">
+        {children}
+      </div>
+    </div>
+  );
+}

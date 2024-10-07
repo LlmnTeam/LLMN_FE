@@ -1,4 +1,5 @@
 import ConfirmModal from "@/components/confirm-modal";
+import Container from "@/components/container";
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
 import LogFileModal from "@/components/log-file-modal";
@@ -67,123 +68,106 @@ export default function LogSummary() {
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
           ForPaw BE의 스프링 프로젝트
         </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              2024-09-12 19:00
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-          </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            [🚨 이상 탐지 요약] <br />
-            <span className="pl-2">- 탐지된 비정상 패턴: </span>
-            <br />
-            <span className="pl-4">
-              1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-            </span>
-            <br />
-            <span className="pl-4">
-              2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로
-              비정상적으로 낮음
-            </span>
-            <br />
-            <span className="pl-2">- 권장 조치: </span>
-            <br />
-            <span className="pl-4">
-              1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-            </span>
-            <br />
-            <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-            <br />
-            <span className="pl-4">
-              3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-            </span>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              2024-09-12 19:00
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-          </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            [🚨 이상 탐지 요약] <br />
-            <span className="pl-2">- 탐지된 비정상 패턴: </span>
-            <br />
-            <span className="pl-4">
-              1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-            </span>
-            <br />
-            <span className="pl-4">
-              2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로
-              비정상적으로 낮음
-            </span>
-            <br />
-            <span className="pl-2">- 권장 조치: </span>
-            <br />
-            <span className="pl-4">
-              1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-            </span>
-            <br />
-            <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-            <br />
-            <span className="pl-4">
-              3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-            </span>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              2024-09-12 19:00
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-          </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            [🚨 이상 탐지 요약] <br />
-            <span className="pl-2">- 탐지된 비정상 패턴: </span>
-            <br />
-            <span className="pl-4">
-              1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-            </span>
-            <br />
-            <span className="pl-4">
-              2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로
-              비정상적으로 낮음
-            </span>
-            <br />
-            <span className="pl-2">- 권장 조치: </span>
-            <br />
-            <span className="pl-4">
-              1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-            </span>
-            <br />
-            <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-            <br />
-            <span className="pl-4">
-              3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-            </span>
-          </div>
-        </div>
+        <Container title="2024-09-12 19:00" link="">
+          [🚨 이상 탐지 요약] <br />
+          <span className="pl-2">- 탐지된 비정상 패턴: </span>
+          <br />
+          <span className="pl-4">
+            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
+          </span>
+          <br />
+          <span className="pl-4">
+            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
+            낮음
+          </span>
+          <br />
+          <span className="pl-2">- 권장 조치: </span>
+          <br />
+          <span className="pl-4">
+            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
+          </span>
+          <br />
+          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
+          <br />
+          <span className="pl-4">
+            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
+          </span>
+        </Container>
+        <Container title="2024-09-12 19:00" link="">
+          [🚨 이상 탐지 요약] <br />
+          <span className="pl-2">- 탐지된 비정상 패턴: </span>
+          <br />
+          <span className="pl-4">
+            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
+          </span>
+          <br />
+          <span className="pl-4">
+            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
+            낮음
+          </span>
+          <br />
+          <span className="pl-2">- 권장 조치: </span>
+          <br />
+          <span className="pl-4">
+            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
+          </span>
+          <br />
+          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
+          <br />
+          <span className="pl-4">
+            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
+          </span>
+        </Container>
+        <Container title="2024-09-12 19:00" link="">
+          [🚨 이상 탐지 요약] <br />
+          <span className="pl-2">- 탐지된 비정상 패턴: </span>
+          <br />
+          <span className="pl-4">
+            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
+          </span>
+          <br />
+          <span className="pl-4">
+            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
+            낮음
+          </span>
+          <br />
+          <span className="pl-2">- 권장 조치: </span>
+          <br />
+          <span className="pl-4">
+            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
+          </span>
+          <br />
+          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
+          <br />
+          <span className="pl-4">
+            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
+          </span>
+        </Container>
+        <Container title="2024-09-12 19:00" link="">
+          [🚨 이상 탐지 요약] <br />
+          <span className="pl-2">- 탐지된 비정상 패턴: </span>
+          <br />
+          <span className="pl-4">
+            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
+          </span>
+          <br />
+          <span className="pl-4">
+            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
+            낮음
+          </span>
+          <br />
+          <span className="pl-2">- 권장 조치: </span>
+          <br />
+          <span className="pl-4">
+            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
+          </span>
+          <br />
+          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
+          <br />
+          <span className="pl-4">
+            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
+          </span>
+        </Container>
       </div>
     </Layout>
   );

@@ -1,9 +1,8 @@
 import ConfirmModal from "@/components/confirm-modal";
+import Container from "@/components/container";
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
-import LogFileModal from "@/components/log-file-modal";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const data = {
   id: 93,
@@ -48,100 +47,32 @@ export default function Insight() {
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
           ForPaw BE의 스프링 프로젝트
         </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              성능 요약
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-            <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
-              2024.09.10_18 업데이트됨
-            </div>
+        <Container title="성능 요약" link="">
+          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+            {data.content}
           </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {data.content}
-            </div>
+        </Container>
+        <Container title="일일 요약" link="">
+          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+            {
+              "[Spring] \n- [❗ Critical] 2024-09-10 11:30: /api/orders 엔드포인트에서 HTTP 500 에러 발생. 응답 시간 5초 이상 지연. \n- [⚠Warning] 2024-09-10 15:00: /api/users 요청 200회 중 10회 실패(서버 연결 끊김). \n[MongoDB] \n- [❗ Critical] 2024-09-10 12:45:데이터베이스 연결 실패 2회 발생 (Connection Timeout). \n- [ℹ Info]2024-09-10 18:00: 쿼리 실행 시간 1초 초과 경고 발생 (N+1 쿼리감지). \n[FastAPI] \n- [⚠ Warning] 2024-09-10 09:30: 인증 요청 실패율15% 발생 (로그인 시도 실패 증가). \n- [ℹ Info] 2024-09-10 16:45:서버 메모리 사용량 90% 도달. 메모리 최적화 필요. "
+            }
           </div>
-        </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              일일 요약
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-            <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
-              2024.09.10_18 업데이트됨
-            </div>
+        </Container>
+        <Container title="장기 트렌드 분석" link="">
+          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+            {
+              "- 지난 7일간 CPU 사용량 평균: 65%, 최대: 92% \n- 메모리 사용량 추세: 평균 75%, 증가 추세 \n- 데이터베이스 응답 시간 평균: 1.5초, 최근 24시간 동안 10% 증가 \n- 네트워크 트래픽: 수신량 20% 증가, 송신량 15% 증가 \n- 장기적으로 CPU 사용량이 지속적으로 증가하고 있으며, 리소스 확장이 필요할 수 있습니다."
+            }
           </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {
-                "[Spring] \n- [❗ Critical] 2024-09-10 11:30: /api/orders 엔드포인트에서 HTTP 500 에러 발생. 응답 시간 5초 이상 지연. \n- [⚠Warning] 2024-09-10 15:00: /api/users 요청 200회 중 10회 실패(서버 연결 끊김). \n[MongoDB] \n- [❗ Critical] 2024-09-10 12:45:데이터베이스 연결 실패 2회 발생 (Connection Timeout). \n- [ℹ Info]2024-09-10 18:00: 쿼리 실행 시간 1초 초과 경고 발생 (N+1 쿼리감지). \n[FastAPI] \n- [⚠ Warning] 2024-09-10 09:30: 인증 요청 실패율15% 발생 (로그인 시도 실패 증가). \n- [ℹ Info] 2024-09-10 16:45:서버 메모리 사용량 90% 도달. 메모리 최적화 필요. "
-              }
-            </div>
+        </Container>
+        <Container title="추천" link="">
+          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+            {
+              "- 현재 CPU 사용량이 85% 이상으로 높습니다. CPU 리소스 확장 또는 트래픽 부하 분산을 권장합니다. \n- 데이터베이스 응답 시간이 느려지고 있습니다. 쿼리 최적화 및 데이터베이스 인덱스를 점검하십시오. \n- 메모리 사용량이 90%에 도달할 가능성이 높습니다. 캐시 설정을 최적화하여 메모리 사용을 줄이십시오. \n- 네트워크 트래픽이 급증하고 있습니다. 네트워크 설정을 최적화하여 성능 문제를 방지하십시오."
+            }
           </div>
-        </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              장기 트렌드 분석
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-            <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
-              2024.09.10_18 업데이트됨
-            </div>
-          </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {
-                "- 지난 7일간 CPU 사용량 평균: 65%, 최대: 92% \n- 메모리 사용량 추세: 평균 75%, 증가 추세 \n- 데이터베이스 응답 시간 평균: 1.5초, 최근 24시간 동안 10% 증가 \n- 네트워크 트래픽: 수신량 20% 증가, 송신량 15% 증가 \n- 장기적으로 CPU 사용량이 지속적으로 증가하고 있으며, 리소스 확장이 필요할 수 있습니다."
-              }
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-start w-full min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 pt-2 pb-4 sm:px-10 sm:pt-3 sm:pb-5 mt-5 xs:mt-7">
-          <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
-              추천
-            </span>
-            <Image
-              src="/images/chevron-right.svg"
-              alt="chevron-right"
-              width={20}
-              height={20}
-              className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-            />
-            <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
-              2024.09.10_18 업데이트됨
-            </div>
-          </div>
-          <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {
-                "- 현재 CPU 사용량이 85% 이상으로 높습니다. CPU 리소스 확장 또는 트래픽 부하 분산을 권장합니다. \n- 데이터베이스 응답 시간이 느려지고 있습니다. 쿼리 최적화 및 데이터베이스 인덱스를 점검하십시오. \n- 메모리 사용량이 90%에 도달할 가능성이 높습니다. 캐시 설정을 최적화하여 메모리 사용을 줄이십시오. \n- 네트워크 트래픽이 급증하고 있습니다. 네트워크 설정을 최적화하여 성능 문제를 방지하십시오."
-              }
-            </div>
-          </div>
-        </div>
+        </Container>
       </div>
     </Layout>
   );
