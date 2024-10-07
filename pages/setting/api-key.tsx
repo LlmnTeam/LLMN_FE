@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Setting() {
+export default function ApiKey() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
 
