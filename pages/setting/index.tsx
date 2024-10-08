@@ -18,6 +18,25 @@ export default function Setting() {
   } = useInstanceModal();
 
   const { isToggled, handleToggle } = useToggleButton();
+
+  // 타입 정의: 인스턴스 이름(문자열)을 키로 하는 객체 타입
+  type CheckedState = {
+    [key: string]: boolean;
+  };
+
+  // 각 아이템의 체크 상태를 관리하는 상태
+  const [isChecked, setIsChecked] = useState<CheckedState>({
+    ubuntu: false,
+    amazonLinux: false,
+  });
+
+  // 각 아이템의 체크 상태를 토글하는 함수
+  const toggleCheck = (item: string) => {
+    setIsChecked((prevState) => ({
+      ...prevState,
+      [item]: !prevState[item],
+    }));
+  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -67,53 +86,59 @@ export default function Setting() {
           <div className="flex flex-col justify-start items-center w-full min-h-[300px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-5 xs:py-6 sm:py-7 mt-3 xs:mt-4 sm:mt-5 overflow-y-auto overflow-x-hidden">
             <div
               className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
-              onClick={() => openInstanceModal("edit")}
+              onClick={() => toggleCheck("ubuntu")}
             >
               <div className="flex flex-row justify-center items-center w-[13%]">
-                <Image
-                  src="/images/check.svg"
-                  alt="check"
-                  width={26}
-                  height={28}
-                  className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
-                />
+                {isChecked.ubuntu && (
+                  <Image
+                    src="/images/check.svg"
+                    alt="check"
+                    width={26}
+                    height={28}
+                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
+                  />
+                )}
               </div>
               <div className="w-[25%] truncate">ubuntu</div>
               <div className="w-[25%] text-center truncate">54.180.244.93</div>
               <div className="w-[25%] text-center truncate">정상</div>
               <div className="w-[12%]">
                 <Image
-                  src="/images/minus.svg"
-                  alt="minus"
+                  src="/images/info.svg"
+                  alt="info"
                   width={30}
                   height={31}
                   className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px] sm:w-[30px] sm:h-[31px]"
+                  onClick={() => openInstanceModal("edit")}
                 />
               </div>
             </div>
             <div
               className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
-              onClick={() => openInstanceModal("edit")}
+              onClick={() => toggleCheck("amazonLinux")}
             >
               <div className="flex flex-row justify-center items-center w-[13%]">
-                {/* <Image
-                src="/images/check.svg"
-                alt="check"
-                width={26}
-                height={28}
-                className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
-              /> */}
+                {isChecked.amazonLinux && (
+                  <Image
+                    src="/images/check.svg"
+                    alt="check"
+                    width={26}
+                    height={28}
+                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
+                  />
+                )}
               </div>
               <div className="w-[25%] truncate">Amazon Linux</div>
               <div className="w-[25%] text-center truncate">72.180.244.93</div>
               <div className="w-[25%] text-center truncate">재연결 필요</div>
               <div className="w-[12%]">
                 <Image
-                  src="/images/minus.svg"
-                  alt="minus"
+                  src="/images/info.svg"
+                  alt="info"
                   width={30}
                   height={31}
                   className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px] sm:w-[30px] sm:h-[31px]"
+                  onClick={() => openInstanceModal("edit")}
                 />
               </div>
             </div>

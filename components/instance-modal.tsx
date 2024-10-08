@@ -20,7 +20,7 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
       <div className="w-[90%] xs:w-[80%] sm:w-[75%] lg:w-[770px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1">
-            {option === "add" ? "인스턴스 추가" : "인스턴스 수정"}
+            {option === "add" ? "인스턴스 추가" : "인스턴스 상세정보"}
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
@@ -64,9 +64,20 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
             </div>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
-          <ButtonSmall label="완료" onClick={onClose} />
-        </div>
+        {option === "add" ? (
+          <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5 gap-3 xs:gap-4 sm:gap-5">
+            <ButtonSmall label="완료" onClick={onClose} />
+          </div>
+        ) : (
+          <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5 gap-3 xs:gap-4 sm:gap-5">
+            <ButtonSmall
+              label="삭제"
+              onClick={onClose}
+              color="rgba(0, 0, 0, 0.3)"
+            />
+            <ButtonSmall label="수정" onClick={onClose} />
+          </div>
+        )}
       </div>
     </div>
   );
