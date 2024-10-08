@@ -3,9 +3,10 @@ import Image from "next/image";
 interface EmptyBoxProps {
   title: string;
   content: string;
+  type?: string;
 }
 
-export default function EmptyBox({ title, content }: EmptyBoxProps) {
+export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
   return (
     <div className="flex flex-col justify-start items-start w-full max-w-[1200px] min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8">
       <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
@@ -24,13 +25,23 @@ export default function EmptyBox({ title, content }: EmptyBoxProps) {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-5 xs:mt-6 sm:mt-8">
-        <Image
-          src="/images/empty.svg"
-          alt="empty"
-          width={65}
-          height={67}
-          className="w-[45px] h-[47px] xs:w-[55px] xs:h-[57px] sm:w-[65px] sm:h-[67px]"
-        />
+        {type === "dashboard" ? (
+          <Image
+            src="/images/empty-dashboard.svg"
+            alt="empty-dashboard"
+            width={71}
+            height={59}
+            className="w-[57px] h-[47px] xs:w-[64px] xs:h-[53px] sm:w-[71px] sm:h-[59px]"
+          />
+        ) : (
+          <Image
+            src="/images/empty.svg"
+            alt="empty"
+            width={65}
+            height={67}
+            className="w-[52px] h-[54px] xs:w-[59px] xs:h-[60px] sm:w-[65px] sm:h-[67px]"
+          />
+        )}
         <span className="w-full text-center text-[13px] xs:text-[15px] sm:text-[17px] font-medium mt-3 xs:mt-4 sm:mt-5">
           {content}
         </span>

@@ -1,5 +1,6 @@
 import Container from "@/components/container";
 import DropdownMenu from "@/components/dropdown-menu";
+import EmptyBox from "@/components/empty-box";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import { useState } from "react";
@@ -62,6 +63,11 @@ export default function Home() {
             </span>
           </div>
         </div>
+        <EmptyBox
+          title="요약"
+          content="인스턴스가 작동중이지 않거나 SSH 연결에 실패하였습니다."
+          type="dashboard"
+        />
         <Container title="요약" link="">
           <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
             [⚠️ Warning] 2024-09-10 13:45: CPU 사용량이 85% 이상입니다. 시스템
