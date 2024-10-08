@@ -37,10 +37,7 @@ export default function Insight() {
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
             <div>
-              <DropdownMenu
-                options={["edit", "restart", "stop", "delete"]}
-                onSelect={handleMenuSelect}
-              />
+              <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
             </div>
           </div>
         </div>

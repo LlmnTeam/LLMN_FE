@@ -6,10 +6,9 @@ import { cls } from "@/libs/utils";
 
 interface DropdownMenuProps {
   options: string[];
-  onSelect: (option: string) => void;
 }
 
-export default function DropdownMenu({ options, onSelect }: DropdownMenuProps) {
+export default function DropdownMenu({ options }: DropdownMenuProps) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");

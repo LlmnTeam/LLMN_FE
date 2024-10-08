@@ -1,32 +1,22 @@
 import ButtonSmall from "@/components/button-small";
-import ConfirmModal from "@/components/confirm-modal";
 import DropdownMenu from "@/components/dropdown-menu";
 import Input from "@/components/input";
 import InstanceModal from "@/components/instance-modal";
 import Layout from "@/components/layout";
 import ToggleButton from "@/components/toggle-button";
+import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Setting() {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [isInstanceModalOpen, setIsInstanceModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const {
+    isInstanceModalOpen,
+    selectedOption,
+    openInstanceModal,
+    closeInstanceModal,
+  } = useInstanceModal();
+
   const [isToggled, setIsToggled] = useState(false);
-
-  const openConfirmModal = (option: string) => {
-    setSelectedOption(option);
-    setIsConfirmModalOpen(true);
-  };
-  const closeConfirmModal = () => setIsConfirmModalOpen(false);
-
-  const openInstanceModal = () => setIsInstanceModalOpen(true);
-  const closeInstanceModal = () => setIsInstanceModalOpen(false);
-
-  const handleMenuSelect = (option: string) => {
-    if (option === "edit") return;
-    openConfirmModal(option);
-  };
 
   const handleToggle = () => {
     setIsToggled((prev) => !prev);
@@ -42,10 +32,7 @@ export default function Setting() {
               </span>
             </div>
             <div className="flex flex-row justify-start items-center">
-              <DropdownMenu
-                options={["license", "key", "withdraw"]}
-                onSelect={handleMenuSelect}
-              />
+              <DropdownMenu options={["license", "key", "withdraw"]} />
             </div>
           </div>
           <div className="flex flex-row justify-between items-center w-full px-1 mt-6 xs:mt-7 sm:mt-8">
@@ -76,16 +63,15 @@ export default function Setting() {
                 width={25}
                 height={22}
                 className="w-[19px] h-[16px] xs:w-[22px] xs:h-[19px] sm:w-[25px] sm:h-[22px] cursor-pointer"
-                onClick={openInstanceModal}
-              />
-              <InstanceModal
-                isOpen={isInstanceModalOpen}
-                onClose={closeInstanceModal}
+                onClick={() => openInstanceModal("add")}
               />
             </div>
           </div>
           <div className="flex flex-col justify-start items-center w-full min-h-[300px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-5 xs:py-6 sm:py-7 mt-3 xs:mt-4 sm:mt-5 overflow-y-auto overflow-x-hidden">
-            <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+            <div
+              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+              onClick={() => openInstanceModal("edit")}
+            >
               <div className="flex flex-row justify-center items-center w-[13%]">
                 <Image
                   src="/images/check.svg"
@@ -108,7 +94,10 @@ export default function Setting() {
                 />
               </div>
             </div>
-            <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+            <div
+              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+              onClick={() => openInstanceModal("edit")}
+            >
               <div className="flex flex-row justify-center items-center w-[13%]">
                 {/* <Image
                 src="/images/check.svg"
@@ -137,6 +126,11 @@ export default function Setting() {
           <ButtonSmall label="수정" />
         </div>
       </div>
+      <InstanceModal
+        isOpen={isInstanceModalOpen}
+        onClose={closeInstanceModal}
+        option={selectedOption}
+      />
     </Layout>
   );
 }

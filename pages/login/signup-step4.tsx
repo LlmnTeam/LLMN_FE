@@ -1,14 +1,17 @@
 import ButtonSmall from "@/components/button-small";
 import InstanceModal from "@/components/instance-modal";
 import Logo from "@/components/logo";
+import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function SignupStep4() {
-  const [isInstanceModalOpen, setIsInstanceModalOpen] = useState(false);
-
-  const openInstanceModal = () => setIsInstanceModalOpen(true);
-  const closeInstanceModal = () => setIsInstanceModalOpen(false);
+  const {
+    isInstanceModalOpen,
+    selectedOption,
+    openInstanceModal,
+    closeInstanceModal,
+  } = useInstanceModal();
   return (
     <div className="flex flex-col justify-start items-center w-screen h-[100%] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
@@ -24,16 +27,15 @@ export default function SignupStep4() {
               width={25}
               height={22}
               className="w-[19px] h-[16px] xs:w-[22px] xs:h-[19px] sm:w-[25px] sm:h-[22px] cursor-pointer"
-              onClick={openInstanceModal}
-            />
-            <InstanceModal
-              isOpen={isInstanceModalOpen}
-              onClose={closeInstanceModal}
+              onClick={() => openInstanceModal("add")}
             />
           </div>
         </div>
         <div className="flex flex-col justify-start items-center w-full gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-1 overflow-y-auto overflow-x-hidden">
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               <Image
                 src="/images/check.svg"
@@ -55,7 +57,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -77,7 +82,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -99,7 +107,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -121,7 +132,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -143,7 +157,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -165,7 +182,10 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
+          <div
+            className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+            onClick={() => openInstanceModal("edit")}
+          >
             <div className="flex flex-row justify-center items-center w-[15%]">
               {/* <Image
                 src="/images/check.svg"
@@ -198,6 +218,11 @@ export default function SignupStep4() {
         </button>
         <ButtonSmall label="다음" />
       </div>
+      <InstanceModal
+        isOpen={isInstanceModalOpen}
+        onClose={closeInstanceModal}
+        option={selectedOption}
+      />
     </div>
   );
 }

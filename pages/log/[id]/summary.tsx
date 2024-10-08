@@ -9,14 +9,9 @@ import { useEffect, useState } from "react";
 
 export default function LogSummary() {
   const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>("");
 
   const openLogFileModal = () => setIsLogFileModalOpen(true);
   const closeLogFileModal = () => setIsLogFileModalOpen(false);
-
-  const handleMenuSelect = (option: string) => {
-    setSelectedOption(option);
-  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -59,10 +54,7 @@ export default function LogSummary() {
                 onClose={closeLogFileModal}
               />
             </div>
-            <DropdownMenu
-              options={["edit", "restart", "stop", "delete"]}
-              onSelect={handleMenuSelect}
-            />
+            <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">

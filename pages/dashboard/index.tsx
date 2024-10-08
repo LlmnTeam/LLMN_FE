@@ -5,11 +5,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedOption, setSelectedOption] = useState<string>("");
-
-  const handleMenuSelect = (option: string) => {
-    setSelectedOption(option);
-  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -30,7 +25,7 @@ export default function Home() {
               height={24}
               className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
-            <DropdownMenu options={["change"]} onSelect={handleMenuSelect} />
+            <DropdownMenu options={["change"]} />
           </div>
         </div>
         <div className="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 w-full rounded-lg border border-[#E5E7EB] shadow-md px-6 py-2 sm:px-10 sm:py-3 mt-5 xs:mt-7">

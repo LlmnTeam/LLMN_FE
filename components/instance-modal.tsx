@@ -5,9 +5,10 @@ import ButtonSmall from "./button-small";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  option: string;
 }
 
-export default function InstanceModal({ isOpen, onClose }: ModalProps) {
+export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -19,7 +20,7 @@ export default function InstanceModal({ isOpen, onClose }: ModalProps) {
       <div className="w-[90%] xs:w-[80%] sm:w-[75%] lg:w-[770px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1">
-            인스턴스 추가
+            {option === "add" ? "인스턴스 추가" : "인스턴스 수정"}
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
