@@ -38,6 +38,8 @@ export default function Input({
       // 추가로 파일을 처리하는 로직 작성
     }
   };
+
+  console.log("label: ", label);
   return (
     <div
       className="flex flex-col justify-center items-center relative w-full"

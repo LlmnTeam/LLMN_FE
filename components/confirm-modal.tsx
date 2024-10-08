@@ -63,13 +63,7 @@ export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
           {modalContent.message}
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
-          <ButtonSmall label={modalContent.buttonText} />
-          {/* <button
-            onClick={onClose}
-            className="w-[84px] xs:w-[90px] sm:w-[96px] h-[34px] xs:h-[36px] sm:h-[39px] text-[14px] xs:text-[15px] sm:text-[16px] text-white font-semibold bg-[#0F172A] rounded-md"
-          >
-            {modalContent.buttonText}
-          </button> */}
+          <ButtonSmall label={modalContent.buttonText} onClick={onClose} />
         </div>
       </div>
     </div>

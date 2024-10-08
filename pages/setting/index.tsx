@@ -61,7 +61,7 @@ export default function Setting() {
               placeholder="닉네임을 입력해주세요."
               maxWidth="1200px"
             />
-            <div className="w-full max-w-[1200px] text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-1 mt-0.5 text-gray-400">
+            <div className="w-full text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-1 mt-0.5 text-gray-400">
               닉네임을 2자에서 8자 사이로 입력해주세요.
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function Setting() {
               />
             </div>
           </div>
-          <div className="flex flex-col justify-start items-center w-full min-h-[380px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-5 xs:py-6 sm:py-7 mt-3 xs:mt-4 sm:mt-5">
+          <div className="flex flex-col justify-start items-center w-full min-h-[300px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-5 xs:py-6 sm:py-7 mt-3 xs:mt-4 sm:mt-5 overflow-y-auto overflow-x-hidden">
             <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium">
               <div className="flex flex-row justify-center items-center w-[13%]">
                 <Image
@@ -133,7 +133,7 @@ export default function Setting() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
+        <div className="flex flex-row justify-end items-center w-full">
           <ButtonSmall label="수정" />
         </div>
       </div>

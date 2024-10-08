@@ -68,7 +68,7 @@ export default function ApiKey() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
+        <div className="flex flex-row justify-end items-center w-full">
           <ButtonSmall label="수정" />
         </div>
       </div>
