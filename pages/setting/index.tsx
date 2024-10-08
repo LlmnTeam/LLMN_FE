@@ -5,6 +5,7 @@ import InstanceModal from "@/components/instance-modal";
 import Layout from "@/components/layout";
 import ToggleButton from "@/components/toggle-button";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
+import useToggleButton from "@/hooks/commons/use-toggle-button";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -16,11 +17,7 @@ export default function Setting() {
     closeInstanceModal,
   } = useInstanceModal();
 
-  const [isToggled, setIsToggled] = useState(false);
-
-  const handleToggle = () => {
-    setIsToggled((prev) => !prev);
-  };
+  const { isToggled, handleToggle } = useToggleButton();
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">

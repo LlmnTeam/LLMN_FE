@@ -2,14 +2,11 @@ import ButtonSmall from "@/components/button-small";
 import Input from "@/components/input";
 import Logo from "@/components/logo";
 import ToggleButton from "@/components/toggle-button";
+import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { useState } from "react";
 
 export default function SignupStep3() {
-  const [isToggled, setIsToggled] = useState(false);
-
-  const handleToggle = () => {
-    setIsToggled((prev) => !prev);
-  };
+  const { isToggled, handleToggle } = useToggleButton();
   return (
     <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
