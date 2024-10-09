@@ -57,7 +57,7 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
             key={page}
             onClick={() => handlePageChange(page)}
             className={cls(
-              "w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full mx-1 sm:mx-2 mt-1 sm:mt-0 border border-black",
+              "w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 rounded-full mx-1 xs:mx-1.5 sm:mx-2 mt-1 sm:mt-0 border border-black",
               currentPage === page ? "bg-black " : "bg-white"
             )}
           />

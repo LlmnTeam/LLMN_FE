@@ -3,6 +3,7 @@ import Container from "@/components/container";
 import EmptyBox from "@/components/empty-box";
 import InputSmall from "@/components/input-small";
 import InsightRecord from "@/components/insight-record";
+import InsightRecordContainer from "@/components/insight-record-container";
 import Layout from "@/components/layout";
 import LogFileContainer from "@/components/log-file-container";
 import Image from "next/image";
@@ -43,6 +44,31 @@ const files = [
   { filename: "mongo-log-2024-09-16_12.txt" },
   { filename: "mongo-log-2024-09-17_12.txt" },
   { filename: "mongo-log-2024-09-18_12.txt" },
+  // 더 많은 파일들...
+];
+
+const insightFiles = [
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
+  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
   // 더 많은 파일들...
 ];
 
@@ -101,55 +127,7 @@ export default function Insight() {
         />
         <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
         <LogFileContainer files={files} />
-        <Container title="인사이트 기록" type="insight">
-          <div className="flex flex-col justify-start items-center gap-1.5 xs:gap-2 sm:gap-2.5">
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-            <InsightRecord
-              name="Mongo"
-              type="일반요약"
-              date="2024-09-12 19:00"
-            />
-          </div>
-        </Container>
+        <InsightRecordContainer files={insightFiles} />
       </div>
     </Layout>
   );
