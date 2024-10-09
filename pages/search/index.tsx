@@ -1,14 +1,48 @@
 import ButtonSmall from "@/components/button-small";
-import ConfirmModal from "@/components/confirm-modal";
-import Container from "@/components/container";
-import DropdownMenu from "@/components/dropdown-menu";
 import EmptyBox from "@/components/empty-box";
-import Input from "@/components/input";
 import InputSmall from "@/components/input-small";
 import Layout from "@/components/layout";
-import LogFile from "@/components/log-file";
+import LogFileContainer from "@/components/log-file-container";
 import Image from "next/image";
 import { useState } from "react";
+
+const files = [
+  { filename: "mongo-log-2024-09-10_12.txt" },
+  { filename: "mongo-log-2024-09-11_12.txt" },
+  { filename: "mongo-log-2024-09-12_12.txt" },
+  { filename: "mongo-log-2024-09-13_12.txt" },
+  { filename: "mongo-log-2024-09-14_12.txt" },
+  { filename: "mongo-log-2024-09-15_12.txt" },
+  { filename: "mongo-log-2024-09-16_12.txt" },
+  { filename: "mongo-log-2024-09-17_12.txt" },
+  { filename: "mongo-log-2024-09-18_12.txt" },
+  { filename: "mongo-log-2024-09-19_12.txt" },
+  { filename: "mongo-log-2024-09-13_12.txt" },
+  { filename: "mongo-log-2024-09-14_12.txt" },
+  { filename: "mongo-log-2024-09-15_12.txt" },
+  { filename: "mongo-log-2024-09-16_12.txt" },
+  { filename: "mongo-log-2024-09-17_12.txt" },
+  { filename: "mongo-log-2024-09-18_12.txt" },
+  { filename: "mongo-log-2024-09-13_12.txt" },
+  { filename: "mongo-log-2024-09-14_12.txt" },
+  { filename: "mongo-log-2024-09-15_12.txt" },
+  { filename: "mongo-log-2024-09-16_12.txt" },
+  { filename: "mongo-log-2024-09-17_12.txt" },
+  { filename: "mongo-log-2024-09-18_12.txt" },
+  { filename: "mongo-log-2024-09-13_12.txt" },
+  { filename: "mongo-log-2024-09-14_12.txt" },
+  { filename: "mongo-log-2024-09-15_12.txt" },
+  { filename: "mongo-log-2024-09-16_12.txt" },
+  { filename: "mongo-log-2024-09-17_12.txt" },
+  { filename: "mongo-log-2024-09-18_12.txt" },
+  { filename: "mongo-log-2024-09-13_12.txt" },
+  { filename: "mongo-log-2024-09-14_12.txt" },
+  { filename: "mongo-log-2024-09-15_12.txt" },
+  { filename: "mongo-log-2024-09-16_12.txt" },
+  { filename: "mongo-log-2024-09-17_12.txt" },
+  { filename: "mongo-log-2024-09-18_12.txt" },
+  // 더 많은 파일들...
+];
 
 export default function Insight() {
   return (
@@ -64,42 +98,7 @@ export default function Insight() {
           type="log"
         />
         <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
-        <Container title="로그 파일" type="log">
-          <div className="grid grid-cols-3 w-full gap-0 border-[#E9ECEF]">
-            {/* 첫 번째 행 */}
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-
-            {/* 두 번째 행 */}
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-b gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-
-            {/* 세 번째 행 */}
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] border-r gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-            <div className="flex flex-col justify-start items-center h-[110px] xs:h-[130px] sm:h-[155px] gap-1 xs:gap-2 sm:gap-3 pt-5 xs:pt-5.5 sm:pt-6">
-              <LogFile filename="mongo-log-2024-09-10_12.txt" />
-            </div>
-          </div>
-        </Container>
+        <LogFileContainer files={files} />
       </div>
     </Layout>
   );
