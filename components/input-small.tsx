@@ -46,7 +46,7 @@ export default function InputSmall({
       {label?.trim() ? (
         <label
           htmlFor={label}
-          className="absolute -top-7 xs:-top-8 sm:-top-9 left-1 text-[18px] xs:text-[20px] sm:text-[22px]"
+          className="absolute -top-6 xs:-top-6.5 sm:-top-7 left-1 text-[16px] xs:text-[17px] sm:text-[18px]"
         >
           {label}
         </label>

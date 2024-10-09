@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import Input from "./input";
 import ButtonSmall from "./button-small";
+import InputSmall from "./input-small";
 
 interface ModalProps {
   isOpen: boolean;
@@ -29,9 +30,9 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
             ✕
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start overflow-y-auto gap-10 xs:gap-12 sm:gap-14 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5">
+        <div className="flex flex-col justify-start items-start overflow-y-auto gap-10 xs:gap-11 sm:gap-12 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5">
           <div className="w-full">
-            <Input
+            <InputSmall
               type="text"
               label="원격 서버 사용자"
               placeholder="원격 서버의 사용자명을 입력해주세요."
@@ -42,7 +43,7 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
             </div>
           </div>
           <div className="w-full">
-            <Input
+            <InputSmall
               type="text"
               label="호스트"
               placeholder="원격 서버의 IP 주소를 입력해주세요."
@@ -53,7 +54,7 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
             </div>
           </div>
           <div className="w-full">
-            <Input
+            <InputSmall
               type="text"
               label="프라이빗 키"
               placeholder="SSH perm 키를 업로드해주세요."
