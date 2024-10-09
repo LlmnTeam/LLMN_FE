@@ -58,7 +58,7 @@ export default function InputSmall({
         onChange={onChange}
         placeholder={value === "" ? placeholder : ""}
         readOnly={readOnly}
-        className="appearance-none w-full h-[40px] xs:h-[45px] sm:h-[50px] text-[14px] xs:text-[15px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1"
+        className="appearance-none w-full h-[30px] xs:h-[40px] sm:h-[50px] text-[12px] xs:text-[14px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1"
         {...rest}
       />
     </div>

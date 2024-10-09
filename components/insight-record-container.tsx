@@ -46,7 +46,7 @@ export default function InsightRecordContainer({
             onClick={() => handlePageChange(page)}
             className={cls(
               "w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 rounded-full mx-1 xs:mx-1.5 sm:mx-2 border border-black",
-              currentPage === page ? "bg-black " : "bg-white"
+              currentPage === page ? "bg-black " : "bg-white hover:bg-gray-400"
             )}
           />
         ))}
