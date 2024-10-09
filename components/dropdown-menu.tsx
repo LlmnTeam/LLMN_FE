@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
 import { cls } from "@/libs/utils";
+import CloudListModal from "./cloud-list-modal";
 
 interface DropdownMenuProps {
   options: string[];
@@ -13,6 +14,7 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isCloudListModalOpen, setIsCloudListModalOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -46,11 +48,19 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
 
   const handleOptionClick = (option: string) => {
     optionActionsMap[option]?.action();
-    setIsMenuOpen(false); // 메뉴 닫기
+    setIsMenuOpen(false);
   };
 
   const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false); // 모달 닫기
+    setIsConfirmModalOpen(false);
+  };
+
+  const openCloudListModal = () => {
+    setIsCloudListModalOpen(true);
+  };
+
+  const closeCloudListModal = () => {
+    setIsCloudListModalOpen(false);
   };
 
   const optionActionsMap: {
@@ -98,7 +108,7 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
     },
     change: {
       label: "클라우드 변경",
-      action: () => console.log("Withdraw action triggered"),
+      action: () => openCloudListModal(),
     },
   };
 
@@ -139,6 +149,10 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
         option={selectedOption}
+      />
+      <CloudListModal
+        isOpen={isCloudListModalOpen}
+        onClose={closeCloudListModal}
       />
     </div>
   );
