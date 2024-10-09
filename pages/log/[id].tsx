@@ -60,7 +60,11 @@ export default function LogDetail() {
           ForPaw BE의 스프링 프로젝트
         </div>
         <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
-        <Container title="요약" link="/log/1/summary">
+        <Container
+          title="요약"
+          link="/log/1/summary"
+          update="2024.09.10_18 업데이트됨"
+        >
           [🚨 이상 탐지 요약] <br />
           <span className="pl-2">- 탐지된 비정상 패턴: </span>
           <br />
@@ -85,7 +89,11 @@ export default function LogDetail() {
             3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
           </span>
         </Container>
-        <Container title="최근 로그" link="/log/1/message">
+        <Container
+          title="최근 로그"
+          link="/log/1/message"
+          update="2024.09.10_18 업데이트됨"
+        >
           [2024-09-10T10:59:04.342Z] INFO: 2024-09-10T19:59:04.339+09:00 INFO 1
           --- [MessageBroker-3] o.s.w.s.c.WebSocketMessageBrokerStats :
           WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0

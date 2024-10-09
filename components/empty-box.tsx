@@ -1,3 +1,4 @@
+import { cls } from "@/libs/utils";
 import Image from "next/image";
 
 interface EmptyBoxProps {
@@ -8,7 +9,14 @@ interface EmptyBoxProps {
 
 export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
   return (
-    <div className="flex flex-col justify-start items-start w-full max-w-[1200px] min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8">
+    <div
+      className={cls(
+        "flex flex-col justify-start items-start w-full max-w-[1200px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8",
+        type === "log"
+          ? "min-h-[380px] xs:min-h-[440px] sm:min-h-[500px]"
+          : "min-h-[210px] xs:min-h-[260px] sm:min-h-[310px]"
+      )}
+    >
       <div className="flex flex-row justify-between items-center relative w-full mb-1 xs:mb-2">
         <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
           {title}
@@ -24,7 +32,12 @@ export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
           업데이트 되지 않음
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center w-full mt-5 xs:mt-6 sm:mt-8">
+      <div
+        className={cls(
+          "flex flex-col justify-center items-center w-full",
+          type === "log" ? "mt-20 xs:mt-24 sm:mt-28" : "mt-5 xs:mt-6 sm:mt-8"
+        )}
+      >
         {type === "dashboard" ? (
           <Image
             src="/images/empty-dashboard.svg"

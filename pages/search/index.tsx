@@ -2,6 +2,7 @@ import ButtonSmall from "@/components/button-small";
 import ConfirmModal from "@/components/confirm-modal";
 import Container from "@/components/container";
 import DropdownMenu from "@/components/dropdown-menu";
+import EmptyBox from "@/components/empty-box";
 import Input from "@/components/input";
 import InputSmall from "@/components/input-small";
 import Layout from "@/components/layout";
@@ -55,6 +56,15 @@ export default function Insight() {
             <ButtonSmall label="검색" />
           </div>
         </div>
+        <EmptyBox
+          title="로그 파일"
+          content="파일이 존재하지 않습니다"
+          type="log"
+        />
+        <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
+        {/* <Container title="로그 파일" link="">
+          <div></div>
+        </Container> */}
       </div>
     </Layout>
   );
