@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -39,13 +40,15 @@ export default function Header({ toggleSidebar }: HeaderProps) {
       </div> */}
       <div className="flex flex-row justify-center items-center gap-3 xs:gap-5 absolute right-3 xs:relative">
         <div className="flex flex-row justify-start items-center sm:pr-1">
-          <Image
-            src="/images/search.svg"
-            alt="search"
-            width={25}
-            height={25}
-            className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px]"
-          />
+          <Link href="/search">
+            <Image
+              src="/images/search.svg"
+              alt="search"
+              width={25}
+              height={25}
+              className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] cursor-pointer"
+            />
+          </Link>
         </div>
         <div className="flex flex-row justify-start items-center xs:gap-2">
           <Image
@@ -53,7 +56,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
             alt="alarm"
             width={25}
             height={28}
-            className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px]"
+            className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px] cursor-pointer"
           />
           <span className="text-[18px] font-medium hidden sm:inline">1</span>
         </div>
@@ -63,7 +66,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
             alt="profile"
             width={30}
             height={30}
-            className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px]"
+            className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] cursor-pointer"
           />
           <span className="text-[18px] font-medium hidden sm:inline">
             호예이
@@ -78,7 +81,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
         </div>
         <div className="hidden xs:flex flex-row justify-start items-center gap-2">
           <Image src="/images/logout.svg" alt="logout" width={25} height={24} />
-          <span className="text-[18px] font-medium hidden sm:inline">
+          <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">
             로그아웃
           </span>
         </div>

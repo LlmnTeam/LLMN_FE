@@ -12,7 +12,7 @@ interface InputMediumProps {
   [key: string]: any;
 }
 
-export default function InputMedium({
+export default function InputSmall({
   type,
   label,
   placeholder,
@@ -40,7 +40,7 @@ export default function InputMedium({
   };
   return (
     <div
-      className="flex flex-col justify-center items-center relative w-full mt-5 xs:mt-8"
+      className="flex flex-col justify-center items-center relative w-full"
       style={{ maxWidth: maxWidth }}
     >
       {label?.trim() ? (
@@ -61,34 +61,6 @@ export default function InputMedium({
         className="appearance-none w-full h-[40px] xs:h-[45px] sm:h-[50px] text-[14px] xs:text-[15px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1"
         {...rest}
       />
-      {label === "프라이빗 키" ? (
-        <div className="flex flex-row justify-center items-center absolute top-2 sm:top-3 right-4 xs:right-5 sm:right-6 cursor-pointer">
-          <Image
-            src="/images/upload.svg"
-            alt="upload"
-            width={36}
-            height={33}
-            className="w-[26px] h-[25px] xs:w-[36px] xs:h-[33px]"
-            onClick={handleImageClick}
-          />
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            onChange={handleFileChange}
-          />
-        </div>
-      ) : label === "Open AI Key" ? (
-        <div className="flex flex-row justify-center items-center absolute top-2.5 right-2 xs:right-2 sm:right-3 cursor-pointer">
-          <Image
-            src="/images/checkbox.svg"
-            alt="checkbox"
-            width={34}
-            height={30}
-            className="w-[24px] h-[19px] xs:w-[29px] xs:h-[25px] sm:w-[34px] sm:h-[30px]"
-          />
-        </div>
-      ) : null}
     </div>
   );
 }
