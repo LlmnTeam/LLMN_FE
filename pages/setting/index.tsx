@@ -85,7 +85,7 @@ export default function Setting() {
           </div>
           <div className="flex flex-col justify-start items-center w-full min-h-[300px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-5 xs:py-6 sm:py-7 mt-3 xs:mt-4 sm:mt-5 overflow-y-auto overflow-x-hidden">
             <div
-              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-2 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
               onClick={() => toggleCheck("ubuntu")}
             >
               <div className="flex flex-row justify-center items-center w-[13%]">
@@ -106,15 +106,15 @@ export default function Setting() {
                 <Image
                   src="/images/info.svg"
                   alt="info"
-                  width={30}
-                  height={31}
-                  className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px] sm:w-[30px] sm:h-[31px]"
+                  width={26}
+                  height={27}
+                  className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px]"
                   onClick={() => openInstanceModal("edit")}
                 />
               </div>
             </div>
             <div
-              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-1 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
+              className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-2 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
               onClick={() => toggleCheck("amazonLinux")}
             >
               <div className="flex flex-row justify-center items-center w-[13%]">
@@ -137,7 +137,7 @@ export default function Setting() {
                   alt="info"
                   width={30}
                   height={31}
-                  className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px] sm:w-[30px] sm:h-[31px]"
+                  className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px]"
                   onClick={() => openInstanceModal("edit")}
                 />
               </div>

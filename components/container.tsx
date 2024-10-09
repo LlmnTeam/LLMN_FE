@@ -22,7 +22,7 @@ export default function Container({
     <div
       className={cls(
         "flex flex-col justify-start items-start w-full max-w-[1200px] min-h-[210px] xs:min-h-[260px] sm:min-h-[310px] rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 xs:px-8 sm:px-10 pt-3 xs:pt-4 sm:pt-5 pb-6 xs:pb-7 sm:pb-8 mt-6 xs:mt-7 sm:mt-8",
-        type === "log"
+        type === "log" || "insight"
           ? "min-h-[440px] xs:min-h-[520px] sm:min-h-[600px]"
           : "min-h-[210px] xs:min-h-[260px] sm:min-h-[310px]"
       )}
@@ -41,14 +41,7 @@ export default function Container({
               className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
             />
           </Link>
-        ) : // <Image
-        //   src="/images/chevron-right.svg"
-        //   alt="chevron-right"
-        //   width={20}
-        //   height={20}
-        //   className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
-        // />
-        null}
+        ) : null}
         {update ? (
           <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
             {update}
