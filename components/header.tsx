@@ -6,8 +6,9 @@ interface HeaderProps {
 
 export default function Header({ toggleSidebar }: HeaderProps) {
   return (
-    <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 px-8">
-      <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]">
+    <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 pl-8 pr-1">
+      {/* <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]"> */}
+      <div className="flex flex-row justify-start items-center gap-3 w-full relative xs:w-[120px]">
         <div className="absolute -left-7 xl:hidden cursor-pointer">
           <Image
             src="/images/menu.svg"
@@ -36,9 +37,24 @@ export default function Header({ toggleSidebar }: HeaderProps) {
           <Image src="/images/search.svg" alt="search" width={20} height={20} />
         </div>
       </div> */}
-      <div className="hidden xs:flex flex-row justify-center items-center gap-5">
-        <div className="flex flex-row justify-start items-center gap-2">
-          <Image src="/images/alarm.svg" alt="alarm" width={25} height={28} />
+      <div className="flex flex-row justify-center items-center gap-3 xs:gap-5 absolute right-3 xs:relative">
+        <div className="flex flex-row justify-start items-center sm:pr-1">
+          <Image
+            src="/images/search.svg"
+            alt="search"
+            width={25}
+            height={25}
+            className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px]"
+          />
+        </div>
+        <div className="flex flex-row justify-start items-center xs:gap-2">
+          <Image
+            src="/images/alarm.svg"
+            alt="alarm"
+            width={25}
+            height={28}
+            className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px]"
+          />
           <span className="text-[18px] font-medium hidden sm:inline">1</span>
         </div>
         <div className="flex flex-row justify-start items-center gap-2">
@@ -47,6 +63,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
             alt="profile"
             width={30}
             height={30}
+            className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px]"
           />
           <span className="text-[18px] font-medium hidden sm:inline">
             호예이
@@ -59,7 +76,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
             className="hidden sm:inline"
           />
         </div>
-        <div className="flex flex-row justify-start items-center gap-2">
+        <div className="hidden xs:flex flex-row justify-start items-center gap-2">
           <Image src="/images/logout.svg" alt="logout" width={25} height={24} />
           <span className="text-[18px] font-medium hidden sm:inline">
             로그아웃
