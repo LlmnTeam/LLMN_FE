@@ -1,11 +1,35 @@
-import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import InputSmall from "./input-small";
-import ButtonSmall from "./button-small";
+import Calendar, { CalendarProps } from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 interface InputProps {}
 
 export default function SearchInput() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [startDate, setStartDate] = useState<Date | null>(null); // 시작일
+  const [endDate, setEndDate] = useState<Date | null>(null); // 종료일
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  // 날짜 변경 시 실행되는 함수
+  const handleDateChange: CalendarProps["onChange"] = (value) => {
+    if (Array.isArray(value)) {
+      const [newStartDate, newEndDate] = value;
+      setStartDate(newStartDate);
+      setEndDate(newEndDate);
+    } else {
+      setStartDate(value); // 단일 날짜 선택 시에는 시작일로만 설정
+      setEndDate(null); // 종료일 초기화
+    }
+    // closeModal(); // 날짜 선택 후 모달 닫기
+  };
+
+  // 날짜를 YYYY-MM-DD 포맷으로 변환하는 함수
+  const formatDate = (date: Date | null) => {
+    return date ? date.toLocaleDateString("ko-KR") : ""; // 한국식 날짜 포맷
+  };
   return (
     <>
       <div className="flex flex-row justify-start items-center w-full mt-5 xs:mt-6 sm:mt-8">
@@ -17,14 +41,18 @@ export default function SearchInput() {
             type="text"
             label=""
             placeholder="시작일"
+            value={formatDate(startDate)}
             maxWidth="282px"
+            onClick={openModal}
           />
           <span className="text-[16px] xs:text-[18px] sm:text-[20px]">~</span>
           <InputSmall
             type="text"
             label=""
             placeholder="종료일"
+            value={formatDate(endDate)}
             maxWidth="282px"
+            onClick={openModal}
           />
         </div>
       </div>
@@ -39,7 +67,6 @@ export default function SearchInput() {
             placeholder="검색할 단어를 입력하세요."
             maxWidth="600px"
           />
-          {/* <ButtonSmall label="검색" /> */}
           <div className="flex flex-row justify-center items-center relative flex-shrink-0">
             <button className="h-[30px] xs:h-[40px] sm:h-[50px] text-[12px] xs:text-[16px] sm:text-[20px] rounded-md bg-[#0F172A] font-semibold px-[16px] xs:px-[20px] sm:px-[24px] text-white">
               검색
@@ -47,6 +74,22 @@ export default function SearchInput() {
           </div>
         </div>
       </div>
+
+      {/* 모달창 */}
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="w-[344px] h-[390px] bg-white p-5 border border-black rounded-3xl shadow-lg relative">
+            <Calendar
+              onChange={handleDateChange}
+              className="custom-calendar"
+              calendarType="gregory"
+              selectRange={true}
+              showFixedNumberOfWeeks={true}
+              formatDay={(locale, date) => date.getDate().toString()}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
