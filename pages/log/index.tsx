@@ -1,5 +1,5 @@
-import Layout from "@/components/layout";
-import LogTable from "@/components/log-table";
+import Layout from "@/components/commons/layout";
+import LogTable from "@/components/log/log-table";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

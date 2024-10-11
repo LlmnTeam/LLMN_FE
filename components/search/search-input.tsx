@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import InputSmall from "./input-small";
+import InputSmall from "../commons/input-small";
 import Calendar, { CalendarProps } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 

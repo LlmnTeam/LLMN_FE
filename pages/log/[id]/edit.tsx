@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Input from "@/components/input";
-import InputWithDropdown from "@/components/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
-import Layout from "@/components/layout";
+import Input from "@/components/commons/input";
+import InputWithDropdown from "@/components/commons/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
+import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
-import ButtonSmall from "@/components/button-small";
+import ButtonSmall from "@/components/commons/button-small";
 
 export default function NewItem() {
   const [projectName, setProjectName] = useState("");

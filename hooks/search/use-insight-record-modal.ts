@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 export default function useInsightRecordModal() {
-  const [insightRecordModalOpen, setIsInsightRecordModalOpen] = useState(false);
+  const [isInsightRecordModalOpen, setIsInsightRecordModalOpen] =
+    useState(false);
 
   const openInsightRecordModal = () => {
     setIsInsightRecordModalOpen(true);
@@ -12,7 +13,7 @@ export default function useInsightRecordModal() {
   };
 
   return {
-    insightRecordModalOpen,
+    isInsightRecordModalOpen,
     openInsightRecordModal,
     closeInsightRecordModal,
   };

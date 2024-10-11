@@ -1,9 +1,9 @@
-import ButtonSmall from "@/components/button-small";
-import DropdownMenu from "@/components/dropdown-menu";
-import Input from "@/components/input";
-import InstanceModal from "@/components/instance-modal";
-import Layout from "@/components/layout";
-import ToggleButton from "@/components/toggle-button";
+import ButtonSmall from "@/components/commons/button-small";
+import DropdownMenu from "@/components/commons/dropdown-menu";
+import Input from "@/components/commons/input";
+import InstanceModal from "@/components/commons/instance-modal";
+import Layout from "@/components/commons/layout";
+import ToggleButton from "@/components/commons/toggle-button";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import Image from "next/image";
@@ -93,9 +93,9 @@ export default function Setting() {
                   <Image
                     src="/images/check.svg"
                     alt="check"
-                    width={26}
-                    height={28}
-                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
+                    width={25}
+                    height={27}
+                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[25px] sm:h-[27px]"
                   />
                 )}
               </div>
@@ -122,9 +122,9 @@ export default function Setting() {
                   <Image
                     src="/images/check.svg"
                     alt="check"
-                    width={26}
-                    height={28}
-                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[26px] sm:h-[28px]"
+                    width={25}
+                    height={27}
+                    className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[25px] sm:h-[27px]"
                   />
                 )}
               </div>

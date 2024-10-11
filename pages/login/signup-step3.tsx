@@ -1,7 +1,7 @@
-import ButtonSmall from "@/components/button-small";
-import Input from "@/components/input";
-import Logo from "@/components/logo";
-import ToggleButton from "@/components/toggle-button";
+import ButtonSmall from "@/components/commons/button-small";
+import Input from "@/components/commons/input";
+import Logo from "@/components/commons/logo";
+import ToggleButton from "@/components/commons/toggle-button";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { useState } from "react";
 

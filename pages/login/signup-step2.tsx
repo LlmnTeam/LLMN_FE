@@ -1,6 +1,6 @@
-import ButtonSmall from "@/components/button-small";
-import Input from "@/components/input";
-import Logo from "@/components/logo";
+import ButtonSmall from "@/components/commons/button-small";
+import Input from "@/components/commons/input";
+import Logo from "@/components/commons/logo";
 
 export default function SignupStep2() {
   return (

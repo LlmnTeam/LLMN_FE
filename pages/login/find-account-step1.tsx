@@ -1,5 +1,5 @@
-import Button from "@/components/button-large";
-import Input from "@/components/input";
+import Button from "@/components/commons/button-large";
+import Input from "@/components/commons/input";
 import Image from "next/image";
 
 export default function FindAccountStep1() {

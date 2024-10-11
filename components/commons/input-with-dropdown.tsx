@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Input from "@/components/input";
+import Input from "@/components/commons/input";
 
 interface InputWithDropdownProps {
   label: string;

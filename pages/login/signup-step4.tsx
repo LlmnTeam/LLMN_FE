@@ -1,6 +1,6 @@
-import ButtonSmall from "@/components/button-small";
-import InstanceModal from "@/components/instance-modal";
-import Logo from "@/components/logo";
+import ButtonSmall from "@/components/commons/button-small";
+import InstanceModal from "@/components/commons/instance-modal";
+import Logo from "@/components/commons/logo";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import Image from "next/image";
 import { useState } from "react";

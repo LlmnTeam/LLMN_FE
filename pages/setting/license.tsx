@@ -1,5 +1,5 @@
-import ButtonSmall from "@/components/button-small";
-import Layout from "@/components/layout";
+import ButtonSmall from "@/components/commons/button-small";
+import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
 

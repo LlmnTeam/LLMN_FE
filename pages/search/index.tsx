@@ -1,13 +1,13 @@
-import ButtonSmall from "@/components/button-small";
-import Container from "@/components/container";
-import EmptyBox from "@/components/empty-box";
-import InputSmall from "@/components/input-small";
+import ButtonSmall from "@/components/commons/button-small";
+import Container from "@/components/commons/container";
+import EmptyBox from "@/components/commons/empty-box";
+import InputSmall from "@/components/commons/input-small";
 import InsightRecord from "@/components/search/insight-record";
 import InsightRecordContainer from "@/components/search/insight-record-container";
 import InsightRecordModal from "@/components/search/insight-record-modal";
-import Layout from "@/components/layout";
+import Layout from "@/components/commons/layout";
 import LogFileContainer from "@/components/search/log-file-container";
-import SearchInput from "@/components/search-input";
+import SearchInput from "@/components/search/search-input";
 import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
 import Image from "next/image";
 import { useState } from "react";
@@ -77,7 +77,7 @@ const insightFiles = [
 
 export default function Search() {
   const {
-    insightRecordModalOpen,
+    isInsightRecordModalOpen,
     openInsightRecordModal,
     closeInsightRecordModal,
   } = useInsightRecordModal();
@@ -108,7 +108,7 @@ export default function Search() {
         />
       </div>
       <InsightRecordModal
-        isOpen={insightRecordModalOpen}
+        isOpen={isInsightRecordModalOpen}
         onClose={closeInsightRecordModal}
       />
     </Layout>

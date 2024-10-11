@@ -1,6 +1,6 @@
-import ButtonLarge from "@/components/button-large";
-import Input from "@/components/input";
-import Logo from "@/components/logo";
+import ButtonLarge from "@/components/commons/button-large";
+import Input from "@/components/commons/input";
+import Logo from "@/components/commons/logo";
 
 export default function Login() {
   return (

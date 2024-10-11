@@ -1,8 +1,8 @@
-import Container from "@/components/container";
-import DropdownMenu from "@/components/dropdown-menu";
-import Layout from "@/components/layout";
-import LogFileModal from "@/components/search/log-file-modal";
-import LogTable from "@/components/log-table";
+import Container from "@/components/commons/container";
+import DropdownMenu from "@/components/commons/dropdown-menu";
+import Layout from "@/components/commons/layout";
+import LogFileModal from "@/components/log/log-file-modal";
+import LogTable from "@/components/log/log-table";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

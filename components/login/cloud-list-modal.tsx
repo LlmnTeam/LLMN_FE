@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import ButtonSmall from "./button-small";
+import ButtonSmall from "../commons/button-small";
 
 interface ModalProps {
   isOpen: boolean;

@@ -1,18 +1,29 @@
-import ConfirmModal from "@/components/confirm-modal";
-import Container from "@/components/container";
-import DropdownMenu from "@/components/dropdown-menu";
-import EmptyBox from "@/components/empty-box";
-import Layout from "@/components/layout";
-import LogFileModal from "@/components/search/log-file-modal";
+import ConfirmModal from "@/components/commons/confirm-modal";
+import Container from "@/components/commons/container";
+import DropdownMenu from "@/components/commons/dropdown-menu";
+import EmptyBox from "@/components/commons/empty-box";
+import Layout from "@/components/commons/layout";
+import ChatbotModal from "@/components/log/chatbot-modal";
+import LogFileModal from "@/components/log/log-file-modal";
+import useChatbotModal from "@/hooks/log/use-chatbot-modal";
+import useLogFileModal from "@/hooks/log/use-log-file-modal";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function LogDetail() {
-  const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
+  const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
+    useChatbotModal();
+  const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
+    useLogFileModal();
 
-  const openLogFileModal = () => setIsLogFileModalOpen(true);
-  const closeLogFileModal = () => setIsLogFileModalOpen(false);
+  useEffect(() => {
+    console.log("isChatbotModalOpen: ", isChatbotModalOpen);
+  }, [isChatbotModalOpen]);
+
+  useEffect(() => {
+    console.log("isLogFileModalOpen: ", isLogFileModalOpen);
+  }, [isLogFileModalOpen]);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -50,7 +61,14 @@ export default function LogDetail() {
               />
               <LogFileModal
                 isOpen={isLogFileModalOpen}
-                onClose={closeLogFileModal}
+                onClose={() => {
+                  closeLogFileModal();
+                  openChatbotModal();
+                }}
+              />
+              <ChatbotModal
+                isOpen={isChatbotModalOpen}
+                onClose={closeChatbotModal}
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />

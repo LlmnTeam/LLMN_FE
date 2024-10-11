@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Container from "../container";
+import Container from "../commons/container";
 import { cls } from "@/libs/utils";
 import InsightRecord from "./insight-record";
 

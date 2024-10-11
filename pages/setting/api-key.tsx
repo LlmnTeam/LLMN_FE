@@ -1,8 +1,8 @@
-import ButtonSmall from "@/components/button-small";
-import ConfirmModal from "@/components/confirm-modal";
-import DropdownMenu from "@/components/dropdown-menu";
-import Input from "@/components/input";
-import Layout from "@/components/layout";
+import ButtonSmall from "@/components/commons/button-small";
+import ConfirmModal from "@/components/commons/confirm-modal";
+import DropdownMenu from "@/components/commons/dropdown-menu";
+import Input from "@/components/commons/input";
+import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";

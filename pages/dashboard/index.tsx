@@ -1,7 +1,7 @@
-import Container from "@/components/container";
-import DropdownMenu from "@/components/dropdown-menu";
-import EmptyBox from "@/components/empty-box";
-import Layout from "@/components/layout";
+import Container from "@/components/commons/container";
+import DropdownMenu from "@/components/commons/dropdown-menu";
+import EmptyBox from "@/components/commons/empty-box";
+import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import { useState } from "react";
 
