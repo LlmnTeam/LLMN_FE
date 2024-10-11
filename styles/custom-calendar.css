@@ -14,12 +14,12 @@
   @apply text-black hover:bg-gray-100 rounded-full focus:bg-gray-100;
 }
 .react-calendar.custom-calendar .react-calendar__navigation__label {
-  @apply text-[20px] font-bold px-1;
+  @apply text-[18px] xs:text-[20px] font-bold px-1;
 }
 
 /* 캘린더 요일 스타일 */
 .react-calendar__month-view__days {
-  @apply text-[20px] font-medium;
+  @apply text-[18px] xs:text-[20px] font-medium;
 }
 .react-calendar__month-view__weekdays__weekday {
   @apply flex flex-row justify-center items-center text-black text-[17px] font-semibold aspect-square;
@@ -42,7 +42,7 @@
   @apply text-gray-400 hover:text-gray-400;
 }
 .react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day {
-  @apply text-black bg-red-50 hover:text-black hover:bg-red-50;
+  @apply text-white bg-black hover:text-white hover:bg-black;
 }
 
 /* 캘린더 종료일 선택 후 시작일 선택 (호버) */

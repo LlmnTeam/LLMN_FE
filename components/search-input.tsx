@@ -77,7 +77,7 @@ export default function SearchInput() {
       {/* 모달창 */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-          <div className="w-[344px] h-[450px] bg-white p-5 border border-black rounded-3xl shadow-lg relative">
+          <div className="w-[300px] h-[385px] xs:w-[344px] xs:h-[440px] bg-white p-5 border border-black rounded-3xl shadow-lg relative">
             <Calendar
               onChange={handleDateChange}
               className="custom-calendar"
@@ -86,9 +86,9 @@ export default function SearchInput() {
               showFixedNumberOfWeeks={true}
               formatDay={(locale, date) => date.getDate().toString()}
             />
-            <div className="flex flex-row justify-center items-center gap-3 mt-4">
+            <div className="flex flex-row justify-center items-center gap-2 xs:gap-3 mt-1 xs:mt-2">
               <button
-                className="h-[35px] bg-white rounded-lg text-[15px] text-black font-bold px-5"
+                className="h-[30px] xs:h-[35px] bg-white rounded-lg text-[13px] xs:text-[15px] text-black font-bold px-3 xs:px-4"
                 onClick={() => {
                   setStartDate(null);
                   setEndDate(null);
@@ -98,7 +98,7 @@ export default function SearchInput() {
                 취소
               </button>
               <button
-                className="h-[35px] bg-black rounded-lg text-[15px] text-white font-bold px-5"
+                className="h-[30px] xs:h-[35px] bg-black rounded-lg text-[13px] xs:text-[15px] text-white font-bold px-3 xs:px-4"
                 onClick={() => {
                   if (startDate != null && endDate != null) closeModal();
                 }}
