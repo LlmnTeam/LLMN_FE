@@ -2,7 +2,7 @@ import ConfirmModal from "@/components/confirm-modal";
 import Container from "@/components/container";
 import DropdownMenu from "@/components/dropdown-menu";
 import Layout from "@/components/layout";
-import LogFileModal from "@/components/log-file-modal";
+import LogFileModal from "@/components/search/log-file-modal";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

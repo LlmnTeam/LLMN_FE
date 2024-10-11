@@ -2,11 +2,13 @@ import ButtonSmall from "@/components/button-small";
 import Container from "@/components/container";
 import EmptyBox from "@/components/empty-box";
 import InputSmall from "@/components/input-small";
-import InsightRecord from "@/components/insight-record";
-import InsightRecordContainer from "@/components/insight-record-container";
+import InsightRecord from "@/components/search/insight-record";
+import InsightRecordContainer from "@/components/search/insight-record-container";
+import InsightRecordModal from "@/components/search/insight-record-modal";
 import Layout from "@/components/layout";
-import LogFileContainer from "@/components/log-file-container";
+import LogFileContainer from "@/components/search/log-file-container";
 import SearchInput from "@/components/search-input";
+import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -73,7 +75,12 @@ const insightFiles = [
   // 더 많은 파일들...
 ];
 
-export default function Insight() {
+export default function Search() {
+  const {
+    insightRecordModalOpen,
+    openInsightRecordModal,
+    closeInsightRecordModal,
+  } = useInsightRecordModal();
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -95,8 +102,15 @@ export default function Insight() {
         />
         <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
         <LogFileContainer files={files} />
-        <InsightRecordContainer files={insightFiles} />
+        <InsightRecordContainer
+          files={insightFiles}
+          onClick={openInsightRecordModal}
+        />
       </div>
+      <InsightRecordModal
+        isOpen={insightRecordModalOpen}
+        onClose={closeInsightRecordModal}
+      />
     </Layout>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Container from "./container";
+import Container from "../container";
 import { cls } from "@/libs/utils";
 import InsightRecord from "./insight-record";
 
@@ -11,10 +11,12 @@ interface InsightRecordProps {
 
 interface InsightRecordContainerProps {
   files: InsightRecordProps[];
+  onClick: () => void;
 }
 
 export default function InsightRecordContainer({
   files,
+  onClick,
 }: InsightRecordContainerProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const filesPerPage = 9;
@@ -34,7 +36,12 @@ export default function InsightRecordContainer({
       <div className="flex flex-col justify-start items-center h-[340px] xs:h-[400px] sm:h-[460px] gap-1.5 xs:gap-2 sm:gap-2.5">
         {currentFiles.map((file, index) => (
           <div key={index} className="w-full">
-            <InsightRecord name={file.name} type={file.type} date={file.date} />
+            <InsightRecord
+              name={file.name}
+              type={file.type}
+              date={file.date}
+              onClick={onClick}
+            />
           </div>
         ))}
       </div>
