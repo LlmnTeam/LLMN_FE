@@ -14,7 +14,7 @@
   @apply text-black hover:bg-gray-100 rounded-full focus:bg-gray-100;
 }
 .react-calendar.custom-calendar .react-calendar__navigation__label {
-  @apply text-[18px] xs:text-[20px] font-bold px-1;
+  @apply text-[18px] xs:text-[20px] font-bold px-1 pointer-events-none;
 }
 
 /* 캘린더 요일 스타일 */

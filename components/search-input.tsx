@@ -29,6 +29,7 @@ export default function SearchInput() {
   const formatDate = (date: Date | null) => {
     return date ? date.toLocaleDateString("ko-KR") : ""; // 한국식 날짜 포맷
   };
+
   return (
     <>
       <div className="flex flex-row justify-start items-center w-full mt-5 xs:mt-6 sm:mt-8">
