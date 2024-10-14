@@ -3,19 +3,24 @@ import Link from "next/link";
 interface ButtonProps {
   label: string;
   kind: string;
+  onClick?: () => void;
   [key: string]: any;
 }
 
 export default function ButtonLarge({
   label,
   kind = "login",
+  onClick,
   ...rest
 }: ButtonProps) {
   return (
     <div
       className={`flex flex-row justify-center items-center relative w-full max-w-[605px]`}
     >
-      <button className="w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-[#0F172A] text-white font-semibold">
+      <button
+        className="w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-[#0F172A] text-white font-semibold"
+        onClick={onClick}
+      >
         {label}
       </button>
       {kind === "login" ? (
