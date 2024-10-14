@@ -22,10 +22,10 @@ export default function ButtonLarge({
     >
       <button
         className={cls(
-          "w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md text-white font-semibold",
+          "w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md text-white font-semibold transition-colors",
           disabled
             ? "bg-gray-300 cursor-not-allowed"
-            : "bg-gray-700 cursor-pointer hover:bg-gray-900"
+            : "bg-gray-800 cursor-pointer hover:bg-black"
         )}
         onClick={onClick}
       >

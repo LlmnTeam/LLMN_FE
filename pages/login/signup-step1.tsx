@@ -3,7 +3,7 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import { useEmailCheck } from "@/hooks/login/use-email-check";
 import { cls } from "@/libs/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignupStep1() {
   const {
@@ -22,9 +22,11 @@ export default function SignupStep1() {
     handledNextButton,
   } = useEmailCheck();
 
+  const [disabled, setDisabled] = useState(true);
+
   useEffect(() => {
-    console.log("timer: ", timer);
-  }, [timer]);
+    setDisabled(isEmailAvailable && isCodeAvailable ? false : true);
+  }, [isEmailAvailable, isCodeAvailable]);
 
   return (
     <div className="flex flex-col justify-start items-center w-full max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
@@ -53,12 +55,13 @@ export default function SignupStep1() {
           </div>
           <div
             className={cls(
-              "text-[14px] xs:text-[15px] sm:text-[16px] font-semibold",
+              "text-[14px] xs:text-[15px] sm:text-[16px] font-semibold transition-colors",
               isEmailAvailable ? "visible" : "hidden",
               timer === 0
                 ? "text-[#717478] cursor-pointer"
                 : "text-gray-300 cursor-not-allowed"
             )}
+            onClick={() => resendCode()}
           >
             재전송하기
           </div>
@@ -77,15 +80,17 @@ export default function SignupStep1() {
             <br />
             아래에 인증코드를 입력해주세요.
           </div>
-          <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5 mb-3 xs:mb-4 sm:mb-5">
+          <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5 mb-2 xs:mb-3 sm:mb-4">
             <Input
               type="code"
               label=""
               placeholder="인증 코드를 입력해주세요."
+              value={code}
+              onChange={handleCodeChange}
             />
             <div
               className={cls(
-                "flex flex-row justify-center items-center h-full absolute right-4 text-[14px] xs:text-[15px] sm:text-[16px]",
+                "flex flex-row justify-center items-center h-full absolute right-4 text-[14px] xs:text-[15px] sm:text-[16px] font-medium text-gray-600",
                 isEmailAvailable ? "visible" : "hidden"
               )}
             >
@@ -97,17 +102,22 @@ export default function SignupStep1() {
             <div
               className={cls(
                 "absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-                isEmailAvailable
+                codeMsg === ""
+                  ? "hidden"
+                  : isCodeAvailable
                   ? "visible text-blue-400"
-                  : !isEmailAvailable && email.trim()
-                  ? "visible text-red-400"
-                  : "hidden"
+                  : "visible text-red-400"
               )}
             >
-              {emailMsg}
+              {codeMsg}
             </div>
           </div>
-          <ButtonLarge label="인증하기" kind="check" disabled={true} />
+          <ButtonLarge
+            label="다음"
+            kind="check"
+            disabled={disabled}
+            onClick={handledNextButton}
+          />
         </>
       )}
     </div>

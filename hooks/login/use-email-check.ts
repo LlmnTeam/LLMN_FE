@@ -40,9 +40,9 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
     false
   );
-  const [isCodeAvailable, setIsCodeAvailable] = useState<boolean | null>(null);
+  const [isCodeAvailable, setIsCodeAvailable] = useState<boolean | null>(false);
   const [emailMsg, setEmailMsg] = useState<string>("");
-  const [codeMsg, setCodeMsg] = useState<string>("인증번호를 입력해주세요.");
+  const [codeMsg, setCodeMsg] = useState<string>("");
   const router = useRouter();
 
   const { timer, startTimer, resetTimer } = useTimer(180);
@@ -60,33 +60,18 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
     if (email.trim() === "") {
-      setIsEmailAvailable(false);
       setEmailMsg("");
-    }
-    if (isEmailAvailable) {
-      setCode("");
-      setIsCodeAvailable(null);
-      setCodeMsg("인증번호를 입력해주세요.");
+      setIsEmailAvailable(false);
     }
   };
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCode(e.target.value);
     if (e.target.value.trim() === "") {
-      setIsCodeAvailable(null);
-      setCodeMsg("인증번호를 입력해주세요.");
+      setIsCodeAvailable(false);
+      setCodeMsg("");
     }
   };
-
-  useEffect(() => {
-    const timer = setTimeout(async () => {
-      if (code) {
-        await verifyCode();
-      }
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, [code]);
 
   useEffect(() => {
     if (timer === 0) {
@@ -134,7 +119,7 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
       if (isAvailable) {
         if (savedTimestamp) {
           const remaining = calculateRemainingTime(Number(savedTimestamp));
-          if (remaining > 0 && remaining <= 15) {
+          if (remaining > 0 && remaining <= 180) {
             console.log("타이머 재설정 시작.");
             setIsEmailAvailable(true);
             setEmailMsg("인증번호를 이미 발송하였습니다.");
@@ -145,19 +130,20 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
             setIsEmailAvailable(true);
             setEmailMsg("사용할 수 있는 이메일입니다.");
             resetTimer();
-            startTimer(15);
+            startTimer(180);
           }
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
           setIsEmailAvailable(true);
           setEmailMsg("사용할 수 있는 이메일입니다.");
           resetTimer();
-          startTimer(15);
+          startTimer(180);
         }
       } else {
         setIsEmailAvailable(false);
         setEmailMsg("이미 존재하는 이메일입니다.");
       }
+      setCodeMsg("");
     } catch (error) {
       console.error("이메일 중복 확인 중 오류 발생:", error);
       setIsEmailAvailable(false);
@@ -179,15 +165,26 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (code) {
+        await verifyCode();
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [code]);
+
   const resendCode = async (): Promise<void> => {
     if (timer > 0) return;
 
     try {
       const result = await ResendCode(email);
       if (result) {
+        getSessionStorageKey(email);
         setCode("");
-        setIsCodeAvailable(null);
-        setCodeMsg("인증번호를 입력해주세요.");
+        setIsCodeAvailable(false);
+        setCodeMsg("");
         resetTimer();
         startTimer(180);
       }
@@ -199,11 +196,10 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     }
   };
 
-  // const handledNextButton = (path: string): void => {
   const handledNextButton = (): void => {
-    // if (!isEmailAvailable || !isCodeAvailable) return;
-    // sessionStorage.setItem("email", email);
-    // router.push(path);
+    if (!isEmailAvailable || !isCodeAvailable) return;
+    sessionStorage.setItem("email", email);
+    router.push("/login/signup-step2");
   };
 
   return {
