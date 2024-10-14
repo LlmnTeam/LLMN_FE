@@ -3,9 +3,12 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import { useEmailCheck } from "@/hooks/login/use-email-check";
 import { cls } from "@/libs/utils";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function SignupStep1() {
+  const router = useRouter();
+
   const {
     email,
     code,
@@ -19,7 +22,6 @@ export default function SignupStep1() {
     verifyEmail,
     verifyCode,
     resendCode,
-    handledNextButton,
   } = useEmailCheck();
 
   const [disabled, setDisabled] = useState(true);
@@ -27,6 +29,12 @@ export default function SignupStep1() {
   useEffect(() => {
     setDisabled(isEmailAvailable && isCodeAvailable ? false : true);
   }, [isEmailAvailable, isCodeAvailable]);
+
+  const handleNextButton = (): void => {
+    if (!isEmailAvailable || !isCodeAvailable) return;
+    sessionStorage.setItem("email", email);
+    router.push("/login/signup-step2");
+  };
 
   return (
     <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 pt-[15vh] pb-[15vh] px-6 overflow-y-auto overflow-x-hidden">
@@ -116,7 +124,7 @@ export default function SignupStep1() {
             label="다음"
             kind="check"
             disabled={disabled}
-            onClick={handledNextButton}
+            onClick={handleNextButton}
           />
         </>
       )}

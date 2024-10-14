@@ -30,8 +30,6 @@ interface UseEmailCheckReturn {
   verifyEmail: () => Promise<void>;
   verifyCode: () => Promise<void>;
   resendCode: () => Promise<void>;
-  // handledNextButton: (path: string) => void;
-  handledNextButton: () => void;
 }
 
 export const useEmailCheck = (): UseEmailCheckReturn => {
@@ -196,12 +194,6 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     }
   };
 
-  const handledNextButton = (): void => {
-    if (!isEmailAvailable || !isCodeAvailable) return;
-    sessionStorage.setItem("email", email);
-    router.push("/login/signup-step2");
-  };
-
   return {
     email,
     code,
@@ -215,6 +207,5 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     verifyEmail,
     verifyCode,
     resendCode,
-    handledNextButton,
   };
 };
