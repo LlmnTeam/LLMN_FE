@@ -124,10 +124,6 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
       setIsEmailAvailable(false);
       return;
     }
-    // else {
-    //   setIsEmailAvailable(true);
-    //   return;
-    // }
 
     try {
       const isAvailable = await CheckEmailDuplication(email);
@@ -138,7 +134,7 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
       if (isAvailable) {
         if (savedTimestamp) {
           const remaining = calculateRemainingTime(Number(savedTimestamp));
-          if (remaining > 0 && remaining <= 180) {
+          if (remaining > 0 && remaining <= 15) {
             console.log("타이머 재설정 시작.");
             setIsEmailAvailable(true);
             setEmailMsg("인증번호를 이미 발송하였습니다.");
@@ -149,14 +145,14 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
             setIsEmailAvailable(true);
             setEmailMsg("사용할 수 있는 이메일입니다.");
             resetTimer();
-            startTimer(180);
+            startTimer(15);
           }
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
           setIsEmailAvailable(true);
           setEmailMsg("사용할 수 있는 이메일입니다.");
           resetTimer();
-          startTimer(180);
+          startTimer(15);
         }
       } else {
         setIsEmailAvailable(false);
@@ -184,6 +180,8 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   };
 
   const resendCode = async (): Promise<void> => {
+    if (timer > 0) return;
+
     try {
       const result = await ResendCode(email);
       if (result) {

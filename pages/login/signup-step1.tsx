@@ -53,8 +53,11 @@ export default function SignupStep1() {
           </div>
           <div
             className={cls(
-              "text-[14px] xs:text-[15px] sm:text-[16px] font-semibold text-[#717478] cursor-pointer",
-              isEmailAvailable ? "visible" : "hidden"
+              "text-[14px] xs:text-[15px] sm:text-[16px] font-semibold",
+              isEmailAvailable ? "visible" : "hidden",
+              timer === 0
+                ? "text-[#717478] cursor-pointer"
+                : "text-gray-300 cursor-not-allowed"
             )}
           >
             재전송하기
@@ -104,7 +107,7 @@ export default function SignupStep1() {
               {emailMsg}
             </div>
           </div>
-          <ButtonLarge label="인증하기" kind="check" />
+          <ButtonLarge label="인증하기" kind="check" disabled={true} />
         </>
       )}
     </div>

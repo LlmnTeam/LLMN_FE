@@ -1,8 +1,10 @@
+import { cls } from "@/libs/utils";
 import Link from "next/link";
 
 interface ButtonProps {
   label: string;
   kind: string;
+  disabled?: boolean;
   onClick?: () => void;
   [key: string]: any;
 }
@@ -10,6 +12,7 @@ interface ButtonProps {
 export default function ButtonLarge({
   label,
   kind = "login",
+  disabled = false,
   onClick,
   ...rest
 }: ButtonProps) {
@@ -18,7 +21,12 @@ export default function ButtonLarge({
       className={`flex flex-row justify-center items-center relative w-full max-w-[605px]`}
     >
       <button
-        className="w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-[#0F172A] text-white font-semibold"
+        className={cls(
+          "w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md text-white font-semibold",
+          disabled
+            ? "bg-gray-300 cursor-not-allowed"
+            : "bg-gray-700 cursor-pointer hover:bg-gray-900"
+        )}
         onClick={onClick}
       >
         {label}
