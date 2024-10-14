@@ -29,7 +29,7 @@ export default function SignupStep1() {
   }, [isEmailAvailable, isCodeAvailable]);
 
   return (
-    <div className="flex flex-col justify-start items-center w-full max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 pt-[15vh] pb-[15vh] px-6 overflow-y-auto overflow-x-hidden">
       <Logo />
       <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
@@ -40,7 +40,7 @@ export default function SignupStep1() {
           onChange={handleEmailChange}
           readOnly={isEmailAvailable ? true : false}
         />
-        <div className="flex flex-row justify-between items-center absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full max-w-[605px]">
+        <div className="flex flex-row justify-between items-center absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full">
           <div
             className={cls(
               "text-[12px] xs:text-[13px] sm:text-[14px] font-semibold",
