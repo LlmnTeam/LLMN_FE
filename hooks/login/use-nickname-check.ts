@@ -28,6 +28,10 @@ export const useNicknameCheck = (): UseNicknameCheckReturn => {
   ): void => {
     const inputNickname = event.target.value;
     setNickname(inputNickname);
+    if (inputNickname.trim() === "") {
+      setNicknameMsg("닉네임은 2자 이상 8자 이하로 설정해주세요.");
+      setIsPossibleNickname(null);
+    }
   };
 
   const verifyNickname = async (): Promise<void> => {
