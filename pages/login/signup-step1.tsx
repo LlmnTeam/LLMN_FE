@@ -16,9 +16,9 @@ export default function SignupStep1() {
     timer,
     handleEmailChange,
     handleCodeChange,
-    // verifyEmail,
-    // verifyCode,
-    // resendCode,
+    verifyEmail,
+    verifyCode,
+    resendCode,
     handledNextButton,
   } = useEmailCheck();
 
@@ -65,7 +65,7 @@ export default function SignupStep1() {
         <ButtonLarge
           label="중복확인"
           kind="check"
-          onClick={handledNextButton}
+          onClick={() => verifyEmail()}
         />
       ) : (
         <>
