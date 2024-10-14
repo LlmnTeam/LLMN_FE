@@ -13,7 +13,7 @@ export default function SignupStep1() {
     isCodeAvailable,
     emailMsg,
     codeMsg,
-    // timer,
+    timer,
     handleEmailChange,
     handleCodeChange,
     // verifyEmail,
@@ -23,17 +23,13 @@ export default function SignupStep1() {
   } = useEmailCheck();
 
   useEffect(() => {
-    console.log("email: ", email);
-  }, [email]);
-
-  useEffect(() => {
-    console.log("emailMsg: ", emailMsg);
-  }, [emailMsg]);
+    console.log("timer: ", timer);
+  }, [timer]);
 
   return (
-    <div className="flex flex-col justify-start items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-start items-center w-full max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
-      <div className="flex flex-col justify-start items-center w-full mt-2.5 xs:mt-3 sm:mt-3.5">
+      <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="email"
           label="이메일"
@@ -41,9 +37,8 @@ export default function SignupStep1() {
           value={email}
           onChange={handleEmailChange}
           readOnly={isEmailAvailable ? true : false}
-          validInput={isEmailAvailable}
         />
-        <div className="flex flex-row justify-between items-center w-full max-w-[605px] mt-0.5 px-0.5">
+        <div className="flex flex-row justify-between items-center absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full max-w-[605px]">
           <div
             className={cls(
               "text-[12px] xs:text-[13px] sm:text-[14px] font-semibold",
@@ -74,12 +69,12 @@ export default function SignupStep1() {
         />
       ) : (
         <>
-          <div className="flex flex-row justify-center items-center w-full max-w-[605px] text-[13px] xs:text-[14px] sm:text-[15px] text-center py-3 xs:py-4 sm:py-5 -mt-[16px] xs:-mt-[18px] sm:-mt-[20px] -mb-3 xs:-mb-4 sm:-mb-5 bg-[#F8F9FA] rounded-lg">
+          <div className="flex flex-row justify-center items-center w-full text-[13px] xs:text-[14px] sm:text-[15px] text-center py-3 xs:py-4 sm:py-5 mt-1 xs:mt-2 sm:mt-3 -mb-3 xs:-mb-4 sm:-mb-5 bg-[#F8F9FA] rounded-lg">
             해당 이메일로 인증코드를 전송하였습니다.
             <br />
             아래에 인증코드를 입력해주세요.
           </div>
-          <div className="flex flex-col justify-start items-center w-full mt-2.5 xs:mt-3 sm:mt-3.5">
+          <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5 mb-3 xs:mb-4 sm:mb-5">
             <Input
               type="code"
               label=""
@@ -87,7 +82,18 @@ export default function SignupStep1() {
             />
             <div
               className={cls(
-                "w-full max-w-[605px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+                "flex flex-row justify-center items-center h-full absolute right-4 text-[14px] xs:text-[15px] sm:text-[16px]",
+                isEmailAvailable ? "visible" : "hidden"
+              )}
+            >
+              <div className="w-[40px]">
+                {Math.floor(timer / 60)}:
+                {(timer % 60).toString().padStart(2, "0")}
+              </div>
+            </div>
+            <div
+              className={cls(
+                "absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
                 isEmailAvailable
                   ? "visible text-blue-400"
                   : !isEmailAvailable && email.trim()

@@ -25,7 +25,7 @@ interface UseEmailCheckReturn {
   isCodeAvailable: boolean | null;
   emailMsg: string;
   codeMsg: string;
-  // timer: number;
+  timer: number;
   handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCodeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   // verifyEmail: () => Promise<void>;
@@ -65,7 +65,6 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
       setCode("");
       setIsCodeAvailable(null);
       setCodeMsg("인증번호를 입력해주세요.");
-      // resetTimer();
     }
   };
 
@@ -96,6 +95,8 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
       } else {
         setIsEmailAvailable(true);
         setEmailMsg("사용 가능한 이메일입니다.");
+        resetTimer();
+        startTimer();
       }
     }
   };
@@ -199,9 +200,7 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   // const handledNextButton = (path: string): void => {
   const handledNextButton = (): void => {
     handleEmailValidation();
-
     // if (!isEmailAvailable || !isCodeAvailable) return;
-
     // sessionStorage.setItem("email", `${email}@${selectedEmail}`);
     // router.push(path);
   };
@@ -213,7 +212,7 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     isCodeAvailable,
     emailMsg,
     codeMsg,
-    // timer,
+    timer,
     handleEmailChange,
     handleCodeChange,
     // verifyEmail,

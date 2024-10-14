@@ -6,6 +6,7 @@ export const useTimer = (initialTime: number = 180) => {
 
   const startTimer = (startTime: number = initialTime) => {
     setTimer(startTime);
+    if (timerId) clearInterval(timerId);
     const id = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer === 0) {
