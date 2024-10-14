@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useTimer } from "./use-timer";
 // import {
 //   CheckEmailDuplication,
 //   ResendCode,
 //   VerifySignupCode,
 // } from "../Signup02.queries";
-// import { useTimer } from "../../../../../../src/components/commons/hooks/useTimer";
 
 const getSessionStorageKey = (email: string): string =>
   `emailRequestTimestamp_${email}`;
@@ -47,7 +47,7 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   const [codeMsg, setCodeMsg] = useState<string>("인증번호를 입력해주세요.");
   const router = useRouter();
 
-  // const { timer, startTimer, resetTimer } = useTimer(180);
+  const { timer, startTimer, resetTimer } = useTimer(180);
 
   const validateLocalPart = (localPart: string): boolean => {
     const regex = /^[a-zA-Z0-9._%+-]+$/;
