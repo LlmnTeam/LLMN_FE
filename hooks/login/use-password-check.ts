@@ -17,12 +17,9 @@ interface UsePasswordCheckReturn {
 export default function usePasswordCheck(): UsePasswordCheckReturn {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-  const [isValidPassword, setIsValidPassword] = useState<boolean | null>(null);
-  const [isPasswordMatching, setIsPasswordMatching] = useState<boolean | null>(
-    null
-  );
-  const [validationMessage, setValidationMessage] =
-    useState<string>("비밀번호를 입력해주세요.");
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+  const [isPasswordMatching, setIsPasswordMatching] = useState<boolean>(false);
+  const [validationMessage, setValidationMessage] = useState<string>("");
   const [confirmMessage, setConfirmMessage] = useState<string>("");
 
   const handlePasswordChange = (
@@ -32,8 +29,8 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
     setPassword(inputPassword);
 
     if (inputPassword.trim() === "") {
-      setIsValidPassword(null);
-      setValidationMessage("비밀번호를 입력해주세요.");
+      setIsValidPassword(false);
+      setValidationMessage("");
       setPasswordConfirm("");
     }
   };
@@ -45,7 +42,7 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
     setPasswordConfirm(inputPasswordConfrim);
 
     if (inputPasswordConfrim.trim() === "") {
-      setIsPasswordMatching(null);
+      setIsPasswordMatching(false);
       setConfirmMessage("");
     }
   };

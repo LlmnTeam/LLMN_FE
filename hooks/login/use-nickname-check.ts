@@ -12,10 +12,8 @@ interface UseNicknameCheckReturn {
 
 export default function useNicknameCheck(): UseNicknameCheckReturn {
   const [nickname, setNickname] = useState<string>("");
-  const [isValidNickname, setIsValidNickname] = useState<boolean | null>(null);
-  const [nicknameMsg, setNicknameMsg] = useState<string>(
-    "2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요."
-  );
+  const [isValidNickname, setIsValidNickname] = useState<boolean>(false);
+  const [nicknameMsg, setNicknameMsg] = useState<string>("");
 
   const handleNicknameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -24,14 +22,14 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
     setNickname(inputNickname);
 
     if (inputNickname.trim() === "") {
-      setIsValidNickname(null);
-      setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
+      setIsValidNickname(false);
+      setNicknameMsg("");
     }
   };
 
   const verifyNickname = async (): Promise<void> => {
     if (!validateNickname(nickname)) {
-      setIsValidNickname(null);
+      setIsValidNickname(false);
       setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
       return;
     }

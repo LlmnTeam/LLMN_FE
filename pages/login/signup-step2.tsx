@@ -71,11 +71,7 @@ export default function SignupStep2() {
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isValidNickname === null
-                ? "text-gray-400"
-                : isValidNickname
-                ? "text-blue-400"
-                : "text-red-400"
+              isValidNickname ? "text-blue-400" : "text-red-400"
             )}
           >
             {nicknameMsg}
@@ -92,11 +88,7 @@ export default function SignupStep2() {
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isValidPassword === null
-                ? "text-gray-400"
-                : isValidPassword
-                ? "text-blue-400"
-                : "text-red-400"
+              isValidPassword ? "text-blue-400" : "text-red-400"
             )}
           >
             {validationMessage}
@@ -109,15 +101,12 @@ export default function SignupStep2() {
             placeholder="비밀번호를 입력해주세요."
             value={passwordConfirm}
             onChange={handlePasswordConfirmChange}
+            readOnly={isValidPassword ? false : true}
           />
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isPasswordMatching === null
-                ? "text-gray-400"
-                : isPasswordMatching
-                ? "text-blue-400"
-                : "text-red-400"
+              isPasswordMatching ? "text-blue-400" : "text-red-400"
             )}
           >
             {confirmMessage}
