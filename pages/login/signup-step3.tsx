@@ -10,7 +10,9 @@ export default function SignupStep3() {
     remoteName,
     remoteHost,
     remoteKeyPath,
+    remoteNameMsg,
     remoteHostMsg,
+    isValidRemoteName,
     isValidRemoteHost,
     handleRemoteNameChange,
     handleRemoteHostChange,
@@ -31,10 +33,11 @@ export default function SignupStep3() {
           />
           <div
             className={cls(
-              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5 text-gray-400"
+              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              isValidRemoteName ? "text-blue-400" : "text-red-400"
             )}
           >
-            내용을 입력하세요.
+            {remoteNameMsg}
           </div>
         </div>
         <div className="flex flex-col justify-start items-center relative w-full mt-7 xs:mt-8 sm:mt-9">
@@ -48,11 +51,7 @@ export default function SignupStep3() {
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isValidRemoteHost === null
-                ? "text-gray-400"
-                : isValidRemoteHost
-                ? "text-blue-400"
-                : "text-red-400"
+              isValidRemoteHost ? "text-blue-400" : "text-red-400"
             )}
           >
             {remoteHostMsg}

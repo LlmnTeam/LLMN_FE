@@ -22,24 +22,12 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [remoteName, setRemoteName] = useState<string>("");
   const [remoteHost, setRemoteHost] = useState<string>("");
   const [remoteKeyPath, setRemoteKeyPath] = useState<string>("");
-  const [remoteNameMsg, setRemoteNameMsg] = useState<string>(
-    "3자 이상 32자 이하의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력하세요."
-  );
-  const [remoteHostMsg, setRemoteHostMsg] = useState<string>(
-    "IPv4 또는 IPv6 형식 중 하나만 입력하세요."
-  );
-  const [isValidRemoteName, setIsValidRemoteName] = useState<boolean | null>(
-    null
-  );
-  const [isValidRemoteHost, setIsValidRemoteHost] = useState<boolean | null>(
-    null
-  );
+  const [isValidRemoteName, setIsValidRemoteName] = useState<boolean>(false);
+  const [isValidRemoteHost, setIsValidRemoteHost] = useState<boolean>(false);
+  const [remoteNameMsg, setRemoteNameMsg] = useState<string>("");
+  const [remoteHostMsg, setRemoteHostMsg] = useState<string>("");
 
   const isMobile = useIsMobile(640);
-
-  useEffect(() => {
-    console.log("isMobile: ", isMobile);
-  }, [isMobile]);
 
   const handleRemoteNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -47,13 +35,19 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     const inputRemoteName = event.target.value;
     setRemoteName(inputRemoteName);
 
+    if (inputRemoteName.trim() === "") {
+      setIsValidRemoteName(false);
+      setRemoteNameMsg("");
+      return;
+    }
+
     if (validateRemoteName(inputRemoteName)) {
       setIsValidRemoteName(true);
       setRemoteNameMsg("사용할 수 있는 이름입니다.");
     } else {
       setIsValidRemoteName(false);
       setRemoteNameMsg(
-        "3자 이상 32자 이하의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력하세요."
+        "3~32자의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력해주세요."
       );
     }
   };
@@ -66,6 +60,18 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     const cleanedRemoteHost = filterInput(inputRemoteHost, isIPv6);
     setRemoteHost(cleanedRemoteHost);
 
+    if (cleanedRemoteHost.trim() === "") {
+      setRemoteHostMsg("");
+      setIsValidRemoteHost(false);
+      return;
+    }
+
+    if (!cleanedRemoteHost.includes(".") && !cleanedRemoteHost.includes(":")) {
+      setIsValidRemoteHost(false);
+      setRemoteHostMsg("IPv4 또는 IPv6 형식 중 하나만 입력하세요.");
+      return;
+    }
+
     if (isIPv6) {
       if (validateIPv6(cleanedRemoteHost)) {
         setIsValidRemoteHost(true);
@@ -74,7 +80,7 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
         setIsValidRemoteHost(false);
         setRemoteHostMsg(
           isMobile
-            ? "IPv6 예: 2001:db8::1"
+            ? "IPv6 형식에 맞춰 입력하세요. 예: 2001:db8::1"
             : "IPv6 형식에 맞춰 입력하세요. 예: 2001:0db8:85a3:0000:0000:8a2e:0370:7334"
         );
       }
