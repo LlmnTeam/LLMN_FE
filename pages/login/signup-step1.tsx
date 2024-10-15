@@ -1,6 +1,8 @@
 import ButtonLarge from "@/components/commons/button-large";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
+import ToggleButton from "@/components/commons/toggle-button";
+import useToggleButton from "@/hooks/commons/use-toggle-button";
 import useEmailCheck from "@/hooks/login/use-email-check";
 import { cls } from "@/libs/class-utils";
 import { useRouter } from "next/router";
@@ -8,6 +10,8 @@ import { useEffect, useState } from "react";
 
 export default function SignupStep1() {
   const router = useRouter();
+
+  const { isToggled, handleToggle } = useToggleButton();
 
   const {
     email,
@@ -32,6 +36,7 @@ export default function SignupStep1() {
 
   const handleNextButton = (): void => {
     if (!isValidEmail || !isValidCode) return;
+    sessionStorage.setItem("receivingAlarm", isToggled ? "true" : "false");
     sessionStorage.setItem("email", email);
     router.push("/login/signup-step2");
   };
@@ -39,6 +44,12 @@ export default function SignupStep1() {
   return (
     <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 pt-[15vh] pb-[15vh] px-6 overflow-y-auto overflow-x-hidden">
       <Logo />
+      <div className="flex flex-row justify-between items-center w-full px-1 mt-1 xs:mt-2 sm:mt-3">
+        <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
+          알람 설정
+        </div>
+        <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
+      </div>
       <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5">
         <Input
           type="email"

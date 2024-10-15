@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <div className="flex flex-row justify-center items-center gap-2 xs:gap-2.5 sm:gap-3 mb-3 xs:mb-3.5 sm:mb-4">
+    <div className="flex flex-row justify-center items-center gap-2 xs:gap-2.5 sm:gap-3">
       <Image
         src="/images/logo.svg"
         alt="logo"

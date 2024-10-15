@@ -21,9 +21,9 @@ export default function SignupStep3() {
 
   return (
     <div>
-      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[690px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[680px] xs:h-[720px] sm:h-[760px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
-        <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5">
+        <div className="flex flex-col justify-start items-center relative w-full mt-8 xs:mt-9 sm:mt-10">
           <Input
             type="text"
             label="원격 서버 사용자"
@@ -40,7 +40,7 @@ export default function SignupStep3() {
             {remoteNameMsg}
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center relative w-full mt-7 xs:mt-8 sm:mt-9">
+        <div className="flex flex-col justify-start items-center relative w-full mt-6 xs:mt-7 sm:mt-8">
           <Input
             type="text"
             label="호스트"
@@ -57,7 +57,7 @@ export default function SignupStep3() {
             {remoteHostMsg}
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center relative w-full mt-7 xs:mt-8 sm:mt-9">
+        <div className="flex flex-col justify-start items-center relative w-full mt-6 xs:mt-7 sm:mt-8">
           <Input
             type="text"
             label="프라이빗 키"

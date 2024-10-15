@@ -14,9 +14,9 @@ export default function SignupStep4() {
   } = useInstanceModal();
   return (
     <div>
-      <div className="flex flex-col justify-start items-center w-screen h-[750px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[680px] xs:h-[720px] sm:h-[760px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
-        <div className="flex flex-col justify-start items-center relative w-full max-w-[605px] h-[410px] xs:h-[430px] sm:h-[440px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 overflow-hidden">
+        <div className="flex flex-col justify-start items-center relative w-full max-w-[605px] h-[410px] xs:h-[430px] sm:h-[440px] rounded-md shadow-md border border-[#E5E7EB] gap-2 xs:gap-3 sm:gap-4 mt-1 xs:mt-2 sm:mt-3 overflow-hidden">
           <div className="flex flex-row justify-center items-center w-full bg-white px-1 mb-2 xs:mb-3 sm:mb-4 pt-3 xs:pt-4 sm:pt-5">
             <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold">
               클라우드 인스턴스
