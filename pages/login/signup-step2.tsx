@@ -1,6 +1,8 @@
 import ButtonSmall from "@/components/commons/button-small";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
+import ToggleButton from "@/components/commons/toggle-button";
+import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { useNicknameCheck } from "@/hooks/login/use-nickname-check";
 import { usePasswordCheck } from "@/hooks/login/use-password-check";
 import { cls } from "@/libs/utils";
@@ -9,6 +11,8 @@ import { useEffect, useState } from "react";
 
 export default function SignupStep2() {
   const router = useRouter();
+
+  const { isToggled, handleToggle } = useToggleButton();
 
   const {
     nickname,
@@ -39,7 +43,8 @@ export default function SignupStep2() {
 
   const handleNextButton = (): void => {
     if (!isPossibleNickname || !isPasswordValid || !isPasswordMatching) return;
-    sessionStorage.setItem("nickname", nickname);
+    sessionStorage.setItem("receivingAlarm", isToggled ? "true" : "false");
+    sessionStorage.setItem("nickName", nickname);
     sessionStorage.setItem("password", password);
     sessionStorage.setItem("passwordConfirm", passwordConfirm);
     router.push("/login/signup-step3");
@@ -47,8 +52,14 @@ export default function SignupStep2() {
 
   return (
     <div>
-      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[630px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[690px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
+        <div className="flex flex-row justify-between items-center w-full px-1 -mt-4 xs:-mt-5 sm:-mt-6">
+          <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
+            알람 설정
+          </div>
+          <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
+        </div>
         <div className="flex flex-col justify-start items-center relative w-full mt-2.5 xs:mt-3 sm:mt-3.5">
           <Input
             type="text"
