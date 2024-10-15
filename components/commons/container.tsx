@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 
 interface LayoutProps {
   title: string;

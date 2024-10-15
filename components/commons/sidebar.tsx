@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import Image from "next/image";
 
 interface SidebarProps {

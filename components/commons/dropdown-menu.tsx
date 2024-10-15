@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import CloudListModal from "../login/cloud-list-modal";
 
 interface DropdownMenuProps {

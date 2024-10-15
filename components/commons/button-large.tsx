@@ -1,4 +1,4 @@
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import Link from "next/link";
 
 interface ButtonProps {

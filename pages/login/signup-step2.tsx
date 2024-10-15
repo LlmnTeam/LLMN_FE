@@ -5,7 +5,7 @@ import ToggleButton from "@/components/commons/toggle-button";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { useNicknameCheck } from "@/hooks/login/use-nickname-check";
 import { usePasswordCheck } from "@/hooks/login/use-password-check";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 

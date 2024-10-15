@@ -1,4 +1,4 @@
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import Image from "next/image";
 import { useRef } from "react";
 

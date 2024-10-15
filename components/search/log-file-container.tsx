@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Container from "../commons/container";
 import LogFile from "./log-file";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 
 interface LogFileProps {
   filename: string;

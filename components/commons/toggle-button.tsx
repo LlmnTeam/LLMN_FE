@@ -1,4 +1,4 @@
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/class-utils";
 import React from "react";
 
 interface ToggleButtonProps {
