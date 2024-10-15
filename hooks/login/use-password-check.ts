@@ -1,12 +1,10 @@
+import { validatePassword } from "@/libs/validation-utils";
 import { useState, useEffect } from "react";
-
-const passwordPattern =
-  /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!~`<>,./?;:'"[\]{}\\()|_-])\S*$/;
 
 interface UsePasswordCheckReturn {
   password: string;
   passwordConfirm: string;
-  isPasswordValid: boolean | null;
+  isValidPassword: boolean | null;
   isPasswordMatching: boolean | null;
   validationMessage: string;
   confirmMessage: string;
@@ -19,7 +17,7 @@ interface UsePasswordCheckReturn {
 export default function usePasswordCheck(): UsePasswordCheckReturn {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-  const [isPasswordValid, setIsPasswordValid] = useState<boolean | null>(null);
+  const [isValidPassword, setIsValidPassword] = useState<boolean | null>(null);
   const [isPasswordMatching, setIsPasswordMatching] = useState<boolean | null>(
     null
   );
@@ -30,9 +28,11 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
   const handlePasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setPassword(event.target.value);
-    if (event.target.value.trim() === "") {
-      setIsPasswordValid(null);
+    const inputPassword = event.target.value;
+    setPassword(inputPassword);
+
+    if (inputPassword.trim() === "") {
+      setIsValidPassword(null);
       setValidationMessage("비밀번호를 입력해주세요.");
       setPasswordConfirm("");
     }
@@ -41,8 +41,10 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
   const handlePasswordConfirmChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setPasswordConfirm(event.target.value);
-    if (event.target.value.trim() === "") {
+    const inputPasswordConfrim = event.target.value;
+    setPasswordConfirm(inputPasswordConfrim);
+
+    if (inputPasswordConfrim.trim() === "") {
       setIsPasswordMatching(null);
       setConfirmMessage("");
     }
@@ -51,14 +53,14 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
   useEffect(() => {
     if (password) {
       if (
-        passwordPattern.test(password) &&
+        validatePassword(password) &&
         password.length >= 8 &&
         password.length <= 20
       ) {
-        setIsPasswordValid(true);
+        setIsValidPassword(true);
         setValidationMessage("사용할 수 있는 비밀번호입니다.");
       } else {
-        setIsPasswordValid(false);
+        setIsValidPassword(false);
         setValidationMessage(
           "비밀번호는 8-20자, 문자, 숫자, 특수문자를 포함해야 합니다."
         );
@@ -66,7 +68,7 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
       }
     }
 
-    if (isPasswordValid && password && passwordConfirm) {
+    if (isValidPassword && password && passwordConfirm) {
       setIsPasswordMatching(password === passwordConfirm);
       setConfirmMessage(
         password === passwordConfirm
@@ -76,12 +78,12 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
     } else {
       setConfirmMessage("");
     }
-  }, [password, passwordConfirm, isPasswordValid]);
+  }, [password, passwordConfirm, isValidPassword]);
 
   return {
     password,
     passwordConfirm,
-    isPasswordValid,
+    isValidPassword,
     isPasswordMatching,
     validationMessage,
     confirmMessage,

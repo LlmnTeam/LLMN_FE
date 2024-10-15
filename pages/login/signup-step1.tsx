@@ -12,8 +12,8 @@ export default function SignupStep1() {
   const {
     email,
     code,
-    isEmailAvailable,
-    isCodeAvailable,
+    isValidEmail,
+    isValidCode,
     emailMsg,
     codeMsg,
     timer,
@@ -27,11 +27,11 @@ export default function SignupStep1() {
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    setDisabled(isEmailAvailable && isCodeAvailable ? false : true);
-  }, [isEmailAvailable, isCodeAvailable]);
+    setDisabled(isValidEmail && isValidCode ? false : true);
+  }, [isValidEmail, isValidCode]);
 
   const handleNextButton = (): void => {
-    if (!isEmailAvailable || !isCodeAvailable) return;
+    if (!isValidEmail || !isValidCode) return;
     sessionStorage.setItem("email", email);
     router.push("/login/signup-step2");
   };
@@ -46,15 +46,15 @@ export default function SignupStep1() {
           placeholder="이메일을 입력해주세요."
           value={email}
           onChange={handleEmailChange}
-          readOnly={isEmailAvailable ? true : false}
+          readOnly={isValidEmail ? true : false}
         />
         <div className="flex flex-row justify-between items-center absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full">
           <div
             className={cls(
               "text-[12px] xs:text-[13px] sm:text-[14px] font-semibold",
-              isEmailAvailable
+              isValidEmail
                 ? "visible text-blue-400"
-                : !isEmailAvailable && email.trim()
+                : !isValidEmail && email.trim()
                 ? "visible text-red-400"
                 : "hidden"
             )}
@@ -64,7 +64,7 @@ export default function SignupStep1() {
           <div
             className={cls(
               "text-[14px] xs:text-[15px] sm:text-[16px] font-semibold transition-colors",
-              isEmailAvailable ? "visible" : "hidden",
+              isValidEmail ? "visible" : "hidden",
               timer === 0
                 ? "text-[#717478] cursor-pointer"
                 : "text-gray-300 cursor-not-allowed"
@@ -75,7 +75,7 @@ export default function SignupStep1() {
           </div>
         </div>
       </div>
-      {!isEmailAvailable ? (
+      {!isValidEmail ? (
         <ButtonLarge
           label="중복확인"
           kind="check"
@@ -99,7 +99,7 @@ export default function SignupStep1() {
             <div
               className={cls(
                 "flex flex-row justify-center items-center h-full absolute right-4 text-[14px] xs:text-[15px] sm:text-[16px] font-medium text-gray-600",
-                isEmailAvailable ? "visible" : "hidden"
+                isValidEmail ? "visible" : "hidden"
               )}
             >
               <div className="w-[40px]">
@@ -112,7 +112,7 @@ export default function SignupStep1() {
                 "absolute top-[45px] xs:top-[50px] sm:top-[55px] w-full text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
                 codeMsg === ""
                   ? "hidden"
-                  : isCodeAvailable
+                  : isValidCode
                   ? "visible text-blue-400"
                   : "visible text-red-400"
               )}

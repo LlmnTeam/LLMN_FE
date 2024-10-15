@@ -16,7 +16,7 @@ export default function SignupStep2() {
 
   const {
     nickname,
-    isPossibleNickname,
+    isValidNickname,
     nicknameMsg,
     handleNicknameChange,
     verifyNickname,
@@ -25,7 +25,7 @@ export default function SignupStep2() {
   const {
     password,
     passwordConfirm,
-    isPasswordValid,
+    isValidPassword,
     isPasswordMatching,
     validationMessage,
     confirmMessage,
@@ -37,12 +37,12 @@ export default function SignupStep2() {
 
   useEffect(() => {
     setDisabled(
-      isPossibleNickname && isPasswordValid && isPasswordMatching ? false : true
+      isValidNickname && isValidPassword && isPasswordMatching ? false : true
     );
-  }, [isPossibleNickname, isPasswordValid, isPasswordMatching]);
+  }, [isValidNickname, isValidPassword, isPasswordMatching]);
 
   const handleNextButton = (): void => {
-    if (!isPossibleNickname || !isPasswordValid || !isPasswordMatching) return;
+    if (!isValidNickname || !isValidPassword || !isPasswordMatching) return;
     sessionStorage.setItem("receivingAlarm", isToggled ? "true" : "false");
     sessionStorage.setItem("nickName", nickname);
     sessionStorage.setItem("password", password);
@@ -71,9 +71,9 @@ export default function SignupStep2() {
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isPossibleNickname === null
+              isValidNickname === null
                 ? "text-gray-400"
-                : isPossibleNickname
+                : isValidNickname
                 ? "text-blue-400"
                 : "text-red-400"
             )}
@@ -92,9 +92,9 @@ export default function SignupStep2() {
           <div
             className={cls(
               "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-              isPasswordValid === null
+              isValidPassword === null
                 ? "text-gray-400"
-                : isPasswordValid
+                : isValidPassword
                 ? "text-blue-400"
                 : "text-red-400"
             )}

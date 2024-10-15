@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { validateIPv4, validateIPv6, filterInput } from "@/libs/ip-utils";
 import useIsMobile from "./use-is-mobile";
+import { validateRemoteName } from "@/libs/validation-utils";
 
 interface UseInstanceCheckReturn {
   remoteName: string;
   remoteHost: string;
   remoteKeyPath: string;
+  remoteNameMsg: string;
   remoteHostMsg: string;
+  isValidRemoteName: boolean | null;
   isValidRemoteHost: boolean | null;
   handleRemoteNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteHostChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,8 +22,14 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [remoteName, setRemoteName] = useState<string>("");
   const [remoteHost, setRemoteHost] = useState<string>("");
   const [remoteKeyPath, setRemoteKeyPath] = useState<string>("");
+  const [remoteNameMsg, setRemoteNameMsg] = useState<string>(
+    "3자 이상 32자 이하의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력하세요."
+  );
   const [remoteHostMsg, setRemoteHostMsg] = useState<string>(
     "IPv4 또는 IPv6 형식 중 하나만 입력하세요."
+  );
+  const [isValidRemoteName, setIsValidRemoteName] = useState<boolean | null>(
+    null
   );
   const [isValidRemoteHost, setIsValidRemoteHost] = useState<boolean | null>(
     null
@@ -35,20 +44,30 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const handleRemoteNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setRemoteName(event.target.value);
+    const inputRemoteName = event.target.value;
+    setRemoteName(inputRemoteName);
+
+    if (validateRemoteName(inputRemoteName)) {
+      setIsValidRemoteName(true);
+      setRemoteNameMsg("사용할 수 있는 이름입니다.");
+    } else {
+      setIsValidRemoteName(false);
+      setRemoteNameMsg(
+        "3자 이상 32자 이하의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력하세요."
+      );
+    }
   };
 
   const handleRemoteHostChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    let value = event.target.value;
-
-    const isIPv6 = value.includes(":");
-
-    value = filterInput(value, isIPv6);
+    let inputRemoteHost = event.target.value;
+    const isIPv6 = inputRemoteHost.includes(":");
+    const cleanedRemoteHost = filterInput(inputRemoteHost, isIPv6);
+    setRemoteHost(cleanedRemoteHost);
 
     if (isIPv6) {
-      if (validateIPv6(value)) {
+      if (validateIPv6(cleanedRemoteHost)) {
         setIsValidRemoteHost(true);
         setRemoteHostMsg("유효한 IPv6 주소입니다.");
       } else {
@@ -60,7 +79,7 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
         );
       }
     } else {
-      if (validateIPv4(value)) {
+      if (validateIPv4(cleanedRemoteHost)) {
         setIsValidRemoteHost(true);
         setRemoteHostMsg("유효한 IPv4 주소입니다.");
       } else {
@@ -68,8 +87,6 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
         setRemoteHostMsg("IPv4 형식에 맞춰 입력하세요. 예: 192.168.0.1");
       }
     }
-
-    setRemoteHost(value);
   };
 
   useEffect(() => {
@@ -95,7 +112,9 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     remoteName,
     remoteHost,
     remoteKeyPath,
+    remoteNameMsg,
     remoteHostMsg,
+    isValidRemoteName,
     isValidRemoteHost,
     handleRemoteNameChange,
     handleRemoteHostChange,

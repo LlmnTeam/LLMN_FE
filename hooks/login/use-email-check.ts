@@ -1,28 +1,24 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import useTimer from "./use-timer";
 import {
   CheckEmailDuplication,
   ResendCode,
   VerifySignupCode,
 } from "@/api/login/email-check";
-
-const getSessionStorageKey = (email: string): string =>
-  `emailRequestTimestamp_${email}`;
-
-const calculateRemainingTime = (
-  savedTimestamp: number,
-  totalDuration: number = 180
-): number => {
-  const timePassed = Math.floor((Date.now() - savedTimestamp) / 1000);
-  return totalDuration - timePassed;
-};
+import {
+  validateEmailDomainPart,
+  validateEmailLocalPart,
+} from "@/libs/validation-utils";
+import {
+  calculateRemainingTime,
+  getSessionStorageKey,
+} from "@/libs/timer-utils";
 
 interface UseEmailCheckReturn {
   email: string;
   code: string;
-  isEmailAvailable: boolean | null;
-  isCodeAvailable: boolean | null;
+  isValidEmail: boolean | null;
+  isValidCode: boolean | null;
   emailMsg: string;
   codeMsg: string;
   timer: number;
@@ -36,45 +32,40 @@ interface UseEmailCheckReturn {
 export default function useEmailCheck(): UseEmailCheckReturn {
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
-    false
-  );
-  const [isCodeAvailable, setIsCodeAvailable] = useState<boolean | null>(false);
+  const [isValidEmail, setIsValidEmail] = useState<boolean | null>(false);
+  const [isValidCode, setIsValidCode] = useState<boolean | null>(false);
   const [emailMsg, setEmailMsg] = useState<string>("");
   const [codeMsg, setCodeMsg] = useState<string>("");
-  const router = useRouter();
 
   const { timer, startTimer, resetTimer } = useTimer(180);
 
-  const validateLocalPart = (localPart: string): boolean => {
-    const regex = /^[a-zA-Z0-9._%+-]+$/;
-    return regex.test(localPart);
-  };
+  const handleEmailChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const inputEmail = event.target.value;
+    setEmail(inputEmail);
 
-  const validateDomainPart = (domainPart: string): boolean => {
-    const regex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(domainPart);
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-    if (email.trim() === "") {
+    if (inputEmail.trim() === "") {
       setEmailMsg("");
-      setIsEmailAvailable(false);
+      setIsValidEmail(false);
     }
   };
 
-  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setCode(e.target.value);
-    if (e.target.value.trim() === "") {
-      setIsCodeAvailable(false);
+  const handleCodeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const inputCode = event.target.value;
+    setCode(inputCode);
+
+    if (inputCode.trim() === "") {
+      setIsValidCode(false);
       setCodeMsg("");
     }
   };
 
   useEffect(() => {
     if (timer === 0) {
-      setIsCodeAvailable(false);
+      setIsValidCode(false);
       setCode("");
       setCodeMsg("인증번호 확인 시간이 만료되었습니다.");
     }
@@ -90,10 +81,10 @@ export default function useEmailCheck(): UseEmailCheckReturn {
     } else {
       const [localPart, domainPart] = email.split("@");
 
-      if (!validateLocalPart(localPart)) {
+      if (!validateEmailLocalPart(localPart)) {
         setEmailMsg("영문, 숫자, 특수문자(._%+-)만 사용 가능합니다.");
         return false;
-      } else if (!validateDomainPart(domainPart)) {
+      } else if (!validateEmailDomainPart(domainPart)) {
         setEmailMsg("올바른 도메인 형식을 입력해주세요. 예: domain.com");
         return false;
       }
@@ -105,13 +96,12 @@ export default function useEmailCheck(): UseEmailCheckReturn {
   const verifyEmail = async (): Promise<void> => {
     const isValid = validateEmail();
     if (!isValid) {
-      setIsEmailAvailable(false);
+      setIsValidEmail(false);
       return;
     }
 
     try {
       const isAvailable = await CheckEmailDuplication(email);
-
       const sessionStorageKey = getSessionStorageKey(email);
       const savedTimestamp = sessionStorage.getItem(sessionStorageKey);
 
@@ -120,32 +110,32 @@ export default function useEmailCheck(): UseEmailCheckReturn {
           const remaining = calculateRemainingTime(Number(savedTimestamp));
           if (remaining > 0 && remaining <= 180) {
             console.log("타이머 재설정 시작.");
-            setIsEmailAvailable(true);
+            setIsValidEmail(true);
             setEmailMsg("인증번호를 이미 발송하였습니다.");
             resetTimer();
             startTimer(remaining);
           } else {
             sessionStorage.setItem(sessionStorageKey, Date.now().toString());
-            setIsEmailAvailable(true);
+            setIsValidEmail(true);
             setEmailMsg("사용할 수 있는 이메일입니다.");
             resetTimer();
             startTimer(180);
           }
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
-          setIsEmailAvailable(true);
+          setIsValidEmail(true);
           setEmailMsg("사용할 수 있는 이메일입니다.");
           resetTimer();
           startTimer(180);
         }
       } else {
-        setIsEmailAvailable(false);
+        setIsValidEmail(false);
         setEmailMsg("이미 존재하는 이메일입니다.");
       }
       setCodeMsg("");
     } catch (error) {
       console.error("이메일 중복 확인 중 오류 발생:", error);
-      setIsEmailAvailable(false);
+      setIsValidEmail(false);
       setEmailMsg("이메일 중복 확인 중 오류가 발생했습니다.");
     }
   };
@@ -153,12 +143,12 @@ export default function useEmailCheck(): UseEmailCheckReturn {
   const verifyCode = async (): Promise<void> => {
     try {
       const isMatching = await VerifySignupCode(email, code);
-      setIsCodeAvailable(isMatching ? true : false);
+      setIsValidCode(isMatching ? true : false);
       setCodeMsg(
         isMatching ? "인증번호가 일치합니다." : "인증번호가 일치하지 않습니다."
       );
     } catch (error) {
-      setIsCodeAvailable(false);
+      setIsValidCode(false);
       setCodeMsg("인증번호 확인 중 오류가 발생했습니다.");
       console.error("인증번호 확인 중 오류 발생:", error);
     }
@@ -182,14 +172,14 @@ export default function useEmailCheck(): UseEmailCheckReturn {
       if (result) {
         getSessionStorageKey(email);
         setCode("");
-        setIsCodeAvailable(false);
+        setIsValidCode(false);
         setCodeMsg("");
         resetTimer();
         startTimer(180);
       }
     } catch (error) {
       setCode("");
-      setIsCodeAvailable(false);
+      setIsValidCode(false);
       setCodeMsg("인증번호 요청 중 오류가 발생했습니다.");
       console.error("인증번호 요청 중 오류 발생:", error);
     }
@@ -198,8 +188,8 @@ export default function useEmailCheck(): UseEmailCheckReturn {
   return {
     email,
     code,
-    isEmailAvailable,
-    isCodeAvailable,
+    isValidEmail,
+    isValidCode,
     emailMsg,
     codeMsg,
     timer,

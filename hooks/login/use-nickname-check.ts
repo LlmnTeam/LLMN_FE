@@ -1,9 +1,10 @@
 import { checkNicknameDuplication } from "@/api/login/nickname-check";
+import { validateNickname } from "@/libs/validation-utils";
 import { useEffect, useState } from "react";
 
 interface UseNicknameCheckReturn {
   nickname: string;
-  isPossibleNickname: boolean | null;
+  isValidNickname: boolean | null;
   nicknameMsg: string;
   handleNicknameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   verifyNickname: () => Promise<void>;
@@ -11,33 +12,27 @@ interface UseNicknameCheckReturn {
 
 export default function useNicknameCheck(): UseNicknameCheckReturn {
   const [nickname, setNickname] = useState<string>("");
-  const [isPossibleNickname, setIsPossibleNickname] = useState<boolean | null>(
-    null
-  );
+  const [isValidNickname, setIsValidNickname] = useState<boolean | null>(null);
   const [nicknameMsg, setNicknameMsg] = useState<string>(
-    "닉네임은 2자 이상 8자 이하로 설정해주세요."
+    "2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요."
   );
-
-  const validateNickname = (nickname: string): boolean => {
-    const regex = /^.{2,8}$/;
-    return regex.test(nickname);
-  };
 
   const handleNicknameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const inputNickname = event.target.value;
     setNickname(inputNickname);
+
     if (inputNickname.trim() === "") {
-      setNicknameMsg("닉네임은 2자 이상 8자 이하로 설정해주세요.");
-      setIsPossibleNickname(null);
+      setIsValidNickname(null);
+      setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
     }
   };
 
   const verifyNickname = async (): Promise<void> => {
     if (!validateNickname(nickname)) {
-      setNicknameMsg("닉네임은 2자 이상 8자 이하로 설정해주세요.");
-      setIsPossibleNickname(null);
+      setIsValidNickname(null);
+      setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
       return;
     }
 
@@ -45,15 +40,15 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
       const result = await checkNicknameDuplication(nickname);
       console.log("result: ", result);
       if (!result.isDuplicate) {
-        setIsPossibleNickname(true);
+        setIsValidNickname(true);
         setNicknameMsg("사용 가능한 닉네임입니다.");
       } else {
-        setIsPossibleNickname(false);
+        setIsValidNickname(false);
         setNicknameMsg("이미 사용 중인 닉네임입니다.");
       }
     } catch (error) {
       console.error("닉네임 체크 중 오류 발생:", error);
-      setIsPossibleNickname(false);
+      setIsValidNickname(false);
       setNicknameMsg("닉네임 검사 중 오류가 발생했습니다.");
     }
   };
@@ -70,7 +65,7 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
 
   return {
     nickname,
-    isPossibleNickname,
+    isValidNickname,
     nicknameMsg,
     handleNicknameChange,
     verifyNickname,
