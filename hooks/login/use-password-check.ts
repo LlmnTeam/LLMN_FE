@@ -55,7 +55,7 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
         password.length <= 20
       ) {
         setIsValidPassword(true);
-        setValidationMessage("사용할 수 있는 비밀번호입니다.");
+        setValidationMessage("사용 가능한 비밀번호입니다.");
       } else {
         setIsValidPassword(false);
         setValidationMessage(

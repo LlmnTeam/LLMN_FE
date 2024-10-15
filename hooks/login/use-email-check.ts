@@ -117,14 +117,14 @@ export default function useEmailCheck(): UseEmailCheckReturn {
           } else {
             sessionStorage.setItem(sessionStorageKey, Date.now().toString());
             setIsValidEmail(true);
-            setEmailMsg("사용할 수 있는 이메일입니다.");
+            setEmailMsg("사용 가능한 이메일입니다.");
             resetTimer();
             startTimer(180);
           }
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
           setIsValidEmail(true);
-          setEmailMsg("사용할 수 있는 이메일입니다.");
+          setEmailMsg("사용 가능한 이메일입니다.");
           resetTimer();
           startTimer(180);
         }

@@ -43,7 +43,7 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
 
     if (validateRemoteName(inputRemoteName)) {
       setIsValidRemoteName(true);
-      setRemoteNameMsg("사용할 수 있는 이름입니다.");
+      setRemoteNameMsg("사용 가능한 사용자명입니다.");
     } else {
       setIsValidRemoteName(false);
       setRemoteNameMsg(
