@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useTimer = (initialTime: number = 180) => {
+export default function useTimer(initialTime: number = 180) {
   const [timer, setTimer] = useState<number>(initialTime);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
 
@@ -42,4 +42,4 @@ export const useTimer = (initialTime: number = 180) => {
   }, [timerId]);
 
   return { timer, startTimer, resetTimer, setTimerToZero };
-};
+}

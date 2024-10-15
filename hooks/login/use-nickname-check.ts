@@ -9,7 +9,7 @@ interface UseNicknameCheckReturn {
   verifyNickname: () => Promise<void>;
 }
 
-export const useNicknameCheck = (): UseNicknameCheckReturn => {
+export default function useNicknameCheck(): UseNicknameCheckReturn {
   const [nickname, setNickname] = useState<string>("");
   const [isPossibleNickname, setIsPossibleNickname] = useState<boolean | null>(
     null
@@ -75,4 +75,4 @@ export const useNicknameCheck = (): UseNicknameCheckReturn => {
     handleNicknameChange,
     verifyNickname,
   };
-};
+}

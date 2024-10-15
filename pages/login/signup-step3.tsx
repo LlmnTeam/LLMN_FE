@@ -1,7 +1,7 @@
 import ButtonSmall from "@/components/commons/button-small";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
-import { useInstanceCheck } from "@/hooks/commons/use-instance-check";
+import useInstanceCheck from "@/hooks/commons/use-instance-check";
 import { cls } from "@/libs/class-utils";
 import { useState } from "react";
 

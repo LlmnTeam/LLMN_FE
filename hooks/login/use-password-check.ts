@@ -16,7 +16,7 @@ interface UsePasswordCheckReturn {
   ) => void;
 }
 
-export const usePasswordCheck = (): UsePasswordCheckReturn => {
+export default function usePasswordCheck(): UsePasswordCheckReturn {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [isPasswordValid, setIsPasswordValid] = useState<boolean | null>(null);
@@ -88,4 +88,4 @@ export const usePasswordCheck = (): UsePasswordCheckReturn => {
     handlePasswordChange,
     handlePasswordConfirmChange,
   };
-};
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useIsMobile } from "./use-is-mobile";
 import { validateIPv4, validateIPv6, filterInput } from "@/libs/ip-utils";
+import useIsMobile from "./use-is-mobile";
 
 interface UseInstanceCheckReturn {
   remoteName: string;
@@ -15,7 +15,7 @@ interface UseInstanceCheckReturn {
   ) => void;
 }
 
-export const useInstanceCheck = (): UseInstanceCheckReturn => {
+export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [remoteName, setRemoteName] = useState<string>("");
   const [remoteHost, setRemoteHost] = useState<string>("");
   const [remoteKeyPath, setRemoteKeyPath] = useState<string>("");
@@ -101,4 +101,4 @@ export const useInstanceCheck = (): UseInstanceCheckReturn => {
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
   };
-};
+}

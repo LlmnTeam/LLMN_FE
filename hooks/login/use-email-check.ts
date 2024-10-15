@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useTimer } from "./use-timer";
+import useTimer from "./use-timer";
 import {
   CheckEmailDuplication,
   ResendCode,
@@ -9,6 +9,7 @@ import {
 
 const getSessionStorageKey = (email: string): string =>
   `emailRequestTimestamp_${email}`;
+
 const calculateRemainingTime = (
   savedTimestamp: number,
   totalDuration: number = 180
@@ -32,7 +33,7 @@ interface UseEmailCheckReturn {
   resendCode: () => Promise<void>;
 }
 
-export const useEmailCheck = (): UseEmailCheckReturn => {
+export default function useEmailCheck(): UseEmailCheckReturn {
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
@@ -208,4 +209,4 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
     verifyCode,
     resendCode,
   };
-};
+}

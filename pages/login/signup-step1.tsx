@@ -1,7 +1,7 @@
 import ButtonLarge from "@/components/commons/button-large";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
-import { useEmailCheck } from "@/hooks/login/use-email-check";
+import useEmailCheck from "@/hooks/login/use-email-check";
 import { cls } from "@/libs/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
