@@ -19,9 +19,9 @@ interface UsePasswordCheckReturn {
 export const usePasswordCheck = (): UsePasswordCheckReturn => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-  const [isPasswordValid, setIsPasswordValid] = useState<boolean | null>(false);
+  const [isPasswordValid, setIsPasswordValid] = useState<boolean | null>(null);
   const [isPasswordMatching, setIsPasswordMatching] = useState<boolean | null>(
-    false
+    null
   );
   const [validationMessage, setValidationMessage] =
     useState<string>("비밀번호를 입력해주세요.");

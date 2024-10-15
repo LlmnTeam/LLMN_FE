@@ -4,8 +4,12 @@ import Logo from "@/components/commons/logo";
 import { useNicknameCheck } from "@/hooks/login/use-nickname-check";
 import { usePasswordCheck } from "@/hooks/login/use-password-check";
 import { cls } from "@/libs/utils";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function SignupStep2() {
+  const router = useRouter();
+
   const {
     nickname,
     isPossibleNickname,
@@ -24,6 +28,22 @@ export default function SignupStep2() {
     handlePasswordChange,
     handlePasswordConfirmChange,
   } = usePasswordCheck();
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(
+      isPossibleNickname && isPasswordValid && isPasswordMatching ? false : true
+    );
+  }, [isPossibleNickname, isPasswordValid, isPasswordMatching]);
+
+  const handleNextButton = (): void => {
+    if (!isPossibleNickname || !isPasswordValid || !isPasswordMatching) return;
+    sessionStorage.setItem("nickname", nickname);
+    sessionStorage.setItem("password", password);
+    sessionStorage.setItem("passwordConfirm", passwordConfirm);
+    router.push("/login/signup-step3");
+  };
 
   return (
     <div>
@@ -94,10 +114,17 @@ export default function SignupStep2() {
         </div>
       </div>
       <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6">
-        <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
+        <button
+          className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]"
+          onClick={() => router.push("/login/signup-step1")}
+        >
           취소
         </button>
-        <ButtonSmall label="다음" />{" "}
+        <ButtonSmall
+          label="다음"
+          disabled={disabled}
+          onClick={handleNextButton}
+        />
       </div>
     </div>
   );
