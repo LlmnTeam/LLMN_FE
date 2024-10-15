@@ -32,8 +32,8 @@ interface UseEmailCheckReturn {
 export default function useEmailCheck(): UseEmailCheckReturn {
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [isValidEmail, setIsValidEmail] = useState<boolean | null>(false);
-  const [isValidCode, setIsValidCode] = useState<boolean | null>(false);
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+  const [isValidCode, setIsValidCode] = useState<boolean>(false);
   const [emailMsg, setEmailMsg] = useState<string>("");
   const [codeMsg, setCodeMsg] = useState<string>("");
 
@@ -46,8 +46,8 @@ export default function useEmailCheck(): UseEmailCheckReturn {
     setEmail(inputEmail);
 
     if (inputEmail.trim() === "") {
-      setEmailMsg("");
       setIsValidEmail(false);
+      setEmailMsg("");
     }
   };
 
@@ -65,15 +65,15 @@ export default function useEmailCheck(): UseEmailCheckReturn {
 
   useEffect(() => {
     if (timer === 0) {
-      setIsValidCode(false);
       setCode("");
+      setIsValidCode(false);
       setCodeMsg("인증번호 확인 시간이 만료되었습니다.");
     }
   }, [timer]);
 
   const validateEmail = (): boolean => {
     if (email === "") {
-      setEmailMsg("이메일을 입력해주세요.");
+      setEmailMsg("");
       return false;
     } else if (!email.includes("@")) {
       setEmailMsg("'@'를 포함한 올바른 이메일 주소를 입력해주세요.");
