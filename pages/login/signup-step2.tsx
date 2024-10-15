@@ -2,6 +2,7 @@ import ButtonSmall from "@/components/commons/button-small";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import { useNicknameCheck } from "@/hooks/login/use-nickname-check";
+import { usePasswordCheck } from "@/hooks/login/use-password-check";
 import { cls } from "@/libs/utils";
 
 export default function SignupStep2() {
@@ -12,6 +13,17 @@ export default function SignupStep2() {
     handleNicknameChange,
     verifyNickname,
   } = useNicknameCheck();
+
+  const {
+    password,
+    passwordConfirm,
+    isPasswordValid,
+    isPasswordMatching,
+    validationMessage,
+    confirmMessage,
+    handlePasswordChange,
+    handlePasswordConfirmChange,
+  } = usePasswordCheck();
 
   return (
     <div>
@@ -43,9 +55,20 @@ export default function SignupStep2() {
             type="password"
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={handlePasswordChange}
           />
-          <div className="w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5 text-gray-400">
-            비밀번호가 유효하지 않습니다.
+          <div
+            className={cls(
+              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              isPasswordValid === null
+                ? "text-gray-400"
+                : isPasswordValid
+                ? "text-blue-400"
+                : "text-red-400"
+            )}
+          >
+            {validationMessage}
           </div>
         </div>
         <div className="flex flex-col justify-start items-center relative w-full mt-7 xs:mt-8 sm:mt-9">
@@ -53,9 +76,20 @@ export default function SignupStep2() {
             type="password"
             label="비밀번호 확인"
             placeholder="비밀번호를 입력해주세요."
+            value={passwordConfirm}
+            onChange={handlePasswordConfirmChange}
           />
-          <div className="w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5 text-gray-400">
-            비밀번호가 일치하지 않습니다.
+          <div
+            className={cls(
+              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              isPasswordMatching === null
+                ? "text-gray-400"
+                : isPasswordMatching
+                ? "text-blue-400"
+                : "text-red-400"
+            )}
+          >
+            {confirmMessage}
           </div>
         </div>
       </div>

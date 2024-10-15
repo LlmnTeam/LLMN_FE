@@ -1,4 +1,4 @@
-import { checkNicknameDuplication } from "@/api/login/nickname-duplication";
+import { checkNicknameDuplication } from "@/api/login/nickname-check";
 import { useEffect, useState } from "react";
 
 interface UseNicknameCheckReturn {
