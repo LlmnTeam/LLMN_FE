@@ -32,7 +32,7 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <div className="flex flex-col justify-start items-center w-full h-[310px] xs:h-[330px] sm:h-[340px] gap-2 xs:gap-2.5 sm:gap-3 px-3 xs:px-4 sm:px-5 py-1 overflow-y-auto overflow-x-hidden">
+          <div className="flex flex-col justify-start items-center w-full h-[310px] xs:h-[330px] sm:h-[340px] gap-2 xs:gap-2.5 sm:gap-3 px-3 xs:px-4 sm:px-5 py-1 overflow-y-scroll overflow-x-hidden custom-scrollbar">
             <div className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-2 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer">
               <div className="flex flex-row justify-center items-center w-[15%]">
                 <Image
@@ -246,7 +246,7 @@ export default function SignupStep4() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6">
+      <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6 pb-[15vh]">
         <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
           취소
         </button>

@@ -42,7 +42,7 @@ export default function SignupStep1() {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 pt-[15vh] pb-[15vh] px-6 overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-screen gap-8 xs:gap-9 sm:gap-10 pt-[15vh] pb-[15vh] px-6 overflow-y-scroll overflow-x-hidden scrollbar-hide">
       <Logo />
       <div className="flex flex-row justify-between items-center w-full px-1 mt-1 xs:mt-2 sm:mt-3">
         <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
