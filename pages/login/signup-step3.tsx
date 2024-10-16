@@ -61,7 +61,7 @@ export default function SignupStep3() {
           <Input
             type="text"
             label="프라이빗 키"
-            placeholder="SSH perm 키를 업로드해주세요."
+            placeholder="SSH pem 키를 업로드해주세요."
             value={remoteKeyPath}
             onChange={handleRemoteKeyPathChange}
             readOnly

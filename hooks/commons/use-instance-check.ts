@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { validateIPv4, validateIPv6, filterInput } from "@/libs/ip-utils";
 import useIsMobile from "./use-is-mobile";
 import { validateRemoteName } from "@/libs/validation-utils";
+import { SSHPemKeyUpload } from "@/api/login/instance-check";
 
 interface UseInstanceCheckReturn {
   remoteName: string;
@@ -95,6 +96,17 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     }
   };
 
+  const handleRemoteKeyPathChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    console.log("file: ", file);
+    if (!file) return;
+
+    const result = await SSHPemKeyUpload(file);
+    setRemoteKeyPath(result);
+  };
+
   useEffect(() => {
     if (remoteHost.includes(":")) {
       setRemoteHostMsg(
@@ -107,12 +119,6 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     console.log("isMobile: ", isMobile);
     console.log("remoteHostMsg: ", remoteHostMsg);
   }, [isMobile, isValidRemoteHost, remoteHost]);
-
-  const handleRemoteKeyPathChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setRemoteKeyPath(event.target.value);
-  };
 
   return {
     remoteName,

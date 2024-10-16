@@ -31,14 +31,6 @@ export default function Input({
       fileInputRef.current.click();
     }
   };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log("Selected file:", file.name);
-      // 추가로 파일을 처리하는 로직 작성
-    }
-  };
   return (
     <div
       className="flex flex-col justify-center items-center relative w-full"
@@ -76,7 +68,7 @@ export default function Input({
             type="file"
             ref={fileInputRef}
             className="hidden"
-            onChange={handleFileChange}
+            onChange={onChange}
           />
         </div>
       ) : label === "Open AI Key" ? (
