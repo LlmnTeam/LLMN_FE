@@ -24,7 +24,11 @@ interface UseInstanceCheckReturn {
   resetRemoteValues: () => void;
 }
 
-export default function useInstanceCheck(): UseInstanceCheckReturn {
+export default function useInstanceCheck(
+  initialRemoteName: string = "",
+  initialRemoteHost: string = "",
+  initialRemoteKeyPath: string = ""
+): UseInstanceCheckReturn {
   const [remoteName, setRemoteName] = useState<string>("");
   const [remoteHost, setRemoteHost] = useState<string>("");
   const [remoteKeyPath, setRemoteKeyPath] = useState<string>("");
@@ -39,6 +43,12 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [isValidInstance, setIsValidInstance] = useState<boolean>(false);
 
   const isMobile = useIsMobile(640);
+
+  useEffect(() => {
+    setRemoteName(initialRemoteName);
+    setRemoteHost(initialRemoteHost);
+    setRemoteKeyPath(initialRemoteKeyPath);
+  }, [initialRemoteName, initialRemoteHost, initialRemoteKeyPath]);
 
   const handleRemoteNameChange = (
     event: React.ChangeEvent<HTMLInputElement>

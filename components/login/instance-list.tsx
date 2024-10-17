@@ -18,6 +18,11 @@ export default function InstanceList({ sshInfos }: SSHListProps) {
   const [monitoringSshHost, setMonitoringSshHost] = useState<string | null>(
     sshInfos[0].remoteHost
   );
+  const [selectedSSH, setSelectedSSH] = useState<SSHInfo>({
+    remoteName: "",
+    remoteHost: "",
+    remoteKeyPath: "",
+  });
 
   const {
     isInstanceModalOpen,
@@ -59,7 +64,11 @@ export default function InstanceList({ sshInfos }: SSHListProps) {
               width={26}
               height={27}
               className="w-[22px] h-[23px] xs:w-[26px] xs:h-[27px]"
-              onClick={() => openInstanceModal("edit")}
+              onClick={(event) => {
+                event.stopPropagation();
+                setSelectedSSH(ssh);
+                openInstanceModal("edit");
+              }}
             />
           </div>
         </div>
@@ -68,6 +77,7 @@ export default function InstanceList({ sshInfos }: SSHListProps) {
         isOpen={isInstanceModalOpen}
         onClose={closeInstanceModal}
         option={selectedOption}
+        ssh={selectedSSH}
       />
     </div>
   );

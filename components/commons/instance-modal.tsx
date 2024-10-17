@@ -2,14 +2,46 @@ import React, { ReactNode, useState } from "react";
 import Input from "./input";
 import ButtonSmall from "./button-small";
 import InputSmall from "./input-small";
+import useInstanceCheck from "@/hooks/commons/use-instance-check";
+import { cls } from "@/libs/class-utils";
+
+interface SSHInfo {
+  remoteName: string;
+  remoteHost: string;
+  remoteKeyPath: string;
+}
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
+  ssh?: SSHInfo;
 }
 
-export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
+export default function InstanceModal({
+  isOpen,
+  onClose,
+  option,
+  ssh = { remoteName: "", remoteHost: "", remoteKeyPath: "" },
+}: ModalProps) {
+  const {
+    remoteName,
+    remoteHost,
+    remoteKeyPath,
+    remoteNameMsg,
+    remoteHostMsg,
+    remoteKeyPathMsg,
+    isValidRemoteName,
+    isValidRemoteHost,
+    isValidRemoteKeyPath,
+    isValidInstance,
+    handleRemoteNameChange,
+    handleRemoteHostChange,
+    handleRemoteKeyPathChange,
+    checkInstanceValidity,
+    resetRemoteValues,
+  } = useInstanceCheck(ssh.remoteName, ssh.remoteHost, ssh.remoteKeyPath);
+
   if (!isOpen) return null;
 
   return (
@@ -20,7 +52,7 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[75%] lg:w-[770px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
-          <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1">
+          <div className="text-[24px] xs:text-[26px] sm:text-[28px] font-bold ml-1">
             {option === "add" ? "인스턴스 추가" : "인스턴스 상세정보"}
           </div>
           <div
@@ -30,38 +62,111 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
             ✕
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start overflow-y-auto gap-10 xs:gap-11 sm:gap-12 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5">
-          <div className="w-full">
+        <div className="flex flex-col justify-start items-start overflow-y-auto gap-8 xs:gap-9 sm:gap-10 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5 px-0.5">
+          {/* <div className="w-full relative">
             <InputSmall
               type="text"
               label="원격 서버 사용자"
               placeholder="원격 서버의 사용자명을 입력해주세요."
               maxWidth="600px"
+              value={remoteName}
+              onChange={handleRemoteNameChange}
             />
-            <div className="w-full max-w-[600px] px-1 text-[12px] xs:text-[13px] sm:text-[14px] font-semibold text-gray-400">
-              닉네임을 2자에서 8자 사이로 입력해주세요.
+            <div
+              className={cls(
+                "w-full max-w-[600px] absolute top-[28px] xs:top-[38px] sm:top-[48px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+                isValidRemoteName ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteNameMsg}
+            </div>
+          </div> */}
+          <div className="flex flex-col justify-start items-start relative w-full">
+            <Input
+              type="text"
+              label="원격 서버 사용자"
+              placeholder="원격 서버의 사용자명을 입력해주세요."
+              value={remoteName}
+              onChange={handleRemoteNameChange}
+            />
+            <div
+              className={cls(
+                "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidRemoteName ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteNameMsg}
             </div>
           </div>
-          <div className="w-full">
+          {/* <div className="w-full relative mt-1 xs:mt-2 sm:mt-3">
             <InputSmall
               type="text"
               label="호스트"
               placeholder="원격 서버의 IP 주소를 입력해주세요."
               maxWidth="600px"
+              value={remoteHost}
+              onChange={handleRemoteHostChange}
             />
-            <div className="w-full max-w-[600px] px-1 text-[12px] xs:text-[13px] sm:text-[14px] font-semibold text-gray-400">
-              비밀번호가 유효하지 않습니다.
+            <div
+              className={cls(
+                "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+                isValidRemoteHost ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteHostMsg}
+            </div>
+          </div> */}
+          <div className="flex flex-col justify-start items-start relative w-full mt-3 xs:mt-4 sm:mt-5">
+            <Input
+              type="text"
+              label="호스트"
+              placeholder="원격 서버의 IP 주소를 입력해주세요."
+              value={remoteHost}
+              onChange={handleRemoteHostChange}
+            />
+            <div
+              className={cls(
+                "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidRemoteHost ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteHostMsg}
             </div>
           </div>
-          <div className="w-full">
+          {/* <div className="w-full relative mt-1 xs:mt-2 sm:mt-3">
             <InputSmall
               type="text"
               label="프라이빗 키"
               placeholder="SSH perm 키를 업로드해주세요."
               maxWidth="600px"
+              value={remoteKeyPath}
+              onChange={handleRemoteKeyPathChange}
             />
-            <div className="w-full max-w-[600px] px-1 text-[12px] xs:text-[13px] sm:text-[14px] font-semibold text-gray-400">
-              비밀번호가 일치하지 않습니다.
+            <div
+              className={cls(
+                "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidRemoteKeyPath ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteKeyPathMsg}
+            </div>
+          </div> */}
+          <div className="flex flex-col justify-start items-start relative w-full mt-3 xs:mt-4 sm:mt-5 mb-1 xs:mb-2 sm:mb-3">
+            <Input
+              type="text"
+              label="프라이빗 키"
+              placeholder="SSH pem 키를 업로드해주세요."
+              value={remoteKeyPath}
+              onChange={handleRemoteKeyPathChange}
+              readOnly
+            />
+            <div
+              className={cls(
+                "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidRemoteKeyPath ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {remoteKeyPathMsg}
             </div>
           </div>
         </div>
@@ -71,11 +176,7 @@ export default function InstanceModal({ isOpen, onClose, option }: ModalProps) {
           </div>
         ) : (
           <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5 gap-3 xs:gap-4 sm:gap-5">
-            <ButtonSmall
-              label="삭제"
-              onClick={onClose}
-              color="rgba(0, 0, 0, 0.3)"
-            />
+            <ButtonSmall label="삭제" onClick={onClose} />
             <ButtonSmall label="수정" onClick={onClose} />
           </div>
         )}

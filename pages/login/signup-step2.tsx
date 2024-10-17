@@ -59,14 +59,14 @@ export default function SignupStep2() {
           />
           <div
             className={cls(
-              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
               isValidNickname ? "text-blue-400" : "text-red-400"
             )}
           >
             {nicknameMsg}
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center relative w-full mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-col justify-start items-center relative w-full mt-5 xs:mt-6 sm:mt-7">
           <Input
             type="password"
             label="비밀번호"
@@ -76,14 +76,14 @@ export default function SignupStep2() {
           />
           <div
             className={cls(
-              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
               isValidPassword ? "text-blue-400" : "text-red-400"
             )}
           >
             {validationMessage}
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center relative w-full mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-col justify-start items-center relative w-full mt-5 xs:mt-6 sm:mt-7">
           <Input
             type="password"
             label="비밀번호 확인"
@@ -94,7 +94,7 @@ export default function SignupStep2() {
           />
           <div
             className={cls(
-              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
               isPasswordMatching ? "text-blue-400" : "text-red-400"
             )}
           >
