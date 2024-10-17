@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { validateIPv4, validateIPv6, filterInput } from "@/libs/ip-utils";
 import useIsMobile from "./use-is-mobile";
 import { validateRemoteName } from "@/libs/validation-utils";
-import { SSHPemKeyUpload } from "@/api/login/instance-check";
+import { SSHPemKeyUpload, validateInstance } from "@/api/login/instance-check";
 
 interface UseInstanceCheckReturn {
   remoteName: string;
@@ -11,14 +11,16 @@ interface UseInstanceCheckReturn {
   remoteNameMsg: string;
   remoteHostMsg: string;
   remoteKeyPathMsg: string;
-  isValidRemoteName: boolean | null;
-  isValidRemoteHost: boolean | null;
-  isValidRemoteKeyPath: boolean | null;
+  isValidRemoteName: boolean;
+  isValidRemoteHost: boolean;
+  isValidRemoteKeyPath: boolean;
+  isValidInstance: boolean;
   handleRemoteNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteHostChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteKeyPathChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  checkInstanceValidity: () => void;
   resetRemoteValues: () => void;
 }
 
@@ -33,6 +35,8 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [remoteNameMsg, setRemoteNameMsg] = useState<string>("");
   const [remoteHostMsg, setRemoteHostMsg] = useState<string>("");
   const [remoteKeyPathMsg, setRemoteKeyPathMsg] = useState<string>("");
+
+  const [isValidInstance, setIsValidInstance] = useState<boolean>(false);
 
   const isMobile = useIsMobile(640);
 
@@ -136,12 +140,26 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     console.log("remoteHostMsg: ", remoteHostMsg);
   }, [isMobile, isValidRemoteHost, remoteHost]);
 
+  const checkInstanceValidity = async (): Promise<void> => {
+    const isValid = await validateInstance({
+      remoteName,
+      remoteHost,
+      remoteKeyPath,
+    });
+    setIsValidInstance(isValid);
+  };
+
   const resetRemoteValues = () => {
     setRemoteName("");
     setRemoteHost("");
     setRemoteKeyPath("");
+    setIsValidRemoteName(false);
+    setIsValidRemoteHost(false);
     setIsValidRemoteKeyPath(false);
+    setRemoteNameMsg("");
+    setRemoteHostMsg("");
     setRemoteKeyPathMsg("");
+    setIsValidInstance(false);
   };
 
   return {
@@ -154,9 +172,11 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     isValidRemoteName,
     isValidRemoteHost,
     isValidRemoteKeyPath,
+    isValidInstance,
     handleRemoteNameChange,
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
+    checkInstanceValidity,
     resetRemoteValues,
   };
 }
