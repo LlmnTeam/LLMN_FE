@@ -10,13 +10,16 @@ interface UseInstanceCheckReturn {
   remoteKeyPath: string;
   remoteNameMsg: string;
   remoteHostMsg: string;
+  remoteKeyPathMsg: string;
   isValidRemoteName: boolean | null;
   isValidRemoteHost: boolean | null;
+  isValidRemoteKeyPath: boolean | null;
   handleRemoteNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteHostChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteKeyPathChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  resetRemoteValues: () => void;
 }
 
 export default function useInstanceCheck(): UseInstanceCheckReturn {
@@ -25,8 +28,11 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
   const [remoteKeyPath, setRemoteKeyPath] = useState<string>("");
   const [isValidRemoteName, setIsValidRemoteName] = useState<boolean>(false);
   const [isValidRemoteHost, setIsValidRemoteHost] = useState<boolean>(false);
+  const [isValidRemoteKeyPath, setIsValidRemoteKeyPath] =
+    useState<boolean>(false);
   const [remoteNameMsg, setRemoteNameMsg] = useState<string>("");
   const [remoteHostMsg, setRemoteHostMsg] = useState<string>("");
+  const [remoteKeyPathMsg, setRemoteKeyPathMsg] = useState<string>("");
 
   const isMobile = useIsMobile(640);
 
@@ -104,7 +110,17 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     if (!file) return;
 
     const result = await SSHPemKeyUpload(file);
-    setRemoteKeyPath(result);
+    if (result && typeof result === "string") {
+      setRemoteKeyPath(result);
+      setIsValidRemoteKeyPath(true);
+      setRemoteKeyPathMsg("프라이빗 키 업로드가 완료되었습니다.");
+    } else {
+      setRemoteKeyPath("");
+      setIsValidRemoteKeyPath(false);
+      setRemoteKeyPathMsg(
+        "프라이빗 키 업로드에 실패했습니다. 다시 시도해주세요."
+      );
+    }
   };
 
   useEffect(() => {
@@ -120,16 +136,27 @@ export default function useInstanceCheck(): UseInstanceCheckReturn {
     console.log("remoteHostMsg: ", remoteHostMsg);
   }, [isMobile, isValidRemoteHost, remoteHost]);
 
+  const resetRemoteValues = () => {
+    setRemoteName("");
+    setRemoteHost("");
+    setRemoteKeyPath("");
+    setIsValidRemoteKeyPath(false);
+    setRemoteKeyPathMsg("");
+  };
+
   return {
     remoteName,
     remoteHost,
     remoteKeyPath,
     remoteNameMsg,
     remoteHostMsg,
+    remoteKeyPathMsg,
     isValidRemoteName,
     isValidRemoteHost,
+    isValidRemoteKeyPath,
     handleRemoteNameChange,
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
+    resetRemoteValues,
   };
 }

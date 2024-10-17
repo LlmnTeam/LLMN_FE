@@ -1,4 +1,4 @@
-export const SSHPemKeyUpload = async (file: File): Promise<string> => {
+export const SSHPemKeyUpload = async (file: File): Promise<string | null> => {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

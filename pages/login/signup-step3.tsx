@@ -3,21 +3,42 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
 import { cls } from "@/libs/class-utils";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function SignupStep3() {
+  const router = useRouter();
+
   const {
     remoteName,
     remoteHost,
     remoteKeyPath,
     remoteNameMsg,
     remoteHostMsg,
+    remoteKeyPathMsg,
     isValidRemoteName,
     isValidRemoteHost,
+    isValidRemoteKeyPath,
     handleRemoteNameChange,
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
   } = useInstanceCheck();
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(
+      isValidRemoteName && isValidRemoteHost && isValidRemoteKeyPath
+        ? false
+        : true
+    );
+  }, [isValidRemoteName, isValidRemoteHost, isValidRemoteKeyPath]);
+
+  const handleNextButton = (): void => {
+    if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
+      return;
+    // sessionStorage.setItem("email", email);
+  };
 
   return (
     <div>
@@ -66,20 +87,28 @@ export default function SignupStep3() {
             onChange={handleRemoteKeyPathChange}
             readOnly
           />
-          {/* <div
+          <div
             className={cls(
-              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5 text-gray-400"
+              "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
+              isValidRemoteKeyPath ? "text-blue-400" : "text-red-400"
             )}
           >
-            내용을 입력하세요.
-          </div> */}
+            {remoteKeyPathMsg}
+          </div>
         </div>
       </div>
       <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6 pb-[15vh]">
-        <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
+        <button
+          className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]"
+          onClick={() => router.push("/login/signup-step2")}
+        >
           취소
         </button>
-        <ButtonSmall label="다음" />{" "}
+        <ButtonSmall
+          label="다음"
+          disabled={disabled}
+          onClick={handleNextButton}
+        />
       </div>
     </div>
   );
