@@ -4,34 +4,33 @@ import ButtonSmall from "./button-small";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  option: string;
-  value?: string;
+  isValid: boolean | null;
+  ip?: string;
 }
 
-export default function ConfirmModalWithoutTitle({
+export default function InstanceValidationModal({
   isOpen,
   onClose,
-  option,
-  value = "",
+  isValid = null,
+  ip = "",
 }: ModalProps) {
-  const modalContents: {
-    [key: string]: { message: string; buttonText: string };
-  } = {
-    validInstance: {
-      message: `${value}\n서버는 유효합니다.`,
-      buttonText: "확인",
-    },
-    invalidInstance: {
-      message: `${value}\n서버는 유효하지 않습니다.`,
-      buttonText: "확인",
-    },
-  };
+  const [validationResult, setValidationResult] = useState<string>("");
 
-  const modalContent = modalContents[option] || {
-    title: "알 수 없는 동작",
-    message: "올바른 동작을 선택해주세요.",
-    buttonText: "확인",
-  };
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (isOpen) {
+      timer = setTimeout(() => {
+        if (isValid) {
+          setValidationResult("유효한 인스턴스입니다.");
+        } else {
+          setValidationResult("유효하지 않은 인스턴스입니다.");
+        }
+      }, 3500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isOpen, isValid]);
 
   if (!isOpen) return null;
 
@@ -54,10 +53,21 @@ export default function ConfirmModalWithoutTitle({
           className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4 font-semibold text-center"
           style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
         >
-          {modalContent.message}
+          {ip}
+          <div className="flex flex-row justify-center items-center h-7 mt-1 xs:mt-2 sm:mt-3">
+            {isValid === null ? (
+              <div className="w-7 h-7 border-4 border-t-transparent border-gray-700 rounded-full animate-spin"></div>
+            ) : (
+              <div className="mt-4 font-semibold">{validationResult}</div>
+            )}
+          </div>
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
-          <ButtonSmall label={modalContent.buttonText} onClick={onClose} />
+          <ButtonSmall
+            label="확인"
+            onClick={onClose}
+            disabled={isValid === null ? true : false}
+          />
         </div>
       </div>
     </div>

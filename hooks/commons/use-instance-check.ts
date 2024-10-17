@@ -14,7 +14,7 @@ interface UseInstanceCheckReturn {
   isValidRemoteName: boolean;
   isValidRemoteHost: boolean;
   isValidRemoteKeyPath: boolean;
-  isValidInstance: boolean;
+  isValidInstance: boolean | null;
   handleRemoteNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteHostChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoteKeyPathChange: (
@@ -40,7 +40,7 @@ export default function useInstanceCheck(
   const [remoteHostMsg, setRemoteHostMsg] = useState<string>("");
   const [remoteKeyPathMsg, setRemoteKeyPathMsg] = useState<string>("");
 
-  const [isValidInstance, setIsValidInstance] = useState<boolean>(false);
+  const [isValidInstance, setIsValidInstance] = useState<boolean | null>(null);
 
   const isMobile = useIsMobile(640);
 
@@ -169,7 +169,7 @@ export default function useInstanceCheck(
     setRemoteNameMsg("");
     setRemoteHostMsg("");
     setRemoteKeyPathMsg("");
-    setIsValidInstance(false);
+    setIsValidInstance(null);
   };
 
   return {

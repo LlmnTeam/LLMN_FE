@@ -1,11 +1,11 @@
 import ButtonSmall from "@/components/commons/button-small";
-import ConfirmModalWithoutTitle from "@/components/commons/confirm-modal-without-title";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
 import { cls } from "@/libs/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import InstanceValidationModal from "@/components/commons/instance-validation-modal";
 
 export default function SignupStep3() {
   const router = useRouter();
@@ -39,12 +39,16 @@ export default function SignupStep3() {
     );
   }, [isValidRemoteName, isValidRemoteHost, isValidRemoteKeyPath]);
 
-  const handleNextButton = () => {
-    // if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
-    //   return;
-    // checkInstanceValidity();
+  const handleNextButton = async () => {
+    if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
+      return;
     setIsConfirmModalOpen(true);
+    await checkInstanceValidity();
   };
+
+  const handleValidButton = () => {};
+
+  const handeInvalidButton = () => {};
 
   return (
     <div>
@@ -116,30 +120,17 @@ export default function SignupStep3() {
           onClick={handleNextButton}
         />
       </div>
-      {isValidInstance ? (
-        <ConfirmModalWithoutTitle
-          isOpen={isConfirmModalOpen}
-          onClose={() => {
-            router.push("/login/signup-step4");
-          }}
-          option="validInstance"
-          // value={remoteHost}
-          // value="192.168.000.001"
-          value="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
-        />
-      ) : (
-        <ConfirmModalWithoutTitle
-          isOpen={isConfirmModalOpen}
-          onClose={() => {
-            resetRemoteValues();
-            setIsConfirmModalOpen(false);
-          }}
-          option="invalidInstance"
-          // value={remoteHost}
-          value="192.168.000.001"
-          // value="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
-        />
-      )}
+
+      <InstanceValidationModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => {
+          router.push("/login/signup-step4");
+        }}
+        isValid={isValidInstance}
+        // ip={remoteHost}
+        // ip="192.168.000.001"
+        ip="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+      />
     </div>
   );
 }

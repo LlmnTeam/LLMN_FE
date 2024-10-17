@@ -34,7 +34,6 @@ export default function InstanceModal({
     isValidRemoteName,
     isValidRemoteHost,
     isValidRemoteKeyPath,
-    isValidInstance,
     handleRemoteNameChange,
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
@@ -63,24 +62,6 @@ export default function InstanceModal({
           </div>
         </div>
         <div className="flex flex-col justify-start items-start overflow-y-auto gap-8 xs:gap-9 sm:gap-10 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5 px-0.5">
-          {/* <div className="w-full relative">
-            <InputSmall
-              type="text"
-              label="원격 서버 사용자"
-              placeholder="원격 서버의 사용자명을 입력해주세요."
-              maxWidth="600px"
-              value={remoteName}
-              onChange={handleRemoteNameChange}
-            />
-            <div
-              className={cls(
-                "w-full max-w-[600px] absolute top-[28px] xs:top-[38px] sm:top-[48px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-                isValidRemoteName ? "text-blue-400" : "text-red-400"
-              )}
-            >
-              {remoteNameMsg}
-            </div>
-          </div> */}
           <div className="flex flex-col justify-start items-start relative w-full">
             <Input
               type="text"
@@ -98,25 +79,7 @@ export default function InstanceModal({
               {remoteNameMsg}
             </div>
           </div>
-          {/* <div className="w-full relative mt-1 xs:mt-2 sm:mt-3">
-            <InputSmall
-              type="text"
-              label="호스트"
-              placeholder="원격 서버의 IP 주소를 입력해주세요."
-              maxWidth="600px"
-              value={remoteHost}
-              onChange={handleRemoteHostChange}
-            />
-            <div
-              className={cls(
-                "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[12px] xs:text-[13px] sm:text-[14px] font-semibold px-1 mt-0.5",
-                isValidRemoteHost ? "text-blue-400" : "text-red-400"
-              )}
-            >
-              {remoteHostMsg}
-            </div>
-          </div> */}
-          <div className="flex flex-col justify-start items-start relative w-full mt-3 xs:mt-4 sm:mt-5">
+          <div className="flex flex-col justify-start items-start relative w-full mt-4 xs:mt-5 sm:mt-6">
             <Input
               type="text"
               label="호스트"
@@ -133,25 +96,7 @@ export default function InstanceModal({
               {remoteHostMsg}
             </div>
           </div>
-          {/* <div className="w-full relative mt-1 xs:mt-2 sm:mt-3">
-            <InputSmall
-              type="text"
-              label="프라이빗 키"
-              placeholder="SSH perm 키를 업로드해주세요."
-              maxWidth="600px"
-              value={remoteKeyPath}
-              onChange={handleRemoteKeyPathChange}
-            />
-            <div
-              className={cls(
-                "w-full max-w-[605px] absolute top-[45px] xs:top-[50px] sm:top-[55px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
-                isValidRemoteKeyPath ? "text-blue-400" : "text-red-400"
-              )}
-            >
-              {remoteKeyPathMsg}
-            </div>
-          </div> */}
-          <div className="flex flex-col justify-start items-start relative w-full mt-3 xs:mt-4 sm:mt-5 mb-1 xs:mb-2 sm:mb-3">
+          <div className="flex flex-col justify-start items-start relative w-full mt-4 xs:mt-5 sm:mt-6">
             <Input
               type="text"
               label="프라이빗 키"
@@ -171,11 +116,11 @@ export default function InstanceModal({
           </div>
         </div>
         {option === "add" ? (
-          <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5 gap-3 xs:gap-4 sm:gap-5">
+          <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
             <ButtonSmall label="완료" onClick={onClose} />
           </div>
         ) : (
-          <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5 gap-3 xs:gap-4 sm:gap-5">
+          <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8 gap-3 xs:gap-4 sm:gap-5">
             <ButtonSmall label="삭제" onClick={onClose} />
             <ButtonSmall label="수정" onClick={onClose} />
           </div>
