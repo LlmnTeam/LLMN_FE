@@ -26,7 +26,7 @@ export default function SignupStep1() {
     verifyEmail,
     verifyCode,
     resendCode,
-  } = useEmailCheck();
+  } = useEmailCheck("join");
 
   const [disabled, setDisabled] = useState(true);
 

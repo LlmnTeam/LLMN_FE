@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import useTimer from "./use-timer";
 import {
   CheckEmailDuplication,
+  CheckRegisteredEmail,
   ResendCode,
-  VerifySignupCode,
+  VerifyEmailCode,
 } from "@/api/login/email-check";
 import {
   validateEmailDomainPart,
@@ -29,7 +30,7 @@ interface UseEmailCheckReturn {
   resendCode: () => Promise<void>;
 }
 
-export default function useEmailCheck(): UseEmailCheckReturn {
+export default function useEmailCheck(type: string): UseEmailCheckReturn {
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
@@ -101,7 +102,10 @@ export default function useEmailCheck(): UseEmailCheckReturn {
     }
 
     try {
-      const isAvailable = await CheckEmailDuplication(email);
+      const isAvailable =
+        type === "join"
+          ? await CheckEmailDuplication(email)
+          : await CheckRegisteredEmail(email);
       const sessionStorageKey = getSessionStorageKey(email);
       const savedTimestamp = sessionStorage.getItem(sessionStorageKey);
 
@@ -117,20 +121,26 @@ export default function useEmailCheck(): UseEmailCheckReturn {
           } else {
             sessionStorage.setItem(sessionStorageKey, Date.now().toString());
             setIsValidEmail(true);
-            setEmailMsg("사용 가능한 이메일입니다.");
+            type === "join"
+              ? setEmailMsg("사용 가능한 이메일입니다.")
+              : setEmailMsg("가입된 이메일입니다.");
             resetTimer();
             startTimer(180);
           }
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
           setIsValidEmail(true);
-          setEmailMsg("사용 가능한 이메일입니다.");
+          type === "join"
+            ? setEmailMsg("사용 가능한 이메일입니다.")
+            : setEmailMsg("가입된 이메일입니다.");
           resetTimer();
           startTimer(180);
         }
       } else {
         setIsValidEmail(false);
-        setEmailMsg("이미 존재하는 이메일입니다.");
+        type === "join"
+          ? setEmailMsg("이미 존재하는 이메일입니다.")
+          : setEmailMsg("가입되지 않은 이메일입니다.");
       }
       setCodeMsg("");
     } catch (error) {
@@ -142,7 +152,7 @@ export default function useEmailCheck(): UseEmailCheckReturn {
 
   const verifyCode = async (): Promise<void> => {
     try {
-      const isMatching = await VerifySignupCode(email, code);
+      const isMatching = await VerifyEmailCode(email, code, type);
       setIsValidCode(isMatching ? true : false);
       setCodeMsg(
         isMatching ? "인증번호가 일치합니다." : "인증번호가 일치하지 않습니다."
@@ -168,7 +178,7 @@ export default function useEmailCheck(): UseEmailCheckReturn {
     if (timer > 0) return;
 
     try {
-      const result = await ResendCode(email);
+      const result = await ResendCode(email, type);
       if (result) {
         getSessionStorageKey(email);
         setCode("");
