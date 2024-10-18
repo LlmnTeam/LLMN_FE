@@ -10,60 +10,64 @@ interface useOpenAIKeyCheckReturn {
 
 export default function useOpenAIKeyCheck(): useOpenAIKeyCheckReturn {
   const [openAIKey, setOpenAIKey] = useState<string>("");
+  const [isPossibleOpenAIKey, setIsPossibleOpenAIKey] =
+    useState<boolean>(false);
   const [isVaildOpenAIKey, setIsValidOpenAIKey] = useState<boolean>(false);
   const [openAIKeyMsg, setOpenAIKeyMsg] = useState<string>("");
 
   const handleOpenAIKeyChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const inputOpenAIKey = event.target.value;
+    const inputOpenAIKey = event.target.value.trim();
     setOpenAIKey(inputOpenAIKey);
 
-    if (inputOpenAIKey.trim() === "") {
-      setIsValidOpenAIKey(false);
-      setOpenAIKeyMsg("");
+    setIsPossibleOpenAIKey(false);
+    setOpenAIKeyMsg("");
+
+    if (/\s/.test(inputOpenAIKey)) {
+      setIsPossibleOpenAIKey(false);
+      setOpenAIKeyMsg("API 키에 공백이 포함될 수 없습니다.");
+      return;
     }
+
+    if (inputOpenAIKey.length < 20 || inputOpenAIKey.length > 60) {
+      setIsPossibleOpenAIKey(false);
+      setOpenAIKeyMsg("API 키의 길이가 유효하지 않습니다.");
+      return;
+    }
+
+    if (!inputOpenAIKey.startsWith("sk-")) {
+      setIsPossibleOpenAIKey(false);
+      setOpenAIKeyMsg("API 키는 'sk-'로 시작해야 합니다.");
+      return;
+    }
+
+    setIsPossibleOpenAIKey(true);
+    setOpenAIKeyMsg("유효한 형식의 API 키입니다. 검증 중...");
   };
 
-  // const verifyNickname = async (): Promise<void> => {
-  //   if (!validateNickname(nickname)) {
-  //     setIsValidNickname(false);
-  //     setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
-  //     return;
-  //   }
-
-  //   try {
-  //     const result = await checkNicknameDuplication(nickname);
-  //     console.log("result: ", result);
-  //     if (!result.isDuplicate) {
-  //       setIsValidNickname(true);
-  //       setNicknameMsg("사용 가능한 닉네임입니다.");
-  //     } else {
-  //       setIsValidNickname(false);
-  //       setNicknameMsg("이미 사용 중인 닉네임입니다.");
-  //     }
-  //   } catch (error) {
-  //     console.error("닉네임 체크 중 오류 발생:", error);
-  //     setIsValidNickname(false);
-  //     setNicknameMsg("닉네임 검사 중 오류가 발생했습니다.");
-  //   }
-  // };
-
   useEffect(() => {
+    if (!isPossibleOpenAIKey) return;
+
     const timer = setTimeout(async () => {
-      // if (nickname) {
-      //   await verifyNickname();
-      // }
+      const result = await verifyOpenAIKey(openAIKey);
+
+      if (result) {
+        setIsValidOpenAIKey(true);
+        setOpenAIKeyMsg("유효한 API 키입니다.");
+      } else {
+        setIsValidOpenAIKey(false);
+        setOpenAIKeyMsg("유효하지 않은 API 키입니다.");
+      }
     }, 200);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isPossibleOpenAIKey, openAIKey]);
 
   return {
     openAIKey,
     isVaildOpenAIKey,
     openAIKeyMsg,
     handleOpenAIKeyChange,
-    // verifyOpenAIKey,
   };
 }
