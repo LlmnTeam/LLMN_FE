@@ -41,6 +41,16 @@ export default function InstanceModal({
     resetRemoteValues,
   } = useInstanceCheck(ssh.remoteName, ssh.remoteHost, ssh.remoteKeyPath);
 
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const handleValidButton = () => {
+    // addSSHInfo({ remoteName, remoteHost, remoteKeyPath });
+  };
+
+  const handeInvalidButton = () => {
+    // setIsConfirmModalOpen(false);
+  };
+
   if (!isOpen) return null;
 
   return (
