@@ -1,4 +1,5 @@
-import ButtonSmall from "@/components/commons/button-small";
+import ButtonLarge from "@/components/commons/button-large";
+import ConfirmModal from "@/components/commons/confirm-modal";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import usePasswordCheck from "@/hooks/login/use-password-check";
@@ -18,7 +19,18 @@ export default function FindAccountStep2() {
     confirmMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
+    resetNewPassword,
   } = usePasswordCheck();
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const openConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
 
   const [disabled, setDisabled] = useState(true);
 
@@ -26,13 +38,14 @@ export default function FindAccountStep2() {
     setDisabled(isValidPassword && isPasswordMatching ? false : true);
   }, [isValidPassword, isPasswordMatching]);
 
-  const handleNextButton = (): void => {
+  const handleNextButton = async (): Promise<void> => {
     if (disabled) return;
+    const result = await resetNewPassword();
   };
 
   return (
     <div>
-      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[498px] xs:h-[550px] sm:h-[610px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[500px] xs:h-[553px] sm:h-[618px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
         <div className="flex flex-col justify-start items-center relative w-full mt-8 xs:mt-9 sm:mt-10">
           <Input
@@ -70,19 +83,21 @@ export default function FindAccountStep2() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6 pb-[15vh]">
-        <button
-          className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]"
-          onClick={() => router.push("/login/signup-step1")}
-        >
-          취소
-        </button>
-        <ButtonSmall
+      <div className="flex flex-row justify-center items-center w-full max-w-[605px] mx-auto px-6 pb-[15vh]">
+        <ButtonLarge
           label="다음"
+          kind="check"
           disabled={disabled}
-          onClick={handleNextButton}
+          // onClick={handleNextButton}
+          onClick={() => openConfirmModal()}
         />
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="resetNewPassword"
+        success={false}
+      />
     </div>
   );
 }

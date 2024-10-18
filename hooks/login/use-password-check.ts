@@ -1,3 +1,4 @@
+import { ResetNewPassword } from "@/api/login/email-check";
 import { validatePassword } from "@/libs/validation-utils";
 import { useState, useEffect } from "react";
 
@@ -12,6 +13,7 @@ interface UsePasswordCheckReturn {
   handlePasswordConfirmChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  resetNewPassword: () => Promise<void>;
 }
 
 export default function usePasswordCheck(): UsePasswordCheckReturn {
@@ -77,6 +79,11 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
     }
   }, [password, passwordConfirm, isValidPassword]);
 
+  const resetNewPassword = async () => {
+    const code = sessionStorage.getItem("code");
+    if (code) await ResetNewPassword(code, password);
+  };
+
   return {
     password,
     passwordConfirm,
@@ -86,5 +93,6 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
     confirmMessage,
     handlePasswordChange,
     handlePasswordConfirmChange,
+    resetNewPassword,
   };
 }

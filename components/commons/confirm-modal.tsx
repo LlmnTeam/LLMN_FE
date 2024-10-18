@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from "react";
 import ButtonSmall from "./button-small";
+import { useRouter } from "next/router";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
+  success?: boolean;
 }
 
-export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
+export default function ConfirmModal({
+  isOpen,
+  onClose,
+  option,
+  success = true,
+}: ModalProps) {
+  const router = useRouter();
+
   const modalContents: {
-    [key: string]: { title: string; message: string; buttonText: string };
+    [key: string]: {
+      title: string;
+      message: string;
+      buttonText: string;
+      action?: () => void;
+    };
   } = {
     restart: {
       title: "컨테이너를 재시작하시겠습니까?",
@@ -31,6 +45,20 @@ export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
       message: "탈퇴 시 데이터 복구가 불가능합니다.",
       buttonText: "탈퇴",
     },
+    resetNewPassword: {
+      title: "비밀번호 변경",
+      message: success
+        ? "새 비밀번호로 변경되었습니다."
+        : "비밀번호 변경에 실패했습니다.",
+      buttonText: "확인",
+      action: success
+        ? () => {
+            router.push("/login");
+          }
+        : () => {
+            window.location.reload();
+          },
+    },
   };
 
   const modalContent = modalContents[option] || {
@@ -47,7 +75,7 @@ export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
         className="fixed inset-0 bg-black opacity-70"
         onClick={onClose}
       ></div>
-      <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
+      <div className="max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[18px] xs:text-[20px] sm:text-[22px] font-bold">
             {modalContent.title}
@@ -63,7 +91,10 @@ export default function ConfirmModal({ isOpen, onClose, option }: ModalProps) {
           {modalContent.message}
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
-          <ButtonSmall label={modalContent.buttonText} onClick={onClose} />
+          <ButtonSmall
+            label={modalContent.buttonText}
+            onClick={modalContent.action}
+          />
         </div>
       </div>
     </div>

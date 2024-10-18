@@ -111,3 +111,29 @@ export const CheckRegisteredEmail = async (email: string): Promise<boolean> => {
     throw error;
   }
 };
+
+export const ResetNewPassword = async (
+  code: string,
+  newPassword: string
+): Promise<boolean> => {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/accounts/recovery/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, newPassword }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("사용불가능한 이메일입니다.", error);
+    throw error;
+  }
+};

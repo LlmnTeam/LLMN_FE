@@ -31,9 +31,9 @@ export default function FindAccountStep1() {
   }, [isValidEmail, isValidCode]);
 
   const handleNextButton = (): void => {
-    if (!isValidEmail || !isValidCode) return;
-    sessionStorage.setItem("email", email);
-    router.push("/login/signup-step2");
+    if (disabled) return;
+    sessionStorage.setItem("code", code);
+    router.push("/login/find-account-step2");
   };
 
   return (
