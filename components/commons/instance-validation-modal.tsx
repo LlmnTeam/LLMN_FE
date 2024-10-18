@@ -3,34 +3,48 @@ import ButtonSmall from "./button-small";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onValidClose: () => void;
+  onInvalidClose: () => void;
   isValid: boolean | null;
   ip?: string;
 }
 
 export default function InstanceValidationModal({
   isOpen,
-  onClose,
+  onValidClose,
+  onInvalidClose,
   isValid = null,
   ip = "",
 }: ModalProps) {
   const [validationResult, setValidationResult] = useState<string>("");
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (isOpen) {
-      timer = setTimeout(() => {
-        if (isValid) {
-          setValidationResult("유효한 인스턴스입니다.");
-        } else {
-          setValidationResult("유효하지 않은 인스턴스입니다.");
-        }
-      }, 3500);
+    if (isValid === null) return;
+    if (isValid) {
+      setValidationResult("유효한 인스턴스입니다.");
+    } else {
+      setValidationResult("유효하지 않은 인스턴스입니다.");
     }
-
-    return () => clearTimeout(timer);
+    // let timer: NodeJS.Timeout;
+    // if (isOpen) {
+    //   timer = setTimeout(() => {
+    //     if (isValid) {
+    //       setValidationResult("유효한 인스턴스입니다.");
+    //     } else {
+    //       setValidationResult("유효하지 않은 인스턴스입니다.");
+    //     }
+    //   }, 3500);
+    // }
+    // return () => clearTimeout(timer);
   }, [isOpen, isValid]);
+
+  const handleClose = () => {
+    if (isValid) {
+      onValidClose();
+    } else {
+      onInvalidClose();
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -38,13 +52,13 @@ export default function InstanceValidationModal({
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div
         className="fixed inset-0 bg-black opacity-70"
-        onClick={onClose}
+        onClick={handleClose}
       ></div>
       <div className="max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-end items-center">
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] cursor-pointer"
-            onClick={onClose}
+            onClick={handleClose}
           >
             ✕
           </div>
@@ -62,7 +76,7 @@ export default function InstanceValidationModal({
         <div className="flex flex-row justify-center items-center w-full mt-2.5 xs:mt-4 sm:mt-6">
           <ButtonSmall
             label="확인"
-            onClick={onClose}
+            onClick={handleClose}
             disabled={isValid === null ? true : false}
           />
         </div>

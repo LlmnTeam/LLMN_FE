@@ -6,6 +6,7 @@ import { cls } from "@/libs/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import InstanceValidationModal from "@/components/commons/instance-validation-modal";
+import useSSHInfos from "@/hooks/commons/use-ssh-infos";
 
 export default function SignupStep3() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function SignupStep3() {
     resetRemoteValues,
   } = useInstanceCheck();
 
+  const { addSSHInfo } = useSSHInfos();
+
   const [disabled, setDisabled] = useState(true);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
@@ -46,9 +49,15 @@ export default function SignupStep3() {
     await checkInstanceValidity();
   };
 
-  const handleValidButton = () => {};
+  const handleValidButton = () => {
+    addSSHInfo({ remoteName, remoteHost, remoteKeyPath });
+    router.push("/login/signup-step4");
+  };
 
-  const handeInvalidButton = () => {};
+  const handeInvalidButton = () => {
+    resetRemoteValues();
+    setIsConfirmModalOpen(false);
+  };
 
   return (
     <div>
@@ -123,12 +132,9 @@ export default function SignupStep3() {
 
       <InstanceValidationModal
         isOpen={isConfirmModalOpen}
-        onClose={() => {
-          // router.push("/login/signup-step4");
-          setIsConfirmModalOpen(false);
-        }}
-        // isValid={isValidInstance}
-        isValid={null}
+        onValidClose={handleValidButton}
+        onInvalidClose={handeInvalidButton}
+        isValid={isValidInstance}
         // ip={remoteHost}
         // ip="192.168.000.001"
         ip="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
