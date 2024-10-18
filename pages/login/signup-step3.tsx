@@ -40,8 +40,8 @@ export default function SignupStep3() {
   }, [isValidRemoteName, isValidRemoteHost, isValidRemoteKeyPath]);
 
   const handleNextButton = async () => {
-    if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
-      return;
+    // if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
+    //   return;
     setIsConfirmModalOpen(true);
     await checkInstanceValidity();
   };
@@ -124,9 +124,11 @@ export default function SignupStep3() {
       <InstanceValidationModal
         isOpen={isConfirmModalOpen}
         onClose={() => {
-          router.push("/login/signup-step4");
+          // router.push("/login/signup-step4");
+          setIsConfirmModalOpen(false);
         }}
-        isValid={isValidInstance}
+        // isValid={isValidInstance}
+        isValid={null}
         // ip={remoteHost}
         // ip="192.168.000.001"
         ip="2001:0db8:85a3:0000:0000:8a2e:0370:7334"

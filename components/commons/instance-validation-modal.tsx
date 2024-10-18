@@ -49,20 +49,17 @@ export default function InstanceValidationModal({
             ✕
           </div>
         </div>
-        <div
-          className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4 font-semibold text-center"
-          style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
-        >
+        <div className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4 font-semibold text-center truncate">
           {ip}
-          <div className="flex flex-row justify-center items-center h-7 mt-1 xs:mt-2 sm:mt-3">
+          <div className="flex flex-row justify-center items-center h-8 mt-1 xs:mt-2 sm:mt-3">
             {isValid === null ? (
-              <div className="w-7 h-7 border-4 border-t-transparent border-gray-700 rounded-full animate-spin"></div>
+              <div className="w-6 xs:w-6.5 sm:w-7 h-6 xs:h-6.5 sm:h-7 border-[3px] xs:border-[3.5px] sm:border-4 border-t-transparent border-gray-700 rounded-full animate-spin"></div>
             ) : (
-              <div className="mt-4 font-semibold">{validationResult}</div>
+              <div className="">{validationResult}</div>
             )}
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-row justify-center items-center w-full mt-2.5 xs:mt-4 sm:mt-6">
           <ButtonSmall
             label="확인"
             onClick={onClose}

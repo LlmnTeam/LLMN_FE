@@ -41,9 +41,9 @@ export const validateInstance = async (
       body: JSON.stringify(remoteValues),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    // if (!response.ok) {
+    //   throw new Error("Network response was not ok");
+    // }
 
     const data = await response.json();
     // return data.result.isValid;
