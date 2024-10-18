@@ -12,12 +12,15 @@ interface SSHInfo {
 
 interface SSHListProps {
   sshInfos: SSHInfo[];
+  monitoringSshHost: string | null;
+  setMonitoringSshHost: (host: string) => void;
 }
 
-export default function InstanceList({ sshInfos }: SSHListProps) {
-  const [monitoringSshHost, setMonitoringSshHost] = useState<string | null>(
-    sshInfos[0].remoteHost
-  );
+export default function InstanceList({
+  sshInfos,
+  monitoringSshHost,
+  setMonitoringSshHost,
+}: SSHListProps) {
   const [selectedSSH, setSelectedSSH] = useState<SSHInfo>({
     remoteName: "",
     remoteHost: "",

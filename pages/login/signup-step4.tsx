@@ -5,11 +5,16 @@ import InstanceList from "@/components/login/instance-list";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import useSSHInfos from "@/hooks/commons/use-ssh-infos";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function SignupStep4() {
+  const router = useRouter();
+
   const {
     sshInfos,
+    monitoringSshHost,
+    setMonitoringSshHost,
     saveSSHInfosToSession,
     getSSHInfosFromSession,
     addSSHInfo,
@@ -25,6 +30,18 @@ export default function SignupStep4() {
   } = useInstanceModal();
 
   console.log("sshInfos: ", sshInfos);
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(sshInfos.length > 0 ? false : true);
+  }, [sshInfos]);
+
+  const handleNextButton = (): void => {
+    if (disabled) return;
+    sessionStorage.setItem("monitoringSshHost", monitoringSshHost);
+    router.push("/login/signup-step5");
+  };
 
   return (
     <div>
@@ -46,7 +63,11 @@ export default function SignupStep4() {
               />
             </div>
           </div>
-          <InstanceList sshInfos={sshInfos} />
+          <InstanceList
+            sshInfos={sshInfos}
+            monitoringSshHost={monitoringSshHost}
+            setMonitoringSshHost={setMonitoringSshHost}
+          />
           <div className="w-full text-[13px] xs:text-[15px] sm:text-[17px] text-center px-3 xs:px-4 sm:px-5 py-3 bg-white text-gray-400">
             메인으로 모티터링할 인스턴스를 선택해주세요
           </div>
@@ -56,7 +77,7 @@ export default function SignupStep4() {
         <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
           취소
         </button>
-        <ButtonSmall label="다음" />
+        <ButtonSmall label="다음" onClick={handleNextButton} />
       </div>
       <InstanceModal
         isOpen={isInstanceModalOpen}

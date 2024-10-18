@@ -43,8 +43,7 @@ export default function SignupStep3() {
   }, [isValidRemoteName, isValidRemoteHost, isValidRemoteKeyPath]);
 
   const handleNextButton = async () => {
-    // if (!isValidRemoteName || !isValidRemoteHost || !isValidRemoteKeyPath)
-    //   return;
+    if (disabled) return;
     setIsConfirmModalOpen(true);
     await checkInstanceValidity();
   };

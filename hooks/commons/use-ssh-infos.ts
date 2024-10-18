@@ -33,6 +33,9 @@ export default function useSSHInfos() {
   const SSH_INFOS_KEY = "sshInfos";
 
   const [sshInfos, setSSHInfos] = useState<SSHInfo[]>(defaultSSHInfos);
+  const [monitoringSshHost, setMonitoringSshHost] = useState<string>(
+    sshInfos.length > 1 ? sshInfos[0].remoteHost : ""
+  );
 
   const saveSSHInfosToSession = (infos: SSHInfo[]) => {
     sessionStorage.setItem(SSH_INFOS_KEY, JSON.stringify(infos));
@@ -67,6 +70,8 @@ export default function useSSHInfos() {
 
   return {
     sshInfos,
+    monitoringSshHost,
+    setMonitoringSshHost,
     saveSSHInfosToSession,
     getSSHInfosFromSession,
     addSSHInfo,

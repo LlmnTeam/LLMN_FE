@@ -38,7 +38,7 @@ export default function SignupStep2() {
   }, [isValidNickname, isValidPassword, isPasswordMatching]);
 
   const handleNextButton = (): void => {
-    if (!isValidNickname || !isValidPassword || !isPasswordMatching) return;
+    if (disabled) return;
     sessionStorage.setItem("nickName", nickname);
     sessionStorage.setItem("password", password);
     sessionStorage.setItem("passwordConfirm", passwordConfirm);
