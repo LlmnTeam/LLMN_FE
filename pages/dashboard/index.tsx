@@ -104,24 +104,6 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               {DashboardDataSSR?.summary}
             </div>
-            {/* <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-              [⚠️ Warning] 2024-09-10 13:45: CPU 사용량이 85% 이상입니다. 시스템
-              점검이 필요합니다.
-            </div>
-            <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-              [❗ Critical] 2024-09-10 13:30: 네트워크 수신량이 비정상적으로
-              높습니다. 원인 분석을 권장합니다.
-            </div>
-            <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-              [⚠️ Warning] 2024-09-10 13:15: 평소보다 네트워크 트래픽이
-              비정상적으로 높습니다. 이전 7일 평균보다 50% 높은 트래픽이
-              감지되었습니다.
-            </div>
-            <div className="text-[13px] xs:text-[15px] sm:text-[17px] font-medium">
-              [❗ Critical] 2024-09-10 13:30: 매일 오전 10시에 메모리 사용량이
-              급증합니다. 해당 시간대에 불필요한 작업을 줄이거나 리소스 할당을
-              조정하는 것을 권장합니다.
-            </div> */}
           </Container>
         ) : (
           <EmptyBox
@@ -132,15 +114,12 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
         )}
 
         <div className="flex flex-wrap gap-x-[4%] gap-y-6 xs:gap-y-7 mt-6 xs:mt-7 sm:mt-8">
-          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
+          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 p-[3%]">
+            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               CPU
             </span>
             {DashboardDataSSR ? (
               <MultiLineChart
-                // data={DashboardDataSSR.cpuHistory.filter(
-                //   (_, index) => index % 3 === 0
-                // )}
                 data={DashboardDataSSR.cpuHistory}
                 lines={[
                   { key: "cpuUsage", color: "#374151", label: "CPU Usage" },
@@ -148,15 +127,12 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
               />
             ) : null}
           </div>
-          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
+          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 p-[3%]">
+            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Memory
             </span>
             {DashboardDataSSR ? (
               <MultiLineChart
-                // data={DashboardDataSSR.memoryHistory.filter(
-                //   (_, index) => index % 3 === 0
-                // )}
                 data={DashboardDataSSR.memoryHistory}
                 lines={[
                   {
@@ -168,15 +144,12 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
               />
             ) : null}
           </div>
-          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
+          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 p-[3%]">
+            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Network - In
             </span>
             {DashboardDataSSR ? (
               <MultiLineChart
-                // data={DashboardDataSSR.networkInHistory.filter(
-                //   (_, index) => index % 3 === 0
-                // )}
                 data={DashboardDataSSR.networkInHistory}
                 lines={[
                   {
@@ -189,15 +162,12 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
               />
             ) : null}
           </div>
-          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 px-6 py-4 sm:px-10 sm:py-5">
-            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold">
+          <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 p-[3%]">
+            <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Network - Out
             </span>
             {DashboardDataSSR ? (
               <MultiLineChart
-                // data={DashboardDataSSR.networkOutHistory.filter(
-                //   (_, index) => index % 3 === 0
-                // )}
                 data={DashboardDataSSR.networkOutHistory}
                 lines={[
                   {

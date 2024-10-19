@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   LineChart,
   Line,
@@ -40,15 +41,33 @@ export default function MultiLineChart<T extends HistoryData>({
   lines,
   isNetworkData = false,
 }: MultiLineChartProps<T>) {
-  // const maxValue = Math.max(
-  //   ...data.map((item) =>
-  //     Math.max(...lines.map((line) => Number(item[line.key]) || 0))
-  //   )
-  // );
-  // const adjustedMaxValue = maxValue * 1.1;
+  const [xAxisInterval, setXAxisInterval] = useState<number>(40);
+  const [fontSize, setFontSize] = useState<number>(12);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateChartDimensions = () => {
+      if (chartContainerRef.current) {
+        const width = chartContainerRef.current.offsetWidth;
+
+        if (width < 350) {
+          setXAxisInterval(50);
+          setFontSize(10);
+        } else {
+          setXAxisInterval(40);
+          setFontSize(12);
+        }
+      }
+    };
+
+    const observer = new ResizeObserver(updateChartDimensions);
+    if (chartContainerRef.current) observer.observe(chartContainerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <ResponsiveContainer width="100%" aspect={2}>
+    <ResponsiveContainer ref={chartContainerRef} width="100%" aspect={1.8}>
       <LineChart
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -56,7 +75,7 @@ export default function MultiLineChart<T extends HistoryData>({
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="time"
-          interval={30}
+          interval={xAxisInterval}
           tick={{ fontSize: 13, fill: "#374151", fontWeight: "bold" }}
         />
         <YAxis
