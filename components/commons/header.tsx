@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface HeaderProps {
   toggleSidebar: () => void;
 }
 
 export default function Header({ toggleSidebar }: HeaderProps) {
+  const router = useRouter();
   return (
     <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 pl-8 pr-1">
       {/* <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]"> */}
@@ -24,9 +26,15 @@ export default function Header({ toggleSidebar }: HeaderProps) {
           alt="logo"
           width={30}
           height={30}
-          className="ml-4"
+          className="ml-4 cursor-pointer"
+          onClick={() => router.push("/dashboard")}
         />
-        <span className="text-2xl font-semibold">LLMN</span>
+        <span
+          className="text-2xl font-semibold cursor-pointer"
+          onClick={() => router.push("/dashboard")}
+        >
+          LLMN
+        </span>
       </div>
       {/* <div className="hidden xs:flex flex-row justify-center items-center relative w-[271px] h-[36px]">
         <input
