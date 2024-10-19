@@ -3,13 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
 import { cls } from "@/libs/class-utils";
-import CloudListModal from "../login/cloud-list-modal";
+import CloudListModal from "../dashboard/cloud-list-modal";
+import { CloudInstanceList } from "@/types/dashboard";
 
 interface DropdownMenuProps {
   options: string[];
+  cloudInstanceList?: CloudInstanceList | null;
 }
 
-export default function DropdownMenu({ options }: DropdownMenuProps) {
+export default function DropdownMenu({
+  options,
+  cloudInstanceList = null,
+}: DropdownMenuProps) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
@@ -153,6 +158,7 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
       <CloudListModal
         isOpen={isCloudListModalOpen}
         onClose={closeCloudListModal}
+        data={cloudInstanceList}
       />
     </div>
   );

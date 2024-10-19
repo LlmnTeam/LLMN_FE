@@ -11,12 +11,16 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { fetchDashboardData } from "@/api/dashboard/dashboard-api";
-import { DashboardData } from "@/types/dashboard";
+import {
+  fetchCloudInstanceList,
+  fetchDashboardData,
+} from "@/api/dashboard/dashboard-api";
+import { CloudInstanceList, DashboardData } from "@/types/dashboard";
 import MultiLineChart from "@/components/dashboard/multi-line-chart";
 
 interface DashboardPageProps {
   DashboardDataSSR: DashboardData | null;
+  CloudInstanceListSSR: CloudInstanceList | null;
 }
 
 // 타입스크립트로 변환된 getServerSideProps 함수
@@ -28,20 +32,27 @@ export const getServerSideProps: GetServerSideProps<
   const accessToken = context.req.cookies?.accessToken || "";
 
   let DashboardDataSSR: DashboardData | null = null;
+  let CloudInstanceListSSR: CloudInstanceList | null = null;
 
   if (accessToken) {
     DashboardDataSSR = await fetchDashboardData(accessToken);
+    CloudInstanceListSSR = await fetchCloudInstanceList(accessToken);
   }
 
   return {
     props: {
       DashboardDataSSR,
+      CloudInstanceListSSR,
     },
   };
 };
 
-export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
+export default function Dashboard({
+  DashboardDataSSR,
+  CloudInstanceListSSR,
+}: DashboardPageProps) {
   console.log("DashboardDataSSR: ", DashboardDataSSR);
+  console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -62,7 +73,10 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
               height={24}
               className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
             />
-            <DropdownMenu options={["change"]} />
+            <DropdownMenu
+              options={["change"]}
+              cloudInstanceList={CloudInstanceListSSR}
+            />
           </div>
         </div>
         <div className="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 w-full rounded-lg border border-[#E5E7EB] shadow-md px-6 py-2 sm:px-10 sm:py-3 mt-5 xs:mt-7">
@@ -112,7 +126,6 @@ export default function Dashboard({ DashboardDataSSR }: DashboardPageProps) {
             type="dashboard"
           />
         )}
-
         <div className="flex flex-wrap gap-x-[4%] gap-y-6 xs:gap-y-7 mt-6 xs:mt-7 sm:mt-8">
           <div className="md:w-[48%] flex flex-col justify-start items-start w-full rounded-lg border border-[#E5E7EB] shadow-md gap-2 p-[3%]">
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">

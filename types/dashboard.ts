@@ -29,3 +29,12 @@ export interface DashboardData {
   networkInHistory: NetworkMetric[];
   networkOutHistory: NetworkMetric[];
 }
+
+export interface CloudInstanceData {
+  remoteName: string;
+  remoteHost: string;
+}
+
+export interface CloudInstanceList {
+  clouds: CloudInstanceData[];
+}
