@@ -4,6 +4,7 @@ import { CloudInstanceList } from "@/types/dashboard/dashboard";
 import { cls } from "@/libs/class-utils";
 import { ChangeMonitoringCloud } from "@/api/dashboard/dashboard-api";
 import ConfirmModal from "../commons/confirm-modal";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -12,19 +13,17 @@ interface ModalProps {
 }
 
 export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
   const [selectedCloud, setSelectedCloud] = useState<string>(
     data && data.selectedCloud ? data?.selectedCloud?.remoteHost : ""
   );
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
-
-  const openConfirmModal = () => {
-    setIsConfirmModalOpen(true);
-  };
-
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-  };
 
   const updateSelectedCloud = async (selectedCloud: string): Promise<void> => {
     const result = await ChangeMonitoringCloud(selectedCloud);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CloudInstanceList, CloudInstance } from "@/types/new-item/new-item";
+import { validateProjectName } from "@/libs/validation-utils";
 
 interface UseNewItemInputReturn {
   projectName: string;
@@ -9,6 +10,8 @@ interface UseNewItemInputReturn {
   sshInfoId: number | null;
   cloudOptions: string[];
   containerOptions: string[];
+  isValidProjectName: boolean;
+  projectNameMsg: string;
   handleProjectNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloudSelect: (name: string) => void;
@@ -21,12 +24,15 @@ export default function useNewItemInput(): UseNewItemInputReturn {
   const [description, setDescription] = useState("");
   const [cloudName, setCloudName] = useState("");
   const [containerName, setContainerName] = useState("");
+  const [isValidProjectName, setIsValidProjectName] = useState(false);
+  const [projectNameMsg, setProjectNameMsg] = useState<string>("");
   const [sshInfoId, setSshInfoId] = useState<number | null>(null);
   const [cloudOptions, setCloudOptions] = useState<string[]>(["연결하지 않음"]);
   const [containerOptions, setContainerOptions] = useState<string[]>([
     "연결하지 않음",
   ]);
   const [cloudInstances, setCloudInstances] = useState<CloudInstance[]>([]);
+  const maxDescriptionLength = 300;
 
   const setCloudData = (data: CloudInstanceList | null) => {
     if (data) {
@@ -63,13 +69,33 @@ export default function useNewItemInput(): UseNewItemInputReturn {
   const handleProjectNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setProjectName(event.target.value);
+    const inputProjectName = event.target.value;
+    setProjectName(inputProjectName);
+
+    if (inputProjectName.trim() === "") {
+      setIsValidProjectName(false);
+      setProjectNameMsg("");
+      return;
+    }
+
+    if (validateProjectName(inputProjectName)) {
+      setIsValidProjectName(true);
+      setProjectNameMsg("사용 가능한 사용자명입니다.");
+    } else {
+      setIsValidProjectName(false);
+      setProjectNameMsg(
+        "3-32자의 한글, 영어, 숫자, 하이픈(-), 밑줄(_)을 입력해주세요."
+      );
+    }
   };
 
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setDescription(event.target.value);
+    const inputDescription = event.target.value;
+    if (inputDescription.length <= maxDescriptionLength) {
+      setDescription(inputDescription);
+    }
   };
 
   return {
@@ -80,6 +106,8 @@ export default function useNewItemInput(): UseNewItemInputReturn {
     sshInfoId,
     cloudOptions,
     containerOptions,
+    isValidProjectName,
+    projectNameMsg,
     handleProjectNameChange,
     handleDescriptionChange,
     handleCloudSelect,

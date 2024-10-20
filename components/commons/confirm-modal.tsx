@@ -74,6 +74,20 @@ export default function ConfirmModal({
       buttonText: "확인",
       action: onClose,
     },
+    createNewProject: {
+      title: "프로젝트 생성",
+      message: success
+        ? "새 프로젝트가 생성되었습니다."
+        : "프로젝트 생성에 실패했습니다.",
+      buttonText: "확인",
+      action: success
+        ? () => {
+            router.push("/log");
+          }
+        : () => {
+            window.location.reload();
+          },
+    },
   };
 
   const modalContent = modalContents[option] || {
@@ -91,7 +105,7 @@ export default function ConfirmModal({
           "fixed inset-0 bg-black",
           overlay ? "opacity-70" : "opacity-20"
         )}
-        onClick={onClose}
+        // onClick={onClose}
       ></div>
       <div className="max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
@@ -100,7 +114,7 @@ export default function ConfirmModal({
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] cursor-pointer"
-            onClick={onClose}
+            onClick={modalContent.action}
           >
             ✕
           </div>

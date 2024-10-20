@@ -68,7 +68,7 @@ export default function useInstanceCheck(
     } else {
       setIsValidRemoteName(false);
       setRemoteNameMsg(
-        "3~32자의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력해주세요."
+        "3-32자의 영어, 숫자, 하이픈(-), 밑줄(_)을 입력해주세요."
       );
     }
   };

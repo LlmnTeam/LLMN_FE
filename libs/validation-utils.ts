@@ -23,3 +23,8 @@ export const validateRemoteName = (remoteName: string): boolean => {
   const regex = /^[a-zA-Z0-9-_]{3,32}$/;
   return regex.test(remoteName);
 };
+
+export const validateProjectName = (projectName: string): boolean => {
+  const regex = /^[a-zA-Z가-힣0-9-_]{2,20}$/;
+  return regex.test(projectName);
+};

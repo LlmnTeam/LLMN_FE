@@ -10,8 +10,14 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { CloudInstanceList } from "@/types/new-item/new-item";
-import { fetchCloudInstanceList } from "@/api/new-item/new-item-api";
+import {
+  CreateNewProject,
+  fetchCloudInstanceList,
+} from "@/api/new-item/new-item-api";
 import { ParsedUrlQuery } from "querystring";
+import { cls } from "@/libs/class-utils";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import ConfirmModal from "@/components/commons/confirm-modal";
 
 interface NewItemPageProps {
   CloudInstanceListSSR: CloudInstanceList | null;
@@ -41,8 +47,11 @@ export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
     description,
     cloudName,
     containerName,
+    sshInfoId,
     cloudOptions,
     containerOptions,
+    isValidProjectName,
+    projectNameMsg,
     handleProjectNameChange,
     handleDescriptionChange,
     handleCloudSelect,
@@ -50,17 +59,45 @@ export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
     setCloudData,
   } = useNewItemInput();
 
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     setCloudData(CloudInstanceListSSR);
+    console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
   }, []);
 
   useEffect(() => {
     setDisabled(
-      projectName && description && cloudName && containerName ? false : true
+      isValidProjectName && description && cloudName && containerName
+        ? false
+        : true
     );
-  }, [projectName, description, cloudName, containerName]);
+  }, [isValidProjectName, description, cloudName, containerName]);
+
+  const handleCreateButton = async (
+    projectName: string,
+    description: string,
+    sshInfoId: number | null,
+    containerName: string
+  ) => {
+    if (sshInfoId === null) return;
+    const result = await CreateNewProject(
+      projectName,
+      description,
+      sshInfoId,
+      containerName
+    );
+    setSuccess(result);
+    openConfirmModal();
+  };
 
   return (
     <Layout>
@@ -77,14 +114,24 @@ export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
           </div>
         </div>
         <div className="flex flex-col justify-start items-start gap-12 xs:gap-14 sm:gap-16 mt-12 xs:mt-14 sm:mt-16">
-          <Input
-            type="text"
-            label="프로젝트 이름"
-            placeholder="이름을 입력해주세요."
-            value={projectName}
-            onChange={handleProjectNameChange}
-            maxWidth="1200px"
-          />
+          <div className="flex flex-col justify-start items-center relative w-full">
+            <Input
+              type="text"
+              label="프로젝트 이름"
+              placeholder="이름을 입력해주세요."
+              value={projectName}
+              onChange={handleProjectNameChange}
+              maxWidth="1200px"
+            />
+            <div
+              className={cls(
+                "w-full max-w-[1200px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidProjectName ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {projectNameMsg}
+            </div>
+          </div>
           <Input
             type="text"
             label="설명"
@@ -115,10 +162,27 @@ export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
             disabled={!cloudName}
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
-            <ButtonSmall label="생성" disabled={disabled} />
+            <ButtonSmall
+              label="생성"
+              onClick={() =>
+                handleCreateButton(
+                  projectName,
+                  description,
+                  sshInfoId,
+                  containerName
+                )
+              }
+              disabled={disabled}
+            />
           </div>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="createNewProject"
+        success={success}
+      />
     </Layout>
   );
 }
