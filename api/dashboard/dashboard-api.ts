@@ -4,13 +4,6 @@ import {
 } from "@/types/dashboard/dashboard-type";
 import Cookies from "js-cookie";
 
-// interface ApiResponse {
-//   success: boolean;
-//   code: number;
-//   message: string;
-//   result: DashboardData | null;
-// }
-
 export async function fetchDashboardData(
   accessToken: string
 ): Promise<DashboardData | null> {
@@ -30,8 +23,6 @@ export async function fetchDashboardData(
     }
 
     const { result }: { result: DashboardData | null } = await response.json();
-    // const data: ApiResponse = await response.json();
-    // console.log("Response to pets data with auth:", data);
     return result;
   } catch (error) {
     console.error("Failed to fetch pets data with auth:", error);
@@ -92,8 +83,6 @@ export async function ChangeMonitoringCloud(
     }
 
     const { success }: { success: boolean } = await response.json();
-    // const data: ApiResponse = await response.json();
-    // console.log("Response to pets data with auth:", data);
     return success;
   } catch (error) {
     console.error("Failed to fetch pets data with auth:", error);

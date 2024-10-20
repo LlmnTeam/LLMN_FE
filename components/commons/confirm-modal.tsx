@@ -105,7 +105,6 @@ export default function ConfirmModal({
           "fixed inset-0 bg-black",
           overlay ? "opacity-70" : "opacity-20"
         )}
-        // onClick={onClose}
       ></div>
       <div className="max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">

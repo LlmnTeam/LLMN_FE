@@ -1,10 +1,13 @@
-import { LogPageProps } from "@/ssr/log/log-ssr";
+import { ProjectList } from "@/types/log/log-type";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function LogTable({ ProjectListSSR }: LogPageProps) {
+export interface LogTableProps {
+  ProjectList: ProjectList | null;
+}
+
+export default function LogTable({ ProjectList }: LogTableProps) {
   const router = useRouter();
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
@@ -40,8 +43,8 @@ export default function LogTable({ ProjectListSSR }: LogPageProps) {
               </tr>
             </thead>
             <tbody>
-              {ProjectListSSR ? (
-                ProjectListSSR.projects.map((project) => (
+              {ProjectList ? (
+                ProjectList.projects.map((project) => (
                   <tr
                     key={project.id}
                     className="text-center bg-white cursor-pointer"
@@ -97,9 +100,10 @@ export default function LogTable({ ProjectListSSR }: LogPageProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 xs:gap-3 text-[14px] xs:text-[15px] mt-1 xs:mt-2">
-          {ProjectListSSR ? (
-            ProjectListSSR.projects.map((project) => (
+          {ProjectList ? (
+            ProjectList.projects.map((project) => (
               <div
+                key={project.id}
                 className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
                 onClick={() => router.push(`/log/${project.id}`)}
               >
