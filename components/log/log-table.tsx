@@ -76,7 +76,9 @@ export default function LogTable({ ProjectListSSR }: LogPageProps) {
                     <td className="w-[15%] px-4 py-2 truncate rounded-r-3xl overflow-hidden border-r border-t border-b border-transparent">
                       {project.containerStatus === "WORKING"
                         ? "실행중"
-                        : "종료됨"}
+                        : project.containerStatus === "NOT_WORKING"
+                        ? "종료됨"
+                        : "연결되지 않음"}
                     </td>
                   </tr>
                 ))
@@ -158,7 +160,9 @@ export default function LogTable({ ProjectListSSR }: LogPageProps) {
                   <div className="flex-1 px-4 py-1 xs:py-2 bg-white rounded-3xl truncate">
                     {project.containerStatus === "WORKING"
                       ? "실행중"
-                      : "종료됨"}
+                      : project.containerStatus === "NOT_WORKING"
+                      ? "종료됨"
+                      : "연결되지 않음"}
                   </div>
                 </div>
               </div>
