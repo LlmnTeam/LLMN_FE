@@ -37,4 +37,5 @@ export interface CloudInstanceData {
 
 export interface CloudInstanceList {
   clouds: CloudInstanceData[];
+  selectedCloud: CloudInstanceData;
 }

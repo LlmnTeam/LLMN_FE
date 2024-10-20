@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import ButtonSmall from "../commons/button-small";
 import { CloudInstanceList } from "@/types/dashboard/dashboard";
+import { cls } from "@/libs/class-utils";
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,6 +10,10 @@ interface ModalProps {
 }
 
 export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
+  const [selectedCloud, setSelectedCloud] = useState<string>(
+    data && data.selectedCloud ? data?.selectedCloud?.remoteHost : ""
+  );
+
   console.log("data: ", data);
   if (!isOpen) return null;
 
@@ -34,7 +39,11 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
           {data?.clouds.map((cloud) => (
             <div
               key={cloud.remoteHost}
-              className="flex flex-row justify-start items-center w-full hover:bg-gray-100 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 gap-2"
+              className={cls(
+                "flex flex-row justify-start items-center w-full hover:bg-gray-200 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 gap-2 transition-colors",
+                selectedCloud === cloud.remoteHost ? "bg-gray-100" : ""
+              )}
+              onClick={() => setSelectedCloud(cloud.remoteHost)}
             >
               <div className="w-[40%] truncate">{cloud.remoteName}</div>
               <div className="w-[60%]">{cloud.remoteHost}</div>
