@@ -3,25 +3,21 @@ import Input from "@/components/commons/input";
 import InputWithDropdown from "@/components/commons/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
 import Layout from "@/components/commons/layout";
 import ButtonSmall from "@/components/commons/button-small";
+import useNewItemInput from "@/hooks/new-item/use-new-item-input";
 
 export default function NewItem() {
-  const [projectName, setProjectName] = useState("");
-  const [description, setDescription] = useState("");
-  const [cloudName, setCloudName] = useState("");
-  const [containerName, setContainerName] = useState("");
-  const cloudOptions = [
-    "Ubuntu (54.180.244.93)",
-    "Amazon Linux (72.180.244.93)",
-    "연결하지 않음",
-  ];
-  const containerOptions = ["Spring", "FastAPI", "React", "연결하지 않음"];
-
-  const handleCloudSelect = (name: string) => {
-    setCloudName(name);
-  };
-  const handleContainerSelect = (name: string) => {
-    setContainerName(name);
-  };
+  const {
+    projectName,
+    description,
+    cloudName,
+    containerName,
+    cloudOptions,
+    containerOptions,
+    handleProjectNameChange,
+    handleDescriptionChange,
+    handleCloudSelect,
+    handleContainerSelect,
+  } = useNewItemInput();
 
   return (
     <Layout>
@@ -43,7 +39,7 @@ export default function NewItem() {
             label="프로젝트 이름"
             placeholder="이름을 입력해주세요."
             value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
+            onChange={handleProjectNameChange}
             maxWidth="1200px"
           />
           <Input
@@ -51,7 +47,7 @@ export default function NewItem() {
             label="설명"
             placeholder="설명을 입력해주세요."
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
             maxWidth="1200px"
           />
           <InputWithDropdown
