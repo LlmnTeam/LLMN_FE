@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import ButtonSmall from "../commons/button-small";
-import { CloudInstanceList } from "@/types/dashboard/dashboard";
+import { CloudInstanceList } from "@/types/dashboard/dashboard-type";
 import { cls } from "@/libs/class-utils";
 import { ChangeMonitoringCloud } from "@/api/dashboard/dashboard-api";
 import ConfirmModal from "../commons/confirm-modal";

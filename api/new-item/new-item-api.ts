@@ -1,4 +1,4 @@
-import { CloudInstanceList } from "@/types/new-item/new-item";
+import { CloudInstanceList } from "@/types/new-item/new-item-type";
 import Cookies from "js-cookie";
 
 export async function fetchCloudInstanceList(

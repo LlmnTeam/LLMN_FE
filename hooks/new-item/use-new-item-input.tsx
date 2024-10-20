@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { CloudInstanceList, CloudInstance } from "@/types/new-item/new-item";
+import {
+  CloudInstanceList,
+  CloudInstance,
+} from "@/types/new-item/new-item-type";
 import { validateProjectName } from "@/libs/validation-utils";
 
 interface UseNewItemInputReturn {

@@ -4,42 +4,20 @@ import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
 import ButtonSmall from "@/components/commons/button-small";
 import useNewItemInput from "@/hooks/new-item/use-new-item-input";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from "next";
-import { CloudInstanceList } from "@/types/new-item/new-item";
-import {
-  CreateNewProject,
-  fetchCloudInstanceList,
-} from "@/api/new-item/new-item-api";
-import { ParsedUrlQuery } from "querystring";
+import { GetServerSideProps } from "next";
+import { CloudInstanceList } from "@/types/new-item/new-item-type";
+import { CreateNewProject } from "@/api/new-item/new-item-api";
 import { cls } from "@/libs/class-utils";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "@/components/commons/confirm-modal";
+import { getNewItemSSR } from "@/ssr/new-item/new-item-ssr";
 
 interface NewItemPageProps {
   CloudInstanceListSSR: CloudInstanceList | null;
 }
 
-export const getServerSideProps: GetServerSideProps<NewItemPageProps> = async (
-  context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<NewItemPageProps>> => {
-  const accessToken = context.req.cookies?.accessToken || "";
-
-  let CloudInstanceListSSR: CloudInstanceList | null = null;
-
-  if (accessToken) {
-    CloudInstanceListSSR = await fetchCloudInstanceList(accessToken);
-  }
-
-  return {
-    props: {
-      CloudInstanceListSSR,
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps<NewItemPageProps> =
+  getNewItemSSR;
 
 export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
   const {

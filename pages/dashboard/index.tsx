@@ -3,49 +3,21 @@ import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import Image from "next/image";
-import { useState } from "react";
-
+import { GetServerSideProps } from "next";
 import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from "next";
-import { ParsedUrlQuery } from "querystring";
-import {
-  fetchCloudInstanceList,
-  fetchDashboardData,
-} from "@/api/dashboard/dashboard-api";
-import { CloudInstanceList, DashboardData } from "@/types/dashboard/dashboard";
+  CloudInstanceList,
+  DashboardData,
+} from "@/types/dashboard/dashboard-type";
 import MultiLineChart from "@/components/dashboard/multi-line-chart";
+import { getDashboardSSR } from "@/ssr/dashboard/dashboard-ssr";
 
 interface DashboardPageProps {
   DashboardDataSSR: DashboardData | null;
   CloudInstanceListSSR: CloudInstanceList | null;
 }
 
-// 타입스크립트로 변환된 getServerSideProps 함수
-export const getServerSideProps: GetServerSideProps<
-  DashboardPageProps
-> = async (
-  context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<DashboardPageProps>> => {
-  const accessToken = context.req.cookies?.accessToken || "";
-
-  let DashboardDataSSR: DashboardData | null = null;
-  let CloudInstanceListSSR: CloudInstanceList | null = null;
-
-  if (accessToken) {
-    DashboardDataSSR = await fetchDashboardData(accessToken);
-    CloudInstanceListSSR = await fetchCloudInstanceList(accessToken);
-  }
-
-  return {
-    props: {
-      DashboardDataSSR,
-      CloudInstanceListSSR,
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
+  getDashboardSSR;
 
 export default function Dashboard({
   DashboardDataSSR,

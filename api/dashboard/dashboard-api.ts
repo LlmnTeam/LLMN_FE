@@ -1,4 +1,7 @@
-import { DashboardData, CloudInstanceList } from "@/types/dashboard/dashboard";
+import {
+  DashboardData,
+  CloudInstanceList,
+} from "@/types/dashboard/dashboard-type";
 import Cookies from "js-cookie";
 
 // interface ApiResponse {
