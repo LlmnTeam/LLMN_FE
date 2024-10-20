@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import ButtonSmall from "../commons/button-small";
-import { CloudInstanceList } from "@/types/dashboard";
+import { CloudInstanceList } from "@/types/dashboard/dashboard";
 
 interface ModalProps {
   isOpen: boolean;

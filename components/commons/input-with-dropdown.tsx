@@ -8,6 +8,7 @@ interface InputWithDropdownProps {
   options: string[];
   onSelect: (selected: string) => void;
   maxWidth?: string;
+  disabled?: boolean;
 }
 
 export default function InputWithDropdown({
@@ -17,13 +18,13 @@ export default function InputWithDropdown({
   options,
   onSelect,
   maxWidth = "1000px",
+  disabled = false,
 }: InputWithDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(true);
-    // setIsDropdownOpen((prev) => !prev);
   };
 
   const handleSelect = (option: string) => {
@@ -64,7 +65,7 @@ export default function InputWithDropdown({
           maxWidth={maxWidth}
         />
       </div>
-      {isDropdownOpen && (
+      {isDropdownOpen && !disabled && (
         <div className="absolute top-full mt-2 w-full max-w-[1200px] max-h-[140px] text-[14px] xs:text-[15px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white z-10 overflow-y-auto">
           <ul className="space-y-1 sm:space-y-2">
             {options.map((option) => (

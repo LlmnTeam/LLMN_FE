@@ -4,7 +4,7 @@ import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
 import { cls } from "@/libs/class-utils";
 import CloudListModal from "../dashboard/cloud-list-modal";
-import { CloudInstanceList } from "@/types/dashboard";
+import { CloudInstanceList } from "@/types/dashboard/dashboard";
 
 interface DropdownMenuProps {
   options: string[];

@@ -1,11 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@/components/commons/input";
-import InputWithDropdown from "@/components/commons/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
+import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
 import ButtonSmall from "@/components/commons/button-small";
 import useNewItemInput from "@/hooks/new-item/use-new-item-input";
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+} from "next";
+import { CloudInstanceList } from "@/types/new-item/new-item";
+import { fetchCloudInstanceList } from "@/api/new-item/new-item-api";
+import { ParsedUrlQuery } from "querystring";
 
-export default function NewItem() {
+interface NewItemPageProps {
+  CloudInstanceListSSR: CloudInstanceList | null;
+}
+
+export const getServerSideProps: GetServerSideProps<NewItemPageProps> = async (
+  context: GetServerSidePropsContext<ParsedUrlQuery>
+): Promise<GetServerSidePropsResult<NewItemPageProps>> => {
+  const accessToken = context.req.cookies?.accessToken || "";
+
+  let CloudInstanceListSSR: CloudInstanceList | null = null;
+
+  if (accessToken) {
+    CloudInstanceListSSR = await fetchCloudInstanceList(accessToken);
+  }
+
+  return {
+    props: {
+      CloudInstanceListSSR,
+    },
+  };
+};
+
+export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
   const {
     projectName,
     description,
@@ -17,7 +47,20 @@ export default function NewItem() {
     handleDescriptionChange,
     handleCloudSelect,
     handleContainerSelect,
+    setCloudData,
   } = useNewItemInput();
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setCloudData(CloudInstanceListSSR);
+  }, []);
+
+  useEffect(() => {
+    setDisabled(
+      projectName && description && cloudName && containerName ? false : true
+    );
+  }, [projectName, description, cloudName, containerName]);
 
   return (
     <Layout>
@@ -60,14 +103,19 @@ export default function NewItem() {
           />
           <InputWithDropdown
             label="컨테이너"
-            placeholder="연결할 컨테이너를 선택해주세요."
+            placeholder={
+              cloudName
+                ? "연결할 컨테이너를 선택해주세요."
+                : "먼저 클라우드를 선택하세요."
+            }
             value={containerName}
             options={containerOptions}
             onSelect={handleContainerSelect}
             maxWidth="1200px"
+            disabled={!cloudName}
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
-            <ButtonSmall label="생성" />
+            <ButtonSmall label="생성" disabled={disabled} />
           </div>
         </div>
       </div>

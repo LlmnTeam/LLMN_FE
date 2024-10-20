@@ -1,4 +1,4 @@
-import { DashboardData, CloudInstanceList } from "@/types/dashboard";
+import { DashboardData, CloudInstanceList } from "@/types/dashboard/dashboard";
 
 // interface ApiResponse {
 //   success: boolean;

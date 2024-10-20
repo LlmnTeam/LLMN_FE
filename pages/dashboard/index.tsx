@@ -15,7 +15,7 @@ import {
   fetchCloudInstanceList,
   fetchDashboardData,
 } from "@/api/dashboard/dashboard-api";
-import { CloudInstanceList, DashboardData } from "@/types/dashboard";
+import { CloudInstanceList, DashboardData } from "@/types/dashboard/dashboard";
 import MultiLineChart from "@/components/dashboard/multi-line-chart";
 
 interface DashboardPageProps {
