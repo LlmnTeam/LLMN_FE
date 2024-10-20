@@ -130,8 +130,8 @@ export const ResetNewPassword = async (
       throw new Error("Network response was not ok");
     }
 
-    const data = await response.json();
-    return data;
+    const { success }: { success: boolean } = await response.json();
+    return success;
   } catch (error) {
     console.error("사용불가능한 이메일입니다.", error);
     throw error;

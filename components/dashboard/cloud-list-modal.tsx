@@ -2,6 +2,8 @@ import React, { ReactNode, useState } from "react";
 import ButtonSmall from "../commons/button-small";
 import { CloudInstanceList } from "@/types/dashboard/dashboard";
 import { cls } from "@/libs/class-utils";
+import { ChangeMonitoringCloud } from "@/api/dashboard/dashboard-api";
+import ConfirmModal from "../commons/confirm-modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,6 +15,22 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
   const [selectedCloud, setSelectedCloud] = useState<string>(
     data && data.selectedCloud ? data?.selectedCloud?.remoteHost : ""
   );
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const openConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const updateSelectedCloud = async (selectedCloud: string): Promise<void> => {
+    const result = await ChangeMonitoringCloud(selectedCloud);
+    setSuccess(result);
+    openConfirmModal();
+  };
 
   console.log("data: ", data);
   if (!isOpen) return null;
@@ -40,7 +58,7 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
             <div
               key={cloud.remoteHost}
               className={cls(
-                "flex flex-row justify-start items-center w-full hover:bg-gray-200 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 gap-2 transition-colors",
+                "flex flex-row justify-start items-center w-full hover:bg-gray-200 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 gap-2 transition-colors cursor-pointer",
                 selectedCloud === cloud.remoteHost ? "bg-gray-100" : ""
               )}
               onClick={() => setSelectedCloud(cloud.remoteHost)}
@@ -51,9 +69,21 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
           ))}
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-5 xs:mt-6 sm:mt-7">
-          <ButtonSmall label="선택" onClick={onClose} />
+          <ButtonSmall
+            label="선택"
+            onClick={() => {
+              updateSelectedCloud(selectedCloud);
+            }}
+          />
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="changeMonitoringCloud"
+        success={success}
+        overlay={false}
+      />
     </div>
   );
 }

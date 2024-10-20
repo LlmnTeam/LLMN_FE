@@ -13,7 +13,7 @@ interface UsePasswordCheckReturn {
   handlePasswordConfirmChange: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  resetNewPassword: () => Promise<void>;
+  resetNewPassword: () => Promise<boolean>;
 }
 
 export default function usePasswordCheck(): UsePasswordCheckReturn {
@@ -81,7 +81,11 @@ export default function usePasswordCheck(): UsePasswordCheckReturn {
 
   const resetNewPassword = async () => {
     const code = sessionStorage.getItem("code");
-    if (code) await ResetNewPassword(code, password);
+    if (code) {
+      const result = await ResetNewPassword(code, password);
+      return result;
+    }
+    return false;
   };
 
   return {

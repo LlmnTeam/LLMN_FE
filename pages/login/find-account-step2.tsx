@@ -23,6 +23,7 @@ export default function FindAccountStep2() {
   } = usePasswordCheck();
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const openConfirmModal = () => {
     setIsConfirmModalOpen(true);
@@ -41,6 +42,8 @@ export default function FindAccountStep2() {
   const handleNextButton = async (): Promise<void> => {
     if (disabled) return;
     const result = await resetNewPassword();
+    setSuccess(result);
+    openConfirmModal();
   };
 
   return (
@@ -88,15 +91,14 @@ export default function FindAccountStep2() {
           label="다음"
           kind="check"
           disabled={disabled}
-          // onClick={handleNextButton}
-          onClick={() => openConfirmModal()}
+          onClick={handleNextButton}
         />
       </div>
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
         option="resetNewPassword"
-        success={false}
+        success={success}
       />
     </div>
   );
