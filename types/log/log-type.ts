@@ -11,3 +11,11 @@ export interface Project {
 export interface ProjectList {
   projects: Project[];
 }
+
+export interface ProjectDetail {
+  name: string;
+  description: string;
+  summaryContent: string;
+  summaryUpdateDate: string;
+  logContent: string;
+}

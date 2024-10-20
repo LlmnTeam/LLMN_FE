@@ -1,4 +1,4 @@
-import { ProjectList } from "@/types/log/log-type";
+import { ProjectDetail, ProjectList } from "@/types/log/log-type";
 import Cookies from "js-cookie";
 
 export async function fetchProjectList(
@@ -49,6 +49,33 @@ export async function refreshProjectList(): Promise<ProjectList | null> {
     }
 
     const { result }: { result: ProjectList | null } = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch pets data with auth:", error);
+    return null;
+  }
+}
+
+export async function fetchProjectDetail(
+  projectId: number,
+  accessToken: string
+): Promise<ProjectDetail | null> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/project/${projectId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`API call failed with status: ${response.status}`);
+    }
+
+    const { result }: { result: ProjectDetail | null } = await response.json();
     return result;
   } catch (error) {
     console.error("Failed to fetch pets data with auth:", error);

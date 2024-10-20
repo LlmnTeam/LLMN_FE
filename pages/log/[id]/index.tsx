@@ -7,23 +7,22 @@ import ChatbotModal from "@/components/log/chatbot-modal";
 import LogFileModal from "@/components/log/log-file-modal";
 import useChatbotModal from "@/hooks/log/use-chatbot-modal";
 import useLogFileModal from "@/hooks/log/use-log-file-modal";
+import { LogDetailPageProps, getProjectDetailSSR } from "@/ssr/log/log-detail";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function LogDetail() {
+export const getServerSideProps: GetServerSideProps<LogDetailPageProps> =
+  getProjectDetailSSR;
+
+export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
   const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
     useChatbotModal();
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
 
-  useEffect(() => {
-    console.log("isChatbotModalOpen: ", isChatbotModalOpen);
-  }, [isChatbotModalOpen]);
-
-  useEffect(() => {
-    console.log("isLogFileModalOpen: ", isLogFileModalOpen);
-  }, [isLogFileModalOpen]);
+  console.log("ProjectDetailSSR: ", ProjectDetailSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -39,7 +38,7 @@ export default function LogDetail() {
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              Spring
+              {ProjectDetailSSR?.name}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -75,56 +74,33 @@ export default function LogDetail() {
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          ForPaw BE의 스프링 프로젝트
+          {ProjectDetailSSR?.description}
         </div>
-        <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
-        <Container
-          title="요약"
-          link="/log/1/summary"
-          update="2024.09.10_18 업데이트됨"
-        >
-          [🚨 이상 탐지 요약] <br />
-          <span className="pl-2">- 탐지된 비정상 패턴: </span>
-          <br />
-          <span className="pl-4">
-            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-          </span>
-          <br />
-          <span className="pl-4">
-            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
-            낮음
-          </span>
-          <br />
-          <span className="pl-2">- 권장 조치: </span>
-          <br />
-          <span className="pl-4">
-            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-          </span>
-          <br />
-          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-          <br />
-          <span className="pl-4">
-            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-          </span>
-        </Container>
-        <Container
-          title="최근 로그"
-          link="/log/1/message"
-          update="2024.09.10_18 업데이트됨"
-        >
-          [2024-09-10T10:59:04.342Z] INFO: 2024-09-10T19:59:04.339+09:00 INFO 1
-          --- [MessageBroker-3] o.s.w.s.c.WebSocketMessageBrokerStats :
-          WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0
-          closed abnormally (0 connect failure, 0 send limit, 0 transport
-          error)], stompSubProtocol[processed
-          CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[1 sessions,
-          ReactorNettyTcpClient[reactor.netty.tcp.TcpClientConnect@27b92d20]
-          (available), processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)],
-          inboundChannel[pool size = 0, active threads = 0, queued tasks = 0,
-          completed tasks = 0], outboundChannel[pool size = 0, active threads =
-          0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size =
-          6, active threads = 1, queued tasks = 8, completed tasks = 21]
-        </Container>
+        {ProjectDetailSSR?.summaryContent ? (
+          <Container
+            title="요약"
+            link="/log/1/summary"
+            update={`${
+              ProjectDetailSSR?.summaryUpdateDate?.split(" ")[0]
+            } 업데이트`}
+            // update="2024.09.10_18 업데이트됨"
+          >
+            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+              {ProjectDetailSSR?.summaryContent}
+            </div>
+          </Container>
+        ) : (
+          <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
+        )}
+        {ProjectDetailSSR?.logContent ? (
+          <Container title="최근 로그" link="/log/1/message" update="">
+            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+              {ProjectDetailSSR?.logContent}
+            </div>
+          </Container>
+        ) : (
+          <EmptyBox title={"최근 로그"} content={"로그가 존재하지 않습니다."} />
+        )}
       </div>
     </Layout>
   );
