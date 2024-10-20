@@ -4,17 +4,11 @@ import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
-import {
-  CloudInstanceList,
-  DashboardData,
-} from "@/types/dashboard/dashboard-type";
 import MultiLineChart from "@/components/dashboard/multi-line-chart";
-import { getDashboardSSR } from "@/ssr/dashboard/dashboard-ssr";
-
-interface DashboardPageProps {
-  DashboardDataSSR: DashboardData | null;
-  CloudInstanceListSSR: CloudInstanceList | null;
-}
+import {
+  DashboardPageProps,
+  getDashboardSSR,
+} from "@/ssr/dashboard/dashboard-ssr";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;

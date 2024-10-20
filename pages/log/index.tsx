@@ -1,9 +1,15 @@
 import Layout from "@/components/commons/layout";
 import LogTable from "@/components/log/log-table";
+import { LogPageProps, getProjectListSSR } from "@/ssr/log/log-ssr";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export default function Log() {
+export const getServerSideProps: GetServerSideProps<LogPageProps> =
+  getProjectListSSR;
+
+export default function Log({ ProjectListSSR }: LogPageProps) {
+  console.log("ProjectListSSR: ", ProjectListSSR);
+
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -16,17 +22,20 @@ export default function Log() {
               54.180.244.93
             </span>
           </div>
-          <div className="flex flex-row justify-start items-center gap-0.5">
+          <div className="flex flex-row justify-start items-center gap-0.5 mr-1">
             <Image
               src="/images/rotate-right.svg"
               alt="rotate-right"
               width={31}
               height={34}
-              className="w-[25px] h-[27px] xs:w-[28px] xs:h-[31px] sm:w-[31px] sm:h-[34px]"
+              className="w-[25px] h-[27px] xs:w-[28px] xs:h-[31px] sm:w-[31px] sm:h-[34px] cursor-pointer"
+              onClick={() => {
+                window.location.reload();
+              }}
             />
           </div>
         </div>
-        <LogTable />
+        <LogTable ProjectListSSR={ProjectListSSR} />
       </div>
     </Layout>
   );

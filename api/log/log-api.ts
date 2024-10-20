@@ -5,7 +5,7 @@ export async function fetchProjectList(
 ): Promise<ProjectList | null> {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const response = await fetch(`${baseURL}/home`, {
+    const response = await fetch(`${baseURL}/project`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -9,7 +9,7 @@ import {
   CloudInstanceList,
 } from "@/types/dashboard/dashboard-type";
 
-interface DashboardPageProps {
+export interface DashboardPageProps {
   DashboardDataSSR: DashboardData | null;
   CloudInstanceListSSR: CloudInstanceList | null;
 }

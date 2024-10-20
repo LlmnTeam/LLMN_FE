@@ -5,16 +5,11 @@ import Layout from "@/components/commons/layout";
 import ButtonSmall from "@/components/commons/button-small";
 import useNewItemInput from "@/hooks/new-item/use-new-item-input";
 import { GetServerSideProps } from "next";
-import { CloudInstanceList } from "@/types/new-item/new-item-type";
 import { CreateNewProject } from "@/api/new-item/new-item-api";
 import { cls } from "@/libs/class-utils";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "@/components/commons/confirm-modal";
-import { getNewItemSSR } from "@/ssr/new-item/new-item-ssr";
-
-interface NewItemPageProps {
-  CloudInstanceListSSR: CloudInstanceList | null;
-}
+import { NewItemPageProps, getNewItemSSR } from "@/ssr/new-item/new-item-ssr";
 
 export const getServerSideProps: GetServerSideProps<NewItemPageProps> =
   getNewItemSSR;
