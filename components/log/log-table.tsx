@@ -9,7 +9,7 @@ export interface LogTableProps {
 
 export default function LogTable({ ProjectList }: LogTableProps) {
   const router = useRouter();
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -26,7 +26,7 @@ export default function LogTable({ ProjectList }: LogTableProps) {
   }, []);
   return (
     <div className="log-table">
-      {isLargeScreen ? (
+      {isLargeScreen === true && (
         <div className="overflow-x-hidden">
           <table
             className="table-auto w-full max-w-[1200px] border-separate bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] px-5 text-[16px] mt-3"
@@ -98,7 +98,8 @@ export default function LogTable({ ProjectList }: LogTableProps) {
             </tbody>
           </table>
         </div>
-      ) : (
+      )}
+      {isLargeScreen === false && (
         <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 xs:gap-3 text-[14px] xs:text-[15px] mt-1 xs:mt-2">
           {ProjectList ? (
             ProjectList.projects.map((project) => (
