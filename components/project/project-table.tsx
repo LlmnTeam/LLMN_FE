@@ -1,13 +1,13 @@
-import { ProjectList } from "@/types/log/log-type";
+import { ProjectList } from "@/types/project/project-type";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export interface LogTableProps {
+export interface ProjectTableProps {
   ProjectList: ProjectList | null;
 }
 
-export default function LogTable({ ProjectList }: LogTableProps) {
+export default function ProjectTable({ ProjectList }: ProjectTableProps) {
   const router = useRouter();
   const [isLargeScreen, setIsLargeScreen] = useState<boolean | null>(null);
 

@@ -1,16 +1,16 @@
-import { refreshProjectList } from "@/api/log/log-api";
+import { refreshProjectList } from "@/api/project/project-api";
 import Layout from "@/components/commons/layout";
-import LogTable from "@/components/log/log-table";
-import { LogPageProps, getProjectListSSR } from "@/ssr/log/log-ssr";
-import { ProjectList } from "@/types/log/log-type";
+import ProjectTable from "@/components/project/project-table";
+import { ProjectPageProps, getProjectListSSR } from "@/ssr/project/project-ssr";
+import { ProjectList } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
 
-export const getServerSideProps: GetServerSideProps<LogPageProps> =
+export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
   getProjectListSSR;
 
-export default function Log({ ProjectListSSR }: LogPageProps) {
+export default function Log({ ProjectListSSR }: ProjectPageProps) {
   const [projectList, setProjectList] = useState<ProjectList | null>(
     ProjectListSSR
   );
@@ -44,7 +44,7 @@ export default function Log({ ProjectListSSR }: LogPageProps) {
             />
           </div>
         </div>
-        <LogTable
+        <ProjectTable
           ProjectList={
             refreshedProjectList ? refreshedProjectList : projectList
           }

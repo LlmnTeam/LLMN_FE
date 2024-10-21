@@ -1,7 +1,7 @@
+import { fetchProjectDetail } from "@/api/project/project-api";
+import { ProjectDetail } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { ProjectDetail } from "@/types/log/log-type";
-import { fetchProjectDetail } from "@/api/log/log-api";
 
 export interface LogDetailPageProps {
   ProjectDetailSSR: ProjectDetail | null;

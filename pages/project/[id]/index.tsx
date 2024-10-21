@@ -1,22 +1,28 @@
-import ConfirmModal from "@/components/commons/confirm-modal";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
-import ChatbotModal from "@/components/log/chatbot-modal";
-import LogFileModal from "@/components/log/log-file-modal";
-import useChatbotModal from "@/hooks/log/use-chatbot-modal";
-import useLogFileModal from "@/hooks/log/use-log-file-modal";
-import { LogDetailPageProps, getProjectDetailSSR } from "@/ssr/log/log-detail";
+import ChatbotModal from "@/components/project/chatbot-modal";
+import LogFileModal from "@/components/project/log-file-modal";
+import useChatbotModal from "@/hooks/project/use-chatbot-modal";
+import useLogFileModal from "@/hooks/project/use-log-file-modal";
+import {
+  LogDetailPageProps,
+  getProjectDetailSSR,
+} from "@/ssr/project/project-detail";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<LogDetailPageProps> =
   getProjectDetailSSR;
 
 export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
+  const router = useRouter();
+  const { id } = router.query;
+  console.log("id: ", id);
   const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
     useChatbotModal();
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
@@ -79,11 +85,10 @@ export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
         {ProjectDetailSSR?.summaryContent ? (
           <Container
             title="요약"
-            link="/log/1/summary"
+            link={`/log/${id}/summary`}
             update={`${
               ProjectDetailSSR?.summaryUpdateDate?.split(" ")[0]
             } 업데이트`}
-            // update="2024.09.10_18 업데이트됨"
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               {ProjectDetailSSR?.summaryContent}
@@ -93,7 +98,7 @@ export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
           <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
         )}
         {ProjectDetailSSR?.logContent ? (
-          <Container title="최근 로그" link="/log/1/message" update="">
+          <Container title="최근 로그" link={`/log/${id}/message`} update="">
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               {ProjectDetailSSR?.logContent}
             </div>

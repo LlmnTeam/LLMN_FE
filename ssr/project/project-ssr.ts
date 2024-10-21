@@ -1,15 +1,15 @@
+import { fetchProjectList } from "@/api/project/project-api";
+import { ProjectList } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { ProjectList } from "@/types/log/log-type";
-import { fetchProjectList } from "@/api/log/log-api";
 
-export interface LogPageProps {
+export interface ProjectPageProps {
   ProjectListSSR: ProjectList | null;
 }
 
 export async function getProjectListSSR(
   context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<LogPageProps>> {
+): Promise<GetServerSidePropsResult<ProjectPageProps>> {
   const accessToken = context.req.cookies?.accessToken || "";
 
   const [ProjectListSSR] = await Promise.all([fetchProjectList(accessToken)]);

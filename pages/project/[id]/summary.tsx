@@ -1,17 +1,15 @@
-import ConfirmModal from "@/components/commons/confirm-modal";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import Layout from "@/components/commons/layout";
-import LogFileModal from "@/components/log/log-file-modal";
+import LogFileModal from "@/components/project/log-file-modal";
+import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function LogSummary() {
-  const [isLogFileModalOpen, setIsLogFileModalOpen] = useState(false);
-
-  const openLogFileModal = () => setIsLogFileModalOpen(true);
-  const closeLogFileModal = () => setIsLogFileModalOpen(false);
+  const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
+    useLogFileModal();
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">

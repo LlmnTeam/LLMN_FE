@@ -1,4 +1,4 @@
-import { ProjectDetail, ProjectList } from "@/types/log/log-type";
+import { ProjectDetail, ProjectList } from "@/types/project/project-type";
 import Cookies from "js-cookie";
 
 export async function fetchProjectList(

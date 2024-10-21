@@ -19,3 +19,16 @@ export interface ProjectDetail {
   summaryUpdateDate: string;
   logContent: string;
 }
+
+export interface Summary {
+  id: number;
+  time: string;
+  content: string;
+  isChecked: boolean;
+}
+
+export interface LogSummaryList {
+  name: string;
+  description: string;
+  summaries: Summary[];
+}
