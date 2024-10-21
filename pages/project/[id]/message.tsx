@@ -5,9 +5,12 @@ import LogFileModal from "@/components/project/log-file-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function LogMessage() {
+  const router = useRouter();
+  const { id } = router.query;
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
   return (
@@ -15,7 +18,7 @@ export default function LogMessage() {
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
-            <Link href="/log/1">
+            <Link href={`/project/${id}`}>
               <Image
                 src="/images/back.svg"
                 alt="back"

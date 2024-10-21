@@ -7,7 +7,7 @@ import LogFileModal from "@/components/project/log-file-modal";
 import useChatbotModal from "@/hooks/project/use-chatbot-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import {
-  LogDetailPageProps,
+  ProjectDetailPageProps,
   getProjectDetailSSR,
 } from "@/ssr/project/project-detail";
 import { GetServerSideProps } from "next";
@@ -16,10 +16,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export const getServerSideProps: GetServerSideProps<LogDetailPageProps> =
+export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
   getProjectDetailSSR;
 
-export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
+export default function LogDetail({
+  ProjectDetailSSR,
+}: ProjectDetailPageProps) {
   const router = useRouter();
   const { id } = router.query;
   console.log("id: ", id);
@@ -34,7 +36,7 @@ export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
-            <Link href="/log">
+            <Link href="/project">
               <Image
                 src="/images/back.svg"
                 alt="back"
@@ -85,7 +87,7 @@ export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
         {ProjectDetailSSR?.summaryContent ? (
           <Container
             title="요약"
-            link={`/log/${id}/summary`}
+            link={`/project/${id}/summary`}
             update={`${
               ProjectDetailSSR?.summaryUpdateDate?.split(" ")[0]
             } 업데이트`}
@@ -98,7 +100,11 @@ export default function LogDetail({ ProjectDetailSSR }: LogDetailPageProps) {
           <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
         )}
         {ProjectDetailSSR?.logContent ? (
-          <Container title="최근 로그" link={`/log/${id}/message`} update="">
+          <Container
+            title="최근 로그"
+            link={`/project/${id}/message`}
+            update=""
+          >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               {ProjectDetailSSR?.logContent}
             </div>

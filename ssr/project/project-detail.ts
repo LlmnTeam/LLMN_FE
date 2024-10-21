@@ -3,7 +3,7 @@ import { ProjectDetail } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-export interface LogDetailPageProps {
+export interface ProjectDetailPageProps {
   ProjectDetailSSR: ProjectDetail | null;
 }
 
@@ -13,7 +13,7 @@ export interface Params extends ParsedUrlQuery {
 
 export async function getProjectDetailSSR(
   context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<LogDetailPageProps>> {
+): Promise<GetServerSidePropsResult<ProjectDetailPageProps>> {
   const { id } = context.params as Params;
 
   if (!id) {

@@ -14,8 +14,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
     const path = router.pathname;
     if (path.includes("/new-item")) {
       return "new-item";
-    } else if (path.includes("/log")) {
-      return "log";
+    } else if (path.includes("/project")) {
+      return "project";
     } else if (path.includes("/insight")) {
       return "insight";
     } else if (path.includes("/setting")) {
@@ -65,7 +65,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
             ? "bg-gray-100 cursor-not-allowed"
             : "cursor-pointer"
         )}
-        onClick={() => handleMenuClick("log", "/log")}
+        onClick={() => handleMenuClick("project", "/project")}
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
           <Image src="/images/log.svg" alt="log" width={25} height={28} />

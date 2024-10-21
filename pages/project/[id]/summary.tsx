@@ -3,19 +3,34 @@ import DropdownMenu from "@/components/commons/dropdown-menu";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
+import {
+  ProjectSummaryListPageProps,
+  getProjectSummaryListSSR,
+} from "@/ssr/project/project-summary";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function LogSummary() {
+export const getServerSideProps: GetServerSideProps<ProjectSummaryListPageProps> =
+  getProjectSummaryListSSR;
+
+export default function ProjectSummaryList({
+  ProjectSummaryListSSR,
+}: ProjectSummaryListPageProps) {
+  const router = useRouter();
+  const { id } = router.query;
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
+
+  console.log("ProjectSummaryListSSR: ", ProjectSummaryListSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
-            <Link href="/log/1">
+            <Link href={`/project/${id}`}>
               <Image
                 src="/images/back.svg"
                 alt="back"
@@ -25,7 +40,8 @@ export default function LogSummary() {
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              Spring - 요약
+              {ProjectSummaryListSSR?.name}
+              {" - 요약"}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">

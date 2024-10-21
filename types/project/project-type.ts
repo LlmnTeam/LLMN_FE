@@ -27,7 +27,7 @@ export interface Summary {
   isChecked: boolean;
 }
 
-export interface LogSummaryList {
+export interface ProjectSummaryList {
   name: string;
   description: string;
   summaries: Summary[];

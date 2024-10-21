@@ -48,7 +48,7 @@ export default function ProjectTable({ ProjectList }: ProjectTableProps) {
                   <tr
                     key={project.id}
                     className="text-center bg-white cursor-pointer"
-                    onClick={() => router.push(`/log/${project.id}`)}
+                    onClick={() => router.push(`/project/${project.id}`)}
                   >
                     <td className="w-[10%] px-4 py-2 truncate rounded-l-3xl overflow-hidden border-l border-t border-b border-transparent">
                       <div className="flex flex-row justify-center items-center">
@@ -106,7 +106,7 @@ export default function ProjectTable({ ProjectList }: ProjectTableProps) {
               <div
                 key={project.id}
                 className="flex flex-col space-y-2 bg-[#F6F6F6] rounded-3xl border border-[#E5E7EB] pl-1 pr-2 py-2 cursor-pointer hover:border-gray-400"
-                onClick={() => router.push(`/log/${project.id}`)}
+                onClick={() => router.push(`/project/${project.id}`)}
               >
                 <div className="flex">
                   <div className="min-w-[80px] px-4 py-1 xs:py-2 font-bold">
