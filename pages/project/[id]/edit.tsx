@@ -5,8 +5,11 @@ import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
 import ButtonSmall from "@/components/commons/button-small";
+import { useRouter } from "next/router";
 
 export default function NewItem() {
+  const router = useRouter();
+  const { id } = router.query;
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [cloudName, setCloudName] = useState("");
@@ -31,7 +34,7 @@ export default function NewItem() {
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">
             <div className="flex flex-row justify-start items-center">
-              <Link href="/log/1">
+              <Link href={`/project/${id}`}>
                 <Image
                   src="/images/back.svg"
                   alt="back"

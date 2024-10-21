@@ -16,6 +16,7 @@ export default function DropdownMenu({
   cloudInstanceList = null,
 }: DropdownMenuProps) {
   const router = useRouter();
+  const { id } = router.query;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -73,7 +74,7 @@ export default function DropdownMenu({
   } = {
     edit: {
       label: "수정하기",
-      action: () => router.push("/log/1/edit"),
+      action: () => router.push(`/project/${id}/edit`),
     },
     restart: {
       label: "컨테이너 재시작",
