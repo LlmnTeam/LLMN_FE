@@ -36,3 +36,9 @@ export interface ProjectSummaryList {
   description: string;
   summaries: Summary[];
 }
+
+export interface ProjectInfo {
+  projectName: string;
+  description: string;
+  containerName: string;
+}

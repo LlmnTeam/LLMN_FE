@@ -5,7 +5,7 @@ import {
 } from "@/types/new-item/new-item-type";
 import { validateProjectName } from "@/libs/validation-utils";
 
-interface UseNewItemInputReturn {
+interface UseProjectInfoInputReturn {
   projectName: string;
   description: string;
   cloudName: string;
@@ -22,7 +22,7 @@ interface UseNewItemInputReturn {
   setCloudData: (data: CloudInstanceList | null) => void;
 }
 
-export default function useNewItemInput(): UseNewItemInputReturn {
+export default function useProjectInfoInput(): UseProjectInfoInputReturn {
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [cloudName, setCloudName] = useState("");

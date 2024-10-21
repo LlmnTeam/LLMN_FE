@@ -1,32 +1,34 @@
 import { useState } from "react";
 import Input from "@/components/commons/input";
-import InputWithDropdown from "@/components/commons/input-with-dropdown"; // 수정된 드롭다운 컴포넌트
+import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
 import ButtonSmall from "@/components/commons/button-small";
 import { useRouter } from "next/router";
+import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
+import { cls } from "@/libs/class-utils";
 
 export default function NewItem() {
+  const {
+    projectName,
+    description,
+    cloudName,
+    containerName,
+    sshInfoId,
+    cloudOptions,
+    containerOptions,
+    isValidProjectName,
+    projectNameMsg,
+    handleProjectNameChange,
+    handleDescriptionChange,
+    handleCloudSelect,
+    handleContainerSelect,
+    setCloudData,
+  } = useProjectInfoInput();
+
   const router = useRouter();
   const { id } = router.query;
-  const [projectName, setProjectName] = useState("");
-  const [description, setDescription] = useState("");
-  const [cloudName, setCloudName] = useState("");
-  const [containerName, setContainerName] = useState("");
-  const cloudOptions = [
-    "Ubuntu (54.180.244.93)",
-    "Amazon Linux (72.180.244.93)",
-    "연결하지 않음",
-  ];
-  const containerOptions = ["Spring", "FastAPI", "React", "연결하지 않음"];
-
-  const handleCloudSelect = (name: string) => {
-    setCloudName(name);
-  };
-  const handleContainerSelect = (name: string) => {
-    setContainerName(name);
-  };
 
   return (
     <Layout>
@@ -54,20 +56,30 @@ export default function NewItem() {
           </div>
         </div>
         <div className="flex flex-col justify-start items-start gap-12 xs:gap-14 sm:gap-16 mt-12 xs:mt-14 sm:mt-16">
-          <Input
-            type="text"
-            label="프로젝트 이름"
-            placeholder="이름을 입력해주세요."
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
-            maxWidth="1200px"
-          />
+          <div className="flex flex-col justify-start items-center relative w-full">
+            <Input
+              type="text"
+              label="프로젝트 이름"
+              placeholder="이름을 입력해주세요."
+              value={projectName}
+              onChange={handleProjectNameChange}
+              maxWidth="1200px"
+            />
+            <div
+              className={cls(
+                "w-full max-w-[1200px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidProjectName ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {projectNameMsg}
+            </div>
+          </div>
           <Input
             type="text"
             label="설명"
             placeholder="설명을 입력해주세요."
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
             maxWidth="1200px"
           />
           <InputWithDropdown
@@ -80,14 +92,19 @@ export default function NewItem() {
           />
           <InputWithDropdown
             label="컨테이너"
-            placeholder="연결할 컨테이너를 선택해주세요."
+            placeholder={
+              cloudName
+                ? "연결할 컨테이너를 선택해주세요."
+                : "먼저 클라우드를 선택하세요."
+            }
             value={containerName}
             options={containerOptions}
             onSelect={handleContainerSelect}
             maxWidth="1200px"
+            disabled={!cloudName}
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
-            <ButtonSmall label="완료" />
+            <ButtonSmall label="생성" />
           </div>
         </div>
       </div>
