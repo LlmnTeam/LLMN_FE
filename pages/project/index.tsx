@@ -10,7 +10,7 @@ import { useState } from "react";
 export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
   getProjectListSSR;
 
-export default function Log({ ProjectListSSR }: ProjectPageProps) {
+export default function Project({ ProjectListSSR }: ProjectPageProps) {
   const [projectList, setProjectList] = useState<ProjectList | null>(
     ProjectListSSR
   );

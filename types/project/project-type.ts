@@ -20,6 +20,10 @@ export interface ProjectDetail {
   logContent: string;
 }
 
+export interface LogFileList {
+  files: string[];
+}
+
 export interface Summary {
   id: number;
   time: string;

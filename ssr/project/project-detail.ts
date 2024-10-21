@@ -1,10 +1,14 @@
-import { fetchProjectDetail } from "@/api/project/project-api";
-import { ProjectDetail } from "@/types/project/project-type";
+import {
+  fetchLogFileList,
+  fetchProjectDetail,
+} from "@/api/project/project-api";
+import { LogFileList, ProjectDetail } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 export interface ProjectDetailPageProps {
   ProjectDetailSSR: ProjectDetail | null;
+  LogFileListSSR: LogFileList | null;
 }
 
 export interface Params extends ParsedUrlQuery {
@@ -21,13 +25,15 @@ export async function getProjectDetailSSR(
   }
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [ProjectDetailSSR] = await Promise.all([
+  const [ProjectDetailSSR, LogFileListSSR] = await Promise.all([
     fetchProjectDetail(Number(id), accessToken),
+    fetchLogFileList(Number(id), accessToken),
   ]);
 
   return {
     props: {
       ProjectDetailSSR,
+      LogFileListSSR,
     },
   };
 }

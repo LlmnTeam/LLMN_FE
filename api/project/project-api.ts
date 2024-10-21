@@ -1,4 +1,5 @@
 import {
+  LogFileList,
   ProjectDetail,
   ProjectList,
   ProjectSummaryList,
@@ -80,6 +81,33 @@ export async function fetchProjectDetail(
     }
 
     const { result }: { result: ProjectDetail | null } = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch pets data with auth:", error);
+    return null;
+  }
+}
+
+export async function fetchLogFileList(
+  projectId: number,
+  accessToken: string
+): Promise<LogFileList | null> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/project/${projectId}/logs`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`API call failed with status: ${response.status}`);
+    }
+
+    const { result }: { result: LogFileList | null } = await response.json();
     return result;
   } catch (error) {
     console.error("Failed to fetch pets data with auth:", error);

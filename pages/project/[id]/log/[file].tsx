@@ -50,10 +50,10 @@ export default function LogMessage() {
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
                 onClick={openLogFileModal}
               />
-              <LogFileModal
+              {/* <LogFileModal
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
-              />
+              /> */}
             </div>
             <Image
               src="/images/download.svg"
