@@ -8,3 +8,14 @@ export interface Insight {
   recommendation: string;
   recommendUpdateTime: string;
 }
+
+export interface Summary {
+  id: number;
+  time: string;
+  content: string;
+  isChecked: boolean;
+}
+
+export interface InsightSummary {
+  summaries: Summary[];
+}

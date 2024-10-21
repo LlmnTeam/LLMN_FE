@@ -16,20 +16,6 @@ export default function Insight({ InsightSSR }: InsightPageProps) {
   const [insight, setInsight] = useState<Insight | null>(InsightSSR);
   console.log("insight: ", insight);
 
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>("");
-
-  const openConfirmModal = (option: string) => {
-    setSelectedOption(option);
-    setIsConfirmModalOpen(true);
-  };
-  const closeConfirmModal = () => setIsConfirmModalOpen(false);
-
-  const handleMenuSelect = (option: string) => {
-    if (option === "edit") return;
-    openConfirmModal(option);
-  };
-
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -45,13 +31,10 @@ export default function Insight({ InsightSSR }: InsightPageProps) {
             </div>
           </div>
         </div>
-        <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          ForPaw BE의 스프링 프로젝트
-        </div>
         {insight?.performanceSummary ? (
           <Container
             title="성능 요약"
-            link={`/insight`}
+            link="/insight/performance"
             update={`${insight?.performanceUpdateTime?.split(" ")[0]} 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
@@ -67,7 +50,7 @@ export default function Insight({ InsightSSR }: InsightPageProps) {
         {insight?.dailySummary ? (
           <Container
             title="일일 요약"
-            link={`/insight`}
+            link="/insight/daily"
             update={`${insight?.dailyUpdateTime?.split(" ")[0]} 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
@@ -83,7 +66,7 @@ export default function Insight({ InsightSSR }: InsightPageProps) {
         {insight?.trendSummary ? (
           <Container
             title="장기 트렌드 분석"
-            link={`/insight`}
+            link="/insight/trend"
             update={`${insight?.trendUpdateTime?.split(" ")[0]} 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
@@ -99,7 +82,7 @@ export default function Insight({ InsightSSR }: InsightPageProps) {
         {insight?.recommendation ? (
           <Container
             title="추천"
-            link={`/insight`}
+            link="/insight/recommendation"
             update={`${insight?.recommendUpdateTime?.split(" ")[0]} 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
