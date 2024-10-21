@@ -2,9 +2,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
-import { cls } from "@/libs/class-utils";
 import CloudListModal from "../dashboard/cloud-list-modal";
 import { CloudInstanceList } from "@/types/dashboard/dashboard-type";
+import { cls } from "@/utils/class-utils";
 
 interface DropdownMenuProps {
   options: string[];

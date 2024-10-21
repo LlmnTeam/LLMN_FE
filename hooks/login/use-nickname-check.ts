@@ -1,5 +1,5 @@
 import { checkNicknameDuplication } from "@/api/login/nickname-check";
-import { validateNickname } from "@/libs/validation-utils";
+import { validateNickname } from "@/utils/validation-utils";
 import { useEffect, useState } from "react";
 
 interface UseNicknameCheckReturn {

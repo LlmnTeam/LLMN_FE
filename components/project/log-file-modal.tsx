@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import ButtonSmall from "../commons/button-small";
 import { LogFileList } from "@/types/project/project-type";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useChatbotModal from "@/hooks/project/use-chatbot-modal";

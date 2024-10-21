@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Container from "../commons/container";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import InsightRecord from "./insight-record";
 
 interface InsightRecordProps {

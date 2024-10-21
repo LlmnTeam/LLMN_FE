@@ -4,7 +4,7 @@ import Logo from "@/components/commons/logo";
 import ToggleButton from "@/components/commons/toggle-button";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import useEmailCheck from "@/hooks/login/use-email-check";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 

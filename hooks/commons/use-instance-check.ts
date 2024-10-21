@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { validateIPv4, validateIPv6, filterInput } from "@/libs/ip-utils";
+import { validateIPv4, validateIPv6, filterInput } from "@/utils/ip-utils";
 import useIsMobile from "./use-is-mobile";
-import { validateRemoteName } from "@/libs/validation-utils";
+import { validateRemoteName } from "@/utils/validation-utils";
 import { SSHPemKeyUpload, validateInstance } from "@/api/login/instance-check";
 
 interface UseInstanceCheckReturn {

@@ -2,7 +2,7 @@ import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import Image from "next/image";
 import InstanceModal from "../commons/instance-modal";
 import { useState } from "react";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 
 interface SSHInfo {
   remoteName: string;

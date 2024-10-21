@@ -1,5 +1,5 @@
 import { ResetNewPassword } from "@/api/login/email-check";
-import { validatePassword } from "@/libs/validation-utils";
+import { validatePassword } from "@/utils/validation-utils";
 import { useState, useEffect } from "react";
 
 interface UsePasswordCheckReturn {

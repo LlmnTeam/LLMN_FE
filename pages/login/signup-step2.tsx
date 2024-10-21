@@ -3,7 +3,7 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useNicknameCheck from "@/hooks/login/use-nickname-check";
 import usePasswordCheck from "@/hooks/login/use-password-check";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 

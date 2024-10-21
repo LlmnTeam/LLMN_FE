@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ButtonSmall from "./button-small";
 import { useRouter } from "next/router";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 
 interface ModalProps {
   isOpen: boolean;

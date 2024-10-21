@@ -9,11 +9,11 @@ import {
 import {
   validateEmailDomainPart,
   validateEmailLocalPart,
-} from "@/libs/validation-utils";
+} from "@/utils/validation-utils";
 import {
   calculateRemainingTime,
   getSessionStorageKey,
-} from "@/libs/timer-utils";
+} from "@/utils/timer-utils";
 
 interface UseEmailCheckReturn {
   email: string;

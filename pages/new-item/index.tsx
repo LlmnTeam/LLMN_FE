@@ -5,7 +5,7 @@ import Layout from "@/components/commons/layout";
 import ButtonSmall from "@/components/commons/button-small";
 import { GetServerSideProps } from "next";
 import { CreateNewProject } from "@/api/new-item/new-item-api";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "@/components/commons/confirm-modal";
 import { NewItemPageProps, getNewItemSSR } from "@/ssr/new-item/new-item-ssr";

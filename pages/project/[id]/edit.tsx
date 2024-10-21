@@ -7,7 +7,7 @@ import Link from "next/link";
 import ButtonSmall from "@/components/commons/button-small";
 import { useRouter } from "next/router";
 import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 
 export default function NewItem() {
   const {

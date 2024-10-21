@@ -2,7 +2,7 @@ import ButtonSmall from "@/components/commons/button-small";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import InstanceValidationModal from "@/components/commons/instance-validation-modal";

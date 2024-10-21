@@ -3,7 +3,7 @@ import {
   CloudInstanceList,
   CloudInstance,
 } from "@/types/new-item/new-item-type";
-import { validateProjectName } from "@/libs/validation-utils";
+import { validateProjectName } from "@/utils/validation-utils";
 
 interface UseProjectInfoInputReturn {
   projectName: string;

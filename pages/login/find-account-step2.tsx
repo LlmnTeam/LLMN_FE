@@ -3,7 +3,7 @@ import ConfirmModal from "@/components/commons/confirm-modal";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import usePasswordCheck from "@/hooks/login/use-password-check";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 

@@ -1,4 +1,4 @@
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 
 interface ButtonProps {
   label: string;

@@ -3,7 +3,7 @@ import Input from "./input";
 import ButtonSmall from "./button-small";
 import InputSmall from "./input-small";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
-import { cls } from "@/libs/class-utils";
+import { cls } from "@/utils/class-utils";
 
 interface SSHInfo {
   remoteName: string;
