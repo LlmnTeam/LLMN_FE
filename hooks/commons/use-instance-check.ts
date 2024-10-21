@@ -160,9 +160,9 @@ export default function useInstanceCheck(
   };
 
   const resetRemoteValues = () => {
-    setRemoteName("");
-    setRemoteHost("");
-    setRemoteKeyPath("");
+    setRemoteName(initialRemoteName);
+    setRemoteHost(initialRemoteHost);
+    setRemoteKeyPath(initialRemoteKeyPath);
     setIsValidRemoteName(false);
     setIsValidRemoteHost(false);
     setIsValidRemoteKeyPath(false);

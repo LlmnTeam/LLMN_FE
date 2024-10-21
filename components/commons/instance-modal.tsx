@@ -4,26 +4,22 @@ import ButtonSmall from "./button-small";
 import InputSmall from "./input-small";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
 import { cls } from "@/utils/class-utils";
-
-interface SSHInfo {
-  remoteName: string;
-  remoteHost: string;
-  remoteKeyPath: string;
-}
+import { SshInfo } from "@/types/setting/setting-type";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
-  ssh?: SSHInfo;
+  ssh?: SshInfo;
 }
 
 export default function InstanceModal({
   isOpen,
   onClose,
   option,
-  ssh = { remoteName: "", remoteHost: "", remoteKeyPath: "" },
+  ssh = { id: 0, remoteName: "", remoteHost: "", remoteKeyPath: "" },
 }: ModalProps) {
+  console.log("ssh: ", ssh);
   const {
     remoteName,
     remoteHost,
@@ -41,8 +37,6 @@ export default function InstanceModal({
     resetRemoteValues,
   } = useInstanceCheck(ssh.remoteName, ssh.remoteHost, ssh.remoteKeyPath);
 
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
   const handleValidButton = () => {
     // addSSHInfo({ remoteName, remoteHost, remoteKeyPath });
   };
@@ -57,7 +51,10 @@ export default function InstanceModal({
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div
         className="fixed inset-0 bg-black opacity-70"
-        onClick={onClose}
+        onClick={() => {
+          resetRemoteValues();
+          onClose();
+        }}
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[75%] lg:w-[770px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
@@ -66,7 +63,10 @@ export default function InstanceModal({
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
-            onClick={onClose}
+            onClick={() => {
+              resetRemoteValues();
+              onClose();
+            }}
           >
             ✕
           </div>

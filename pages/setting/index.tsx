@@ -7,10 +7,22 @@ import ToggleButton from "@/components/commons/toggle-button";
 import InstanceList from "@/components/setting/instance-list";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
+import { SettingPageProps, getSettingSSR } from "@/ssr/setting/setting-ssr";
+import { Setting, SshInfo } from "@/types/setting/setting-type";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Setting() {
+export const getServerSideProps: GetServerSideProps<SettingPageProps> =
+  getSettingSSR;
+
+export default function Setting({ SettingSSR }: SettingPageProps) {
+  const [setting, setSetting] = useState<Setting | null>(SettingSSR);
+  const [sshList, setSshList] = useState<SshInfo[]>(SettingSSR?.sshInfos || []);
+  const [selectedSshId, SetSelectedSshId] = useState<number | null>(
+    SettingSSR?.monitoringSshId || null
+  );
+  console.log("setting: ", setting);
   const {
     isInstanceModalOpen,
     selectedOption,
@@ -84,7 +96,12 @@ export default function Setting() {
               />
             </div>
           </div>
-          <InstanceList />
+          <InstanceList
+            monitoringSshId={selectedSshId}
+            setMonitoringSshId={SetSelectedSshId}
+            sshInfos={sshList}
+            setSshInfos={setSshList}
+          />
         </div>
         <div className="flex flex-row justify-end items-center w-full">
           <ButtonSmall label="수정" />
