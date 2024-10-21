@@ -1,5 +1,3 @@
-import { fetchInsight } from "@/api/insight/insight-api";
-import ConfirmModal from "@/components/commons/confirm-modal";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
