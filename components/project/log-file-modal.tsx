@@ -4,6 +4,8 @@ import { LogFileList } from "@/types/project/project-type";
 import { cls } from "@/libs/class-utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import useChatbotModal from "@/hooks/project/use-chatbot-modal";
+import ChatbotModal from "./chatbot-modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,15 +21,23 @@ export default function LogFileModal({
   const router = useRouter();
   const { id } = router.query;
   console.log("id: ", id);
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
+    useChatbotModal();
+  const [selectedFileList, setSelectedFileList] = useState<string[]>([]);
 
   const handleFileSelect = (fileName: string) => {
-    setSelectedFile(fileName);
+    setSelectedFileList((prevSelectedFiles) => {
+      if (prevSelectedFiles.includes(fileName)) {
+        return prevSelectedFiles.filter((file) => file !== fileName);
+      } else {
+        return [...prevSelectedFiles, fileName];
+      }
+    });
   };
 
   const handleChoiceButton = () => {
-    if (!selectedFile) return;
-    router.push(`/project/${id}/log/${selectedFile}`);
+    if (!selectedFileList) return;
+    openChatbotModal();
   };
 
   console.log("LogFileList: ", LogFileList);
@@ -52,14 +62,14 @@ export default function LogFileModal({
             ✕
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start relative h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto px-2 py-2 mt-3 xs:mt-4 sm:mt-5 custom-scrollbar">
+        <div className="flex flex-col justify-start items-start relative h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto gap-1 xs:gap-1.5 sm:gap-2 px-2 py-2 mt-3 xs:mt-4 sm:mt-5 custom-scrollbar">
           {LogFileList && LogFileList.files.length > 0 ? (
             LogFileList.files.map((logFile, index) => (
               <div
                 key={index}
                 className={cls(
                   "w-full hover:bg-gray-200 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 cursor-pointer transition-colors",
-                  logFile === selectedFile ? "bg-gray-100" : ""
+                  selectedFileList.includes(logFile) ? "bg-gray-100" : ""
                 )}
                 onClick={() => handleFileSelect(logFile)}
               >
@@ -87,6 +97,11 @@ export default function LogFileModal({
           <ButtonSmall label="선택" onClick={handleChoiceButton} />
         </div>
       </div>
+      <ChatbotModal
+        isOpen={isChatbotModalOpen}
+        onClose={closeChatbotModal}
+        LogFileList={selectedFileList}
+      />
     </div>
   );
 }

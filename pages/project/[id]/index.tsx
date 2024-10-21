@@ -2,7 +2,6 @@ import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
-import ChatbotModal from "@/components/project/chatbot-modal";
 import LogFileModal from "@/components/project/log-file-modal";
 import useChatbotModal from "@/hooks/project/use-chatbot-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
@@ -78,10 +77,6 @@ export default function ProjectDetail({
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
                 LogFileList={logFileList}
-              />
-              <ChatbotModal
-                isOpen={isChatbotModalOpen}
-                onClose={closeChatbotModal}
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />

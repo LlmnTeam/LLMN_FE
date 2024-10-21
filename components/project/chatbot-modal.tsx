@@ -1,22 +1,24 @@
 import React, { ReactNode, useState } from "react";
-import ButtonSmall from "../commons/button-small";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  LogFileList: string[];
 }
 
-export default function ChatbotModal({ isOpen, onClose }: ModalProps) {
+export default function ChatbotModal({
+  isOpen,
+  onClose,
+  LogFileList,
+}: ModalProps) {
+  console.log("LogFileList: ", LogFileList);
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div
-        className="fixed inset-0 bg-black opacity-70"
-        onClick={onClose}
-      ></div>
+      <div className="fixed inset-0 bg-black opacity-0" onClick={onClose}></div>
       <div className="w-[90%] xs:w-[85%] sm:w-[75%] h-[500px] xs:h-[600px] sm:h-[720px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1 pr-5 truncate">
