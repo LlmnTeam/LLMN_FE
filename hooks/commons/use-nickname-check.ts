@@ -6,14 +6,18 @@ interface UseNicknameCheckReturn {
   nickname: string;
   isValidNickname: boolean | null;
   nicknameMsg: string;
+  isNicknameEdited: boolean;
   handleNicknameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   verifyNickname: () => Promise<void>;
 }
 
-export default function useNicknameCheck(): UseNicknameCheckReturn {
-  const [nickname, setNickname] = useState<string>("");
-  const [isValidNickname, setIsValidNickname] = useState<boolean>(false);
+export default function useNicknameCheck(
+  initialNickname: string
+): UseNicknameCheckReturn {
+  const [nickname, setNickname] = useState<string>(initialNickname);
+  const [isValidNickname, setIsValidNickname] = useState(false);
   const [nicknameMsg, setNicknameMsg] = useState<string>("");
+  const [isNicknameEdited, setIsNicknameEdited] = useState(false);
 
   const handleNicknameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -31,6 +35,7 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
     if (!validateNickname(nickname)) {
       setIsValidNickname(false);
       setNicknameMsg("2자 이상 8자 이하의 한글, 영어, 숫자를 입력하세요.");
+      if (!isNicknameEdited) setIsNicknameEdited(true);
       return;
     }
 
@@ -44,6 +49,7 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
         setIsValidNickname(false);
         setNicknameMsg("이미 사용 중인 닉네임입니다.");
       }
+      if (!isNicknameEdited) setIsNicknameEdited(true);
     } catch (error) {
       console.error("닉네임 체크 중 오류 발생:", error);
       setIsValidNickname(false);
@@ -52,6 +58,12 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
   };
 
   useEffect(() => {
+    if (initialNickname !== "" && initialNickname === nickname) {
+      setIsValidNickname(true);
+      setNicknameMsg("현재 사용 중인 닉네임입니다.");
+      return;
+    }
+
     const timer = setTimeout(async () => {
       if (nickname) {
         await verifyNickname();
@@ -65,6 +77,7 @@ export default function useNicknameCheck(): UseNicknameCheckReturn {
     nickname,
     isValidNickname,
     nicknameMsg,
+    isNicknameEdited,
     handleNicknameChange,
     verifyNickname,
   };

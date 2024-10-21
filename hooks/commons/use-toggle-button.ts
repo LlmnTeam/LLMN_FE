@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function useToggleButton() {
-  const [isToggled, setIsToggled] = useState(false);
+export default function useToggleButton(initialState = false) {
+  const [isToggled, setIsToggled] = useState(initialState);
 
   const handleToggle = () => {
     setIsToggled((prev) => !prev);

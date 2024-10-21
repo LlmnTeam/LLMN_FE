@@ -1,7 +1,7 @@
 import ButtonSmall from "@/components/commons/button-small";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
-import useNicknameCheck from "@/hooks/login/use-nickname-check";
+import useNicknameCheck from "@/hooks/commons/use-nickname-check";
 import usePasswordCheck from "@/hooks/login/use-password-check";
 import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ export default function SignupStep2() {
     nicknameMsg,
     handleNicknameChange,
     verifyNickname,
-  } = useNicknameCheck();
+  } = useNicknameCheck("");
 
   const {
     password,

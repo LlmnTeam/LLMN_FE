@@ -6,9 +6,11 @@ import Layout from "@/components/commons/layout";
 import ToggleButton from "@/components/commons/toggle-button";
 import InstanceList from "@/components/setting/instance-list";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
+import useNicknameCheck from "@/hooks/commons/use-nickname-check";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { SettingPageProps, getSettingSSR } from "@/ssr/setting/setting-ssr";
 import { Setting, SshInfo } from "@/types/setting/setting-type";
+import { cls } from "@/utils/class-utils";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
@@ -23,6 +25,16 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
     SettingSSR?.monitoringSshId || null
   );
   console.log("setting: ", setting);
+
+  const {
+    nickname,
+    isValidNickname,
+    nicknameMsg,
+    isNicknameEdited,
+    handleNicknameChange,
+    verifyNickname,
+  } = useNicknameCheck(SettingSSR?.nickName || "");
+
   const {
     isInstanceModalOpen,
     selectedOption,
@@ -30,26 +42,10 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
     closeInstanceModal,
   } = useInstanceModal();
 
-  const { isToggled, handleToggle } = useToggleButton();
+  const { isToggled, handleToggle } = useToggleButton(
+    SettingSSR?.receivingAlarm ? true : false
+  );
 
-  // 타입 정의: 인스턴스 이름(문자열)을 키로 하는 객체 타입
-  type CheckedState = {
-    [key: string]: boolean;
-  };
-
-  // 각 아이템의 체크 상태를 관리하는 상태
-  const [isChecked, setIsChecked] = useState<CheckedState>({
-    ubuntu: false,
-    amazonLinux: false,
-  });
-
-  // 각 아이템의 체크 상태를 토글하는 함수
-  const toggleCheck = (item: string) => {
-    setIsChecked((prevState) => ({
-      ...prevState,
-      [item]: !prevState[item],
-    }));
-  };
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -70,18 +66,26 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
             </div>
             <ToggleButton isToggled={isToggled} onToggle={handleToggle} />
           </div>
-          <div className="mt-10 xs:mt-12 sm:mt-14">
+          <div className="flex flex-col justify-start items-center relative w-full mt-10 xs:mt-12 sm:mt-14">
             <Input
               type="text"
               label="닉네임"
               placeholder="닉네임을 입력해주세요."
+              value={nickname}
+              onChange={handleNicknameChange}
               maxWidth="1200px"
             />
-            <div className="w-full text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-1 mt-0.5 text-gray-400">
-              닉네임을 2자에서 8자 사이로 입력해주세요.
+            <div
+              className={cls(
+                "w-full max-w-[1200px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isValidNickname ? "text-blue-400" : "text-red-400",
+                isNicknameEdited ? "visible" : "hidden"
+              )}
+            >
+              {nicknameMsg}
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center w-full px-1 mt-3 xs:mt-4 sm:mt-5">
+          <div className="flex flex-row justify-between items-center w-full px-1 mt-6 xs:mt-7 sm:mt-8">
             <div className="text-[18px] xs:text-[20px] sm:text-[22px]">
               클라우드 인스턴스
             </div>
