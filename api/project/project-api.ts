@@ -93,6 +93,7 @@ export async function fetchProjectSummaryList(
   accessToken: string
 ): Promise<ProjectSummaryList | null> {
   try {
+    console.log("Fetching project summary list");
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
     const response = await fetch(
       `${baseURL}/project/${projectId}/logs/summaries?page=${page}`,
@@ -114,7 +115,7 @@ export async function fetchProjectSummaryList(
       await response.json();
     return result;
   } catch (error) {
-    console.error("Failed to fetch pets data with auth:", error);
+    console.error("Failed to fetch project summary list:", error);
     return null;
   }
 }

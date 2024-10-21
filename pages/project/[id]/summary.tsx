@@ -1,3 +1,4 @@
+import { fetchProjectSummaryList } from "@/api/project/project-api";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import Layout from "@/components/commons/layout";
@@ -24,7 +25,6 @@ export default function ProjectSummaryList({
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
 
-  console.log("ProjectSummaryListSSR: ", ProjectSummaryListSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -40,7 +40,7 @@ export default function ProjectSummaryList({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {ProjectSummaryListSSR?.name}
+              {/* {ProjectSummaryListSSR?.name} */}
               {" - 요약"}
             </span>
           </div>
