@@ -17,7 +17,7 @@ export interface NetworkMetric extends Metric {
   networkSent?: number;
 }
 
-export interface DashboardData {
+export interface Dashboard {
   ip: string;
   cpuUsage: string;
   memoryUsage: string;

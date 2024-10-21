@@ -9,16 +9,19 @@ import {
   DashboardPageProps,
   getDashboardSSR,
 } from "@/ssr/dashboard/dashboard-ssr";
+import { useState } from "react";
+import { CloudInstanceList, Dashboard } from "@/types/dashboard/dashboard-type";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;
 
 export default function Dashboard({
-  DashboardDataSSR,
+  DashboardSSR,
   CloudInstanceListSSR,
 }: DashboardPageProps) {
-  console.log("DashboardDataSSR: ", DashboardDataSSR);
-  console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
+  const [dashboard, setDashboard] = useState<Dashboard | null>(DashboardSSR);
+  const [cloudInstanceList, setCloudInstanceList] =
+    useState<CloudInstanceList | null>(CloudInstanceListSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -28,7 +31,7 @@ export default function Dashboard({
               대시보드
             </span>
             <span className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold">
-              {DashboardDataSSR?.ip}
+              {dashboard?.ip}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -41,7 +44,7 @@ export default function Dashboard({
             />
             <DropdownMenu
               options={["change"]}
-              cloudInstanceList={CloudInstanceListSSR}
+              cloudInstanceList={cloudInstanceList}
             />
           </div>
         </div>
@@ -51,7 +54,7 @@ export default function Dashboard({
               CPU 사용량
             </span>
             <span className="text-[11px] xs:text-[12px] sm:text-[14px] font-normal">
-              {DashboardDataSSR?.cpuUsage}
+              {dashboard?.cpuUsage}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center">
@@ -59,7 +62,7 @@ export default function Dashboard({
               메모리 사용량
             </span>
             <span className="text-[11px] xs:text-[12px] sm:text-[14px] font-normal">
-              {DashboardDataSSR?.memoryUsage}
+              {dashboard?.memoryUsage}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center">
@@ -67,7 +70,7 @@ export default function Dashboard({
               네트워크 수신
             </span>
             <span className="text-[11px] xs:text-[12px] sm:text-[14px] font-normal">
-              {DashboardDataSSR?.networkReceived}
+              {dashboard?.networkReceived}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center">
@@ -75,14 +78,14 @@ export default function Dashboard({
               네트워크 송신
             </span>
             <span className="text-[11px] xs:text-[12px] sm:text-[14px] font-normal">
-              {DashboardDataSSR?.networkSent}
+              {dashboard?.networkSent}
             </span>
           </div>
         </div>
-        {DashboardDataSSR?.summary ? (
+        {dashboard?.summary ? (
           <Container title="요약" link="">
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {DashboardDataSSR?.summary}
+              {dashboard?.summary}
             </div>
           </Container>
         ) : (
@@ -97,9 +100,9 @@ export default function Dashboard({
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               CPU
             </span>
-            {DashboardDataSSR ? (
+            {dashboard ? (
               <MultiLineChart
-                data={DashboardDataSSR.cpuHistory}
+                data={dashboard.cpuHistory}
                 lines={[
                   { key: "cpuUsage", color: "#374151", label: "CPU Usage" },
                 ]}
@@ -110,9 +113,9 @@ export default function Dashboard({
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Memory
             </span>
-            {DashboardDataSSR ? (
+            {dashboard ? (
               <MultiLineChart
-                data={DashboardDataSSR.memoryHistory}
+                data={dashboard.memoryHistory}
                 lines={[
                   {
                     key: "memoryUsage",
@@ -127,9 +130,9 @@ export default function Dashboard({
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Network - In
             </span>
-            {DashboardDataSSR ? (
+            {dashboard ? (
               <MultiLineChart
-                data={DashboardDataSSR.networkInHistory}
+                data={dashboard.networkInHistory}
                 lines={[
                   {
                     key: "networkReceived",
@@ -145,9 +148,9 @@ export default function Dashboard({
             <span className="text-[21px] xs:text-[24px] sm:text-[27px] font-bold ml-[3%] mb-[2%]">
               Network - Out
             </span>
-            {DashboardDataSSR ? (
+            {dashboard ? (
               <MultiLineChart
-                data={DashboardDataSSR.networkOutHistory}
+                data={dashboard.networkOutHistory}
                 lines={[
                   {
                     key: "networkSent",

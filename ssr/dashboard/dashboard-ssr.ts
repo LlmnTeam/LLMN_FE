@@ -1,16 +1,13 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 import {
-  fetchDashboardData,
+  fetchDashboard,
   fetchCloudInstanceList,
 } from "@/api/dashboard/dashboard-api";
-import {
-  DashboardData,
-  CloudInstanceList,
-} from "@/types/dashboard/dashboard-type";
+import { CloudInstanceList, Dashboard } from "@/types/dashboard/dashboard-type";
 
 export interface DashboardPageProps {
-  DashboardDataSSR: DashboardData | null;
+  DashboardSSR: Dashboard | null;
   CloudInstanceListSSR: CloudInstanceList | null;
 }
 
@@ -19,14 +16,14 @@ export async function getDashboardSSR(
 ): Promise<GetServerSidePropsResult<DashboardPageProps>> {
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [DashboardDataSSR, CloudInstanceListSSR] = await Promise.all([
-    fetchDashboardData(accessToken),
+  const [DashboardSSR, CloudInstanceListSSR] = await Promise.all([
+    fetchDashboard(accessToken),
     fetchCloudInstanceList(accessToken),
   ]);
 
   return {
     props: {
-      DashboardDataSSR,
+      DashboardSSR,
       CloudInstanceListSSR,
     },
   };
