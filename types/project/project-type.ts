@@ -35,6 +35,7 @@ export interface ProjectSummaryList {
   name: string;
   description: string;
   summaries: Summary[];
+  isLastPage: boolean;
 }
 
 export interface ProjectInfo {

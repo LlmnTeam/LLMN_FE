@@ -4,18 +4,20 @@ import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import { InsightPageProps, getInsightSSR } from "@/ssr/insight/insight-ssr";
 import { Insight } from "@/types/insight/insight-type";
+import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<InsightPageProps> =
   getInsightSSR;
 
-export default function Insight({ InsightSSR }: InsightPageProps) {
+export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [insight, setInsight] = useState<Insight | null>(InsightSSR);
   console.log("insight: ", insight);
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">

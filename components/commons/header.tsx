@@ -3,11 +3,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface HeaderProps {
+  nickname?: string | null;
   toggleSidebar: () => void;
 }
 
-export default function Header({ toggleSidebar }: HeaderProps) {
+export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
   const router = useRouter();
+  console.log("nickname: ", nickname);
   return (
     <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 pl-8 pr-1">
       {/* <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]"> */}
@@ -77,7 +79,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
             className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] cursor-pointer"
           />
           <span className="text-[18px] font-medium hidden sm:inline">
-            호예이
+            {nickname}
           </span>
           <Image
             src="/images/chevron-down.svg"

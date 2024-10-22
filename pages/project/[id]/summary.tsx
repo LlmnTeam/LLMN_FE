@@ -8,6 +8,7 @@ import {
   ProjectSummaryListPageProps,
   getProjectSummaryListSSR,
 } from "@/ssr/project/project-summary";
+import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,15 +19,18 @@ export const getServerSideProps: GetServerSideProps<ProjectSummaryListPageProps>
   getProjectSummaryListSSR;
 
 export default function ProjectSummaryList({
+  NicknameSSR,
   ProjectSummaryListSSR,
 }: ProjectSummaryListPageProps) {
   const router = useRouter();
   const { id } = router.query;
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
+  console.log("ProjectSummaryListSSR: ", ProjectSummaryListSSR);
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">

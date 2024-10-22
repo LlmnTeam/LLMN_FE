@@ -1,12 +1,15 @@
+import { verifyAccessToken } from "@/api/login/login-check";
 import {
   fetchLogFileList,
   fetchProjectDetail,
 } from "@/api/project/project-api";
+import { Nickname } from "@/types/login/login-type";
 import { LogFileList, ProjectDetail } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 export interface ProjectDetailPageProps {
+  NicknameSSR: Nickname | null;
   ProjectDetailSSR: ProjectDetail | null;
   LogFileListSSR: LogFileList | null;
 }
@@ -25,13 +28,15 @@ export async function getProjectDetailSSR(
   }
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [ProjectDetailSSR, LogFileListSSR] = await Promise.all([
+  const [NicknameSSR, ProjectDetailSSR, LogFileListSSR] = await Promise.all([
+    verifyAccessToken(accessToken),
     fetchProjectDetail(Number(id), accessToken),
     fetchLogFileList(Number(id), accessToken),
   ]);
 
   return {
     props: {
+      NicknameSSR,
       ProjectDetailSSR,
       LogFileListSSR,
     },

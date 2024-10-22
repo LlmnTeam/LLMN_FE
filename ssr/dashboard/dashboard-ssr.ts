@@ -9,7 +9,7 @@ import { verifyAccessToken } from "@/api/login/login-check";
 import { Nickname } from "@/types/login/login-type";
 
 export interface DashboardPageProps {
-  nicknameSSR: Nickname | null;
+  NicknameSSR: Nickname | null;
   DashboardSSR: Dashboard | null;
   CloudInstanceListSSR: CloudInstanceList | null;
 }
@@ -19,13 +19,13 @@ export async function getDashboardSSR(
 ): Promise<GetServerSidePropsResult<DashboardPageProps>> {
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [nicknameSSR, DashboardSSR, CloudInstanceListSSR] = await Promise.all([
+  const [NicknameSSR, DashboardSSR, CloudInstanceListSSR] = await Promise.all([
     verifyAccessToken(accessToken),
     fetchDashboard(accessToken),
     fetchCloudInstanceList(accessToken),
   ]);
 
-  if (nicknameSSR === null) {
+  if (NicknameSSR === null) {
     return {
       redirect: {
         destination: "/login",
@@ -36,7 +36,7 @@ export async function getDashboardSSR(
 
   return {
     props: {
-      nicknameSSR,
+      NicknameSSR,
       DashboardSSR,
       CloudInstanceListSSR,
     },

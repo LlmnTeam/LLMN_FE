@@ -10,6 +10,7 @@ import {
   getInsightSummarySSR,
 } from "@/ssr/insight/insight-summary-ssr";
 import { Insight, InsightSummary } from "@/types/insight/insight-type";
+import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +21,7 @@ export const getServerSideProps: GetServerSideProps<InsightSummaryPageProps> =
   getInsightSummarySSR;
 
 export default function InsightSummary({
+  NicknameSSR,
   InsightSummarySSR,
 }: InsightSummaryPageProps) {
   const router = useRouter();
@@ -30,13 +32,14 @@ export default function InsightSummary({
     trend: "장기 트렌드",
     recommendation: "추천",
   };
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [insightSummary, setInsightSummary] = useState<InsightSummary | null>(
     InsightSummarySSR
   );
   console.log("insightSummary: ", insightSummary);
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">

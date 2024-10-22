@@ -10,11 +10,16 @@ import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "@/components/commons/confirm-modal";
 import { NewItemPageProps, getNewItemSSR } from "@/ssr/new-item/new-item-ssr";
 import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
+import { Nickname } from "@/types/login/login-type";
 
 export const getServerSideProps: GetServerSideProps<NewItemPageProps> =
   getNewItemSSR;
 
-export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
+export default function NewItem({
+  NicknameSSR,
+  CloudInstanceListSSR,
+}: NewItemPageProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const {
     projectName,
     description,
@@ -73,7 +78,7 @@ export default function NewItem({ CloudInstanceListSSR }: NewItemPageProps) {
   };
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-1.5 sm:gap-2">

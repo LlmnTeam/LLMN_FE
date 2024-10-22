@@ -2,6 +2,7 @@ import { refreshProjectList } from "@/api/project/project-api";
 import Layout from "@/components/commons/layout";
 import ProjectTable from "@/components/project/project-table";
 import { ProjectPageProps, getProjectListSSR } from "@/ssr/project/project-ssr";
+import { Nickname } from "@/types/login/login-type";
 import { ProjectList } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
@@ -10,7 +11,11 @@ import { useState } from "react";
 export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
   getProjectListSSR;
 
-export default function Project({ ProjectListSSR }: ProjectPageProps) {
+export default function Project({
+  NicknameSSR,
+  ProjectListSSR,
+}: ProjectPageProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [projectList, setProjectList] = useState<ProjectList | null>(
     ProjectListSSR
   );
@@ -25,7 +30,7 @@ export default function Project({ ProjectListSSR }: ProjectPageProps) {
   };
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">

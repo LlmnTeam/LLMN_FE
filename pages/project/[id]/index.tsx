@@ -9,6 +9,7 @@ import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
 } from "@/ssr/project/project-detail";
+import { Nickname } from "@/types/login/login-type";
 import { LogFileList, ProjectDetail } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
@@ -20,12 +21,14 @@ export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
   getProjectDetailSSR;
 
 export default function ProjectDetail({
+  NicknameSSR,
   ProjectDetailSSR,
   LogFileListSSR,
 }: ProjectDetailPageProps) {
   const router = useRouter();
   const { id } = router.query;
   console.log("id: ", id);
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [projectDetail, setProjectDetail] = useState<ProjectDetail | null>(
     ProjectDetailSSR
   );
@@ -39,7 +42,7 @@ export default function ProjectDetail({
 
   console.log("ProjectDetailSSR: ", ProjectDetailSSR);
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">

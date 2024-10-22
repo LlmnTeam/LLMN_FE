@@ -11,19 +11,22 @@ import {
 } from "@/ssr/dashboard/dashboard-ssr";
 import { useState } from "react";
 import { CloudInstanceList, Dashboard } from "@/types/dashboard/dashboard-type";
+import { Nickname } from "@/types/login/login-type";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;
 
 export default function Dashboard({
+  NicknameSSR,
   DashboardSSR,
   CloudInstanceListSSR,
 }: DashboardPageProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [dashboard, setDashboard] = useState<Dashboard | null>(DashboardSSR);
   const [cloudInstanceList, setCloudInstanceList] =
     useState<CloudInstanceList | null>(CloudInstanceListSSR);
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">

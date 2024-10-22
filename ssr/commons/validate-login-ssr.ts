@@ -3,18 +3,18 @@ import { Nickname } from "@/types/login/login-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-export interface ValidateLoginProps {
-  nicknameSSR: Nickname | null;
+interface ProtectedPageProps {
+  NicknameSSR: Nickname | null;
 }
 
-export async function getValidateLoginSSR(
+export async function getServerSideProps(
   context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<ValidateLoginProps>> {
+): Promise<GetServerSidePropsResult<ProtectedPageProps>> {
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [nicknameSSR] = await Promise.all([verifyAccessToken(accessToken)]);
+  const NicknameSSR = await verifyAccessToken(accessToken);
 
-  if (nicknameSSR === null) {
+  if (!NicknameSSR) {
     return {
       redirect: {
         destination: "/login",
@@ -24,6 +24,8 @@ export async function getValidateLoginSSR(
   }
 
   return {
-    props: { nicknameSSR },
+    props: {
+      NicknameSSR,
+    },
   };
 }
