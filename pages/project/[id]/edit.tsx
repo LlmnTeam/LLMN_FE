@@ -8,8 +8,26 @@ import ButtonSmall from "@/components/commons/button-small";
 import { useRouter } from "next/router";
 import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
 import { cls } from "@/utils/class-utils";
+import {
+  ProjectEditPageProps,
+  getProjectEditSSR,
+} from "@/ssr/project/project-edit-ssr";
+import { GetServerSideProps } from "next";
+import { Nickname } from "@/types/login/login-type";
+import { ProjectInfo } from "@/types/project/project-type";
 
-export default function NewItem() {
+export const getServerSideProps: GetServerSideProps<ProjectEditPageProps> =
+  getProjectEditSSR;
+
+export default function ProjectEdit({
+  NicknameSSR,
+  ProjectInfoSSR,
+}: ProjectEditPageProps) {
+  console.log("ProjectInfoSSR: ", ProjectInfoSSR);
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const [projectInfo, setProjectInfo] = useState<ProjectInfo | null>(
+    ProjectInfoSSR
+  );
   const {
     projectName,
     description,
@@ -20,18 +38,28 @@ export default function NewItem() {
     containerOptions,
     isValidProjectName,
     projectNameMsg,
+    isProjectNameEdited,
     handleProjectNameChange,
     handleDescriptionChange,
     handleCloudSelect,
     handleContainerSelect,
     setCloudData,
-  } = useProjectInfoInput();
+  } = useProjectInfoInput(
+    projectInfo?.projectName,
+    projectInfo?.description,
+    "",
+    projectInfo?.usingContainerName
+  );
+  const containerNames: string[] = projectInfo
+    ? projectInfo?.containers.map((container) => container.containerName)
+    : [];
+  containerNames.push("연결하지 않음");
 
   const router = useRouter();
   const { id } = router.query;
 
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">
@@ -68,7 +96,8 @@ export default function NewItem() {
             <div
               className={cls(
                 "w-full max-w-[1200px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
-                isValidProjectName ? "text-blue-400" : "text-red-400"
+                isValidProjectName ? "text-blue-400" : "text-red-400",
+                isProjectNameEdited ? "visible" : "hidden"
               )}
             >
               {projectNameMsg}
@@ -82,14 +111,14 @@ export default function NewItem() {
             onChange={handleDescriptionChange}
             maxWidth="1200px"
           />
-          <InputWithDropdown
+          {/* <InputWithDropdown
             label="클라우드 인스턴스"
             placeholder="연결할 인스턴스를 선택해주세요."
             value={cloudName}
             options={cloudOptions}
             onSelect={handleCloudSelect}
             maxWidth="1200px"
-          />
+          /> */}
           <InputWithDropdown
             label="컨테이너"
             placeholder={
@@ -98,10 +127,9 @@ export default function NewItem() {
                 : "먼저 클라우드를 선택하세요."
             }
             value={containerName}
-            options={containerOptions}
+            options={containerNames}
             onSelect={handleContainerSelect}
             maxWidth="1200px"
-            disabled={!cloudName}
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
             <ButtonSmall label="생성" />

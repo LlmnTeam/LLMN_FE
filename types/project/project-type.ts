@@ -43,3 +43,14 @@ export interface ProjectInfo {
   description: string;
   containerName: string;
 }
+
+export interface Container {
+  containerName: string;
+}
+
+export interface ProjectInfo {
+  projectName: string;
+  usingContainerName: string;
+  description: string;
+  containers: Container[];
+}

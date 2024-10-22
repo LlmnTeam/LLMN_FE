@@ -15,6 +15,7 @@ interface UseProjectInfoInputReturn {
   containerOptions: string[];
   isValidProjectName: boolean;
   projectNameMsg: string;
+  isProjectNameEdited: boolean;
   handleProjectNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloudSelect: (name: string) => void;
@@ -22,13 +23,20 @@ interface UseProjectInfoInputReturn {
   setCloudData: (data: CloudInstanceList | null) => void;
 }
 
-export default function useProjectInfoInput(): UseProjectInfoInputReturn {
-  const [projectName, setProjectName] = useState("");
-  const [description, setDescription] = useState("");
-  const [cloudName, setCloudName] = useState("");
-  const [containerName, setContainerName] = useState("");
+export default function useProjectInfoInput(
+  initialProjectName = "",
+  initialDescription = "",
+  initialCloudName = "",
+  initialContainerName = ""
+): UseProjectInfoInputReturn {
+  const [projectName, setProjectName] = useState<string>(initialProjectName);
+  const [description, setDescription] = useState<string>(initialDescription);
+  const [cloudName, setCloudName] = useState<string>(initialCloudName);
+  const [containerName, setContainerName] =
+    useState<string>(initialContainerName);
   const [isValidProjectName, setIsValidProjectName] = useState(false);
   const [projectNameMsg, setProjectNameMsg] = useState<string>("");
+  const [isProjectNameEdited, setIsProjectNameEdited] = useState(false);
   const [sshInfoId, setSshInfoId] = useState<number | null>(null);
   const [cloudOptions, setCloudOptions] = useState<string[]>(["연결하지 않음"]);
   const [containerOptions, setContainerOptions] = useState<string[]>([
@@ -81,15 +89,25 @@ export default function useProjectInfoInput(): UseProjectInfoInputReturn {
       return;
     }
 
+    if (
+      initialProjectName !== null &&
+      initialProjectName === inputProjectName
+    ) {
+      setIsValidProjectName(true);
+      setProjectNameMsg("현재 사용 중인 프로젝트 이름입니다.");
+      return;
+    }
+
     if (validateProjectName(inputProjectName)) {
       setIsValidProjectName(true);
-      setProjectNameMsg("사용 가능한 사용자명입니다.");
+      setProjectNameMsg("사용 가능한 프로젝트 이름입니다.");
     } else {
       setIsValidProjectName(false);
       setProjectNameMsg(
         "3-32자의 한글, 영어, 숫자, 하이픈(-), 밑줄(_)을 입력해주세요."
       );
     }
+    setIsProjectNameEdited(true);
   };
 
   const handleDescriptionChange = (
@@ -111,6 +129,7 @@ export default function useProjectInfoInput(): UseProjectInfoInputReturn {
     containerOptions,
     isValidProjectName,
     projectNameMsg,
+    isProjectNameEdited,
     handleProjectNameChange,
     handleDescriptionChange,
     handleCloudSelect,

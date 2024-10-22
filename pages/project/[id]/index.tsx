@@ -8,7 +8,7 @@ import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
-} from "@/ssr/project/project-detail";
+} from "@/ssr/project/project-detail-ssr";
 import { Nickname } from "@/types/login/login-type";
 import { LogFileList, ProjectDetail } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";

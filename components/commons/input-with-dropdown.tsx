@@ -66,7 +66,7 @@ export default function InputWithDropdown({
         />
       </div>
       {isDropdownOpen && !disabled && (
-        <div className="absolute top-full mt-2 w-full max-w-[1200px] max-h-[140px] text-[14px] xs:text-[15px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white z-10 overflow-y-auto">
+        <div className="absolute top-full mt-2 w-full max-w-[1200px] max-h-[140px] text-[14px] xs:text-[15px] sm:text-[16px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white z-10 overflow-y-auto custom-scrollbar">
           <ul className="space-y-1 sm:space-y-2">
             {options.map((option) => (
               <li
