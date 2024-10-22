@@ -1,0 +1,29 @@
+import { verifyAccessToken } from "@/api/login/login-check";
+import { Nickname } from "@/types/login/login-type";
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { ParsedUrlQuery } from "querystring";
+
+export interface ValidateLoginProps {
+  nicknameSSR: Nickname | null;
+}
+
+export async function getValidateLoginSSR(
+  context: GetServerSidePropsContext<ParsedUrlQuery>
+): Promise<GetServerSidePropsResult<ValidateLoginProps>> {
+  const accessToken = context.req.cookies?.accessToken || "";
+
+  const [nicknameSSR] = await Promise.all([verifyAccessToken(accessToken)]);
+
+  if (nicknameSSR === null) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { nicknameSSR },
+  };
+}

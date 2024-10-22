@@ -1,9 +1,18 @@
 import ButtonSmall from "@/components/commons/button-small";
 import Layout from "@/components/commons/layout";
+import {
+  ValidateLoginProps,
+  getValidateLoginSSR,
+} from "@/ssr/commons/validate-login-ssr";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function License() {
+export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
+  getValidateLoginSSR;
+
+export default function License({ nicknameSSR }: ValidateLoginProps) {
+  console.log("nicknameSSR: ", nicknameSSR);
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">

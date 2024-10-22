@@ -7,3 +7,7 @@ export interface LoginResponse {
   message: string;
   result: AccessToken | null;
 }
+
+export interface Nickname {
+  nickName: string;
+}
