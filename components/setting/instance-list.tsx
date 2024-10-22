@@ -9,7 +9,7 @@ interface InstaceListProps {
   monitoringSshId: number | null;
   setMonitoringSshId: (value: number) => void;
   sshInfos: SshInfo[];
-  setSshInfos: (value: SshInfo[]) => void;
+  setSshInfos: React.Dispatch<React.SetStateAction<SshInfo[]>>;
 }
 
 export default function InstanceList({
@@ -62,7 +62,8 @@ export default function InstanceList({
                 width={26}
                 height={27}
                 className="w-[20px] h-[21px] xs:w-[23px] xs:h-[24px] sm:w-[26px] sm:h-[27px]"
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation();
                   setSelectedSSH(ssh);
                   openInstanceModal("edit");
                 }}
@@ -76,6 +77,8 @@ export default function InstanceList({
         onClose={closeInstanceModal}
         option={selectedOption}
         ssh={selectedSSH}
+        sshInfos={sshInfos}
+        setSshInfos={setSshInfos}
       />
     </div>
   );

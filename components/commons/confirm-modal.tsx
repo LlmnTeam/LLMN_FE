@@ -19,6 +19,7 @@ export default function ConfirmModal({
   overlay = true,
 }: ModalProps) {
   const router = useRouter();
+  console.log("option: ", option);
 
   const modalContents: {
     [key: string]: {
@@ -88,6 +89,30 @@ export default function ConfirmModal({
             window.location.reload();
           },
     },
+    addNewInstance: {
+      title: "인스턴스 추가",
+      message: success
+        ? "새 인스턴스가 성공적으로 추가되었습니다."
+        : "인스턴스 추가에 실패했습니다.",
+      buttonText: "확인",
+      action: onClose,
+    },
+    editInstance: {
+      title: "인스턴스 수정",
+      message: success
+        ? "인스턴스가 성공적으로 수정되었습니다."
+        : "인스턴스 수정에 실패했습니다.",
+      buttonText: "확인",
+      action: onClose,
+    },
+    deleteInstance: {
+      title: "인스턴스 삭제",
+      message: success
+        ? "인스턴스가 성공적으로 삭제되었습니다."
+        : "인스턴스 삭제에 실패했습니다.",
+      buttonText: "확인",
+      action: onClose,
+    },
   };
 
   const modalContent = modalContents[option] || {
@@ -125,6 +150,7 @@ export default function ConfirmModal({
           <ButtonSmall
             label={modalContent.buttonText}
             onClick={modalContent.action}
+            type="modal"
           />
         </div>
       </div>

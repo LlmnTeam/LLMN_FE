@@ -1,15 +1,20 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Input from "./input";
 import ButtonSmall from "./button-small";
-import InputSmall from "./input-small";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
 import { cls } from "@/utils/class-utils";
 import { SshInfo } from "@/types/setting/setting-type";
+import InstanceValidationModal from "./instance-validation-modal";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import useInstanceValidationModal from "@/hooks/commons/use-instance-validation-modal";
+import ConfirmModal from "./confirm-modal";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
+  sshInfos: SshInfo[];
+  setSshInfos: React.Dispatch<React.SetStateAction<SshInfo[]>>;
   ssh?: SshInfo;
 }
 
@@ -17,9 +22,10 @@ export default function InstanceModal({
   isOpen,
   onClose,
   option,
+  sshInfos,
+  setSshInfos,
   ssh = { id: 0, remoteName: "", remoteHost: "", remoteKeyPath: "" },
 }: ModalProps) {
-  console.log("ssh: ", ssh);
   const {
     remoteName,
     remoteHost,
@@ -30,6 +36,9 @@ export default function InstanceModal({
     isValidRemoteName,
     isValidRemoteHost,
     isValidRemoteKeyPath,
+    isValidInstance,
+    isRemoteNameEdited,
+    isRemoteHostEdited,
     handleRemoteNameChange,
     handleRemoteHostChange,
     handleRemoteKeyPathChange,
@@ -37,18 +46,90 @@ export default function InstanceModal({
     resetRemoteValues,
   } = useInstanceCheck(ssh.remoteName, ssh.remoteHost, ssh.remoteKeyPath);
 
+  const {
+    isInstanceValidationModalOpen,
+    openInstanceValidationModal,
+    closeInstanceValidationModal,
+  } = useInstanceValidationModal();
+
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
+  const [disabled, setDisabled] = useState(true);
+  const [confirmModalOption, setConfirmModalOption] = useState<string>(option);
+
+  useEffect(() => {
+    if (
+      (remoteName === ssh.remoteName &&
+        remoteHost === ssh.remoteHost &&
+        remoteKeyPath === ssh.remoteKeyPath) ||
+      remoteName === "" ||
+      remoteHost === "" ||
+      remoteKeyPath === ""
+    )
+      setDisabled(true);
+    else setDisabled(false);
+  }, [remoteName, remoteHost, remoteKeyPath]);
+
+  const handleSave = () => {
+    if (option === "add") {
+      const newSsh: SshInfo = {
+        id: sshInfos.length + 1,
+        remoteName,
+        remoteHost,
+        remoteKeyPath,
+      };
+      setSshInfos((prev) => [...prev, newSsh]);
+    } else {
+      setSshInfos((prev) =>
+        prev.map((item) =>
+          item.id === ssh.id
+            ? { ...item, remoteName, remoteHost, remoteKeyPath }
+            : item
+        )
+      );
+    }
+  };
+
+  const handleDelete = () => {
+    setSshInfos((prev) => prev.filter((item) => item.id !== ssh.id));
+  };
+
+  const handleSaveButton = async () => {
+    setConfirmModalOption(option === "add" ? "addNewInstance" : "editInstance");
+    openInstanceValidationModal();
+    await checkInstanceValidity();
+  };
+
+  const handleDeleteButton = async () => {
+    setConfirmModalOption("deleteInstance");
+    setSuccess(true);
+    handleDelete();
+    openConfirmModal();
+  };
+
   const handleValidButton = () => {
-    // addSSHInfo({ remoteName, remoteHost, remoteKeyPath });
+    setSuccess(true);
+    handleSave();
+    openConfirmModal();
+    closeInstanceValidationModal();
   };
 
   const handeInvalidButton = () => {
-    // setIsConfirmModalOpen(false);
+    setSuccess(false);
+    openConfirmModal();
+    closeInstanceValidationModal();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-hidden">
       <div
         className="fixed inset-0 bg-black opacity-70"
         onClick={() => {
@@ -71,7 +152,7 @@ export default function InstanceModal({
             ✕
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start overflow-y-auto gap-8 xs:gap-9 sm:gap-10 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5 px-0.5">
+        <div className="flex flex-col justify-start items-start overflow-y-hidden gap-8 xs:gap-9 sm:gap-10 pt-8 xs:pt-9 sm:pt-10 pb-3 xs:pb-4 sm:pb-5 mt-3 xs:mt-4 sm:mt-5 px-0.5">
           <div className="flex flex-col justify-start items-start relative w-full">
             <Input
               type="text"
@@ -83,7 +164,8 @@ export default function InstanceModal({
             <div
               className={cls(
                 "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
-                isValidRemoteName ? "text-blue-400" : "text-red-400"
+                isValidRemoteName ? "text-blue-400" : "text-red-400",
+                isRemoteNameEdited ? "visible" : "hidden"
               )}
             >
               {remoteNameMsg}
@@ -100,7 +182,8 @@ export default function InstanceModal({
             <div
               className={cls(
                 "w-full max-w-[605px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
-                isValidRemoteHost ? "text-blue-400" : "text-red-400"
+                isValidRemoteHost ? "text-blue-400" : "text-red-400",
+                isRemoteHostEdited ? "visible" : "hidden"
               )}
             >
               {remoteHostMsg}
@@ -126,16 +209,48 @@ export default function InstanceModal({
           </div>
         </div>
         {option === "add" ? (
-          <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
-            <ButtonSmall label="완료" onClick={onClose} />
+          <div className="flex flex-row justify-center items-center w-full my-4 xs:my-5 sm:my-6 transition-colors">
+            <ButtonSmall
+              label="완료"
+              onClick={handleSaveButton}
+              disabled={disabled}
+              type="modal"
+            />
           </div>
         ) : (
-          <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8 gap-3 xs:gap-4 sm:gap-5">
-            <ButtonSmall label="삭제" onClick={onClose} />
-            <ButtonSmall label="수정" onClick={onClose} />
+          <div className="flex flex-row justify-center items-center w-full my-4 xs:my-5 sm:my-6 gap-3 xs:gap-4 sm:gap-5 transition-colors">
+            <ButtonSmall
+              label="삭제"
+              onClick={handleDeleteButton}
+              type="modal"
+            />
+            <ButtonSmall
+              label="수정"
+              onClick={handleSaveButton}
+              disabled={disabled}
+              type="modal"
+            />
           </div>
         )}
       </div>
+      <InstanceValidationModal
+        isOpen={isInstanceValidationModalOpen}
+        onValidClose={handleValidButton}
+        onInvalidClose={handeInvalidButton}
+        isValid={isValidInstance}
+        ip={remoteHost}
+      />
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => {
+          resetRemoteValues();
+          closeConfirmModal();
+          onClose();
+        }}
+        option={confirmModalOption}
+        success={success}
+        overlay={false}
+      />
     </div>
   );
 }

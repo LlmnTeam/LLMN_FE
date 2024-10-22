@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ButtonSmall from "./button-small";
+import { cls } from "@/utils/class-utils";
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,6 +8,7 @@ interface ModalProps {
   onInvalidClose: () => void;
   isValid: boolean | null;
   ip?: string;
+  overlay?: boolean;
 }
 
 export default function InstanceValidationModal({
@@ -15,6 +17,7 @@ export default function InstanceValidationModal({
   onInvalidClose,
   isValid = null,
   ip = "",
+  overlay = false,
 }: ModalProps) {
   const [validationResult, setValidationResult] = useState<string>("");
 
@@ -51,10 +54,13 @@ export default function InstanceValidationModal({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div
-        className="fixed inset-0 bg-black opacity-70"
+        className={cls(
+          "fixed inset-0 bg-black",
+          overlay ? "opacity-70" : "opacity-20"
+        )}
         onClick={handleClose}
       ></div>
-      <div className="max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
+      <div className="min-w-[300px] max-w-[90%] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-end items-center">
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] text-[12px] xs:text-[14px] sm:text-[16px] cursor-pointer"
@@ -78,6 +84,7 @@ export default function InstanceValidationModal({
             label="확인"
             onClick={handleClose}
             disabled={isValid === null ? true : false}
+            type="modal"
           />
         </div>
       </div>

@@ -115,6 +115,8 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
         isOpen={isInstanceModalOpen}
         onClose={closeInstanceModal}
         option={selectedOption}
+        sshInfos={sshList}
+        setSshInfos={setSshList}
       />
     </Layout>
   );

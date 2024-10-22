@@ -79,11 +79,11 @@ export default function SignupStep4() {
         </button>
         <ButtonSmall label="다음" onClick={handleNextButton} />
       </div>
-      <InstanceModal
+      {/* <InstanceModal
         isOpen={isInstanceModalOpen}
         onClose={closeInstanceModal}
         option={selectedOption}
-      />
+      /> */}
     </div>
   );
 }

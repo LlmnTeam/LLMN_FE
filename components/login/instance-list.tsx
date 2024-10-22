@@ -76,12 +76,12 @@ export default function InstanceList({
           </div>
         </div>
       ))}
-      <InstanceModal
+      {/* <InstanceModal
         isOpen={isInstanceModalOpen}
         onClose={closeInstanceModal}
         option={selectedOption}
         ssh={selectedSSH}
-      />
+      /> */}
     </div>
   );
 }
