@@ -9,6 +9,7 @@ interface ModalProps {
   option: string;
   success?: boolean;
   overlay?: boolean;
+  message?: string;
 }
 
 export default function ConfirmModal({
@@ -17,6 +18,7 @@ export default function ConfirmModal({
   option,
   success = true,
   overlay = true,
+  message = "",
 }: ModalProps) {
   const router = useRouter();
   console.log("option: ", option);
@@ -29,6 +31,12 @@ export default function ConfirmModal({
       action: () => void;
     };
   } = {
+    loginFailure: {
+      title: "로그인 실패",
+      message: message,
+      buttonText: "확인",
+      action: onClose,
+    },
     restart: {
       title: "컨테이너를 재시작하시겠습니까?",
       message: "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요.",
