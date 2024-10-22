@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { validateIPv4, validateIPv6, filterInput } from "@/utils/ip-utils";
+import { filterInput } from "@/utils/ip-utils";
 import useIsMobile from "./use-is-mobile";
-import { validateRemoteName } from "@/utils/validation-utils";
 import { SSHPemKeyUpload, validateInstance } from "@/api/login/instance-check";
 import { validateHost, validateName } from "@/utils/instance-validation-utils";
 
@@ -110,7 +109,7 @@ export default function useInstanceCheck(
   };
 
   useEffect(() => {
-    if (remoteHost.includes(":")) {
+    if (remoteHost.includes(":") && !isValidRemoteHost) {
       setRemoteHostMsg(
         isMobile
           ? "IPv6 형식에 맞춰 입력하세요. 예: 2001:db8::1"
