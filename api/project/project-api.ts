@@ -175,3 +175,42 @@ export async function fetchProjectInfo(
     return null;
   }
 }
+
+export async function editProjectInfo(
+  projectId: number,
+  projectName: string,
+  description: string,
+  containerName: string
+): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/project/${projectId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        projectName,
+        containerName,
+        description,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API call failed with status: ${response.status}`);
+    }
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}

@@ -15,6 +15,9 @@ import {
 import { GetServerSideProps } from "next";
 import { Nickname } from "@/types/login/login-type";
 import { ProjectInfo } from "@/types/project/project-type";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import { editProjectInfo } from "@/api/project/project-api";
+import ConfirmModal from "@/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<ProjectEditPageProps> =
   getProjectEditSSR;
@@ -28,6 +31,8 @@ export default function ProjectEdit({
   const [projectInfo, setProjectInfo] = useState<ProjectInfo | null>(
     ProjectInfoSSR
   );
+  const router = useRouter();
+  const { id } = router.query;
   const {
     projectName,
     description,
@@ -50,13 +55,20 @@ export default function ProjectEdit({
     "",
     projectInfo?.usingContainerName
   );
+
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
   const containerNames: string[] = projectInfo
     ? projectInfo?.containers.map((container) => container.containerName)
     : [];
   containerNames.push("연결하지 않음");
 
-  const router = useRouter();
-  const { id } = router.query;
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -69,6 +81,18 @@ export default function ProjectEdit({
       setDisabled(true);
     else setDisabled(false);
   }, [projectName, description, containerName]);
+
+  const handleEditButton = async () => {
+    if (disabled) return;
+    const result = await editProjectInfo(
+      Number(id),
+      projectName,
+      description,
+      containerName
+    );
+    setSuccess(result);
+    openConfirmModal();
+  };
 
   return (
     <Layout nickname={nickname?.nickName || null}>
@@ -123,14 +147,6 @@ export default function ProjectEdit({
             onChange={handleDescriptionChange}
             maxWidth="1200px"
           />
-          {/* <InputWithDropdown
-            label="클라우드 인스턴스"
-            placeholder="연결할 인스턴스를 선택해주세요."
-            value={cloudName}
-            options={cloudOptions}
-            onSelect={handleCloudSelect}
-            maxWidth="1200px"
-          /> */}
           <InputWithDropdown
             label="컨테이너"
             placeholder={
@@ -144,10 +160,21 @@ export default function ProjectEdit({
             maxWidth="1200px"
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
-            <ButtonSmall label="수정" disabled={disabled} />
+            <ButtonSmall
+              label="수정"
+              onClick={handleEditButton}
+              disabled={disabled}
+            />
           </div>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="editProjectInfo"
+        success={success}
+        id={Number(id)}
+      />
     </Layout>
   );
 }

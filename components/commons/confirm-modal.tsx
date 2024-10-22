@@ -10,6 +10,7 @@ interface ModalProps {
   success?: boolean;
   overlay?: boolean;
   message?: string;
+  id?: number;
 }
 
 export default function ConfirmModal({
@@ -19,6 +20,7 @@ export default function ConfirmModal({
   success = true,
   overlay = true,
   message = "",
+  id = 0,
 }: ModalProps) {
   const router = useRouter();
   console.log("option: ", option);
@@ -120,6 +122,20 @@ export default function ConfirmModal({
         : "인스턴스 삭제에 실패했습니다.",
       buttonText: "확인",
       action: onClose,
+    },
+    editProjectInfo: {
+      title: "프로젝트 수정",
+      message: success
+        ? "프로젝트가 성공적으로 수정되었습니다."
+        : "프로젝트 수정에 실패했습니다.",
+      buttonText: "확인",
+      action: success
+        ? () => {
+            router.push(`/project/${id}`);
+          }
+        : () => {
+            window.location.reload();
+          },
     },
   };
 
