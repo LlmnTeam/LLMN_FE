@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@/components/commons/input";
 import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
@@ -57,6 +57,18 @@ export default function ProjectEdit({
 
   const router = useRouter();
   const { id } = router.query;
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (
+      projectInfo &&
+      projectInfo.projectName === projectName &&
+      projectInfo.description === description &&
+      projectInfo.usingContainerName === containerName
+    )
+      setDisabled(true);
+    else setDisabled(false);
+  }, [projectName, description, containerName]);
 
   return (
     <Layout nickname={nickname?.nickName || null}>
@@ -132,7 +144,7 @@ export default function ProjectEdit({
             maxWidth="1200px"
           />
           <div className="flex flex-row justify-end items-center w-full mt-12 xs:mt-16 sm:mt-20">
-            <ButtonSmall label="생성" />
+            <ButtonSmall label="수정" disabled={disabled} />
           </div>
         </div>
       </div>
