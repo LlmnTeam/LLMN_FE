@@ -1,3 +1,4 @@
+import { verifyOpenAIKey } from "@/api/login/open-ai-key-check";
 import { useEffect, useState } from "react";
 
 interface useOpenAIKeyCheckReturn {
@@ -5,7 +6,6 @@ interface useOpenAIKeyCheckReturn {
   isVaildOpenAIKey: boolean | null;
   openAIKeyMsg: string;
   handleOpenAIKeyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // verifyOpenAIKey: () => Promise<void>;
 }
 
 export default function useOpenAIKeyCheck(): useOpenAIKeyCheckReturn {
@@ -21,8 +21,11 @@ export default function useOpenAIKeyCheck(): useOpenAIKeyCheckReturn {
     const inputOpenAIKey = event.target.value.trim();
     setOpenAIKey(inputOpenAIKey);
 
-    setIsPossibleOpenAIKey(false);
-    setOpenAIKeyMsg("");
+    if (inputOpenAIKey.trim() === "") {
+      setIsPossibleOpenAIKey(false);
+      setOpenAIKeyMsg("");
+      return;
+    }
 
     if (/\s/.test(inputOpenAIKey)) {
       setIsPossibleOpenAIKey(false);

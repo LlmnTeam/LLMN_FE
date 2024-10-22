@@ -1,4 +1,4 @@
-const verifyOpenAIKey = async (apiKey: string) => {
+export const verifyOpenAIKey = async (apiKey: string): Promise<boolean> => {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
     const response = await fetch(`${baseURL}/accounts/validate/key`, {
@@ -11,5 +11,6 @@ const verifyOpenAIKey = async (apiKey: string) => {
     return data.result.isValid;
   } catch (error) {
     console.error("Error verifying API key:", error);
+    return false;
   }
 };

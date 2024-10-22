@@ -3,11 +3,15 @@ import ConfirmModal from "@/components/commons/confirm-modal";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import Input from "@/components/commons/input";
 import Layout from "@/components/commons/layout";
+import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
+import { cls } from "@/utils/class-utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function ApiKey() {
+  const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
+    useOpenAIKeyCheck();
   return (
     <Layout>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -31,15 +35,25 @@ export default function ApiKey() {
               <DropdownMenu options={["license", "key", "withdraw"]} />
             </div>
           </div>
-          <div className="mt-12 xs:mt-16 sm:mt-20">
+          <div className="flex flex-col justify-start items-center relative w-full mt-12 xs:mt-16 sm:mt-20">
             <Input
               type="text"
               label="Open AI Key"
               placeholder="***************************"
+              value={openAIKey}
+              onChange={handleOpenAIKeyChange}
               maxWidth="1200px"
             />
+            <div
+              className={cls(
+                "w-full max-w-[1200px] absolute top-[44px] xs:top-[49px] sm:top-[54px] text-[11px] xs:text-[12px] sm:text-[13px] font-semibold px-1 mt-0.5",
+                isVaildOpenAIKey ? "text-blue-400" : "text-red-400"
+              )}
+            >
+              {openAIKeyMsg}
+            </div>
           </div>
-          <div className="flex flex-col justify-start items-start w-full rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 mt-6 xs:mt-7 sm:mt-8">
+          <div className="flex flex-col justify-start items-start w-full rounded-md bg-[#F8F9FA] border border-[#E4E4E7] gap-2 xs:gap-3 sm:gap-4 px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 mt-8 xs:mt-9 sm:mt-10">
             <ul className="list-disc pl-5">
               <li>OpenAI API 키는 openai.com에서 발급받으세요.</li>
               <li>API 키를 입력하지 않으면 일부 기능이 제한될 수 있습니다.</li>

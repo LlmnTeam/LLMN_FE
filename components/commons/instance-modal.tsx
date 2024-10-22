@@ -24,7 +24,13 @@ export default function InstanceModal({
   option,
   sshInfos,
   setSshInfos,
-  ssh = { id: 0, remoteName: "", remoteHost: "", remoteKeyPath: "" },
+  ssh = {
+    id: 0,
+    remoteName: "",
+    remoteHost: "",
+    remoteKeyPath: "",
+    isWorking: false,
+  },
 }: ModalProps) {
   const {
     remoteName,
@@ -83,6 +89,7 @@ export default function InstanceModal({
         remoteName,
         remoteHost,
         remoteKeyPath,
+        isWorking: false,
       };
       setSshInfos((prev) => [...prev, newSsh]);
     } else {

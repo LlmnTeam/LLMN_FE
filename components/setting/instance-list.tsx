@@ -24,6 +24,7 @@ export default function InstanceList({
     remoteName: "",
     remoteHost: "",
     remoteKeyPath: "",
+    isWorking: false,
   });
 
   const {
@@ -54,7 +55,9 @@ export default function InstanceList({
             </div>
             <div className="w-[25%] truncate">{ssh.remoteName}</div>
             <div className="w-[30%] truncate">{ssh.remoteHost}</div>
-            <div className="w-[20%] truncate">정상</div>
+            <div className="w-[20%] truncate">
+              {ssh.isWorking ? "정상" : "재연결 필요"}
+            </div>
             <div className="w-[12%]">
               <Image
                 src="/images/info.svg"

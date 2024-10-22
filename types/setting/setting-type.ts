@@ -3,6 +3,7 @@ export interface SshInfo {
   remoteHost: string;
   remoteKeyPath: string;
   remoteName: string;
+  isWorking: boolean;
 }
 
 export interface Setting {
