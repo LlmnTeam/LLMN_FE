@@ -120,7 +120,8 @@ export async function fetchProjectSummaryList(
   projectId: number,
   page: number,
   accessToken: string
-): Promise<ProjectSummaryList | null> {
+  // ): Promise<ProjectSummaryList | null> {
+): Promise<any> {
   try {
     console.log("Fetching project summary list");
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -140,8 +141,8 @@ export async function fetchProjectSummaryList(
       throw new Error(`API call failed with status: ${response.status}`);
     }
 
-    const { result }: { result: ProjectSummaryList | null } =
-      await response.json();
+    // const { result }: { result: ProjectSummaryList | null } =
+    const { result }: { result: any } = await response.json();
     return result;
   } catch (error) {
     console.error("Failed to fetch project summary list:", error);
@@ -206,6 +207,40 @@ export async function editProjectInfo(
     if (!response.ok) {
       throw new Error(`API call failed with status: ${response.status}`);
     }
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}
+
+export async function restartContainer(
+  projectId: number,
+  name: string
+): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(
+      `${baseURL}/project/${projectId}/container/restart`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name,
+        }),
+      }
+    );
 
     const { success }: { success: boolean } = await response.json();
     return success;

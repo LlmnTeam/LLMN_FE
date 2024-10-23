@@ -5,21 +5,40 @@ import { useRouter } from "next/router";
 import CloudListModal from "../dashboard/cloud-list-modal";
 import { CloudInstanceList } from "@/types/dashboard/dashboard-type";
 import { cls } from "@/utils/class-utils";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import ActionConfirmModal from "./action-confirm-modal";
+import useActionConfirmModal from "@/hooks/commons/use-action-confirm-modal";
 
 interface DropdownMenuProps {
   options: string[];
   cloudInstanceList?: CloudInstanceList | null;
+  name?: string;
 }
 
 export default function DropdownMenu({
   options,
   cloudInstanceList = null,
+  name = "",
 }: DropdownMenuProps) {
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
+  const {
+    isActionConfirmModalOpen,
+    openActionConfirmModal,
+    closeActionConfirmModal,
+  } = useActionConfirmModal();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCloudListModalOpen, setIsCloudListModalOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -57,10 +76,6 @@ export default function DropdownMenu({
     setIsMenuOpen(false);
   };
 
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-  };
-
   const openCloudListModal = () => {
     setIsCloudListModalOpen(true);
   };
@@ -80,21 +95,21 @@ export default function DropdownMenu({
       label: "컨테이너 재시작",
       action: () => {
         setSelectedOption("restart");
-        setIsConfirmModalOpen(true);
+        openActionConfirmModal;
       },
     },
     stop: {
       label: "컨테이너 종료",
       action: () => {
         setSelectedOption("stop");
-        setIsConfirmModalOpen(true);
+        openActionConfirmModal;
       },
     },
     delete: {
       label: "삭제하기",
       action: () => {
         setSelectedOption("delete");
-        setIsConfirmModalOpen(true);
+        openActionConfirmModal;
       },
     },
     license: {
@@ -109,7 +124,7 @@ export default function DropdownMenu({
       label: "계정 삭제",
       action: () => {
         setSelectedOption("withdraw");
-        setIsConfirmModalOpen(true);
+        openActionConfirmModal;
       },
     },
     change: {
@@ -155,6 +170,13 @@ export default function DropdownMenu({
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
         option={selectedOption}
+        success={success}
+      />
+      <ActionConfirmModal
+        isOpen={isActionConfirmModalOpen}
+        onClose={closeActionConfirmModal}
+        option={selectedOption}
+        name={name}
       />
       <CloudListModal
         isOpen={isCloudListModalOpen}
