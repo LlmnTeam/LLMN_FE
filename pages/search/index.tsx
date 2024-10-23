@@ -11,6 +11,12 @@ import SearchInput from "@/components/search/search-input";
 import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
 import Image from "next/image";
 import { useState } from "react";
+import {
+  ValidateLoginProps,
+  getValidateLoginSSR,
+} from "@/ssr/commons/validate-login-ssr";
+import { GetServerSideProps } from "next";
+import { Nickname } from "@/types/login/login-type";
 
 const files = [
   { filename: "mongo-log-2024-09-10_12.txt" },
@@ -75,14 +81,18 @@ const insightFiles = [
   // 더 많은 파일들...
 ];
 
-export default function Search() {
+export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
+  getValidateLoginSSR;
+
+export default function Search({ NicknameSSR }: ValidateLoginProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const {
     isInsightRecordModalOpen,
     openInsightRecordModal,
     closeInsightRecordModal,
   } = useInsightRecordModal();
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">

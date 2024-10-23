@@ -4,17 +4,19 @@ import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/ssr/commons/validate-login-ssr";
+import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
-export default function License({ nicknameSSR }: ValidateLoginProps) {
-  console.log("nicknameSSR: ", nicknameSSR);
+export default function License({ NicknameSSR }: ValidateLoginProps) {
+  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   return (
-    <Layout>
+    <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">
