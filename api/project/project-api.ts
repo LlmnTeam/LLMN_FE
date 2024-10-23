@@ -249,3 +249,62 @@ export async function restartContainer(
     return false;
   }
 }
+
+export async function stopContainer(
+  projectId: number,
+  name: string
+): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(
+      `${baseURL}/project/${projectId}/container/stop`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name,
+        }),
+      }
+    );
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}
+
+export async function deleteContainer(projectId: number): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/project/${projectId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}

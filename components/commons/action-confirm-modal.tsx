@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import ButtonSmall from "./button-small";
 import { useRouter } from "next/router";
 import { cls } from "@/utils/class-utils";
-import { restartContainer } from "@/api/project/project-api";
+import {
+  deleteContainer,
+  restartContainer,
+  stopContainer,
+} from "@/api/project/project-api";
 
 interface ModalProps {
   isOpen: boolean;
@@ -26,11 +30,38 @@ export default function ActionConfirmModal({
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
 
+  console.log("isConfirmed: ", isConfirmed);
+
   const restartAction = async () => {
     if (!isConfirmed) {
-      const result = await restartContainer(Number(id), name);
+      // const result = await restartContainer(Number(id), name);
       setIsConfirmed(true);
-      setIsSuccessful(result);
+      // setIsSuccessful(result);
+      setIsSuccessful(false);
+    } else {
+      setIsConfirmed(false);
+      onClose();
+    }
+  };
+
+  const stopAction = async () => {
+    if (!isConfirmed) {
+      // const result = await stopContainer(Number(id), name);
+      setIsConfirmed(true);
+      // setIsSuccessful(result);
+      setIsSuccessful(false);
+    } else {
+      setIsConfirmed(false);
+      onClose();
+    }
+  };
+
+  const deleteAction = async () => {
+    if (!isConfirmed) {
+      // const result = await deleteContainer(Number(id));
+      setIsConfirmed(true);
+      // setIsSuccessful(result);
+      setIsSuccessful(false);
     } else {
       setIsConfirmed(false);
       onClose();
@@ -56,7 +87,7 @@ export default function ActionConfirmModal({
         ? "컨테이너가 성공적으로 재시작되었습니다."
         : "컨테이너 재시작에 실패했습니다.",
       buttonText: !isConfirmed ? "재시작" : "확인",
-      closeAction: onClose,
+      closeAction: !isConfirmed ? onClose : restartAction,
       confirmAction: restartAction,
     },
     stop: {
@@ -65,17 +96,23 @@ export default function ActionConfirmModal({
         ? "진행 중인 작업이 있다면 종료 후 다시 시작해 주세요."
         : isSuccessful
         ? "컨테이너가 성공적으로 종료되었습니다."
-        : "컨테이너가 종료되지 않았습니다.",
+        : "컨테이너 종료에 실패했습니다.",
       buttonText: !isConfirmed ? "종료" : "확인",
-      closeAction: onClose,
-      confirmAction: onClose,
+      closeAction: !isConfirmed ? onClose : stopAction,
+      confirmAction: stopAction,
     },
     delete: {
-      title: "정말 프로젝트를 삭제하시겠습니까?",
-      message: "관련된 모든 로그 파일과 기록이 삭제되며, 복구가 불가능합니다.",
+      title: !isConfirmed
+        ? "정말 프로젝트를 삭제하시겠습니까?"
+        : "프로젝트 삭제",
+      message: !isConfirmed
+        ? "관련된 모든 로그 파일과 기록이 삭제되며, 복구가 불가능합니다."
+        : isSuccessful
+        ? "프로젝트가 성공적으로 삭제되었습니다."
+        : "프로젝트 삭제에 실패했습니다.",
       buttonText: "삭제",
-      closeAction: onClose,
-      confirmAction: onClose,
+      closeAction: !isConfirmed ? onClose : deleteAction,
+      confirmAction: deleteAction,
     },
     withdraw: {
       title: "정말 탈퇴하시겠습니까?",

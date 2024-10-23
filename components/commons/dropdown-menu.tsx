@@ -95,21 +95,21 @@ export default function DropdownMenu({
       label: "컨테이너 재시작",
       action: () => {
         setSelectedOption("restart");
-        openActionConfirmModal;
+        openActionConfirmModal();
       },
     },
     stop: {
       label: "컨테이너 종료",
       action: () => {
         setSelectedOption("stop");
-        openActionConfirmModal;
+        openActionConfirmModal();
       },
     },
     delete: {
       label: "삭제하기",
       action: () => {
         setSelectedOption("delete");
-        openActionConfirmModal;
+        openActionConfirmModal();
       },
     },
     license: {
@@ -124,7 +124,7 @@ export default function DropdownMenu({
       label: "계정 삭제",
       action: () => {
         setSelectedOption("withdraw");
-        openActionConfirmModal;
+        openActionConfirmModal();
       },
     },
     change: {
