@@ -17,8 +17,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-// export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
-//   getProjectDetailSSR;
+export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
+  getProjectDetailSSR;
 
 export default function ProjectDetail({
   NicknameSSR,

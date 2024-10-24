@@ -29,7 +29,7 @@ export interface LogFile {
 }
 
 export interface LogFiles {
-  logFiles: LogFile;
+  logFiles: LogFile[];
 }
 
 export interface Summary {

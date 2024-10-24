@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import ButtonSmall from "../commons/button-small";
-import { LogFileList } from "@/types/project/project-type";
+import { LogFile, LogFileList } from "@/types/project/project-type";
 import { cls } from "@/utils/class-utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -39,6 +39,8 @@ export default function LogFileModal({
     if (!selectedFileList) return;
     openChatbotModal();
   };
+
+  console.log("selectedFileList: ", selectedFileList);
 
   console.log("logFileList: ", logFileList);
 
@@ -99,7 +101,10 @@ export default function LogFileModal({
       </div>
       <ChatbotModal
         isOpen={isChatbotModalOpen}
-        onClose={closeChatbotModal}
+        onClose={() => {
+          closeChatbotModal();
+          onClose();
+        }}
         logFileList={selectedFileList}
       />
     </div>
