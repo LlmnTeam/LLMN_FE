@@ -8,6 +8,7 @@ interface LayoutProps {
   link?: string;
   update?: string;
   type?: string;
+  action?: () => void;
   children: React.ReactNode;
 }
 
@@ -16,6 +17,7 @@ export default function Container({
   link,
   update,
   type,
+  action,
   children,
 }: LayoutProps) {
   return (
@@ -41,6 +43,16 @@ export default function Container({
               className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
             />
           </Link>
+        ) : null}
+        {action ? (
+          <Image
+            src="/images/chevron-right.svg"
+            alt="chevron-right"
+            width={20}
+            height={20}
+            className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px] cursor-pointer"
+            onClick={action}
+          />
         ) : null}
         {update ? (
           <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">

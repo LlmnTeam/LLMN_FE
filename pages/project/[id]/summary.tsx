@@ -52,7 +52,7 @@ export default function ProjectSummaryList({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {projectSummaryList?.name}
+              {projectSummaryList?.name + " - 요약"}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -78,6 +78,7 @@ export default function ProjectSummaryList({
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
                 logFileList={logFileList}
+                option="chatbot"
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />

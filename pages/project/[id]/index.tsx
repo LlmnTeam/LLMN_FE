@@ -35,6 +35,7 @@ export default function ProjectDetail({
   const [logFileList, setLogFileList] = useState<LogFileList | null>(
     LogFileListSSR
   );
+  const [selectedOption, setSelectedOption] = useState<string>("");
   const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
     useChatbotModal();
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
@@ -74,12 +75,10 @@ export default function ProjectDetail({
                 width={44}
                 height={44}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer"
-                onClick={openLogFileModal}
-              />
-              <LogFileModal
-                isOpen={isLogFileModalOpen}
-                onClose={closeLogFileModal}
-                logFileList={logFileList}
+                onClick={() => {
+                  setSelectedOption("chatbot");
+                  openLogFileModal();
+                }}
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
@@ -106,8 +105,12 @@ export default function ProjectDetail({
         {projectDetail?.logContent ? (
           <Container
             title="최근 로그"
-            link={`/project/${id}/message`}
+            link=""
             update=""
+            action={() => {
+              setSelectedOption("log");
+              openLogFileModal();
+            }}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               {ProjectDetailSSR?.logContent}
@@ -117,6 +120,12 @@ export default function ProjectDetail({
           <EmptyBox title={"최근 로그"} content={"로그가 존재하지 않습니다."} />
         )}
       </div>
+      <LogFileModal
+        isOpen={isLogFileModalOpen}
+        onClose={closeLogFileModal}
+        logFileList={logFileList}
+        option={selectedOption}
+      />
     </Layout>
   );
 }

@@ -1,6 +1,7 @@
 import {
   LogFileList,
   LogFiles,
+  LogMessage,
   ProjectDetail,
   ProjectInfo,
   ProjectList,
@@ -143,6 +144,38 @@ export async function fetchProjectSummaryList(
 
     // const { result }: { result: ProjectSummaryList | null } =
     const { result }: { result: any } = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return null;
+  }
+}
+
+export async function fetchLogMessage(
+  projectId: number,
+  logFileName: string,
+  accessToken: string
+): Promise<LogMessage | null> {
+  try {
+    console.log("Fetching project summary list");
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(
+      `${baseURL}/project/${projectId}/logs/${logFileName}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API call failed with status: ${response.status}`);
+    }
+
+    const { result }: { result: LogMessage | null } = await response.json();
     return result;
   } catch (error) {
     console.error("Failed to fetch project summary list:", error);

@@ -10,19 +10,22 @@ import ChatbotModal from "./chatbot-modal";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  option: string;
   logFileList: LogFileList | null;
 }
 
 export default function LogFileModal({
   isOpen,
   onClose,
+  option,
   logFileList,
 }: ModalProps) {
   const router = useRouter();
   const { id } = router.query;
-  console.log("id: ", id);
+
   const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
     useChatbotModal();
+  const [selectedFile, setSelectedFile] = useState<string>("");
   const [selectedFileList, setSelectedFileList] = useState<string[]>([]);
 
   const handleFileSelect = (fileName: string) => {
@@ -35,9 +38,20 @@ export default function LogFileModal({
     });
   };
 
-  const handleChoiceButton = () => {
+  const handleChatbotButton = () => {
     if (!selectedFileList) return;
     openChatbotModal();
+  };
+
+  const handleLogButton = () => {
+    if (!selectedFile) return;
+    router.push(`/project/${id}/log/${selectedFile}`);
+  };
+
+  const handleCloseButton = () => {
+    setSelectedFile("");
+    setSelectedFileList([]);
+    onClose();
   };
 
   console.log("selectedFileList: ", selectedFileList);
@@ -50,16 +64,16 @@ export default function LogFileModal({
     <div className="fixed inset-0 w-screen flex items-center justify-center z-50">
       <div
         className="fixed inset-0 w-screen bg-black opacity-70"
-        onClick={onClose}
+        onClick={handleCloseButton}
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1">
-            질문할 로그
+            {option === "chatbot" ? "질문할 로그" : "확인할 로그"}
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1 cursor-pointer"
-            onClick={onClose}
+            onClick={handleCloseButton}
           >
             ✕
           </div>
@@ -71,9 +85,18 @@ export default function LogFileModal({
                 key={index}
                 className={cls(
                   "w-full hover:bg-gray-200 rounded-xl text-[13px] xs:text-[14px] sm:text-[15px] font-semibold px-3 py-2 truncate flex-shrink-0 cursor-pointer transition-colors",
-                  selectedFileList.includes(logFile) ? "bg-gray-100" : ""
+                  option === "chatbot" && selectedFileList.includes(logFile)
+                    ? "bg-gray-100"
+                    : "",
+                  option === "log" && selectedFile === logFile
+                    ? "bg-gray-100"
+                    : ""
                 )}
-                onClick={() => handleFileSelect(logFile)}
+                onClick={
+                  option === "chatbot"
+                    ? () => handleFileSelect(logFile)
+                    : () => setSelectedFile(logFile)
+                }
               >
                 {logFile}
               </div>
@@ -96,14 +119,19 @@ export default function LogFileModal({
           )}
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-5 xs:mt-6 sm:mt-7">
-          <ButtonSmall label="선택" onClick={handleChoiceButton} />
+          <ButtonSmall
+            label="선택"
+            onClick={
+              option === "chatbot" ? handleChatbotButton : handleLogButton
+            }
+          />
         </div>
       </div>
       <ChatbotModal
         isOpen={isChatbotModalOpen}
         onClose={() => {
           closeChatbotModal();
-          onClose();
+          handleCloseButton();
         }}
         logFileList={selectedFileList}
       />
