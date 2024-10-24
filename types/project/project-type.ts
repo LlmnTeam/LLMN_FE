@@ -24,6 +24,14 @@ export interface LogFileList {
   files: string[];
 }
 
+export interface LogFile {
+  name: string;
+}
+
+export interface LogFiles {
+  logFiles: LogFile;
+}
+
 export interface Summary {
   id: number;
   time: string;

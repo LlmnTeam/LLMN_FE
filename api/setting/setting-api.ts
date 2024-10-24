@@ -26,3 +26,28 @@ export async function fetchSetting(
     return null;
   }
 }
+
+export async function withdrawAccount(): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/project/${projectId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}

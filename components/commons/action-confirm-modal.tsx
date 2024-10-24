@@ -7,6 +7,7 @@ import {
   restartContainer,
   stopContainer,
 } from "@/api/project/project-api";
+import { withdrawAccount } from "@/api/setting/setting-api";
 
 interface ModalProps {
   isOpen: boolean;
@@ -34,10 +35,9 @@ export default function ActionConfirmModal({
 
   const restartAction = async () => {
     if (!isConfirmed) {
-      // const result = await restartContainer(Number(id), name);
+      const result = await restartContainer(Number(id), name);
       setIsConfirmed(true);
-      // setIsSuccessful(result);
-      setIsSuccessful(false);
+      setIsSuccessful(result);
     } else {
       setIsConfirmed(false);
       onClose();
@@ -46,10 +46,9 @@ export default function ActionConfirmModal({
 
   const stopAction = async () => {
     if (!isConfirmed) {
-      // const result = await stopContainer(Number(id), name);
+      const result = await stopContainer(Number(id), name);
       setIsConfirmed(true);
-      // setIsSuccessful(result);
-      setIsSuccessful(false);
+      setIsSuccessful(result);
     } else {
       setIsConfirmed(false);
       onClose();
@@ -58,10 +57,21 @@ export default function ActionConfirmModal({
 
   const deleteAction = async () => {
     if (!isConfirmed) {
-      // const result = await deleteContainer(Number(id));
+      const result = await deleteContainer(Number(id));
+      setIsConfirmed(true);
+      setIsSuccessful(result);
+    } else {
+      setIsConfirmed(false);
+      onClose();
+    }
+  };
+
+  const withdrawAction = async () => {
+    if (!isConfirmed) {
+      // const result = await withdrawAccount();
       setIsConfirmed(true);
       // setIsSuccessful(result);
-      setIsSuccessful(false);
+      setIsSuccessful(true);
     } else {
       setIsConfirmed(false);
       onClose();
@@ -115,8 +125,12 @@ export default function ActionConfirmModal({
       confirmAction: deleteAction,
     },
     withdraw: {
-      title: "정말 탈퇴하시겠습니까?",
-      message: "탈퇴 시 데이터 복구가 불가능합니다.",
+      title: !isConfirmed ? "정말 탈퇴하시겠습니까?" : "회원 탈퇴",
+      message: !isConfirmed
+        ? "탈퇴 시 데이터 복구가 불가능합니다."
+        : isSuccessful
+        ? "회원 탈퇴가 완료되었습니다."
+        : "회원 탈퇴에 실패했습니다.",
       buttonText: "탈퇴",
       closeAction: onClose,
       confirmAction: onClose,

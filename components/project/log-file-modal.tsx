@@ -10,13 +10,13 @@ import ChatbotModal from "./chatbot-modal";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  LogFileList: LogFileList | null;
+  logFileList: LogFileList | null;
 }
 
 export default function LogFileModal({
   isOpen,
   onClose,
-  LogFileList,
+  logFileList,
 }: ModalProps) {
   const router = useRouter();
   const { id } = router.query;
@@ -40,14 +40,14 @@ export default function LogFileModal({
     openChatbotModal();
   };
 
-  console.log("LogFileList: ", LogFileList);
+  console.log("logFileList: ", logFileList);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 w-screen flex items-center justify-center z-50">
       <div
-        className="fixed inset-0 bg-black opacity-70"
+        className="fixed inset-0 w-screen bg-black opacity-70"
         onClick={onClose}
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">
@@ -63,8 +63,8 @@ export default function LogFileModal({
           </div>
         </div>
         <div className="flex flex-col justify-start items-start relative h-[337px] xs:h-[350px] sm:h-[363px] rounded-lg border border-[#E5E7EB] overflow-y-auto gap-1 xs:gap-1.5 sm:gap-2 px-2 py-2 mt-3 xs:mt-4 sm:mt-5 custom-scrollbar">
-          {LogFileList && LogFileList.files.length > 0 ? (
-            LogFileList.files.map((logFile, index) => (
+          {logFileList && logFileList.files.length > 0 ? (
+            logFileList.files.map((logFile, index) => (
               <div
                 key={index}
                 className={cls(
@@ -100,7 +100,7 @@ export default function LogFileModal({
       <ChatbotModal
         isOpen={isChatbotModalOpen}
         onClose={closeChatbotModal}
-        LogFileList={selectedFileList}
+        logFileList={selectedFileList}
       />
     </div>
   );
