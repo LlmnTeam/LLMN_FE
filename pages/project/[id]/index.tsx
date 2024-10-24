@@ -73,7 +73,7 @@ export default function ProjectDetail({
                 alt="chatbot"
                 width={44}
                 height={44}
-                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer"
                 onClick={openLogFileModal}
               />
               <LogFileModal

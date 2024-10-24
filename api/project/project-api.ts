@@ -121,13 +121,12 @@ export async function fetchProjectSummaryList(
   projectId: number,
   page: number,
   accessToken: string
-  // ): Promise<ProjectSummaryList | null> {
-): Promise<any> {
+): Promise<ProjectSummaryList | null> {
   try {
     console.log("Fetching project summary list");
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
     const response = await fetch(
-      `${baseURL}/project/${projectId}/logs/summaries?page=${page}`,
+      `${baseURL}/project/${projectId}/summaries?page=${page}`,
       {
         method: "GET",
         headers: {

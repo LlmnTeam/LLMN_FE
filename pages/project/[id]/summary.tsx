@@ -1,14 +1,16 @@
 import { fetchProjectSummaryList } from "@/api/project/project-api";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
+import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import {
   ProjectSummaryListPageProps,
   getProjectSummaryListSSR,
-} from "@/ssr/project/project-summary";
+} from "@/ssr/project/project-summary-ssr";
 import { Nickname } from "@/types/login/login-type";
+import { LogFileList, ProjectSummaryList } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,13 +23,19 @@ export const getServerSideProps: GetServerSideProps<ProjectSummaryListPageProps>
 export default function ProjectSummaryList({
   NicknameSSR,
   ProjectSummaryListSSR,
+  LogFileListSSR,
 }: ProjectSummaryListPageProps) {
   const router = useRouter();
   const { id } = router.query;
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const [projectSummaryList, setProjectSummaryList] =
+    useState<ProjectSummaryList | null>(ProjectSummaryListSSR);
+  const [logFileList, setLogFileList] = useState<LogFileList | null>(
+    LogFileListSSR
+  );
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
-  console.log("ProjectSummaryListSSR: ", ProjectSummaryListSSR);
+  console.log("ProjectSummaryList: ", projectSummaryList);
 
   return (
     <Layout nickname={nickname?.nickName || null}>
@@ -44,8 +52,7 @@ export default function ProjectSummaryList({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {/* {ProjectSummaryListSSR?.name} */}
-              {" - 요약"}
+              {projectSummaryList?.name}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -64,120 +71,34 @@ export default function ProjectSummaryList({
                 alt="chatbot"
                 width={44}
                 height={44}
-                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer"
                 onClick={openLogFileModal}
               />
-              {/* <LogFileModal
+              <LogFileModal
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
-              /> */}
+                logFileList={logFileList}
+              />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          ForPaw BE의 스프링 프로젝트
+          {projectSummaryList?.description}
         </div>
-        <Container title="2024-09-12 19:00" link="">
-          [🚨 이상 탐지 요약] <br />
-          <span className="pl-2">- 탐지된 비정상 패턴: </span>
-          <br />
-          <span className="pl-4">
-            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-          </span>
-          <br />
-          <span className="pl-4">
-            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
-            낮음
-          </span>
-          <br />
-          <span className="pl-2">- 권장 조치: </span>
-          <br />
-          <span className="pl-4">
-            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-          </span>
-          <br />
-          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-          <br />
-          <span className="pl-4">
-            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-          </span>
-        </Container>
-        <Container title="2024-09-12 19:00" link="">
-          [🚨 이상 탐지 요약] <br />
-          <span className="pl-2">- 탐지된 비정상 패턴: </span>
-          <br />
-          <span className="pl-4">
-            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-          </span>
-          <br />
-          <span className="pl-4">
-            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
-            낮음
-          </span>
-          <br />
-          <span className="pl-2">- 권장 조치: </span>
-          <br />
-          <span className="pl-4">
-            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-          </span>
-          <br />
-          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-          <br />
-          <span className="pl-4">
-            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-          </span>
-        </Container>
-        <Container title="2024-09-12 19:00" link="">
-          [🚨 이상 탐지 요약] <br />
-          <span className="pl-2">- 탐지된 비정상 패턴: </span>
-          <br />
-          <span className="pl-4">
-            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-          </span>
-          <br />
-          <span className="pl-4">
-            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
-            낮음
-          </span>
-          <br />
-          <span className="pl-2">- 권장 조치: </span>
-          <br />
-          <span className="pl-4">
-            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-          </span>
-          <br />
-          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-          <br />
-          <span className="pl-4">
-            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-          </span>
-        </Container>
-        <Container title="2024-09-12 19:00" link="">
-          [🚨 이상 탐지 요약] <br />
-          <span className="pl-2">- 탐지된 비정상 패턴: </span>
-          <br />
-          <span className="pl-4">
-            1. 🚨 WebSocket 세션이 전혀 활성화되지 않음 (현재 세션 0개)
-          </span>
-          <br />
-          <span className="pl-4">
-            2. 🚨 인바운드 및 아웃바운드 채널의 활성 스레드가 0개로 비정상적으로
-            낮음
-          </span>
-          <br />
-          <span className="pl-2">- 권장 조치: </span>
-          <br />
-          <span className="pl-4">
-            1. 💡 WebSocket 서버 설정 및 연결 상태 점검
-          </span>
-          <br />
-          <span className="pl-4">2. 💡 채널 풀 및 스레드 설정 검토</span>
-          <br />
-          <span className="pl-4">
-            3. 💡 클라이언트 연결 요청 확인 및 로그 추가 분석
-          </span>
-        </Container>
+        {projectSummaryList && projectSummaryList.summaries ? (
+          projectSummaryList.summaries.map((summary) => (
+            <div key={summary.id}>
+              <Container title={summary.time} link="">
+                <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                  {summary.content}
+                </div>
+              </Container>
+            </div>
+          ))
+        ) : (
+          <EmptyBox title="요약" content="요약 내역이 존재하지 않습니다." />
+        )}
       </div>
     </Layout>
   );
