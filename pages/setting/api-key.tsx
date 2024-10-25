@@ -4,10 +4,18 @@ import DropdownMenu from "@/components/commons/dropdown-menu";
 import Input from "@/components/commons/input";
 import Layout from "@/components/commons/layout";
 import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
+import {
+  ValidateLoginProps,
+  getValidateLoginSSR,
+} from "@/ssr/commons/validate-login-ssr";
 import { cls } from "@/utils/class-utils";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
+  getValidateLoginSSR;
 
 export default function ApiKey() {
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =

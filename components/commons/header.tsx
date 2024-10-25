@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 interface HeaderProps {
   nickname?: string | null;
@@ -10,6 +11,14 @@ interface HeaderProps {
 export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
   const router = useRouter();
   console.log("nickname: ", nickname);
+
+  const handleLogoutButton = () => {
+    sessionStorage.clear();
+    Cookies.remove("accessToken", { path: "/" });
+    Cookies.remove("refreshToken", { path: "/" });
+    router.push("/login");
+  };
+
   return (
     <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 pl-8 pr-1">
       {/* <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]"> */}
@@ -89,7 +98,10 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             className="hidden sm:inline"
           />
         </div>
-        <div className="hidden xs:flex flex-row justify-start items-center gap-2">
+        <div
+          className="hidden xs:flex flex-row justify-start items-center gap-2"
+          onClick={handleLogoutButton}
+        >
           <Image src="/images/logout.svg" alt="logout" width={25} height={24} />
           <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">
             로그아웃

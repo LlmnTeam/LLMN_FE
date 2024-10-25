@@ -20,6 +20,15 @@ export async function getSettingSSR(
     fetchSetting(accessToken),
   ]);
 
+  if (!NicknameSSR) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       NicknameSSR,
