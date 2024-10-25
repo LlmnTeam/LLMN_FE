@@ -16,6 +16,7 @@ interface ModalProps {
   sshInfos: SshInfo[];
   setSshInfos: React.Dispatch<React.SetStateAction<SshInfo[]>>;
   ssh?: SshInfo;
+  reconnect?: boolean;
 }
 
 export default function InstanceModal({
@@ -31,6 +32,7 @@ export default function InstanceModal({
     remoteKeyPath: "",
     isWorking: false,
   },
+  reconnect = false,
 }: ModalProps) {
   const {
     remoteName,
@@ -120,6 +122,12 @@ export default function InstanceModal({
     openConfirmModal();
   };
 
+  const handleReconnectButton = async () => {
+    setConfirmModalOption("reconnectInstance");
+    openInstanceValidationModal();
+    await checkInstanceValidity();
+  };
+
   const handleValidButton = () => {
     setSuccess(true);
     handleSave();
@@ -147,7 +155,11 @@ export default function InstanceModal({
       <div className="w-[90%] xs:w-[80%] sm:w-[75%] lg:w-[770px] bg-white px-6 xs:px-8 sm:px-10 py-4 xs:py-5 sm:py-6 rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center">
           <div className="text-[24px] xs:text-[26px] sm:text-[28px] font-bold ml-1">
-            {option === "add" ? "인스턴스 추가" : "인스턴스 상세정보"}
+            {option === "add"
+              ? "인스턴스 추가"
+              : option === "edit"
+              ? "인스턴스 상세정보"
+              : "인스턴스 재연결"}
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
@@ -167,6 +179,7 @@ export default function InstanceModal({
               placeholder="원격 서버의 사용자명을 입력해주세요."
               value={remoteName}
               onChange={handleRemoteNameChange}
+              readOnly={option === "reconnect" ? true : false}
             />
             <div
               className={cls(
@@ -185,6 +198,7 @@ export default function InstanceModal({
               placeholder="원격 서버의 IP 주소를 입력해주세요."
               value={remoteHost}
               onChange={handleRemoteHostChange}
+              readOnly={option === "reconnect" ? true : false}
             />
             <div
               className={cls(
@@ -204,6 +218,7 @@ export default function InstanceModal({
               value={remoteKeyPath}
               onChange={handleRemoteKeyPathChange}
               readOnly
+              disabled={option === "reconnect" ? true : false}
             />
             <div
               className={cls(
@@ -224,7 +239,7 @@ export default function InstanceModal({
               type="modal"
             />
           </div>
-        ) : (
+        ) : option === "edit" ? (
           <div className="flex flex-row justify-center items-center w-full my-4 xs:my-5 sm:my-6 gap-3 xs:gap-4 sm:gap-5 transition-colors">
             <ButtonSmall
               label="삭제"
@@ -235,6 +250,14 @@ export default function InstanceModal({
               label="수정"
               onClick={handleSaveButton}
               disabled={disabled}
+              type="modal"
+            />
+          </div>
+        ) : (
+          <div className="flex flex-row justify-center items-center w-full my-4 xs:my-5 sm:my-6 transition-colors">
+            <ButtonSmall
+              label="재연결"
+              onClick={handleReconnectButton}
               type="modal"
             />
           </div>

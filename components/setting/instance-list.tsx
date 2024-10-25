@@ -41,6 +41,7 @@ export default function InstanceList({
           <div
             className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-2 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
             onClick={() => setMonitoringSshId(ssh.id)}
+            key={ssh.id}
           >
             <div className="flex flex-row justify-center items-center w-[13%]">
               {monitoringSshId === ssh.id && (
@@ -68,7 +69,9 @@ export default function InstanceList({
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelectedSSH(ssh);
-                  openInstanceModal("edit");
+                  ssh.isWorking
+                    ? openInstanceModal("edit")
+                    : openInstanceModal("reconnect");
                 }}
               />
             </div>

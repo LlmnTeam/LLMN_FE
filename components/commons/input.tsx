@@ -10,6 +10,7 @@ interface InputProps {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
+  disabled?: boolean;
   [key: string]: any;
 }
 
@@ -21,6 +22,7 @@ export default function Input({
   value = "",
   onChange,
   readOnly = false,
+  disabled = false,
   ...rest
 }: InputProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,12 +66,14 @@ export default function Input({
             className="w-[29px] h-[26px] xs:w-[32px] xs:h-[30px] sm:w-[36px] sm:h-[33px]"
             onClick={handleImageClick}
           />
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            onChange={onChange}
-          />
+          {disabled ? null : (
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              onChange={onChange}
+            />
+          )}
         </div>
       ) : label === "Open AI Key" ? (
         <div className="flex flex-row justify-center items-center absolute top-2 xs:top-2.5 sm:top-3 right-3 xs:right-3.5 sm:right-4 cursor-pointer">

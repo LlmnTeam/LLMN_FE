@@ -111,6 +111,15 @@ export default function ConfirmModal({
       closeAction: onClose,
       confirmAction: onClose,
     },
+    reconnectInstance: {
+      title: "인스턴스 재연결",
+      message: isSuccessful
+        ? "인스턴스가 성공적으로 재연결되었습니다."
+        : "인스턴스 재연결에 실패했습니다.",
+      buttonText: "확인",
+      closeAction: onClose,
+      confirmAction: onClose,
+    },
     editProjectInfo: {
       title: "프로젝트 수정",
       message: isSuccessful
@@ -170,7 +179,7 @@ export default function ConfirmModal({
         >
           {modalContent.message}
         </div>
-        <div className="flex flex-row justify-center items-center w-full mt-2 xs:mt-3 sm:mt-4">
+        <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
           <ButtonSmall
             label={modalContent.buttonText}
             onClick={modalContent.confirmAction}
