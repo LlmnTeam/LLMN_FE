@@ -21,6 +21,15 @@ export async function getInsightSummarySSR(
     fetchInsightSummary(type, accessToken),
   ]);
 
+  if (!NicknameSSR) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       NicknameSSR,

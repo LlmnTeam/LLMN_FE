@@ -30,6 +30,15 @@ export async function getProjectLogMessageSSR(
     fetchLogMessage(Number(id), file, accessToken),
   ]);
 
+  if (!NicknameSSR) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       NicknameSSR,

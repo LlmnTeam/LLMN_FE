@@ -16,7 +16,7 @@ const config: Config = {
       screens: { xs: "450px", xxs: "400px" },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;

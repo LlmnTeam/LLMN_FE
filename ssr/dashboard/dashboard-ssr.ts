@@ -25,7 +25,7 @@ export async function getDashboardSSR(
     fetchCloudInstanceList(accessToken),
   ]);
 
-  if (NicknameSSR === null) {
+  if (!NicknameSSR) {
     return {
       redirect: {
         destination: "/login",

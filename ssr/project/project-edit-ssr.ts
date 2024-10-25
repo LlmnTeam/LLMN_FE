@@ -29,6 +29,15 @@ export async function getProjectEditSSR(
     fetchProjectInfo(Number(id), accessToken),
   ]);
 
+  if (!NicknameSSR) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       NicknameSSR,

@@ -7,29 +7,38 @@ interface LogFile {
 
 interface UseChatbotSSEProps {
   logFiles: LogFile[];
-  isFirstQuestion: boolean;
 }
 
 interface UseChatbotSSEReturn {
   question: string;
   logSummary: string;
   isConnected: boolean;
+  chatbotMessageList: ChatbotMessage[];
   handleQuestionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   startSSE: () => Promise<void>;
   stopSSE: () => void;
 }
 
+interface ChatbotMessage {
+  role: "user" | "system";
+  content: string;
+}
+
 export const useChatbotSSE = ({
   logFiles,
-  isFirstQuestion,
 }: UseChatbotSSEProps): UseChatbotSSEReturn => {
   console.log("logFiles: ", logFiles);
-  console.log("isFirstQuestion: ", isFirstQuestion);
 
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState<string>("");
   const [logSummary, setLogSummary] = useState<string>("");
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const [isFirstQuestion, setIsFirstQuestion] = useState(true);
+  const [chatbotMessageList, setChatbotMessageList] = useState<
+    ChatbotMessage[]
+  >([]);
+
   const eventSourceRef = useRef<ReadableStreamDefaultReader | null>(null);
+  const accumulatedSummary = useRef<string>("");
 
   const handleQuestionChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -44,35 +53,51 @@ export const useChatbotSSE = ({
         throw new Error("Access token is missing");
       }
 
-      const baseURL = process.env.NEXT_CHATBOT_API_BASE_URL;
-      const response = await fetch(`${baseURL}/logs/question`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-        body: JSON.stringify({ logFiles, question, isFirstQuestion }),
-      });
+      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+      const response = await fetch(
+        `http://54.180.252.169:8000/api/logs/question`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ logFiles, question, isFirstQuestion }),
+        }
+      );
 
       if (!response.body) {
         throw new Error("Streaming not supported");
       }
 
+      setChatbotMessageList((prev) => [
+        ...prev,
+        { role: "user", content: question },
+      ]);
+      setQuestion("");
+
       const reader = response.body.getReader();
       eventSourceRef.current = reader;
       setIsConnected(true);
+      setIsFirstQuestion(false);
 
       const decoder = new TextDecoder();
       let done = false;
+      accumulatedSummary.current = "";
 
       while (!done) {
         const { value, done: streamDone } = await reader.read();
         done = streamDone;
         const chunk = decoder.decode(value);
-        setLogSummary((prev) => prev + chunk);
+        accumulatedSummary.current += chunk;
+        setLogSummary(accumulatedSummary.current);
       }
 
+      setChatbotMessageList((prev) => [
+        ...prev,
+        { role: "system", content: accumulatedSummary.current },
+      ]);
+      setLogSummary("");
       setIsConnected(false);
     } catch (error) {
       console.error("Failed to fetch:", error);
@@ -95,6 +120,7 @@ export const useChatbotSSE = ({
     question,
     logSummary,
     isConnected,
+    chatbotMessageList,
     handleQuestionChange,
     startSSE,
     stopSSE,

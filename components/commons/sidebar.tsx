@@ -61,7 +61,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
       <div
         className={cls(
           "flex flex-row justify-start items-center gap-3 w-[250px] h-[41px] px-4 rounded-full hover:bg-gray-200",
-          selectedMenu === "log"
+          selectedMenu === "project"
             ? "bg-gray-100 cursor-not-allowed"
             : "cursor-pointer"
         )}

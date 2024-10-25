@@ -34,6 +34,15 @@ export async function getProjectDetailSSR(
     fetchLogFileList(Number(id), accessToken),
   ]);
 
+  if (!NicknameSSR) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       NicknameSSR,
