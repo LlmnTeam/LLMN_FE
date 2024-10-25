@@ -12,6 +12,7 @@ interface ModalProps {
   overlay?: boolean;
   message?: string;
   id?: number;
+  action?: () => void;
 }
 
 export default function ConfirmModal({
@@ -22,19 +23,11 @@ export default function ConfirmModal({
   overlay = true,
   message = "",
   id = 0,
+  action = () => {},
 }: ModalProps) {
   const router = useRouter();
 
-  const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(success);
-
-  console.log("option: ", option);
-  console.log("isSuccessful: ", isSuccessful);
-
-  const restartAction = () => {
-    if (!isConfirmed) {
-    }
-  };
 
   const modalContents: {
     [key: string]: {
@@ -133,6 +126,13 @@ export default function ConfirmModal({
             window.location.reload();
           },
     },
+    closeChatbotModal: {
+      title: "질문을 종료하시겠습니까?",
+      message: `대화를 종료하면 입력된 내용이 사라집니다.`,
+      buttonText: "종료",
+      closeAction: onClose,
+      confirmAction: action,
+    },
   };
 
   const modalContent = modalContents[option] || {
@@ -164,10 +164,13 @@ export default function ConfirmModal({
             ✕
           </div>
         </div>
-        <div className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4">
+        <div
+          className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4 text-center"
+          style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
+        >
           {modalContent.message}
         </div>
-        <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-row justify-center items-center w-full mt-2 xs:mt-3 sm:mt-4">
           <ButtonSmall
             label={modalContent.buttonText}
             onClick={modalContent.confirmAction}

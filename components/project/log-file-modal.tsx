@@ -124,6 +124,7 @@ export default function LogFileModal({
             onClick={
               option === "chatbot" ? handleChatbotButton : handleLogButton
             }
+            type="modal"
           />
         </div>
       </div>

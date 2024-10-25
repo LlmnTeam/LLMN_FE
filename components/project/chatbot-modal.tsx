@@ -6,6 +6,8 @@ import { LogFile, LogFiles } from "@/types/project/project-type";
 import { useChatbotSSE } from "@/hooks/project/use-chatbot-sse";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import ConfirmModal from "../commons/confirm-modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -34,6 +36,14 @@ export default function ChatbotModal({
     logFiles: logFileList.map((name) => ({ name })),
   });
 
+  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
+    useConfirmModal();
+
+  const handleCloseModal = () => {
+    closeConfirmModal();
+    onClose();
+  };
+
   console.log("chatbotMessageList: ", chatbotMessageList);
 
   // 로그 출력 영역을 참조하는 ref
@@ -45,6 +55,19 @@ export default function ChatbotModal({
       logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
     }
   }, [logSummary, chatbotMessageList]);
+
+  const [isComposing, setIsComposing] = useState(false);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isComposing) return;
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      startSSE();
+    }
+  };
+
+  const handleCompositionStart = () => setIsComposing(true);
+  const handleCompositionEnd = () => setIsComposing(false);
 
   if (!isOpen) return null;
 
@@ -58,7 +81,7 @@ export default function ChatbotModal({
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1 cursor-pointer"
-            onClick={onClose}
+            onClick={openConfirmModal}
           >
             ✕
           </div>
@@ -71,7 +94,10 @@ export default function ChatbotModal({
             <div className="w-full" key={index}>
               {message.role === "user" ? (
                 <div className="flex flex-row justify-end items-start w-full px-2 xs:px-3 sm:px-4 gap-2">
-                  <div className="max-w-[75%] lg:max-w-[510px] bg-[#F6F6F6] px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 rounded-3xl text-[13px] xs:text-[14px] sm:text-[16px]">
+                  <div
+                    className="max-w-[75%] lg:max-w-[510px] bg-[#F6F6F6] px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 rounded-3xl text-[13px] xs:text-[14px] sm:text-[16px]"
+                    style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
+                  >
                     {message.content}
                   </div>
                 </div>
@@ -86,12 +112,6 @@ export default function ChatbotModal({
                       className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] sm:w-[30px] sm:h-[30px]"
                     />
                   </div>
-                  {/* <div
-                    className="w-full text-[12px] xs:text-[14px] sm:text-[16px]"
-                    style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
-                  >
-                    {message.content}
-                  </div> */}
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkBreaks]}
                     className="prose w-full max-w-none text-[13px] xs:text-[14px] sm:text-[16px]"
@@ -113,12 +133,6 @@ export default function ChatbotModal({
                   className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] sm:w-[30px] sm:h-[30px]"
                 />
               </div>
-              {/* <div
-                className="w-full text-[12px] xs:text-[14px] sm:text-[16px]"
-                style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
-              >
-                {logSummary}
-              </div> */}
               <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkBreaks]}
                 className="prose w-full max-w-none text-[13px] xs:text-[14px] sm:text-[16px]"
@@ -127,31 +141,6 @@ export default function ChatbotModal({
               </ReactMarkdown>
             </div>
           ) : null}
-          {/* <div className="flex flex-row justify-end items-start w-full px-2 xs:px-3 sm:px-4 gap-2">
-            <div className="max-w-[75%] lg:max-w-[510px] bg-[#F6F6F6] px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 rounded-3xl text-[12px] xs:text-[14px] sm:text-[16px]">
-              2024-10-04 15:45에 Spring 애플리케이션에서 발생한 성능 저하 및
-              간헐적인 HTTP 503 오류의 원인이 무엇인지 자세히 설명해줘
-            </div>
-          </div>
-          {logSummary ? (
-            <div className="flex flex-row justify-start items-start w-full gap-1 xs:gap-2 sm:gap-3 pr-2 xs:pr-3 sm:pr-4">
-              <div className="-mt-3 w-[30px] h-[30px] flex-shrink-0">
-                <Image
-                  src="/images/logo.svg"
-                  alt="logo"
-                  width={30}
-                  height={30}
-                  className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] sm:w-[30px] sm:h-[30px]"
-                />
-              </div>
-              <div
-                className="w-full text-[12px] xs:text-[14px] sm:text-[16px]"
-                style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
-              >
-                {logSummary}
-              </div>
-            </div>
-          ) : null} */}
         </div>
         <div className="flex flex-row justify-center items-center relative w-full bg-gray-100 border border-gray-300 rounded-3xl">
           <div className="flex flex-row justify-start items-center w-[50px]">
@@ -173,6 +162,9 @@ export default function ChatbotModal({
               className="block w-full text-[12px] xs:text-[14px] sm:text-[16px] p-2 my-0 xs:my-[1px] sm:my-0.5 resize-none border-none bg-gray-100 text-gray-700 placeholder-gray-400 focus:outline-none overflow-y-auto custom-scrollbar"
               value={question}
               onChange={handleQuestionChange}
+              onKeyDown={handleKeyDown}
+              onCompositionStart={handleCompositionStart}
+              onCompositionEnd={handleCompositionEnd}
             />
           </div>
           <div className="flex flex-row justify-end items-center w-[50px]">
@@ -185,6 +177,13 @@ export default function ChatbotModal({
           </div>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="closeChatbotModal"
+        overlay={false}
+        action={handleCloseModal}
+      />
     </div>
   );
 }
