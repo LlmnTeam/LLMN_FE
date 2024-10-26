@@ -31,7 +31,6 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
     openConfirmModal();
   };
 
-  console.log("data: ", data);
   if (!isOpen) return null;
 
   return (

@@ -44,12 +44,8 @@ export default function ChatbotModal({
     onClose();
   };
 
-  console.log("chatbotMessageList: ", chatbotMessageList);
-
-  // 로그 출력 영역을 참조하는 ref
   const logContainerRef = useRef<HTMLDivElement>(null);
 
-  // logSummary가 변경될 때마다 스크롤을 아래로 이동
   useEffect(() => {
     if (logContainerRef.current) {
       logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;

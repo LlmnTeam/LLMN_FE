@@ -31,8 +31,6 @@ export default function ActionConfirmModal({
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
 
-  console.log("isConfirmed: ", isConfirmed);
-
   const restartAction = async () => {
     if (!isConfirmed) {
       const result = await restartContainer(Number(id), name);

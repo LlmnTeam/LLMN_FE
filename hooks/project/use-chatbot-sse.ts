@@ -27,8 +27,6 @@ interface ChatbotMessage {
 export const useChatbotSSE = ({
   logFiles,
 }: UseChatbotSSEProps): UseChatbotSSEReturn => {
-  console.log("logFiles: ", logFiles);
-
   const [question, setQuestion] = useState<string>("");
   const [logSummary, setLogSummary] = useState<string>("");
   const [isConnected, setIsConnected] = useState(false);
@@ -38,6 +36,7 @@ export const useChatbotSSE = ({
   >([]);
 
   const eventSourceRef = useRef<ReadableStreamDefaultReader | null>(null);
+  const isCancelledRef = useRef<boolean>(false);
   const accumulatedSummary = useRef<string>("");
 
   const handleQuestionChange = (
@@ -46,6 +45,7 @@ export const useChatbotSSE = ({
 
   const startSSE = async () => {
     if (question === "" || logFiles.length === 0) return;
+    console.log("isFirstQuestion: ", isFirstQuestion);
 
     try {
       const accessToken = Cookies.get("accessToken");
@@ -79,7 +79,6 @@ export const useChatbotSSE = ({
       const reader = response.body.getReader();
       eventSourceRef.current = reader;
       setIsConnected(true);
-      setIsFirstQuestion(false);
 
       const decoder = new TextDecoder();
       let done = false;
@@ -88,27 +87,51 @@ export const useChatbotSSE = ({
       while (!done) {
         const { value, done: streamDone } = await reader.read();
         done = streamDone;
-        const chunk = decoder.decode(value);
-        accumulatedSummary.current += chunk;
-        setLogSummary(accumulatedSummary.current);
+
+        if (value) {
+          const chunk = decoder.decode(value);
+          accumulatedSummary.current += chunk;
+          setLogSummary(accumulatedSummary.current);
+        }
+
+        if (isCancelledRef.current) {
+          console.log("SSE 중단됨");
+
+          setChatbotMessageList((prev) => [
+            ...prev,
+            { role: "system", content: accumulatedSummary.current },
+          ]);
+          setLogSummary("");
+          setIsConnected(false);
+
+          isCancelledRef.current = false;
+
+          return;
+        }
       }
 
-      setChatbotMessageList((prev) => [
-        ...prev,
-        { role: "system", content: accumulatedSummary.current },
-      ]);
-      setLogSummary("");
-      setIsConnected(false);
+      if (!isCancelledRef.current) {
+        setIsFirstQuestion(false);
+        setChatbotMessageList((prev) => [
+          ...prev,
+          { role: "system", content: accumulatedSummary.current },
+        ]);
+        setLogSummary("");
+        setIsConnected(false);
+      }
     } catch (error) {
       console.error("Failed to fetch:", error);
+      setIsFirstQuestion(true);
       setIsConnected(false);
     }
   };
 
   const stopSSE = () => {
     if (eventSourceRef.current) {
+      isCancelledRef.current = true;
       eventSourceRef.current.cancel();
     }
+    // setIsFirstQuestion(true);
     setIsConnected(false);
   };
 

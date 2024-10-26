@@ -27,7 +27,6 @@ export default function ProjectDetail({
 }: ProjectDetailPageProps) {
   const router = useRouter();
   const { id } = router.query;
-  console.log("id: ", id);
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [projectDetail, setProjectDetail] = useState<ProjectDetail | null>(
     ProjectDetailSSR
@@ -36,12 +35,9 @@ export default function ProjectDetail({
     LogFileListSSR
   );
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const { isChatbotModalOpen, openChatbotModal, closeChatbotModal } =
-    useChatbotModal();
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
 
-  console.log("ProjectDetailSSR: ", ProjectDetailSSR);
   return (
     <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">

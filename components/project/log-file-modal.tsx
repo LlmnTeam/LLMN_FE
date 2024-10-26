@@ -54,10 +54,6 @@ export default function LogFileModal({
     onClose();
   };
 
-  console.log("selectedFileList: ", selectedFileList);
-
-  console.log("logFileList: ", logFileList);
-
   if (!isOpen) return null;
 
   return (

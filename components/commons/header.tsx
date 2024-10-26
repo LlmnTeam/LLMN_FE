@@ -10,7 +10,6 @@ interface HeaderProps {
 
 export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
   const router = useRouter();
-  console.log("nickname: ", nickname);
 
   const handleLogoutButton = () => {
     sessionStorage.clear();

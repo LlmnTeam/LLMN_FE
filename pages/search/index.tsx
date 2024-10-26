@@ -10,13 +10,14 @@ import LogFileContainer from "@/components/search/log-file-container";
 import SearchInput from "@/components/search/search-input";
 import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/ssr/commons/validate-login-ssr";
 import { GetServerSideProps } from "next";
 import { Nickname } from "@/types/login/login-type";
+import useSearchInput from "@/hooks/search/use-search-input";
 
 const files = [
   { filename: "mongo-log-2024-09-10_12.txt" },
@@ -86,11 +87,26 @@ export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
 
 export default function Search({ NicknameSSR }: ValidateLoginProps) {
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const { startDate, endDate, keyword, setStartDate, setEndDate, setKeyword } =
+    useSearchInput();
   const {
     isInsightRecordModalOpen,
     openInsightRecordModal,
     closeInsightRecordModal,
   } = useInsightRecordModal();
+
+  useEffect(() => {
+    console.log("startDate: ", startDate);
+  }, [startDate]);
+
+  useEffect(() => {
+    console.log("endDate: ", endDate);
+  }, [endDate]);
+
+  useEffect(() => {
+    console.log("keyword: ", keyword);
+  }, [keyword]);
+
   return (
     <Layout nickname={nickname?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
@@ -104,7 +120,14 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
           mongo
         </div>
-        <SearchInput />
+        <SearchInput
+          startDate={startDate}
+          endDate={endDate}
+          keyword={keyword}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setKeyword={setKeyword}
+        />
         <EmptyBox
           title="로그 파일"
           content="파일이 존재하지 않습니다"

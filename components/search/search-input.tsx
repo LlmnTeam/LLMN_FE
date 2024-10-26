@@ -3,15 +3,34 @@ import InputSmall from "../commons/input-small";
 import Calendar, { CalendarProps } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-interface InputProps {}
+interface SearchInputProps {
+  startDate: Date | null;
+  endDate: Date | null;
+  keyword: string;
+  setStartDate: (date: Date | null) => void;
+  setEndDate: (date: Date | null) => void;
+  setKeyword: (keyword: string) => void;
+}
 
-export default function SearchInput() {
+export default function SearchInput({
+  startDate,
+  endDate,
+  keyword,
+  setStartDate,
+  setEndDate,
+  setKeyword,
+}: SearchInputProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState<Date | null>(null); // 시작일
-  const [endDate, setEndDate] = useState<Date | null>(null); // 종료일
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  const handleKeywordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const inputKeyword = event.target.value;
+    setKeyword(inputKeyword.trim());
+  };
 
   // 날짜 변경 시 실행되는 함수
   const handleDateChange: CalendarProps["onChange"] = (value) => {
@@ -44,6 +63,7 @@ export default function SearchInput() {
             value={formatDate(startDate)}
             maxWidth="282px"
             onClick={openModal}
+            readOnly
           />
           <span className="text-[16px] xs:text-[18px] sm:text-[20px]">~</span>
           <InputSmall
@@ -53,6 +73,7 @@ export default function SearchInput() {
             value={formatDate(endDate)}
             maxWidth="282px"
             onClick={openModal}
+            readOnly
           />
         </div>
       </div>
@@ -66,6 +87,8 @@ export default function SearchInput() {
             label=""
             placeholder="검색할 단어를 입력하세요."
             maxWidth="600px"
+            value={keyword}
+            onChange={handleKeywordChange}
           />
           <div className="flex flex-row justify-center items-center relative flex-shrink-0">
             <button className="h-[30px] xs:h-[40px] sm:h-[50px] text-[12px] xs:text-[16px] sm:text-[20px] rounded-md bg-[#0F172A] font-semibold px-[16px] xs:px-[20px] sm:px-[24px] text-white">
