@@ -15,10 +15,6 @@ interface ModalProps {
   logFileList: string[];
 }
 
-const convertToLogFiles = (fileNames: string[]): LogFile[] => {
-  return fileNames.map((fileName) => ({ name: fileName }));
-};
-
 export default function ChatbotModal({
   isOpen,
   onClose,

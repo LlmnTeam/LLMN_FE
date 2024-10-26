@@ -1,10 +1,8 @@
 import EmptyBox from "@/components/commons/empty-box";
 import InsightRecordContainer from "@/components/search/insight-record-container";
-import InsightRecordModal from "@/components/search/insight-record-modal";
 import Layout from "@/components/commons/layout";
 import LogFileContainer from "@/components/search/log-file-container";
 import SearchInput from "@/components/search/search-input";
-import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
 import { useEffect, useState } from "react";
 import {
   ValidateLoginProps,
@@ -71,9 +69,6 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
               검색
             </span>
           </div>
-        </div>
-        <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          mongo
         </div>
         <SearchInput
           startDate={startDate}

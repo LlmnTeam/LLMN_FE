@@ -137,7 +137,14 @@ export default function ConfirmModal({
     },
     closeChatbotModal: {
       title: "질문을 종료하시겠습니까?",
-      message: `대화를 종료하면 입력된 내용이 사라집니다.`,
+      message: "대화를 종료하면 입력된 내용이 사라집니다.",
+      buttonText: "종료",
+      closeAction: onClose,
+      confirmAction: action,
+    },
+    closeShellModal: {
+      title: "셸 커맨드를 종료하시겠습니까?",
+      message: "진행 중인 명령어와 입력된 내용이 모두 사라집니다.",
       buttonText: "종료",
       closeAction: onClose,
       confirmAction: action,

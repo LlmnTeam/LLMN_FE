@@ -2,9 +2,10 @@ import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
+import ShellModal from "@/components/project/\bshell-modal";
 import LogFileModal from "@/components/project/log-file-modal";
-import useChatbotModal from "@/hooks/project/use-chatbot-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
+import usePromptModal from "@/hooks/project/use-shell-modal";
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
@@ -27,6 +28,10 @@ export default function ProjectDetail({
 }: ProjectDetailPageProps) {
   const router = useRouter();
   const { id } = router.query;
+
+  const { isShellModalOpen, openShellModal, closeShellModal } =
+    usePromptModal();
+
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [projectDetail, setProjectDetail] = useState<ProjectDetail | null>(
     ProjectDetailSSR
@@ -62,7 +67,8 @@ export default function ProjectDetail({
               alt="shell"
               width={33}
               height={24}
-              className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+              className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px] cursor-pointer"
+              onClick={openShellModal}
             />
             <div>
               <Image
@@ -122,6 +128,7 @@ export default function ProjectDetail({
         logFileList={logFileList}
         option={selectedOption}
       />
+      <ShellModal isOpen={isShellModalOpen} onClose={closeShellModal} />
     </Layout>
   );
 }
