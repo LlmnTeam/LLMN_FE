@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import InputSmall from "../commons/input-small";
 import Calendar, { CalendarProps } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import ButtonSmall from "../commons/button-small";
 
 interface SearchInputProps {
   startDate: Date | null;
@@ -10,6 +11,8 @@ interface SearchInputProps {
   setStartDate: (date: Date | null) => void;
   setEndDate: (date: Date | null) => void;
   setKeyword: (keyword: string) => void;
+  disabled?: boolean;
+  handleSearchButton: () => void;
 }
 
 export default function SearchInput({
@@ -19,6 +22,8 @@ export default function SearchInput({
   setStartDate,
   setEndDate,
   setKeyword,
+  disabled = true,
+  handleSearchButton,
 }: SearchInputProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -91,9 +96,11 @@ export default function SearchInput({
             onChange={handleKeywordChange}
           />
           <div className="flex flex-row justify-center items-center relative flex-shrink-0">
-            <button className="h-[30px] xs:h-[40px] sm:h-[50px] text-[12px] xs:text-[16px] sm:text-[20px] rounded-md bg-[#0F172A] font-semibold px-[16px] xs:px-[20px] sm:px-[24px] text-white">
-              검색
-            </button>
+            <ButtonSmall
+              label="검색"
+              onClick={handleSearchButton}
+              disabled={disabled}
+            />
           </div>
         </div>
       </div>

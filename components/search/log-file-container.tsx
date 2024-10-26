@@ -2,13 +2,10 @@ import { useState } from "react";
 import Container from "../commons/container";
 import LogFile from "./log-file";
 import { cls } from "@/utils/class-utils";
-
-interface LogFileProps {
-  filename: string;
-}
+import { LogFiles } from "@/types/search/search-type";
 
 interface LogFileContainerProps {
-  files: LogFileProps[];
+  files: LogFiles[];
 }
 
 export default function LogFileContainer({ files }: LogFileContainerProps) {
@@ -21,7 +18,7 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
 
   const filledFiles = [...currentFiles];
   while (filledFiles.length < filesPerPage) {
-    filledFiles.push({ filename: "" });
+    filledFiles.push({ fileName: "", redirectURL: "" });
   }
 
   const totalPages = Math.ceil(files.length / filesPerPage);
@@ -42,8 +39,11 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
               index % 3 !== 2 ? "border-r" : ""
             )}
           >
-            {file.filename ? (
-              <LogFile filename={file.filename} />
+            {file.fileName ? (
+              <LogFile
+                fileName={file.fileName}
+                redirectURL={file.redirectURL}
+              />
             ) : (
               <div className="w-[65px] h-[64px]" />
             )}

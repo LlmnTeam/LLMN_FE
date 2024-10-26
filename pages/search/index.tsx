@@ -1,15 +1,10 @@
-import ButtonSmall from "@/components/commons/button-small";
-import Container from "@/components/commons/container";
 import EmptyBox from "@/components/commons/empty-box";
-import InputSmall from "@/components/commons/input-small";
-import InsightRecord from "@/components/search/insight-record";
 import InsightRecordContainer from "@/components/search/insight-record-container";
 import InsightRecordModal from "@/components/search/insight-record-modal";
 import Layout from "@/components/commons/layout";
 import LogFileContainer from "@/components/search/log-file-container";
 import SearchInput from "@/components/search/search-input";
 import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   ValidateLoginProps,
@@ -18,6 +13,9 @@ import {
 import { GetServerSideProps } from "next";
 import { Nickname } from "@/types/login/login-type";
 import useSearchInput from "@/hooks/search/use-search-input";
+import { formatToLocalISOString } from "@/utils/date-utils";
+import { fetchSearchResult } from "@/api/search/search-api";
+import { SearchResult } from "@/types/search/search-type";
 
 const files = [
   { filename: "mongo-log-2024-09-10_12.txt" },
@@ -87,6 +85,7 @@ export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
 
 export default function Search({ NicknameSSR }: ValidateLoginProps) {
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const { startDate, endDate, keyword, setStartDate, setEndDate, setKeyword } =
     useSearchInput();
   const {
@@ -95,17 +94,39 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
     closeInsightRecordModal,
   } = useInsightRecordModal();
 
-  useEffect(() => {
-    console.log("startDate: ", startDate);
-  }, [startDate]);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    console.log("endDate: ", endDate);
-  }, [endDate]);
+    setDisabled(keyword ? false : true);
+  }, [startDate, endDate, keyword]);
+
+  const handleSearchButton = async () => {
+    if (disabled) return;
+    const result = startDate
+      ? await fetchSearchResult(
+          formatToLocalISOString(startDate),
+          formatToLocalISOString(endDate),
+          keyword
+        )
+      : await fetchSearchResult("", "", keyword);
+    setSearchResult(result);
+  };
 
   useEffect(() => {
-    console.log("keyword: ", keyword);
-  }, [keyword]);
+    console.log("searchResult: ", searchResult);
+  }, [searchResult]);
+
+  // useEffect(() => {
+  //   console.log("startDate: ", formatToLocalISOString(startDate));
+  // }, [startDate]);
+
+  // useEffect(() => {
+  //   console.log("endDate: ", formatToLocalISOString(endDate));
+  // }, [endDate]);
+
+  // useEffect(() => {
+  //   console.log("keyword: ", keyword);
+  // }, [keyword]);
 
   return (
     <Layout nickname={nickname?.nickName || null}>
@@ -127,18 +148,38 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           setKeyword={setKeyword}
+          disabled={disabled}
+          handleSearchButton={handleSearchButton}
         />
-        <EmptyBox
+        {searchResult && searchResult.logfiles.length > 0 ? (
+          <LogFileContainer files={searchResult.logfiles} />
+        ) : (
+          <EmptyBox
+            title="로그 파일"
+            content="파일이 존재하지 않습니다"
+            type="log"
+          />
+        )}
+        {searchResult && searchResult.insights.length > 0 ? (
+          <InsightRecordContainer
+            files={insightFiles}
+            onClick={openInsightRecordModal}
+          />
+        ) : (
+          <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
+        )}
+
+        {/* <EmptyBox
           title="로그 파일"
           content="파일이 존재하지 않습니다"
           type="log"
-        />
-        <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
+        /> */}
+        {/* <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
         <LogFileContainer files={files} />
         <InsightRecordContainer
           files={insightFiles}
           onClick={openInsightRecordModal}
-        />
+        /> */}
       </div>
       <InsightRecordModal
         isOpen={isInsightRecordModalOpen}

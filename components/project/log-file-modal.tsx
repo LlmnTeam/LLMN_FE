@@ -45,7 +45,7 @@ export default function LogFileModal({
 
   const handleLogButton = () => {
     if (!selectedFile) return;
-    router.push(`/project/${id}/log/${selectedFile}`);
+    router.push(`/project/${id}/${selectedFile}`);
   };
 
   const handleCloseButton = () => {
