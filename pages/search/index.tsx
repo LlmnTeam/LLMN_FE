@@ -17,82 +17,15 @@ import { formatToLocalISOString } from "@/utils/date-utils";
 import { fetchSearchResult } from "@/api/search/search-api";
 import { SearchResult } from "@/types/search/search-type";
 
-const files = [
-  { filename: "mongo-log-2024-09-10_12.txt" },
-  { filename: "mongo-log-2024-09-11_12.txt" },
-  { filename: "mongo-log-2024-09-12_12.txt" },
-  { filename: "mongo-log-2024-09-13_12.txt" },
-  { filename: "mongo-log-2024-09-14_12.txt" },
-  { filename: "mongo-log-2024-09-15_12.txt" },
-  { filename: "mongo-log-2024-09-16_12.txt" },
-  { filename: "mongo-log-2024-09-17_12.txt" },
-  { filename: "mongo-log-2024-09-18_12.txt" },
-  { filename: "mongo-log-2024-09-19_12.txt" },
-  { filename: "mongo-log-2024-09-13_12.txt" },
-  { filename: "mongo-log-2024-09-14_12.txt" },
-  { filename: "mongo-log-2024-09-15_12.txt" },
-  { filename: "mongo-log-2024-09-16_12.txt" },
-  { filename: "mongo-log-2024-09-17_12.txt" },
-  { filename: "mongo-log-2024-09-18_12.txt" },
-  { filename: "mongo-log-2024-09-13_12.txt" },
-  { filename: "mongo-log-2024-09-14_12.txt" },
-  { filename: "mongo-log-2024-09-15_12.txt" },
-  { filename: "mongo-log-2024-09-16_12.txt" },
-  { filename: "mongo-log-2024-09-17_12.txt" },
-  { filename: "mongo-log-2024-09-18_12.txt" },
-  { filename: "mongo-log-2024-09-13_12.txt" },
-  { filename: "mongo-log-2024-09-14_12.txt" },
-  { filename: "mongo-log-2024-09-15_12.txt" },
-  { filename: "mongo-log-2024-09-16_12.txt" },
-  { filename: "mongo-log-2024-09-17_12.txt" },
-  { filename: "mongo-log-2024-09-18_12.txt" },
-  { filename: "mongo-log-2024-09-13_12.txt" },
-  { filename: "mongo-log-2024-09-14_12.txt" },
-  { filename: "mongo-log-2024-09-15_12.txt" },
-  { filename: "mongo-log-2024-09-16_12.txt" },
-  { filename: "mongo-log-2024-09-17_12.txt" },
-  { filename: "mongo-log-2024-09-18_12.txt" },
-  // 더 많은 파일들...
-];
-
-const insightFiles = [
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  { name: "Mongo", type: "일반요약", date: "2024-09-12 19:00" },
-  // 더 많은 파일들...
-];
-
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
 export default function Search({ NicknameSSR }: ValidateLoginProps) {
   const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
+  const [isSearched, setIsSearched] = useState(false);
   const { startDate, endDate, keyword, setStartDate, setEndDate, setKeyword } =
     useSearchInput();
-  const {
-    isInsightRecordModalOpen,
-    openInsightRecordModal,
-    closeInsightRecordModal,
-  } = useInsightRecordModal();
 
   const [disabled, setDisabled] = useState(true);
 
@@ -110,6 +43,7 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
         )
       : await fetchSearchResult("", "", keyword);
     setSearchResult(result);
+    setIsSearched(true);
   };
 
   useEffect(() => {
@@ -151,40 +85,33 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
           disabled={disabled}
           handleSearchButton={handleSearchButton}
         />
-        {searchResult && searchResult.logfiles.length > 0 ? (
-          <LogFileContainer files={searchResult.logfiles} />
-        ) : (
-          <EmptyBox
-            title="로그 파일"
-            content="파일이 존재하지 않습니다"
-            type="log"
-          />
-        )}
-        {searchResult && searchResult.insights.length > 0 ? (
-          <InsightRecordContainer
-            files={insightFiles}
-            onClick={openInsightRecordModal}
-          />
-        ) : (
-          <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
-        )}
+        {isSearched ? (
+          <>
+            {searchResult && searchResult.logfiles.length > 0 ? (
+              <LogFileContainer files={searchResult.logfiles} />
+            ) : (
+              <EmptyBox
+                title="로그 파일"
+                content="파일이 존재하지 않습니다"
+                type="log"
+              />
+            )}{" "}
+          </>
+        ) : null}
 
-        {/* <EmptyBox
-          title="로그 파일"
-          content="파일이 존재하지 않습니다"
-          type="log"
-        /> */}
-        {/* <EmptyBox title="인사이트 기록" content="기록이 존재하지 않습니다" />
-        <LogFileContainer files={files} />
-        <InsightRecordContainer
-          files={insightFiles}
-          onClick={openInsightRecordModal}
-        /> */}
+        {isSearched ? (
+          <>
+            {searchResult && searchResult.insights.length > 0 ? (
+              <InsightRecordContainer files={searchResult.insights} />
+            ) : (
+              <EmptyBox
+                title="인사이트 기록"
+                content="기록이 존재하지 않습니다"
+              />
+            )}
+          </>
+        ) : null}
       </div>
-      <InsightRecordModal
-        isOpen={isInsightRecordModalOpen}
-        onClose={closeInsightRecordModal}
-      />
     </Layout>
   );
 }
