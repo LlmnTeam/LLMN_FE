@@ -1,10 +1,12 @@
+import { submitSignup } from "@/api/login/signup-api";
 import ButtonSmall from "@/components/commons/button-small";
 import ConfirmModal from "@/components/commons/confirm-modal";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
-import useInstanceModal from "@/hooks/commons/use-instance-modal";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
 import useSSHInfos from "@/hooks/commons/use-ssh-infos";
+import { SSHInfo } from "@/types/login/login-type";
 import { cls } from "@/utils/class-utils";
 import { useEffect, useState } from "react";
 
@@ -13,11 +15,12 @@ export default function SignupStep4() {
     useOpenAIKeyCheck();
 
   const {
-    isInstanceModalOpen,
-    selectedOption,
-    openInstanceModal,
-    closeInstanceModal,
-  } = useInstanceModal();
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
 
   const { getSSHInfosFromSession } = useSSHInfos();
 
@@ -29,13 +32,28 @@ export default function SignupStep4() {
 
   const handleCompleteButton = async () => {
     if (disabled) return;
-    const receivingAlarm = sessionStorage.getItem("receivingAlarm");
-    const email = sessionStorage.getItem("email");
-    const nickName = sessionStorage.getItem("nickName");
-    const password = sessionStorage.getItem("password");
-    const passwordConfirm = sessionStorage.getItem("passwordConfirm");
-    const sshInfos = getSSHInfosFromSession();
-    const monitoringSshHost = sessionStorage.getItem("monitoringSshHost");
+
+    const receivingAlarm = sessionStorage.getItem("receivingAlarm") === "true";
+    const email = sessionStorage.getItem("email") ?? "";
+    const nickName = sessionStorage.getItem("nickName") ?? "";
+    const password = sessionStorage.getItem("password") ?? "";
+    const passwordConfirm = sessionStorage.getItem("passwordConfirm") ?? "";
+    const monitoringSshHost = sessionStorage.getItem("monitoringSshHost") ?? "";
+    const sshInfos: SSHInfo[] = getSSHInfosFromSession();
+
+    if (
+      !email ||
+      !nickName ||
+      !password ||
+      !passwordConfirm ||
+      !receivingAlarm ||
+      !monitoringSshHost ||
+      !sshInfos
+    ) {
+      console.error("필수 입력 값이 누락되었습니다.");
+      return;
+    }
+
     console.log("receivingAlarm: ", receivingAlarm);
     console.log("email: ", email);
     console.log("nickName: ", nickName);
@@ -43,6 +61,27 @@ export default function SignupStep4() {
     console.log("passwordConfirm: ", passwordConfirm);
     console.log("sshInfos: ", sshInfos);
     console.log("monitoringSshHost: ", monitoringSshHost);
+
+    try {
+      const result = await submitSignup(
+        receivingAlarm,
+        email,
+        nickName,
+        password,
+        passwordConfirm,
+        sshInfos,
+        monitoringSshHost
+      );
+      setSuccess(result);
+
+      if (result) {
+        console.log("Signup successful!");
+      } else {
+        console.error("Signup failed.");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -91,12 +130,12 @@ export default function SignupStep4() {
           disabled={disabled}
         />
       </div>
-      {/* <ConfirmModal
+      <ConfirmModal
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
         option="resetNewPassword"
         success={success}
-      /> */}
+      />
     </div>
   );
 }

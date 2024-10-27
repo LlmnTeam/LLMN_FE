@@ -241,7 +241,7 @@ export const verifyOpenAIKey = async (apiKey: string): Promise<boolean> => {
 };
 
 export const submitSignup = async (
-  receivingAlarm: string,
+  receivingAlarm: boolean,
   email: string,
   nickName: string,
   password: string,
@@ -257,7 +257,7 @@ export const submitSignup = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        receivingAlarm: receivingAlarm === "true" ? true : false,
+        receivingAlarm,
         email,
         nickName,
         password,

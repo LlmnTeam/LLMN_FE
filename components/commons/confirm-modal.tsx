@@ -149,6 +149,19 @@ export default function ConfirmModal({
       closeAction: onClose,
       confirmAction: action,
     },
+    signupResult: {
+      title: "회원가입",
+      message: isSuccessful
+        ? "회원가입이 완료되었습니다."
+        : "회원가입에 실패하였습니다.",
+      buttonText: "확인",
+      closeAction: onClose,
+      confirmAction: isSuccessful
+        ? () => {
+            router.push("/login");
+          }
+        : onClose,
+    },
   };
 
   const modalContent = modalContents[option] || {
