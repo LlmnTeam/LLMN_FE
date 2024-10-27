@@ -342,32 +342,23 @@ export async function deleteContainer(projectId: number): Promise<boolean> {
   }
 }
 
-// export async function askToChatbot(
-//   logFiles: LogFiles,
-//   question: string,
-//   isFirstQuestion: boolean
-// ): Promise<boolean> {
-//   try {
-//     const accessToken = Cookies.get("accessToken");
-//     if (!accessToken) {
-//       throw new Error("Access token is missing");
-//     }
+export async function submitSSHCommand(command: string): Promise<void> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
 
-//     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-//     const response = await fetch(`${baseURL}/logs/question`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${accessToken}`,
-//       },
-//       credentials: "include",
-//       body: JSON.stringify({ logFiles, question, isFirstQuestion }),
-//     });
-
-//     const { success }: { success: boolean } = await response.json();
-//     return success;
-//   } catch (error) {
-//     console.error("Failed to fetch project summary list:", error);
-//     return false;
-//   }
-// }
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/command/home`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ command }),
+    });
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+  }
+}

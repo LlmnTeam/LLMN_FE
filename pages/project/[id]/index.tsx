@@ -2,8 +2,8 @@ import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
-import ShellModal from "@/components/project/\bshell-modal";
 import LogFileModal from "@/components/project/log-file-modal";
+import ShellModal from "@/components/project/shell-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
 import usePromptModal from "@/hooks/project/use-shell-modal";
 import {

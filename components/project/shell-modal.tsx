@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
+import { useSSHCommand } from "@/hooks/project/use-ssh-commend";
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,6 +10,15 @@ interface ModalProps {
 }
 
 export default function ShellModal({ isOpen, onClose }: ModalProps) {
+  const {
+    command,
+    commandOutput,
+    sshMessageList,
+    isConnected,
+    setCommand,
+    handleCommandChange,
+    handleCommandSubmit,
+  } = useSSHCommand();
   const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
     useConfirmModal();
 
@@ -38,6 +47,10 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
   const handleCompositionStart = () => setIsComposing(true);
   const handleCompositionEnd = () => setIsComposing(false);
 
+  useEffect(() => {
+    console.log("sshMessageList: ", sshMessageList);
+  }, [sshMessageList]);
+
   if (!isOpen) return null;
 
   return (
@@ -58,7 +71,19 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
         <div
           className="flex flex-col justify-start items-center w-full h-full mt-5 py-3 mb-4 xs:mb-5 sm:mb-6 text-[14px] xs:text-[16px] sm:text-[18px] bg-gray-100 rounded-3xl overflow-y-scroll overflow-x-hidden gap-6 xs:gap-7 sm:gap-8 custom-scrollbar"
           ref={logContainerRef}
-        ></div>
+        >
+          {sshMessageList &&
+            sshMessageList.map((msg, index) => (
+              <div key={index}>
+                {msg.role === "system" ? (
+                  <div dangerouslySetInnerHTML={{ __html: msg.content }} />
+                ) : (
+                  <div>{msg.content}</div>
+                )}
+              </div>
+            ))}
+          {/* <div dangerouslySetInnerHTML={{ __html: commandOutput }} /> */}
+        </div>
         <div className="flex flex-row justify-center items-center relative w-full bg-gray-100 border border-gray-300 rounded-3xl">
           <div className="flex flex-row justify-start items-center w-[50px]">
             <div className="flex flex-row justify-center items-center absolute sm:bottom-4 left-3">
@@ -72,23 +97,12 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
             </div>
           </div>
           <div className="w-full">
-            {/* <ReactTextareaAutosize
-              minRows={1}
-              maxRows={1}
-              placeholder="실행할 셸 명령어를 입력하세요..."
-              className="block w-full text-[12px] xs:text-[14px] sm:text-[16px] p-2 my-0 xs:my-[1px] sm:my-0.5 resize-none border-none bg-gray-100 text-gray-700 placeholder-gray-400 focus:outline-none overflow-y-auto custom-scrollbar"
-              // value={question}
-              // onChange={handleQuestionChange}
-              onKeyDown={handleKeyDown}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
-            /> */}
             <input
               type="text"
               placeholder="실행할 셸 명령어를 입력하세요..."
               className="block w-full text-[12px] xs:text-[14px] sm:text-[16px] p-2 my-0 xs:my-[1px] sm:my-0.5 resize-none border-none bg-gray-100 text-gray-700 placeholder-gray-400 focus:outline-none overflow-y-auto custom-scrollbar"
-              // value={question}
-              // onChange={handleQuestionChange}
+              value={command}
+              onChange={handleCommandChange}
               onCompositionStart={handleCompositionStart}
               onCompositionEnd={handleCompositionEnd}
             />
@@ -96,6 +110,7 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
           <div className="flex flex-row justify-end items-center w-[50px]">
             <div
               className="flex flex-row justify-center items-center w-[27px] h-[27px] xs:w-[31px] xs:h-[31px] sm:w-[35px] sm:h-[35px] bg-gray-800 hover:bg-black text-[18px] xs:text-[19px] sm:text-[20px] text-white rounded-full absolute bottom-1 right-1 sm:right-1.5 cursor-pointer"
+              onClick={handleCommandSubmit}
               // onClick={!isConnected ? startSSE : stopSSE}
             >
               {/* {isConnected ? "◼︎" : "→"} */}→

@@ -2,12 +2,11 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
-import { LogFile, LogFiles } from "@/types/project/project-type";
-import { useChatbotSSE } from "@/hooks/project/use-chatbot-sse";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
+import { useChatbotSSE } from "@/hooks/project/use-chatbot-sse";
 
 interface ModalProps {
   isOpen: boolean;

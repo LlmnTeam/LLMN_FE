@@ -34,12 +34,12 @@ export default function ButtonLarge({
       {kind === "login" ? (
         <>
           <Link href="/login/signup-step1">
-            <span className="absolute left-0.5 top-[50px] xs:top-[56px] sm:top-[62px] text-[14px] xs:text-[15px] sm:text-[16px] font-semibold text-[#717478] cursor-pointer">
+            <span className="absolute left-0.5 top-[50px] xs:top-[56px] sm:top-[62px] text-[14px] xs:text-[15px] sm:text-[16px] font-semibold text-[#717478] hover:text-black cursor-pointer">
               회원가입
             </span>
           </Link>
           <Link href="/login/find-account-step1">
-            <span className="absolute right-0.5 top-[50px] xs:top-[56px] sm:top-[62px] text-[14px] xs:text-[15px] sm:text-[16px] font-semibold text-[#717478] cursor-pointer">
+            <span className="absolute right-0.5 top-[50px] xs:top-[56px] sm:top-[62px] text-[14px] xs:text-[15px] sm:text-[16px] font-semibold text-[#717478] hover:text-black cursor-pointer">
               비밀번호 찾기
             </span>
           </Link>
