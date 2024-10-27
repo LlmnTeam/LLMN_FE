@@ -12,6 +12,7 @@ interface UseSSHCommandReturn {
   isConnected: boolean;
   setInputs: React.Dispatch<React.SetStateAction<TerminalInput[]>>;
   handleCommandSubmit: (command: string) => Promise<void>;
+  resetInputs: () => void;
 }
 
 export const useSSHCommand = (): UseSSHCommandReturn => {
@@ -62,10 +63,15 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
     }
   };
 
+  const resetInputs = () => {
+    setInputs([{ type: "text", value: "Welcome to React Terminal UI!" }]);
+  };
+
   return {
     inputs,
     isConnected,
     setInputs,
     handleCommandSubmit,
+    resetInputs,
   };
 };
