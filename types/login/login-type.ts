@@ -11,3 +11,9 @@ export interface LoginResponse {
 export interface Nickname {
   nickName: string;
 }
+
+export interface SSHInfo {
+  remoteName: string;
+  remoteHost: string;
+  remoteKeyPath: string;
+}

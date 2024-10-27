@@ -50,6 +50,7 @@ export default function SignupStep3() {
 
   const handleValidButton = () => {
     addSSHInfo({ remoteName, remoteHost, remoteKeyPath });
+    sessionStorage.setItem("monitoringSshHost", remoteHost);
     router.push("/login/signup-step4");
   };
 

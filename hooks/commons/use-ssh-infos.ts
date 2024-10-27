@@ -1,10 +1,5 @@
+import { SSHInfo } from "@/types/login/login-type";
 import { useState, useEffect } from "react";
-
-interface SSHInfo {
-  remoteName: string;
-  remoteHost: string;
-  remoteKeyPath: string;
-}
 
 // const defaultSSHInfos: SSHInfo[] = [
 //   {
@@ -39,10 +34,10 @@ export default function useSSHInfos() {
     sessionStorage.setItem(SSH_INFOS_KEY, JSON.stringify(infos));
   };
 
-  // const getSSHInfosFromSession = (): SSHInfo[] => {
-  //   const storedData = sessionStorage.getItem(SSH_INFOS_KEY);
-  //   return storedData ? JSON.parse(storedData) : defaultSSHInfos;
-  // };
+  const getSSHInfosFromSession = (): SSHInfo[] => {
+    const storedData = sessionStorage.getItem(SSH_INFOS_KEY);
+    return storedData ? JSON.parse(storedData) : [];
+  };
 
   // useEffect(() => {
   //   const storedInfos = getSSHInfosFromSession();
@@ -53,7 +48,7 @@ export default function useSSHInfos() {
     const updatedInfos = [...sshInfos, info];
     setSSHInfos(updatedInfos);
     saveSSHInfosToSession(updatedInfos);
-    sessionStorage.setItme("monitoringSshHost", info.remoteHost);
+    sessionStorage.setItem("monitoringSshHost", info.remoteHost);
   };
 
   // const removeSSHInfo = (index: number) => {
@@ -62,19 +57,19 @@ export default function useSSHInfos() {
   //   saveSSHInfosToSession(updatedInfos);
   // };
 
-  // const resetSSHInfos = () => {
-  //   setSSHInfos(defaultSSHInfos);
-  //   sessionStorage.removeItem(SSH_INFOS_KEY);
-  // };
+  const resetSSHInfos = () => {
+    setSSHInfos([]);
+    sessionStorage.removeItem(SSH_INFOS_KEY);
+  };
 
   return {
     sshInfos,
     // monitoringSshHost,
     // setMonitoringSshHost,
     saveSSHInfosToSession,
-    // getSSHInfosFromSession,
+    getSSHInfosFromSession,
     addSSHInfo,
     // removeSSHInfo,
-    // resetSSHInfos,
+    resetSSHInfos,
   };
 }

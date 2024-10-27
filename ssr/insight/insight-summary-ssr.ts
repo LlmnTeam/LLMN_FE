@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from "querystring";
 import { fetchInsightSummary } from "@/api/insight/insight-api";
 import { InsightSummary } from "@/types/insight/insight-type";
 import { Nickname } from "@/types/login/login-type";
-import { verifyAccessToken } from "@/api/login/login-check";
+import { verifyAccessToken } from "@/api/login/login-api";
 
 export interface InsightSummaryPageProps {
   NicknameSSR: Nickname | null;

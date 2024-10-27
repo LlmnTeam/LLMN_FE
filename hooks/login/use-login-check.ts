@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { requestLoginToken } from "@/api/login/login-check";
+import { requestLoginToken } from "@/api/login/login-api";
 import { AccessToken, LoginResponse } from "@/types/login/login-type";
 
 interface UseLoginCheckReturn {

@@ -1,4 +1,4 @@
-import { verifyOpenAIKey } from "@/api/login/open-ai-key-check";
+import { verifyOpenAIKey } from "@/api/login/signup-api";
 import { useEffect, useState } from "react";
 
 interface useOpenAIKeyCheckReturn {

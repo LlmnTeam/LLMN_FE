@@ -4,7 +4,7 @@ import {
   GetServerSidePropsResult,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { verifyAccessToken } from "@/api/login/login-check";
+import { verifyAccessToken } from "@/api/login/login-api";
 import { Nickname } from "@/types/login/login-type";
 
 // 타입 가드: props가 존재하는지 확인

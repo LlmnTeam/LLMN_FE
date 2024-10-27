@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { filterInput } from "@/utils/ip-utils";
 import useIsMobile from "./use-is-mobile";
-import { SSHPemKeyUpload, validateInstance } from "@/api/login/instance-check";
 import { validateHost, validateName } from "@/utils/instance-validation-utils";
+import { SSHPemKeyUpload, validateInstance } from "@/api/login/signup-api";
 
 interface UseInstanceCheckReturn {
   remoteName: string;

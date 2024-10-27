@@ -1,4 +1,4 @@
-import { ResetNewPassword } from "@/api/login/email-check";
+import { ResetNewPassword } from "@/api/login/signup-api";
 import { validatePassword } from "@/utils/validation-utils";
 import { useState, useEffect } from "react";
 

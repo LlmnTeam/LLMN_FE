@@ -1,4 +1,4 @@
-import { verifyAccessToken } from "@/api/login/login-check";
+import { verifyAccessToken } from "@/api/login/login-api";
 import { fetchSetting } from "@/api/setting/setting-api";
 import { Nickname } from "@/types/login/login-type";
 import { Setting } from "@/types/setting/setting-type";

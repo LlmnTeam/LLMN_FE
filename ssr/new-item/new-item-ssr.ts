@@ -1,4 +1,4 @@
-import { verifyAccessToken } from "@/api/login/login-check";
+import { verifyAccessToken } from "@/api/login/login-api";
 import { fetchCloudInstanceList } from "@/api/new-item/new-item-api";
 import { Nickname } from "@/types/login/login-type";
 import { CloudInstanceList } from "@/types/new-item/new-item-type";

@@ -5,7 +5,7 @@ import {
   fetchCloudInstanceList,
 } from "@/api/dashboard/dashboard-api";
 import { CloudInstanceList, Dashboard } from "@/types/dashboard/dashboard-type";
-import { verifyAccessToken } from "@/api/login/login-check";
+import { verifyAccessToken } from "@/api/login/login-api";
 import { Nickname } from "@/types/login/login-type";
 
 export interface DashboardPageProps {

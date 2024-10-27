@@ -1,10 +1,12 @@
 import ButtonSmall from "@/components/commons/button-small";
+import ConfirmModal from "@/components/commons/confirm-modal";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
+import useSSHInfos from "@/hooks/commons/use-ssh-infos";
 import { cls } from "@/utils/class-utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignupStep4() {
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
@@ -16,6 +18,33 @@ export default function SignupStep4() {
     openInstanceModal,
     closeInstanceModal,
   } = useInstanceModal();
+
+  const { getSSHInfosFromSession } = useSSHInfos();
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(isVaildOpenAIKey ? false : true);
+  }, [isVaildOpenAIKey]);
+
+  const handleCompleteButton = async () => {
+    if (disabled) return;
+    const receivingAlarm = sessionStorage.getItem("receivingAlarm");
+    const email = sessionStorage.getItem("email");
+    const nickName = sessionStorage.getItem("nickName");
+    const password = sessionStorage.getItem("password");
+    const passwordConfirm = sessionStorage.getItem("passwordConfirm");
+    const sshInfos = getSSHInfosFromSession();
+    const monitoringSshHost = sessionStorage.getItem("monitoringSshHost");
+    console.log("receivingAlarm: ", receivingAlarm);
+    console.log("email: ", email);
+    console.log("nickName: ", nickName);
+    console.log("password: ", password);
+    console.log("passwordConfirm: ", passwordConfirm);
+    console.log("sshInfos: ", sshInfos);
+    console.log("monitoringSshHost: ", monitoringSshHost);
+  };
+
   return (
     <div>
       <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[680px] xs:h-[720px] sm:h-[760px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] pb-[15vh] overflow-y-auto overflow-x-hidden">
@@ -56,8 +85,18 @@ export default function SignupStep4() {
         <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
           취소
         </button>
-        <ButtonSmall label="다음" />
+        <ButtonSmall
+          label="완료"
+          onClick={handleCompleteButton}
+          disabled={disabled}
+        />
       </div>
+      {/* <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="resetNewPassword"
+        success={success}
+      /> */}
     </div>
   );
 }

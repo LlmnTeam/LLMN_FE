@@ -5,7 +5,7 @@ import {
   CheckRegisteredEmail,
   ResendCode,
   VerifyEmailCode,
-} from "@/api/login/email-check";
+} from "@/api/login/signup-api";
 import {
   validateEmailDomainPart,
   validateEmailLocalPart,
