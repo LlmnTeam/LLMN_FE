@@ -3,6 +3,12 @@ import Image from "next/image";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
 import { useSSHCommand } from "@/hooks/project/use-ssh-commend";
+import Terminal from "react-terminal-ui";
+
+interface TerminalInput {
+  type: string;
+  value: string;
+}
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,15 +16,8 @@ interface ModalProps {
 }
 
 export default function ShellModal({ isOpen, onClose }: ModalProps) {
-  const {
-    command,
-    commandOutput,
-    sshMessageList,
-    isConnected,
-    setCommand,
-    handleCommandChange,
-    handleCommandSubmit,
-  } = useSSHCommand();
+  const { inputs, isConnected, setInputs, handleCommandSubmit } =
+    useSSHCommand();
   const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
     useConfirmModal();
 
@@ -27,13 +26,13 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
     onClose();
   };
 
-  const logContainerRef = useRef<HTMLDivElement>(null);
+  // const logContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (logContainerRef.current) {
-      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (logContainerRef.current) {
+  //     logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
+  //   }
+  // }, []);
 
   const [isComposing, setIsComposing] = useState(false);
 
@@ -47,9 +46,30 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
   const handleCompositionStart = () => setIsComposing(true);
   const handleCompositionEnd = () => setIsComposing(false);
 
+  const handleInput = async (input: string) => {
+    setInputs((prev) => [
+      ...prev,
+      { type: "text", value: `user@host:~$ ${input}` },
+    ]);
+
+    try {
+      await handleCommandSubmit(input);
+    } catch (error) {
+      setInputs((prev) => [
+        ...prev,
+        {
+          type: "text",
+          value: `Error: ${
+            error instanceof Error ? error.message : "Unknown error"
+          }`,
+        },
+      ]);
+    }
+  };
+
   useEffect(() => {
-    console.log("sshMessageList: ", sshMessageList);
-  }, [sshMessageList]);
+    console.log("inputs: ", inputs);
+  }, [inputs]);
 
   if (!isOpen) return null;
 
@@ -69,22 +89,52 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
           </div>
         </div>
         <div
-          className="flex flex-col justify-start items-center w-full h-full mt-5 py-3 mb-4 xs:mb-5 sm:mb-6 text-[14px] xs:text-[16px] sm:text-[18px] bg-gray-100 rounded-3xl overflow-y-scroll overflow-x-hidden gap-6 xs:gap-7 sm:gap-8 custom-scrollbar"
-          ref={logContainerRef}
+          className="flex flex-col justify-start items-start w-full h-full mt-5 py-3 mb-4 xs:mb-5 sm:mb-6 text-[14px] xs:text-[16px] sm:text-[18px] bg-gray-100 rounded-3xl overflow-hidden gap-1 xs:gap-2 sm:gap-3"
+          // ref={logContainerRef}
         >
-          {sshMessageList &&
+          <Terminal
+            name="React Terminal UI"
+            prompt="user@host:~$"
+            onInput={handleInput}
+          >
+            {inputs.map((input, index) => (
+              <div
+                key={index}
+                style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+                dangerouslySetInnerHTML={{ __html: input.value }}
+              />
+            ))}
+          </Terminal>
+          {/* {sshMessageList &&
             sshMessageList.map((msg, index) => (
               <div key={index}>
                 {msg.role === "system" ? (
-                  <div dangerouslySetInnerHTML={{ __html: msg.content }} />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: msg.content }}
+                    style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
+                    className="w-full px-5"
+                  />
                 ) : (
-                  <div>{msg.content}</div>
+                  <div className="w-full px-5 font-bold">{msg.content}</div>
                 )}
               </div>
-            ))}
+            ))} */}
           {/* <div dangerouslySetInnerHTML={{ __html: commandOutput }} /> */}
+          <div className="flex flex-row justify-start items-center w-full px-5">
+            <span className="font-bold">user@host:~$</span>
+            {/* <input
+              type="text"
+              value={command}
+              onChange={handleCommandChange}
+              onKeyDown={() => {if (e.key === "Enter" && !e.shiftKey) { 
+                e.preventDefault();}}
+              className="w-full bg-transparent border-none outline-none text-sm font-mono text-gray-800"
+              placeholder=""
+              autoFocus
+            /> */}
+          </div>
         </div>
-        <div className="flex flex-row justify-center items-center relative w-full bg-gray-100 border border-gray-300 rounded-3xl">
+        {/* <div className="flex flex-row justify-center items-center relative w-full bg-gray-100 border border-gray-300 rounded-3xl">
           <div className="flex flex-row justify-start items-center w-[50px]">
             <div className="flex flex-row justify-center items-center absolute sm:bottom-4 left-3">
               <Image
@@ -111,19 +161,20 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
             <div
               className="flex flex-row justify-center items-center w-[27px] h-[27px] xs:w-[31px] xs:h-[31px] sm:w-[35px] sm:h-[35px] bg-gray-800 hover:bg-black text-[18px] xs:text-[19px] sm:text-[20px] text-white rounded-full absolute bottom-1 right-1 sm:right-1.5 cursor-pointer"
               onClick={handleCommandSubmit}
-              // onClick={!isConnected ? startSSE : stopSSE}
             >
-              {/* {isConnected ? "◼︎" : "→"} */}→
+              →
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
         option="closeShellModal"
         overlay={false}
-        action={handleCloseModal}
+        action={() => {
+          handleCloseModal();
+        }}
       />
     </div>
   );

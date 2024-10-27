@@ -2,35 +2,25 @@ import { useEffect, useState } from "react";
 import { AnsiUp } from "ansi_up";
 import { submitSSHCommand } from "@/api/project/project-api";
 
-interface SSHMessage {
-  role: "user" | "system";
-  content: string;
+interface TerminalInput {
+  type: string;
+  value: string;
 }
 
 interface UseSSHCommandReturn {
-  command: string;
-  commandOutput: string;
-  sshMessageList: SSHMessage[];
+  inputs: TerminalInput[];
   isConnected: boolean;
-  setCommand: (command: string) => void;
-  handleCommandChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCommandSubmit: () => Promise<void>;
+  setInputs: React.Dispatch<React.SetStateAction<TerminalInput[]>>;
+  handleCommandSubmit: (command: string) => Promise<void>;
 }
 
 export const useSSHCommand = (): UseSSHCommandReturn => {
-  const [command, setCommand] = useState("");
-  const [commandOutput, setCommandOutput] = useState("");
-  const [sshMessageList, setSSHMessageList] = useState<SSHMessage[]>([]);
+  const [inputs, setInputs] = useState<TerminalInput[]>([
+    { type: "text", value: "Welcome to React Terminal UI!" },
+  ]);
   const [isConnected, setIsConnected] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const ansiUp = new AnsiUp();
-
-  const handleCommandChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const inputCommand = event.target.value;
-    setCommand(inputCommand);
-  };
 
   useEffect(() => {
     const ws = new WebSocket("ws://54.180.252.169:8080/ws");
@@ -44,12 +34,8 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
     ws.onmessage = (event) => {
       const cleanedData = event.data.replace(/\]0;[^]*/g, "");
       const htmlOutput = ansiUp.ansi_to_html(cleanedData);
-      setCommandOutput((prev) => prev + "<br/>" + htmlOutput);
 
-      setSSHMessageList((prev) => [
-        ...prev,
-        { role: "system", content: cleanedData },
-      ]);
+      setInputs((prev) => [...prev, { type: "text", value: htmlOutput }]);
     };
 
     ws.onclose = () => {
@@ -66,30 +52,20 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
     };
   }, []);
 
-  const handleCommandSubmit = async () => {
+  const handleCommandSubmit = async (command: string) => {
     if (!command || !isConnected) return;
 
     try {
       await submitSSHCommand(command);
-
-      setSSHMessageList((prev) => [
-        ...prev,
-        { role: "user", content: command },
-      ]);
-
-      setCommand("");
     } catch (error) {
       console.error("명령어 전송 실패:", error);
     }
   };
 
   return {
-    command,
-    commandOutput,
-    sshMessageList,
+    inputs,
     isConnected,
-    setCommand,
-    handleCommandChange,
+    setInputs,
     handleCommandSubmit,
   };
 };
