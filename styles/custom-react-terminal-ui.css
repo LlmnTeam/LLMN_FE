@@ -72,7 +72,7 @@ div[data-terminal-name="LLMN Terminal"] {
 .react-terminal-wrapper .react-terminal {
   overflow-y: auto; /* 세로 스크롤 활성화 */
   scrollbar-width: thin; /* Firefox 스크롤바 두께 */
-  scrollbar-color: #666 transparent; /* 스크롤바 색상 (Firefox) */
+  scrollbar-color: #888 transparent; /* 스크롤바 색상 (Firefox) */
 }
 
 /* Chrome, Edge, Safari용 스크롤바 스타일 */
@@ -85,7 +85,7 @@ div[data-terminal-name="LLMN Terminal"] {
 }
 
 .react-terminal-wrapper .react-terminal::-webkit-scrollbar-thumb {
-  background-color: #666; /* 스크롤바 색상 */
+  background-color: #888; /* 스크롤바 색상 */
   border-radius: 4px; /* 둥근 모서리 */
   border: 2px solid #e0e0e0; /* 스크롤바 안쪽 테두리 */
 }

@@ -5,7 +5,7 @@ import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
 import ShellModal from "@/components/project/shell-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
-import usePromptModal from "@/hooks/project/use-shell-modal";
+import { useSSHCommand } from "@/hooks/project/use-ssh-command";
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
@@ -29,8 +29,28 @@ export default function ProjectDetail({
   const router = useRouter();
   const { id } = router.query;
 
-  const { isShellModalOpen, openShellModal, closeShellModal } =
-    usePromptModal();
+  const [isShellModalOpen, setIsShellModalOpen] = useState(false);
+  const {
+    inputs,
+    setInputs,
+    handleCommandSubmit,
+    connectSocket,
+    disconnectSocket,
+  } = useSSHCommand();
+
+  const openShellModal = async () => {
+    try {
+      await connectSocket();
+      setIsShellModalOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const closeShellModal = () => {
+    setIsShellModalOpen(false);
+    disconnectSocket();
+  };
 
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const projectDetailRef = useRef<ProjectDetail | null>(ProjectDetailSSR);
@@ -124,7 +144,13 @@ export default function ProjectDetail({
         logFileList={logFileListRef.current}
         option={selectedOption}
       />
-      <ShellModal isOpen={isShellModalOpen} onClose={closeShellModal} />
+      <ShellModal
+        isOpen={isShellModalOpen}
+        onClose={closeShellModal}
+        inputs={inputs}
+        setInputs={setInputs}
+        handleCommandSubmit={handleCommandSubmit}
+      />
     </Layout>
   );
 }

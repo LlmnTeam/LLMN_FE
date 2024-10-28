@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <div
       className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-y-auto overflow-x-hidden"
-      onClick={() => router.push("/dashboard")}
+      onClick={() => router.push("/login")}
     >
       <Logo />
     </div>

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
-import { useSSHCommand } from "@/hooks/project/use-ssh-command";
 import Terminal from "react-terminal-ui";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import ToggleButtonSmall from "../commons/toggle-button-small";
@@ -11,44 +10,34 @@ const isKorean = (text: string): boolean => {
   return koreanRegex.test(text);
 };
 
+interface TerminalInput {
+  type: string;
+  value: string;
+}
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  inputs: TerminalInput[];
+  setInputs: React.Dispatch<React.SetStateAction<TerminalInput[]>>;
+  handleCommandSubmit: (command: string) => Promise<void>;
 }
 
-export default function ShellModal({ isOpen, onClose }: ModalProps) {
-  const {
-    inputs,
-    setInputs,
-    handleCommandSubmit,
-    connectSocket,
-    disconnectSocket,
-  } = useSSHCommand();
+export default function ShellModal({
+  isOpen,
+  onClose,
+  inputs,
+  setInputs,
+  handleCommandSubmit,
+}: ModalProps) {
   const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
     useConfirmModal();
   const { isToggled, handleToggle } = useToggleButton();
-
-  useEffect(() => {
-    if (!isOpen) {
-      disconnectSocket();
-      connectSocket();
-    }
-  }, [isOpen, connectSocket, disconnectSocket]);
 
   const handleCloseModal = () => {
     closeConfirmModal();
     onClose();
   };
-
-  // const logContainerRef = useRef<HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   if (logContainerRef.current) {
-  //     logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
-  //   }
-  // }, []);
-
-  // const [isComposing, setIsComposing] = useState(false);
 
   const handleInput = async (input: string) => {
     if (isKorean(input)) {
@@ -128,10 +117,7 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
         onClose={closeConfirmModal}
         option="closeShellModal"
         overlay={false}
-        action={() => {
-          // disconnectSocket();
-          handleCloseModal();
-        }}
+        action={handleCloseModal}
       />
     </div>
   );

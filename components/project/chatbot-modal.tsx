@@ -35,6 +35,7 @@ export default function ChatbotModal({
     useConfirmModal();
 
   const handleCloseModal = () => {
+    stopSSE();
     closeConfirmModal();
     onClose();
   };
