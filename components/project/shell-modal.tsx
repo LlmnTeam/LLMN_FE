@@ -55,6 +55,11 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
   // const [isComposing, setIsComposing] = useState(false);
 
   const handleInput = async (input: string) => {
+    if (isKorean(input)) {
+      alert("한글 입력은 지원되지 않습니다.");
+      return;
+    }
+
     setInputs((prev) => [
       ...prev,
       { type: "text", value: `user@host:~$ ${input}` },
@@ -128,7 +133,7 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
         option="closeShellModal"
         overlay={false}
         action={() => {
-          resetInputs();
+          // disconnectSocket();
           handleCloseModal();
         }}
       />

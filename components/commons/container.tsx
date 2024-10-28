@@ -7,7 +7,7 @@ interface LayoutProps {
   title: string;
   link?: string;
   update?: string;
-  type?: string;
+  type?: "log" | "insight";
   action?: () => void;
   children: React.ReactNode;
 }

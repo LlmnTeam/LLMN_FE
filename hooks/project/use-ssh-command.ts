@@ -56,6 +56,7 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
       console.log("WebSocket 수동으로 종료");
       setSocket(null);
       setIsConnected(false);
+      setInputs([]);
     }
   };
 

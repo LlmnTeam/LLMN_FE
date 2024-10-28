@@ -22,6 +22,27 @@ div[data-terminal-name="LLMN Terminal"] {
   background-color: #f7f7f7 !important;
 }
 
+.react-terminal-wrapper
+  .react-terminal
+  .react-terminal-line.react-terminal-input.react-terminal-active-input::before {
+  color: #32cd32 !important;
+  font-weight: bold;
+}
+
+.react-terminal-wrapper
+  .react-terminal
+  .react-terminal-line.react-terminal-input.react-terminal-active-input
+  .cursor {
+  background-color: #c0c0c0;
+  width: 4px !important;
+}
+
+.react-terminal-wrapper.react-terminal-light
+  .react-terminal
+  .react-terminal-line.react-terminal-input.react-terminal-active-input::before {
+  color: rgb(215, 109, 119) !important;
+}
+
 /* 화면이 640px 이하일 때 */
 @media (max-width: 640px) {
   div[data-terminal-name="LLMN Terminal"] {
