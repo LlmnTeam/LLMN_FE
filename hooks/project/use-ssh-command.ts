@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnsiUp } from "ansi_up";
-import { submitSSHCommand } from "@/api/project/project-api";
+import { initSSHCommand, submitSSHCommand } from "@/api/project/project-api";
 
 interface TerminalInput {
   type: string;
@@ -13,23 +13,24 @@ interface UseSSHCommandReturn {
   setInputs: React.Dispatch<React.SetStateAction<TerminalInput[]>>;
   handleCommandSubmit: (command: string) => Promise<void>;
   resetInputs: () => void;
+  connectSocket: () => void;
+  disconnectSocket: () => void;
 }
 
 export const useSSHCommand = (): UseSSHCommandReturn => {
-  const [inputs, setInputs] = useState<TerminalInput[]>([
-    { type: "text", value: "Welcome to React Terminal UI!" },
-  ]);
+  const [inputs, setInputs] = useState<TerminalInput[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const ansiUp = new AnsiUp();
 
-  useEffect(() => {
+  const connectSocket = () => {
     const ws = new WebSocket("ws://54.180.252.169:8080/ws");
     setSocket(ws);
 
-    ws.onopen = () => {
+    ws.onopen = async () => {
       console.log("WebSocket 연결됨");
       setIsConnected(true);
+      await initSSHCommand();
     };
 
     ws.onmessage = (event) => {
@@ -47,11 +48,16 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
     ws.onerror = (error) => {
       console.error("WebSocket 에러: ", error);
     };
+  };
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+  const disconnectSocket = () => {
+    if (socket) {
+      socket.close();
+      console.log("WebSocket 수동으로 종료");
+      setSocket(null);
+      setIsConnected(false);
+    }
+  };
 
   const handleCommandSubmit = async (command: string) => {
     if (!command || !isConnected) return;
@@ -64,7 +70,7 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
   };
 
   const resetInputs = () => {
-    setInputs([{ type: "text", value: "Welcome to React Terminal UI!" }]);
+    setInputs([]);
   };
 
   return {
@@ -73,5 +79,7 @@ export const useSSHCommand = (): UseSSHCommandReturn => {
     setInputs,
     handleCommandSubmit,
     resetInputs,
+    connectSocket,
+    disconnectSocket,
   };
 };

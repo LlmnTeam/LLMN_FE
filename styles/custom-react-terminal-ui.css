@@ -1,7 +1,12 @@
 .react-terminal-wrapper {
   padding: 45px 0px 15px 20px !important;
   height: 100%;
+  /* background-color: rgb(47, 52, 61) !important; */
   /* border-radius: 16px !important; */
+}
+
+div[data-terminal-name="LLMN Terminal"] {
+  font-size: 18px;
 }
 
 .react-terminal-wrapper .react-terminal-window-buttons {
@@ -13,8 +18,15 @@
   height: 100% !important;
 }
 
+.react-terminal-wrapper.react-terminal-light {
+  background-color: #f7f7f7 !important;
+}
+
 /* 화면이 640px 이하일 때 */
 @media (max-width: 640px) {
+  div[data-terminal-name="LLMN Terminal"] {
+    font-size: 16px;
+  }
   .react-terminal-wrapper {
     padding: 40px 0px 10px 15px !important;
   }
@@ -25,6 +37,9 @@
 
 /* 화면이 450px 이하일 때 */
 @media (max-width: 450px) {
+  div[data-terminal-name="LLMN Terminal"] {
+    font-size: 14px;
+  }
   .react-terminal-wrapper {
     padding: 35px 0px 5px 10px !important;
   }
@@ -36,7 +51,7 @@
 .react-terminal-wrapper .react-terminal {
   overflow-y: auto; /* 세로 스크롤 활성화 */
   scrollbar-width: thin; /* Firefox 스크롤바 두께 */
-  scrollbar-color: #666 #252a33; /* 스크롤바 색상 (Firefox) */
+  scrollbar-color: #666 transparent; /* 스크롤바 색상 (Firefox) */
 }
 
 /* Chrome, Edge, Safari용 스크롤바 스타일 */
@@ -45,7 +60,7 @@
 }
 
 .react-terminal-wrapper .react-terminal::-webkit-scrollbar-track {
-  background: #252a33; /* 스크롤 트랙 색상 */
+  background: transparent; /* 스크롤 트랙 색상 */
 }
 
 .react-terminal-wrapper .react-terminal::-webkit-scrollbar-thumb {

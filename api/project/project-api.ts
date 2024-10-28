@@ -362,3 +362,27 @@ export async function submitSSHCommand(command: string): Promise<void> {
     console.error("Failed to fetch project summary list:", error);
   }
 }
+
+export async function initSSHCommand(): Promise<boolean> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/command/init`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const { success }: { success: boolean } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to fetch project summary list:", error);
+    return false;
+  }
+}

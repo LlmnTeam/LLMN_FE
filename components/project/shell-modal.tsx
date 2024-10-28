@@ -4,11 +4,14 @@ import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
 import { useSSHCommand } from "@/hooks/project/use-ssh-command";
 import Terminal from "react-terminal-ui";
+import ToggleButton from "../commons/toggle-button";
+import useToggleButton from "@/hooks/commons/use-toggle-button";
+import ToggleButtonSmall from "../commons/toggle-button-small";
 
-interface TerminalInput {
-  type: string;
-  value: string;
-}
+const isKorean = (text: string): boolean => {
+  const koreanRegex = /[가-힣]/;
+  return koreanRegex.test(text);
+};
 
 interface ModalProps {
   isOpen: boolean;
@@ -16,10 +19,25 @@ interface ModalProps {
 }
 
 export default function ShellModal({ isOpen, onClose }: ModalProps) {
-  const { inputs, isConnected, setInputs, handleCommandSubmit, resetInputs } =
-    useSSHCommand();
+  const {
+    inputs,
+    isConnected,
+    setInputs,
+    handleCommandSubmit,
+    resetInputs,
+    connectSocket,
+    disconnectSocket,
+  } = useSSHCommand();
   const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
     useConfirmModal();
+  const { isToggled, handleToggle } = useToggleButton();
+
+  useEffect(() => {
+    if (!isOpen) {
+      disconnectSocket();
+      connectSocket();
+    }
+  }, [isOpen]);
 
   const handleCloseModal = () => {
     closeConfirmModal();
@@ -34,17 +52,7 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
   //   }
   // }, []);
 
-  const [isComposing, setIsComposing] = useState(false);
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (isComposing) return;
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-    }
-  };
-
-  const handleCompositionStart = () => setIsComposing(true);
-  const handleCompositionEnd = () => setIsComposing(false);
+  // const [isComposing, setIsComposing] = useState(false);
 
   const handleInput = async (input: string) => {
     setInputs((prev) => [
@@ -88,14 +96,18 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
             ✕
           </div>
         </div>
+        <div className="absolute top-[59px] right-[20px] xs:top-[70px] sm:top-[82px] xs:right-[26px] sm:right-[30px] z-50">
+          <ToggleButtonSmall isToggled={isToggled} onToggle={handleToggle} />
+        </div>
         <div
-          className="flex flex-col justify-start items-start w-full h-full mt-1 xs:mt-2 sm:mt-3 overflow-hidden"
+          className="flex flex-col justify-start items-start relative w-full h-full mt-1 xs:mt-2 sm:mt-3 overflow-hidden"
           // ref={logContainerRef}
         >
           <Terminal
-            name="LLMN Terminal UI"
+            name="LLMN Terminal"
             prompt="user@host:~$"
             onInput={handleInput}
+            colorMode={isToggled === true ? 1 : 0}
           >
             {inputs.map((input, index) => (
               <div
