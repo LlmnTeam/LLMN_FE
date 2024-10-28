@@ -55,7 +55,7 @@ export const useLoginCheck = (): UseLoginCheckReturn => {
 
     if (result?.accessToken) {
       Cookies.set("accessToken", result?.accessToken, {
-        secure: true,
+        secure: false,
         httpOnly: false,
         sameSite: "Lax",
         path: "/",
