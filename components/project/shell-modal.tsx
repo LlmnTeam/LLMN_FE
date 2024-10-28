@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import React, { useEffect } from "react";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
 import { useSSHCommand } from "@/hooks/project/use-ssh-command";
 import Terminal from "react-terminal-ui";
-import ToggleButton from "../commons/toggle-button";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import ToggleButtonSmall from "../commons/toggle-button-small";
 
@@ -21,10 +19,8 @@ interface ModalProps {
 export default function ShellModal({ isOpen, onClose }: ModalProps) {
   const {
     inputs,
-    isConnected,
     setInputs,
     handleCommandSubmit,
-    resetInputs,
     connectSocket,
     disconnectSocket,
   } = useSSHCommand();
@@ -37,7 +33,7 @@ export default function ShellModal({ isOpen, onClose }: ModalProps) {
       disconnectSocket();
       connectSocket();
     }
-  }, [isOpen]);
+  }, [isOpen, connectSocket, disconnectSocket]);
 
   const handleCloseModal = () => {
     closeConfirmModal();

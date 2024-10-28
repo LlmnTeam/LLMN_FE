@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "@/components/commons/input";
 import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
@@ -19,7 +19,7 @@ export default function NewItem({
   NicknameSSR,
   CloudInstanceListSSR,
 }: NewItemPageProps) {
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const {
     projectName,
     description,
@@ -50,7 +50,7 @@ export default function NewItem({
   useEffect(() => {
     setCloudData(CloudInstanceListSSR);
     console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
-  }, []);
+  }, [CloudInstanceListSSR, setCloudData]);
 
   useEffect(() => {
     setDisabled(
@@ -78,7 +78,7 @@ export default function NewItem({
   };
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-1.5 sm:gap-2">

@@ -1,6 +1,6 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useState } from "react";
 import ButtonSmall from "../commons/button-small";
-import { LogFile, LogFileList } from "@/types/project/project-type";
+import { LogFileList } from "@/types/project/project-type";
 import { cls } from "@/utils/class-utils";
 import Image from "next/image";
 import { useRouter } from "next/router";

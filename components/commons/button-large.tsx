@@ -6,7 +6,6 @@ interface ButtonProps {
   kind: string;
   disabled?: boolean;
   onClick?: () => void;
-  [key: string]: any;
 }
 
 export default function ButtonLarge({
@@ -14,7 +13,6 @@ export default function ButtonLarge({
   kind = "login",
   disabled = false,
   onClick,
-  ...rest
 }: ButtonProps) {
   return (
     <div

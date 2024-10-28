@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import ConfirmModal from "./confirm-modal";
 import { useRouter } from "next/router";
 import CloudListModal from "../dashboard/cloud-list-modal";
 import { CloudInstanceList } from "@/types/dashboard/dashboard-type";
 import { cls } from "@/utils/class-utils";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ActionConfirmModal from "./action-confirm-modal";
 import useActionConfirmModal from "@/hooks/commons/use-action-confirm-modal";
 
@@ -22,14 +20,6 @@ export default function DropdownMenu({
 }: DropdownMenuProps) {
   const router = useRouter();
   const { id } = router.query;
-
-  const {
-    isConfirmModalOpen,
-    success,
-    openConfirmModal,
-    closeConfirmModal,
-    setSuccess,
-  } = useConfirmModal();
 
   const {
     isActionConfirmModalOpen,
@@ -166,12 +156,6 @@ export default function DropdownMenu({
           ))}
         </div>
       )}
-      <ConfirmModal
-        isOpen={isConfirmModalOpen}
-        onClose={closeConfirmModal}
-        option={selectedOption}
-        success={success}
-      />
       <ActionConfirmModal
         isOpen={isActionConfirmModalOpen}
         onClose={closeActionConfirmModal}

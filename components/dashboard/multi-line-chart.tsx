@@ -6,7 +6,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
+  // Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -14,21 +14,21 @@ interface HistoryData {
   time: string;
 }
 
-interface CpuHistory extends HistoryData {
-  cpuUsage: number;
-}
+// interface CpuHistory extends HistoryData {
+//   cpuUsage: number;
+// }
 
-interface MemoryHistory extends HistoryData {
-  memoryUsage: number;
-}
+// interface MemoryHistory extends HistoryData {
+//   memoryUsage: number;
+// }
 
-interface NetworkInHistory extends HistoryData {
-  networkReceived: number;
-}
+// interface NetworkInHistory extends HistoryData {
+//   networkReceived: number;
+// }
 
-interface NetworkOutHistory extends HistoryData {
-  networkSent: number;
-}
+// interface NetworkOutHistory extends HistoryData {
+//   networkSent: number;
+// }
 
 interface MultiLineChartProps<T extends HistoryData> {
   data: T[];
@@ -76,12 +76,12 @@ export default function MultiLineChart<T extends HistoryData>({
         <XAxis
           dataKey="time"
           interval={xAxisInterval}
-          tick={{ fontSize: 13, fill: "#374151", fontWeight: "bold" }}
+          tick={{ fontSize, fill: "#374151", fontWeight: "bold" }}
         />
         <YAxis
           domain={isNetworkData ? [0.001, 10000] : [0, 100]}
           scale={isNetworkData ? "log" : "auto"}
-          tick={{ fontSize: 13, fill: "#374151", fontWeight: "bold" }}
+          tick={{ fontSize, fill: "#374151", fontWeight: "bold" }}
         />
         <Tooltip />
         {/* <Legend verticalAlign="top" height={36} /> */}

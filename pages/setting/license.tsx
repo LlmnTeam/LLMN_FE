@@ -8,15 +8,15 @@ import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
 export default function License({ NicknameSSR }: ValidateLoginProps) {
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">
@@ -44,20 +44,20 @@ export default function License({ NicknameSSR }: ValidateLoginProps) {
           <div className="text-[11px] xs:text-[14px] sm:text-[17px] font-normal">
             Permission is hereby granted, free of charge, to any person
             obtaining a copy of this software and associated documentation files
-            (the "Software"), to deal in the Software without restriction,
-            including without limitation the rights to use, copy, modify, merge,
-            publish, distribute, sublicense, and/or sell copies of the Software,
-            and to permit persons to whom the Software is furnished to do so,
-            subject to the following conditions:
+            (the &quot;Software&quot;), to deal in the Software without
+            restriction, including without limitation the rights to use, copy,
+            modify, merge, publish, distribute, sublicense, and/or sell copies
+            of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
           </div>
           <div className="text-[11px] xs:text-[14px] sm:text-[17px] font-normal">
             The above copyright notice and this permission notice shall be
             included in all copies or substantial portions of the Software.
           </div>
           <div className="text-[12px] xs:text-[15px] sm:text-[18px] font-normal">
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-            EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-            MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+            THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY
+            KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
             NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
             BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
             ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN

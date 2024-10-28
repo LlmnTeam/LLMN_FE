@@ -1,4 +1,3 @@
-import { cls } from "@/utils/class-utils";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -11,7 +10,6 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
   disabled?: boolean;
-  [key: string]: any;
 }
 
 export default function Input({
@@ -23,7 +21,6 @@ export default function Input({
   onChange,
   readOnly = false,
   disabled = false,
-  ...rest
 }: InputProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -54,7 +51,6 @@ export default function Input({
         placeholder={value === "" ? placeholder : ""}
         readOnly={readOnly}
         className="appearance-none w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[15px] xs:text-[16px] sm:text-[17px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1"
-        {...rest}
       />
       {label === "프라이빗 키" ? (
         <div className="flex flex-row justify-center items-center absolute top-2 xs:top-2.5 sm:top-3 right-3 xs:right-3.5 sm:right-4 cursor-pointer">

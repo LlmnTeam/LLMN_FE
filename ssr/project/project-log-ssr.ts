@@ -1,13 +1,14 @@
 import { verifyAccessToken } from "@/api/login/login-api";
-import { fetchLogMessage } from "@/api/project/project-api";
+import { fetchLogFileList, fetchLogMessage } from "@/api/project/project-api";
 import { Nickname } from "@/types/login/login-type";
-import { LogMessage } from "@/types/project/project-type";
+import { LogFileList, LogMessage } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 export interface ProjectLogMessagePageProps {
   NicknameSSR: Nickname | null;
   LogMessageSSR: LogMessage | null;
+  LogFileListSSR: LogFileList | null;
 }
 
 export interface Params extends ParsedUrlQuery {
@@ -25,9 +26,10 @@ export async function getProjectLogMessageSSR(
   }
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [NicknameSSR, LogMessageSSR] = await Promise.all([
+  const [NicknameSSR, LogMessageSSR, LogFileListSSR] = await Promise.all([
     verifyAccessToken(accessToken),
     fetchLogMessage(Number(id), file, accessToken),
+    fetchLogFileList(Number(id), accessToken),
   ]);
 
   if (!NicknameSSR) {
@@ -43,6 +45,7 @@ export async function getProjectLogMessageSSR(
     props: {
       NicknameSSR,
       LogMessageSSR,
+      LogFileListSSR,
     },
   };
 }

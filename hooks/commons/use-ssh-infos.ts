@@ -1,5 +1,5 @@
 import { SSHInfo } from "@/types/login/login-type";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // const defaultSSHInfos: SSHInfo[] = [
 //   {

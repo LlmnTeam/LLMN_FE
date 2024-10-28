@@ -1,5 +1,4 @@
 import ButtonSmall from "@/components/commons/button-small";
-import ConfirmModal from "@/components/commons/confirm-modal";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import Input from "@/components/commons/input";
 import Layout from "@/components/commons/layout";
@@ -8,20 +7,22 @@ import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/ssr/commons/validate-login-ssr";
+import { Nickname } from "@/types/login/login-type";
 import { cls } from "@/utils/class-utils";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
-export default function ApiKey() {
+export default function ApiKey({ NicknameSSR }: ValidateLoginProps) {
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
     useOpenAIKeyCheck();
   return (
-    <Layout>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center">

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";

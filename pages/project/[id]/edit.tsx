@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "@/components/commons/input";
 import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
@@ -26,11 +26,8 @@ export default function ProjectEdit({
   NicknameSSR,
   ProjectInfoSSR,
 }: ProjectEditPageProps) {
-  console.log("ProjectInfoSSR: ", ProjectInfoSSR);
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [projectInfo, setProjectInfo] = useState<ProjectInfo | null>(
-    ProjectInfoSSR
-  );
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectInfoRef = useRef<ProjectInfo | null>(ProjectInfoSSR);
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -38,22 +35,17 @@ export default function ProjectEdit({
     description,
     cloudName,
     containerName,
-    sshInfoId,
-    cloudOptions,
-    containerOptions,
     isValidProjectName,
     projectNameMsg,
     isProjectNameEdited,
     handleProjectNameChange,
     handleDescriptionChange,
-    handleCloudSelect,
     handleContainerSelect,
-    setCloudData,
   } = useProjectInfoInput(
-    projectInfo?.projectName,
-    projectInfo?.description,
+    projectInfoRef.current?.projectName,
+    projectInfoRef.current?.description,
     "",
-    projectInfo?.usingContainerName
+    projectInfoRef.current?.usingContainerName
   );
 
   const {
@@ -64,8 +56,10 @@ export default function ProjectEdit({
     setSuccess,
   } = useConfirmModal();
 
-  const containerNames: string[] = projectInfo
-    ? projectInfo?.containers.map((container) => container.containerName)
+  const containerNames: string[] = projectInfoRef.current
+    ? projectInfoRef.current?.containers.map(
+        (container) => container.containerName
+      )
     : [];
   containerNames.push("연결하지 않음");
 
@@ -73,10 +67,10 @@ export default function ProjectEdit({
 
   useEffect(() => {
     if (
-      projectInfo &&
-      projectInfo.projectName === projectName &&
-      projectInfo.description === description &&
-      projectInfo.usingContainerName === containerName
+      projectInfoRef.current &&
+      projectInfoRef.current.projectName === projectName &&
+      projectInfoRef.current.description === description &&
+      projectInfoRef.current.usingContainerName === containerName
     )
       setDisabled(true);
     else setDisabled(false);
@@ -95,7 +89,7 @@ export default function ProjectEdit({
   };
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">

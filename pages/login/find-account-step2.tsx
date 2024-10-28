@@ -4,12 +4,9 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import usePasswordCheck from "@/hooks/login/use-password-check";
 import { cls } from "@/utils/class-utils";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function FindAccountStep2() {
-  const router = useRouter();
-
   const {
     password,
     passwordConfirm,

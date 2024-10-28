@@ -1,21 +1,18 @@
-import { fetchInsight } from "@/api/insight/insight-api";
-import ConfirmModal from "@/components/commons/confirm-modal";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
-import { InsightPageProps, getInsightSSR } from "@/ssr/insight/insight-ssr";
 import {
   InsightSummaryPageProps,
   getInsightSummarySSR,
 } from "@/ssr/insight/insight-summary-ssr";
-import { Insight, InsightSummary } from "@/types/insight/insight-type";
+import type { InsightSummary } from "@/types/insight/insight-type";
 import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<InsightSummaryPageProps> =
   getInsightSummarySSR;
@@ -32,14 +29,11 @@ export default function InsightSummary({
     trend: "장기 트렌드",
     recommendation: "추천",
   };
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [insightSummary, setInsightSummary] = useState<InsightSummary | null>(
-    InsightSummarySSR
-  );
-  console.log("insightSummary: ", insightSummary);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const insightSummaryRef = useRef<InsightSummary | null>(InsightSummarySSR);
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
@@ -62,8 +56,9 @@ export default function InsightSummary({
             </div>
           </div>
         </div>
-        {insightSummary && insightSummary.summaries.length > 0 ? (
-          insightSummary?.summaries?.map((summary) => (
+        {insightSummaryRef.current &&
+        insightSummaryRef.current.summaries.length > 0 ? (
+          insightSummaryRef.current?.summaries?.map((summary) => (
             <div key={summary.id}>
               <Container title={summary.time} link="" update="">
                 <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>

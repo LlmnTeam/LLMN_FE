@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ButtonSmall from "./button-small";
 import { useRouter } from "next/router";
 import { cls } from "@/utils/class-utils";
-import { restartContainer } from "@/api/project/project-api";
 
 interface ModalProps {
   isOpen: boolean;
@@ -27,7 +26,7 @@ export default function ConfirmModal({
 }: ModalProps) {
   const router = useRouter();
 
-  const [isSuccessful, setIsSuccessful] = useState(success);
+  // const [isSuccessful, setIsSuccessful] = useState(success);
 
   const modalContents: {
     [key: string]: {
@@ -47,12 +46,12 @@ export default function ConfirmModal({
     },
     resetNewPassword: {
       title: "비밀번호 변경",
-      message: isSuccessful
+      message: success
         ? "새 비밀번호로 변경되었습니다."
         : "비밀번호 변경에 실패했습니다.",
       buttonText: "확인",
       closeAction: onClose,
-      confirmAction: isSuccessful
+      confirmAction: success
         ? () => {
             router.push("/login");
           }
@@ -62,7 +61,7 @@ export default function ConfirmModal({
     },
     changeMonitoringCloud: {
       title: "클라우드 변경",
-      message: isSuccessful
+      message: success
         ? "새 클라우드로 변경되었습니다."
         : "클라우드 변경에 실패했습니다.",
       buttonText: "확인",
@@ -71,12 +70,12 @@ export default function ConfirmModal({
     },
     createNewProject: {
       title: "프로젝트 생성",
-      message: isSuccessful
+      message: success
         ? "새 프로젝트가 생성되었습니다."
         : "프로젝트 생성에 실패했습니다.",
       buttonText: "확인",
       closeAction: onClose,
-      confirmAction: isSuccessful
+      confirmAction: success
         ? () => {
             router.push("/log");
           }
@@ -86,7 +85,7 @@ export default function ConfirmModal({
     },
     addNewInstance: {
       title: "인스턴스 추가",
-      message: isSuccessful
+      message: success
         ? "새 인스턴스가 성공적으로 추가되었습니다."
         : "인스턴스 추가에 실패했습니다.",
       buttonText: "확인",
@@ -95,7 +94,7 @@ export default function ConfirmModal({
     },
     editInstance: {
       title: "인스턴스 수정",
-      message: isSuccessful
+      message: success
         ? "인스턴스가 성공적으로 수정되었습니다."
         : "인스턴스 수정에 실패했습니다.",
       buttonText: "확인",
@@ -104,7 +103,7 @@ export default function ConfirmModal({
     },
     deleteInstance: {
       title: "인스턴스 삭제",
-      message: isSuccessful
+      message: success
         ? "인스턴스가 성공적으로 삭제되었습니다."
         : "인스턴스 삭제에 실패했습니다.",
       buttonText: "확인",
@@ -113,7 +112,7 @@ export default function ConfirmModal({
     },
     reconnectInstance: {
       title: "인스턴스 재연결",
-      message: isSuccessful
+      message: success
         ? "인스턴스가 성공적으로 재연결되었습니다."
         : "인스턴스 재연결에 실패했습니다.",
       buttonText: "확인",
@@ -122,12 +121,12 @@ export default function ConfirmModal({
     },
     editProjectInfo: {
       title: "프로젝트 수정",
-      message: isSuccessful
+      message: success
         ? "프로젝트가 성공적으로 수정되었습니다."
         : "프로젝트 수정에 실패했습니다.",
       buttonText: "확인",
       closeAction: onClose,
-      confirmAction: isSuccessful
+      confirmAction: success
         ? () => {
             router.push(`/project/${id}`);
           }
@@ -151,12 +150,12 @@ export default function ConfirmModal({
     },
     signupResult: {
       title: "회원가입",
-      message: isSuccessful
+      message: success
         ? "회원가입이 완료되었습니다."
         : "회원가입에 실패하였습니다.",
       buttonText: "확인",
       closeAction: onClose,
-      confirmAction: isSuccessful
+      confirmAction: success
         ? () => {
             router.push("/login");
           }

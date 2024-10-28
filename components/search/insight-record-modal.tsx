@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React from "react";
 import ButtonSmall from "../commons/button-small";
 
 interface ModalProps {

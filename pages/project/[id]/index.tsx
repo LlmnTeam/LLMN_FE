@@ -11,12 +11,12 @@ import {
   getProjectDetailSSR,
 } from "@/ssr/project/project-detail-ssr";
 import { Nickname } from "@/types/login/login-type";
-import { LogFileList, ProjectDetail } from "@/types/project/project-type";
+import type { LogFileList, ProjectDetail } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
   getProjectDetailSSR;
@@ -32,19 +32,15 @@ export default function ProjectDetail({
   const { isShellModalOpen, openShellModal, closeShellModal } =
     usePromptModal();
 
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [projectDetail, setProjectDetail] = useState<ProjectDetail | null>(
-    ProjectDetailSSR
-  );
-  const [logFileList, setLogFileList] = useState<LogFileList | null>(
-    LogFileListSSR
-  );
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectDetailRef = useRef<ProjectDetail | null>(ProjectDetailSSR);
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
   const [selectedOption, setSelectedOption] = useState<string>("");
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
@@ -58,7 +54,7 @@ export default function ProjectDetail({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {projectDetail?.name}
+              {projectDetailRef.current?.name}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -87,24 +83,24 @@ export default function ProjectDetail({
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          {projectDetail?.description}
+          {projectDetailRef.current?.description}
         </div>
-        {projectDetail?.summaryContent ? (
+        {projectDetailRef.current?.summaryContent ? (
           <Container
             title="요약"
             link={`/project/${id}/summary`}
             update={`${
-              projectDetail?.summaryUpdateDate?.split(" ")[0]
+              projectDetailRef.current?.summaryUpdateDate?.split(" ")[0]
             } 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {projectDetail?.summaryContent}
+              {projectDetailRef.current?.summaryContent}
             </div>
           </Container>
         ) : (
           <EmptyBox title={"요약"} content={"요약 내역이 존재하지 않습니다."} />
         )}
-        {projectDetail?.logContent ? (
+        {projectDetailRef.current?.logContent ? (
           <Container
             title="최근 로그"
             link=""
@@ -125,7 +121,7 @@ export default function ProjectDetail({
       <LogFileModal
         isOpen={isLogFileModalOpen}
         onClose={closeLogFileModal}
-        logFileList={logFileList}
+        logFileList={logFileListRef.current}
         option={selectedOption}
       />
       <ShellModal isOpen={isShellModalOpen} onClose={closeShellModal} />

@@ -73,6 +73,7 @@ export default function SignupStep4() {
         monitoringSshHost
       );
       setSuccess(result);
+      openConfirmModal();
 
       if (result) {
         console.log("Signup successful!");

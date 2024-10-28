@@ -3,7 +3,7 @@ import InsightRecordContainer from "@/components/search/insight-record-container
 import Layout from "@/components/commons/layout";
 import LogFileContainer from "@/components/search/log-file-container";
 import SearchInput from "@/components/search/search-input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
 export default function Search({ NicknameSSR }: ValidateLoginProps) {
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [isSearched, setIsSearched] = useState(false);
   const { startDate, endDate, keyword, setStartDate, setEndDate, setKeyword } =
@@ -48,20 +48,8 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
     console.log("searchResult: ", searchResult);
   }, [searchResult]);
 
-  // useEffect(() => {
-  //   console.log("startDate: ", formatToLocalISOString(startDate));
-  // }, [startDate]);
-
-  // useEffect(() => {
-  //   console.log("endDate: ", formatToLocalISOString(endDate));
-  // }, [endDate]);
-
-  // useEffect(() => {
-  //   console.log("keyword: ", keyword);
-  // }, [keyword]);
-
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">

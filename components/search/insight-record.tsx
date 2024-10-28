@@ -1,5 +1,4 @@
 import useInsightRecordModal from "@/hooks/search/use-insight-record-modal";
-import Image from "next/image";
 import InsightRecordModal from "./insight-record-modal";
 
 interface InsightRecordProps {

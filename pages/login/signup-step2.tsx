@@ -10,13 +10,8 @@ import { useEffect, useState } from "react";
 export default function SignupStep2() {
   const router = useRouter();
 
-  const {
-    nickname,
-    isValidNickname,
-    nicknameMsg,
-    handleNicknameChange,
-    verifyNickname,
-  } = useNicknameCheck("");
+  const { nickname, isValidNickname, nicknameMsg, handleNicknameChange } =
+    useNicknameCheck("");
 
   const {
     password,

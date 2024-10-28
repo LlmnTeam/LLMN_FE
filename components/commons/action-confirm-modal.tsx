@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ButtonSmall from "./button-small";
 import { useRouter } from "next/router";
 import { cls } from "@/utils/class-utils";
@@ -66,10 +66,9 @@ export default function ActionConfirmModal({
 
   const withdrawAction = async () => {
     if (!isConfirmed) {
-      // const result = await withdrawAccount();
+      const result = await withdrawAccount();
       setIsConfirmed(true);
-      // setIsSuccessful(result);
-      setIsSuccessful(true);
+      setIsSuccessful(result);
     } else {
       setIsConfirmed(false);
       onClose();
@@ -130,8 +129,8 @@ export default function ActionConfirmModal({
         ? "회원 탈퇴가 완료되었습니다."
         : "회원 탈퇴에 실패했습니다.",
       buttonText: "탈퇴",
-      closeAction: onClose,
-      confirmAction: onClose,
+      closeAction: !isConfirmed ? onClose : withdrawAction,
+      confirmAction: withdrawAction,
     },
   };
 

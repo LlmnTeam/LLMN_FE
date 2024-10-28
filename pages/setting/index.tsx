@@ -9,22 +9,25 @@ import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import useNicknameCheck from "@/hooks/commons/use-nickname-check";
 import useToggleButton from "@/hooks/commons/use-toggle-button";
 import { SettingPageProps, getSettingSSR } from "@/ssr/setting/setting-ssr";
-import { Setting, SshInfo } from "@/types/setting/setting-type";
+import { Nickname } from "@/types/login/login-type";
+import type { Setting, SshInfo } from "@/types/setting/setting-type";
 import { cls } from "@/utils/class-utils";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<SettingPageProps> =
   getSettingSSR;
 
-export default function Setting({ SettingSSR }: SettingPageProps) {
-  const [setting, setSetting] = useState<Setting | null>(SettingSSR);
-  const [sshList, setSshList] = useState<SshInfo[]>(SettingSSR?.sshInfos || []);
+export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const settingRef = useRef<Setting | null>(SettingSSR);
+  const [sshList, setSshList] = useState<SshInfo[]>(
+    settingRef.current?.sshInfos || []
+  );
   const [selectedSshId, SetSelectedSshId] = useState<number | null>(
     SettingSSR?.monitoringSshId || null
   );
-  console.log("setting: ", setting);
 
   const {
     nickname,
@@ -32,7 +35,6 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
     nicknameMsg,
     isNicknameEdited,
     handleNicknameChange,
-    verifyNickname,
   } = useNicknameCheck(SettingSSR?.nickName || "");
 
   const {
@@ -43,11 +45,11 @@ export default function Setting({ SettingSSR }: SettingPageProps) {
   } = useInstanceModal();
 
   const { isToggled, handleToggle } = useToggleButton(
-    SettingSSR?.receivingAlarm ? true : false
+    settingRef.current?.receivingAlarm ? true : false
   );
 
   return (
-    <Layout>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center w-full">

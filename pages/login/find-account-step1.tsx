@@ -20,7 +20,6 @@ export default function FindAccountStep1() {
     handleEmailChange,
     handleCodeChange,
     verifyEmail,
-    verifyCode,
     resendCode,
   } = useEmailCheck("recovery");
 

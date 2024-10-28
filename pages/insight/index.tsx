@@ -3,21 +3,20 @@ import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import { InsightPageProps, getInsightSSR } from "@/ssr/insight/insight-ssr";
-import { Insight } from "@/types/insight/insight-type";
+import type { Insight } from "@/types/insight/insight-type";
 import { Nickname } from "@/types/login/login-type";
 import { GetServerSideProps } from "next";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<InsightPageProps> =
   getInsightSSR;
 
 export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [insight, setInsight] = useState<Insight | null>(InsightSSR);
-  console.log("insight: ", insight);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const insightRef = useRef<Insight | null>(InsightSSR);
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
@@ -31,14 +30,16 @@ export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
             </div>
           </div>
         </div>
-        {insight?.performanceSummary ? (
+        {insightRef.current?.performanceSummary ? (
           <Container
             title="성능 요약"
             link="/insight/performance"
-            update={`${insight?.performanceUpdateTime?.split(" ")[0]} 업데이트`}
+            update={`${
+              insightRef.current?.performanceUpdateTime?.split(" ")[0]
+            } 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {insight?.performanceSummary}
+              {insightRef.current?.performanceSummary}
             </div>
           </Container>
         ) : (
@@ -47,14 +48,16 @@ export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
             content={"요약 내역이 존재하지 않습니다."}
           />
         )}
-        {insight?.dailySummary ? (
+        {insightRef.current?.dailySummary ? (
           <Container
             title="일일 요약"
             link="/insight/daily"
-            update={`${insight?.dailyUpdateTime?.split(" ")[0]} 업데이트`}
+            update={`${
+              insightRef.current?.dailyUpdateTime?.split(" ")[0]
+            } 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {insight?.dailySummary}
+              {insightRef.current?.dailySummary}
             </div>
           </Container>
         ) : (
@@ -63,14 +66,16 @@ export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
             content={"요약 내역이 존재하지 않습니다."}
           />
         )}
-        {insight?.trendSummary ? (
+        {insightRef.current?.trendSummary ? (
           <Container
             title="장기 트렌드 분석"
             link="/insight/trend"
-            update={`${insight?.trendUpdateTime?.split(" ")[0]} 업데이트`}
+            update={`${
+              insightRef.current?.trendUpdateTime?.split(" ")[0]
+            } 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {insight?.trendSummary}
+              {insightRef.current?.trendSummary}
             </div>
           </Container>
         ) : (
@@ -79,14 +84,16 @@ export default function Insight({ NicknameSSR, InsightSSR }: InsightPageProps) {
             content={"분석 내역이 존재하지 않습니다."}
           />
         )}
-        {insight?.recommendation ? (
+        {insightRef.current?.recommendation ? (
           <Container
             title="추천"
             link="/insight/recommendation"
-            update={`${insight?.recommendUpdateTime?.split(" ")[0]} 업데이트`}
+            update={`${
+              insightRef.current?.recommendUpdateTime?.split(" ")[0]
+            } 업데이트`}
           >
             <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-              {insight?.recommendation}
+              {insightRef.current?.recommendation}
             </div>
           </Container>
         ) : (

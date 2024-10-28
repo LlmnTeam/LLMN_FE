@@ -24,7 +24,6 @@ export default function SignupStep1() {
     handleEmailChange,
     handleCodeChange,
     verifyEmail,
-    verifyCode,
     resendCode,
   } = useEmailCheck("join");
 

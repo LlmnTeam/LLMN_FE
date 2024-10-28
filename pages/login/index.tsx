@@ -18,17 +18,12 @@ export default function Login() {
     LoginFailedMsg,
   } = useLoginCheck();
 
-  const {
-    isConfirmModalOpen,
-    success,
-    openConfirmModal,
-    closeConfirmModal,
-    setSuccess,
-  } = useConfirmModal();
+  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
+    useConfirmModal();
 
   useEffect(() => {
     if (isLoginFailed) openConfirmModal();
-  }, [isLoginFailed]);
+  }, [isLoginFailed, openConfirmModal]);
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-y-auto overflow-x-hidden">

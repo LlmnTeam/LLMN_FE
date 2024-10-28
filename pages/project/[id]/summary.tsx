@@ -1,4 +1,3 @@
-import { fetchProjectSummaryList } from "@/api/project/project-api";
 import Container from "@/components/commons/container";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
@@ -10,12 +9,15 @@ import {
   getProjectSummaryListSSR,
 } from "@/ssr/project/project-summary-ssr";
 import { Nickname } from "@/types/login/login-type";
-import { LogFileList, ProjectSummaryList } from "@/types/project/project-type";
+import type {
+  LogFileList,
+  ProjectSummaryList,
+} from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<ProjectSummaryListPageProps> =
   getProjectSummaryListSSR;
@@ -27,18 +29,16 @@ export default function ProjectSummaryList({
 }: ProjectSummaryListPageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [projectSummaryList, setProjectSummaryList] =
-    useState<ProjectSummaryList | null>(ProjectSummaryListSSR);
-  const [logFileList, setLogFileList] = useState<LogFileList | null>(
-    LogFileListSSR
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectSummaryListRef = useRef<ProjectSummaryList | null>(
+    ProjectSummaryListSSR
   );
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
-  console.log("ProjectSummaryList: ", projectSummaryList);
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
@@ -52,7 +52,7 @@ export default function ProjectSummaryList({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {projectSummaryList?.name + " - 요약"}
+              {projectSummaryListRef.current?.name + " - 요약"}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -77,7 +77,7 @@ export default function ProjectSummaryList({
               <LogFileModal
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
-                logFileList={logFileList}
+                logFileList={logFileListRef.current}
                 option="chatbot"
               />
             </div>
@@ -85,10 +85,11 @@ export default function ProjectSummaryList({
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          {projectSummaryList?.description}
+          {projectSummaryListRef.current?.description}
         </div>
-        {projectSummaryList && projectSummaryList.summaries ? (
-          projectSummaryList.summaries.map((summary) => (
+        {projectSummaryListRef.current &&
+        projectSummaryListRef.current.summaries ? (
+          projectSummaryListRef.current.summaries.map((summary) => (
             <div key={summary.id}>
               <Container title={summary.time} link="">
                 <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./input";
 import ButtonSmall from "./button-small";
 import useInstanceCheck from "@/hooks/commons/use-instance-check";
@@ -32,8 +32,8 @@ export default function InstanceModal({
     remoteKeyPath: "",
     isWorking: false,
   },
-  reconnect = false,
-}: ModalProps) {
+}: // reconnect = false,
+ModalProps) {
   const {
     remoteName,
     remoteHost,
@@ -82,7 +82,15 @@ export default function InstanceModal({
     )
       setDisabled(true);
     else setDisabled(false);
-  }, [remoteName, remoteHost, remoteKeyPath]);
+  }, [
+    remoteName,
+    remoteHost,
+    remoteKeyPath,
+    ssh.remoteName,
+    ssh.remoteHost,
+    ssh.remoteKeyPath,
+    setDisabled,
+  ]);
 
   const handleSave = () => {
     if (option === "add") {

@@ -6,7 +6,7 @@ import { Nickname } from "@/types/login/login-type";
 import { ProjectList } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
   getProjectListSSR;
@@ -15,10 +15,8 @@ export default function Project({
   NicknameSSR,
   ProjectListSSR,
 }: ProjectPageProps) {
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [projectList, setProjectList] = useState<ProjectList | null>(
-    ProjectListSSR
-  );
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectListRef = useRef<ProjectList | null>(ProjectListSSR);
   const [refreshedProjectList, setRefreshedProjectList] =
     useState<ProjectList | null>(null);
 
@@ -30,7 +28,7 @@ export default function Project({
   };
 
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">
@@ -51,7 +49,7 @@ export default function Project({
         </div>
         <ProjectTable
           ProjectList={
-            refreshedProjectList ? refreshedProjectList : projectList
+            refreshedProjectList ? refreshedProjectList : projectListRef.current
           }
         />
       </div>

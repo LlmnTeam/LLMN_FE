@@ -2,7 +2,6 @@ import useInstanceModal from "@/hooks/commons/use-instance-modal";
 import Image from "next/image";
 import InstanceModal from "../commons/instance-modal";
 import { useState } from "react";
-import { cls } from "@/utils/class-utils";
 import { SshInfo } from "@/types/setting/setting-type";
 
 interface InstaceListProps {
@@ -69,9 +68,12 @@ export default function InstanceList({
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelectedSSH(ssh);
-                  ssh.isWorking
-                    ? openInstanceModal("edit")
-                    : openInstanceModal("reconnect");
+
+                  if (ssh.isWorking) {
+                    openInstanceModal("edit");
+                  } else {
+                    openInstanceModal("reconnect");
+                  }
                 }}
               />
             </div>

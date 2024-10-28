@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnsiUp } from "ansi_up";
 import { initSSHCommand, submitSSHCommand } from "@/api/project/project-api";
 

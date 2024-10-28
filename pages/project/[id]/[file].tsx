@@ -1,5 +1,4 @@
 import Container from "@/components/commons/container";
-import DropdownMenu from "@/components/commons/dropdown-menu";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
@@ -8,12 +7,12 @@ import {
   getProjectLogMessageSSR,
 } from "@/ssr/project/project-log-ssr";
 import { Nickname } from "@/types/login/login-type";
-import { LogMessage } from "@/types/project/project-type";
+import type { LogFileList, LogMessage } from "@/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 export const getServerSideProps: GetServerSideProps<ProjectLogMessagePageProps> =
   getProjectLogMessageSSR;
@@ -21,19 +20,17 @@ export const getServerSideProps: GetServerSideProps<ProjectLogMessagePageProps> 
 export default function LogMessage({
   NicknameSSR,
   LogMessageSSR,
+  LogFileListSSR,
 }: ProjectLogMessagePageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const [nickname, setNickname] = useState<Nickname | null>(NicknameSSR);
-  const [logMessage, setLogMessage] = useState<LogMessage | null>(
-    LogMessageSSR
-  );
-
-  console.log("logMessage: ", logMessage);
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const logMessageRef = useRef<LogMessage | null>(LogMessageSSR);
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
   return (
-    <Layout nickname={nickname?.nickName || null}>
+    <Layout nickname={nicknameRef.current?.nickName || null}>
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">
@@ -47,7 +44,7 @@ export default function LogMessage({
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
-              {logMessage?.name + " - 로그 메세지"}
+              {logMessageRef.current?.name + " - 로그 메세지"}
             </span>
           </div>
           <div className="flex flex-row justify-start items-center gap-0.5">
@@ -69,10 +66,12 @@ export default function LogMessage({
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
                 onClick={openLogFileModal}
               />
-              {/* <LogFileModal
+              <LogFileModal
                 isOpen={isLogFileModalOpen}
                 onClose={closeLogFileModal}
-              /> */}
+                logFileList={logFileListRef.current}
+                option="chatbot"
+              />
             </div>
             <Image
               src="/images/download.svg"
@@ -84,11 +83,11 @@ export default function LogMessage({
           </div>
         </div>
         <div className="text-[12px] xs:text-[15px] sm:text-[18px] text-[#979797] font-semibold mt-1 xs:mt-2 pl-1">
-          {logMessage?.description}
+          {logMessageRef.current?.description}
         </div>
-        <Container title={logMessage?.fileName || ""} link="">
+        <Container title={logMessageRef.current?.fileName || ""} link="">
           <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-            {logMessage?.logMessage}
+            {logMessageRef.current?.logMessage}
           </div>
         </Container>
       </div>
