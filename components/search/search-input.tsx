@@ -60,7 +60,8 @@ export default function SearchInput({
         <div className="w-[60px] xs:w-[70px] sm:w-[80px] text-[16px] xs:text-[18px] sm:text-[20px] font-bold flex-shrink-0">
           기간
         </div>
-        <div className="flex flex-row justify-start items-center w-full gap-1 xs:gap-2 sm:gap-3 pr-[65px] xs:pr-[83px] sm:pr-[102px] max-w-[800px]">
+        {/* <div className="flex flex-row justify-start items-center w-full gap-1 xs:gap-2 sm:gap-3 pr-[65px] xs:pr-[83px] sm:pr-[102px] max-w-[800px]"> */}
+        <div className="flex flex-row justify-start items-center w-full gap-1 xs:gap-2 sm:gap-3 max-w-[800px]">
           <InputSmall
             type="text"
             label=""
@@ -81,12 +82,13 @@ export default function SearchInput({
             readOnly
           />
         </div>
+        <div className="flex flex-row justify-center items-center relative flex-shrink-0 w-[80px] h-[50px]"></div>
       </div>
       <div className="flex flex-row justify-start items-center w-full mt-3 xs:mt-4 sm:mt-5">
         <div className="w-[60px] xs:w-[70px] sm:w-[80px] text-[16px] xs:text-[18px] sm:text-[20px] font-bold flex-shrink-0">
           키워드
         </div>
-        <div className="flex flex-row justify-start items-center gap-3 xs:gap-4 sm:gap-5 w-full max-w-[800px]">
+        <div className="flex flex-row justify-start items-center w-full gap-3 xs:gap-4 sm:gap-5 max-w-[600px]">
           <InputSmall
             type="text"
             label=""
@@ -95,13 +97,14 @@ export default function SearchInput({
             value={keyword}
             onChange={handleKeywordChange}
           />
-          <div className="flex flex-row justify-center items-center relative flex-shrink-0">
-            <ButtonSmall
-              label="검색"
-              onClick={handleSearchButton}
-              disabled={disabled}
-            />
-          </div>
+        </div>
+        <div className="flex flex-row justify-start items-center relative flex-shrink-0 pl-3 xs:pl-4 sm:pl-5 w-[80px]">
+          <ButtonSmall
+            label="검색"
+            onClick={handleSearchButton}
+            disabled={disabled}
+            type="search"
+          />
         </div>
       </div>
 
