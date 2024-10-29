@@ -97,10 +97,16 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
           />
         </div>
         <div
-          className="hidden xs:flex flex-row justify-start items-center gap-2"
+          className="flex flex-row justify-start items-center gap-2"
           onClick={handleLogoutButton}
         >
-          <Image src="/images/logout.svg" alt="logout" width={25} height={24} />
+          <Image
+            src="/images/logout.svg"
+            alt="logout"
+            width={27}
+            height={26}
+            className="w-[22px] h-[21px] xs:w-[27px] xs:h-[26px] cursor-pointer"
+          />
           <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">
             로그아웃
           </span>
