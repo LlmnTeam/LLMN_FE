@@ -72,12 +72,12 @@ export default function ShellModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="fixed inset-0 bg-black opacity-70"></div>
-      <div className="flex flex-col relative w-[90%] xs:w-[85%] sm:w-[80%] sm:min-w-[548px] sm:max-w-[1000px] h-[80%] bg-white p-4 xs:p-5 sm:p-6 rounded-xl shadow-lg z-10">
-        <div className="flex flex-row justify-between items-center">
+    <div className="fixed inset-0 flex flex-col justify-end sm:justify-center items-center z-50">
+      <div className="fixed inset-0 bg-black opacity-0 sm:opacity-70"></div>
+      <div className="flex flex-col justify-center items-center relative w-screen sm:w-[80%] sm:min-w-[548px] sm:max-w-[1000px] h-[calc(100vh-70px)] sm:h-[80%] bg-white p-4 xs:p-5 sm:p-6 rounded-none sm:rounded-xl shadow-lg z-10">
+        <div className="flex flex-row justify-between items-center w-full">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1 pr-5 truncate">
-            셸 커맨드
+            LLMN 터미널
           </div>
           <div
             className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1 cursor-pointer"
