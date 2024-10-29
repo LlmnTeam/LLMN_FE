@@ -60,7 +60,7 @@ export default function ProjectSummaryList({
                 alt="back"
                 width={45}
                 height={45}
-                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px] cursor-pointer"
                 priority
               />
             </Link>
@@ -75,7 +75,7 @@ export default function ProjectSummaryList({
                 alt="shell"
                 width={33}
                 height={24}
-                className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+                className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px] cursor-pointer"
                 onClick={openShellModal}
                 priority
               />

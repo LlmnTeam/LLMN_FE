@@ -51,7 +51,8 @@ export default function InsightSummary({
               {title[type as keyof typeof title]}
             </span>
           </div>
-          <div className="flex flex-row justify-start items-center gap-0.5">
+          {/* <div className="flex flex-row justify-start items-center"> */}
+          <div className="hidden">
             <div>
               <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
             </div>

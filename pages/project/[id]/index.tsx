@@ -56,7 +56,7 @@ export default function ProjectDetail({
                 alt="back"
                 width={45}
                 height={45}
-                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px] cursor-pointer"
                 priority
               />
             </Link>
