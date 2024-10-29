@@ -14,7 +14,11 @@ import type { Setting, SshInfo } from "@/types/setting/setting-type";
 import { cls } from "@/utils/class-utils";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import isEqual from "lodash/isEqual";
+import { editSetting } from "@/api/setting/setting-api";
+import ConfirmModal from "@/components/commons/confirm-modal";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<SettingPageProps> =
   getSettingSSR;
@@ -27,6 +31,11 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
   );
   const [selectedSshId, SetSelectedSshId] = useState<number | null>(
     SettingSSR?.monitoringSshId || null
+  );
+  const [monitoringSshHost, setMonitoringSshHost] = useState<string | null>(
+    sshList
+      ? sshList.find((ssh) => ssh.id === selectedSshId)?.remoteHost || null
+      : null
   );
 
   const {
@@ -44,9 +53,66 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
     closeInstanceModal,
   } = useInstanceModal();
 
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
   const { isToggled, handleToggle } = useToggleButton(
     settingRef.current?.receivingAlarm ? true : false
   );
+
+  const [disabled, setDisabled] = useState(true);
+
+  const initialState = useRef({
+    nickName: SettingSSR?.nickName,
+    monitoringSshId: SettingSSR?.monitoringSshId,
+    sshInfos: SettingSSR?.sshInfos,
+    receivingAlarm: SettingSSR?.receivingAlarm,
+  });
+
+  useEffect(() => {
+    const isChanged =
+      nickname !== initialState.current.nickName ||
+      selectedSshId !== initialState.current.monitoringSshId ||
+      isToggled !== initialState.current.receivingAlarm ||
+      !isEqual(sshList, initialState.current.sshInfos);
+
+    setDisabled(isChanged && isValidNickname ? false : true);
+  }, [nickname, selectedSshId, isToggled, sshList, isValidNickname]);
+
+  const handleEditButton = async () => {
+    // if (disabled) return;
+    const nickName = nickname;
+    const receivingAlarm = isToggled;
+    const sshInfos = sshList.map(
+      ({ remoteName, remoteHost, remoteKeyPath }) => ({
+        remoteName,
+        remoteHost,
+        remoteKeyPath,
+      })
+    );
+    console.log("nickName: " + nickName);
+    console.log("receivingAlarm: ", receivingAlarm);
+    console.log("monitoringSshHost: ", monitoringSshHost);
+    console.log("sshInfos: ", sshInfos);
+
+    if (monitoringSshHost) {
+      const result = await editSetting(
+        nickName,
+        receivingAlarm,
+        monitoringSshHost,
+        sshInfos
+      );
+      setSuccess(result);
+      openConfirmModal();
+    }
+  };
+
+  console.log("SettingSSR: ", SettingSSR);
 
   return (
     <Layout nickname={nicknameRef.current?.nickName || null}>
@@ -105,12 +171,17 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
           <InstanceList
             monitoringSshId={selectedSshId}
             setMonitoringSshId={SetSelectedSshId}
+            setMonitoringSshHost={setMonitoringSshHost}
             sshInfos={sshList}
             setSshInfos={setSshList}
           />
         </div>
         <div className="flex flex-row justify-end items-center w-full">
-          <ButtonSmall label="수정" />
+          <ButtonSmall
+            label="수정"
+            onClick={handleEditButton}
+            disabled={disabled}
+          />
         </div>
       </div>
       <InstanceModal
@@ -119,6 +190,12 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
         option={selectedOption}
         sshInfos={sshList}
         setSshInfos={setSshList}
+      />
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option="editSetting"
+        success={success}
       />
     </Layout>
   );

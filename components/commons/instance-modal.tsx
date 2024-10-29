@@ -99,14 +99,20 @@ ModalProps) {
         remoteName,
         remoteHost,
         remoteKeyPath,
-        isWorking: false,
+        isWorking: true,
       };
       setSshInfos((prev) => [...prev, newSsh]);
     } else {
       setSshInfos((prev) =>
         prev.map((item) =>
           item.id === ssh.id
-            ? { ...item, remoteName, remoteHost, remoteKeyPath }
+            ? {
+                ...item,
+                remoteName,
+                remoteHost,
+                remoteKeyPath,
+                isWorking: true,
+              }
             : item
         )
       );
@@ -134,6 +140,14 @@ ModalProps) {
     setConfirmModalOption("reconnectInstance");
     openInstanceValidationModal();
     await checkInstanceValidity();
+
+    if (isValidInstance) {
+      setSshInfos((prevSshInfos) =>
+        prevSshInfos.map((info) =>
+          info.id === ssh.id ? { ...info, isWorking: true } : info
+        )
+      );
+    }
   };
 
   const handleValidButton = () => {
@@ -170,7 +184,7 @@ ModalProps) {
               : "인스턴스 재연결"}
           </div>
           <div
-            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1"
+            className="flex flex-row justify-center items-center w-[24px] xs:w-[27px] sm:w-[30px] h-[24px] xs:h-[27px] sm:h-[30px] rounded-full bg-[#E5E5E5] hover:bg-gray-300 text-[12px] xs:text-[14px] sm:text-[16px] mr-1 cursor-pointer"
             onClick={() => {
               resetRemoteValues();
               onClose();

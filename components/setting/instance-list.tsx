@@ -7,6 +7,7 @@ import { SshInfo } from "@/types/setting/setting-type";
 interface InstaceListProps {
   monitoringSshId: number | null;
   setMonitoringSshId: (value: number) => void;
+  setMonitoringSshHost: (value: string) => void;
   sshInfos: SshInfo[];
   setSshInfos: React.Dispatch<React.SetStateAction<SshInfo[]>>;
 }
@@ -14,6 +15,7 @@ interface InstaceListProps {
 export default function InstanceList({
   monitoringSshId,
   setMonitoringSshId,
+  setMonitoringSshHost,
   sshInfos,
   setSshInfos,
 }: InstaceListProps) {
@@ -39,7 +41,10 @@ export default function InstanceList({
         {sshInfos?.map((ssh) => (
           <div
             className="flex flex-row justify-start items-center w-full rounded-xl bg-[#F4F4F5] py-2 text-[12px] xs:text-[15px] sm:text-[18px] font-medium border border-transparent hover:border-gray-400 cursor-pointer"
-            onClick={() => setMonitoringSshId(ssh.id)}
+            onClick={() => {
+              setMonitoringSshId(ssh.id);
+              setMonitoringSshHost(ssh.remoteHost);
+            }}
             key={ssh.id}
           >
             <div className="flex flex-row justify-center items-center w-[13%]">

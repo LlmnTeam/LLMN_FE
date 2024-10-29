@@ -161,6 +161,19 @@ export default function ConfirmModal({
           }
         : onClose,
     },
+    editSetting: {
+      title: "회원정보 수정",
+      message: success
+        ? "회원정보 수정이 완료되었습니다."
+        : "회원정보 수정에 실패하였습니다.",
+      buttonText: "확인",
+      closeAction: onClose,
+      confirmAction: success
+        ? () => {
+            window.location.reload();
+          }
+        : onClose,
+    },
   };
 
   const modalContent = modalContents[option] || {

@@ -20,7 +20,6 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
 
   return (
     <div className="flex flex-row justify-between items-center h-[70px] fixed top-0 w-full z-20 bg-white border-b border-[#717478] pt-5 pb-3 pl-8 pr-1">
-      {/* <div className="flex flex-row justify-center items-center gap-3 w-full relative xs:justify-start xs:w-[120px]"> */}
       <div className="flex flex-row justify-start items-center gap-3 w-full relative xs:w-[120px]">
         <div className="absolute -left-7 xl:hidden cursor-pointer">
           <Image
