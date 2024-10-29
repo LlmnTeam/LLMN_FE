@@ -17,7 +17,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #d1d5db; /* 스크롤바 색상 */
+  background-color: #ddd; /* 스크롤바 색상 */
   border-radius: 10px;
 }
 
@@ -28,4 +28,20 @@
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* 화면이 640px 이하일 때 */
+@media (max-width: 640px) {
+  /* 전역 또는 해당 컴포넌트의 CSS 파일에서 추가 */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px; /* 스크롤바 너비 */
+  }
+}
+
+/* 화면이 450px 이하일 때 */
+@media (max-width: 450px) {
+  /* 전역 또는 해당 컴포넌트의 CSS 파일에서 추가 */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px; /* 스크롤바 너비 */
+  }
 }
