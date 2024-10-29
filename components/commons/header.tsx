@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { useState } from "react";
+import { cls } from "@/utils/class-utils";
 
 interface HeaderProps {
   nickname?: string | null;
@@ -10,6 +12,11 @@ interface HeaderProps {
 
 export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
   const router = useRouter();
+  const [isAlarmOpen, setIsAlarmOpen] = useState(false);
+
+  const handleAlarmButton = () => {
+    setIsAlarmOpen((prev) => !prev);
+  };
 
   const handleLogoutButton = () => {
     sessionStorage.clear();
@@ -60,16 +67,29 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             />
           </Link>
         </div>
-        <div className="flex flex-row justify-start items-center xs:gap-2">
+        <div className="flex flex-row justify-start items-center relative xs:gap-2">
           <Image
             src="/images/alarm.svg"
             alt="alarm"
             width={25}
             height={28}
             className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px] cursor-pointer"
+            onClick={handleAlarmButton}
             priority
           />
           <span className="text-[18px] font-medium hidden sm:inline">1</span>
+          <div
+            className={cls(
+              "flex flex-col justify-start items-center absolute top-[42.9px] xs:top-[45.5px] -left-[100px] xs:-left-[165px] sm:-left-[125px] w-[200px] xs:w-[300px] sm:w-[400px] h-[300px] xs:h-[450px] sm:h-[600px] border border-t-0 border-[#717478] bg-white overflow-hidden transition-all duration-500 ease-in-out overflow-y-auto overflow-x-hidden custom-scrollbar",
+              isAlarmOpen
+                ? "max-h-[300px] xs:max-h-[450px] sm:max-h-[600px] border-b-1"
+                : "max-h-0 border-b-0"
+            )}
+          >
+            <div className="flex flex-row justify-start items-center w-full text-[12px] xs:text-[14px] sm:text-[16px] font-bold px-5 xs:px-6 sm:px-7 py-3 xs:py-4 sm:py-5 border-b border-[#717478]">
+              알림
+            </div>
+          </div>
         </div>
         <div className="flex flex-row justify-start items-center gap-2">
           <Image
@@ -83,14 +103,14 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
           <span className="text-[18px] font-medium hidden sm:inline">
             {nickname}
           </span>
-          <Image
+          {/* <Image
             src="/images/chevron-down.svg"
             alt="chevron-down"
             width={16}
             height={10}
             className="hidden sm:inline"
             priority
-          />
+          /> */}
         </div>
         <div
           className="flex flex-row justify-start items-center gap-2"
