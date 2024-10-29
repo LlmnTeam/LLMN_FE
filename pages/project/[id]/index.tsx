@@ -138,18 +138,18 @@ export default function ProjectDetail({
           <EmptyBox title={"최근 로그"} content={"로그가 존재하지 않습니다."} />
         )}
       </div>
-      <LogFileModal
-        isOpen={isLogFileModalOpen}
-        onClose={closeLogFileModal}
-        logFileList={logFileListRef.current}
-        option={selectedOption}
-      />
       <ShellModal
         isOpen={isShellModalOpen}
         onClose={closeShellModal}
         inputs={inputs}
         setInputs={setInputs}
         handleCommandSubmit={handleCommandSubmit}
+      />
+      <LogFileModal
+        isOpen={isLogFileModalOpen}
+        onClose={closeLogFileModal}
+        logFileList={logFileListRef.current}
+        option={selectedOption}
       />
     </Layout>
   );

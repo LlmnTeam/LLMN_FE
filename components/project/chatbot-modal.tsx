@@ -64,10 +64,10 @@ export default function ChatbotModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="fixed inset-0 bg-black opacity-0"></div>
-      <div className="flex flex-col relative w-[90%] xs:w-[85%] sm:w-[80%] sm:min-w-[548px] sm:max-w-[800px] h-[80%] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">
-        <div className="flex flex-row justify-between items-center">
+    <div className="fixed inset-0 flex flex-col justify-end sm:justify-center items-center z-50">
+      <div className="fixed inset-0 bg-black opacity-0 sm:opacity-70"></div>
+      <div className="flex flex-col justify-center items-center relative w-screen sm:w-[80%] sm:min-w-[548px] sm:max-w-[800px] h-[calc(100vh-70px)] sm:h-[80%] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-none sm:rounded-xl shadow-lg z-10">
+        <div className="flex flex-row justify-between items-center w-full">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1 pr-5 truncate">
             질문하기
           </div>
