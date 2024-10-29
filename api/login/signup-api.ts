@@ -251,7 +251,7 @@ export const submitSignup = async (
 ): Promise<boolean> => {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const response = await fetch(`${baseURL}/accounts/recovery/reset`, {
+    const response = await fetch(`${baseURL}/accounts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -274,7 +274,7 @@ export const submitSignup = async (
     const { success }: { success: boolean } = await response.json();
     return success;
   } catch (error) {
-    console.error("사용불가능한 이메일입니다.", error);
+    console.error(error);
     throw error;
   }
 };
