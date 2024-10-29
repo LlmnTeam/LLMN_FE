@@ -20,14 +20,14 @@ interface UseProjectInfoInputReturn {
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCloudSelect: (name: string) => void;
   handleContainerSelect: (name: string) => void;
-  setCloudData: (data: CloudInstanceList | null) => void;
 }
 
 export default function useProjectInfoInput(
   initialProjectName = "",
   initialDescription = "",
   initialCloudName = "",
-  initialContainerName = ""
+  initialContainerName = "",
+  initialCloudInstances: CloudInstanceList | null = null
 ): UseProjectInfoInputReturn {
   const [projectName, setProjectName] = useState<string>(initialProjectName);
   const [description, setDescription] = useState<string>(initialDescription);
@@ -38,20 +38,23 @@ export default function useProjectInfoInput(
   const [projectNameMsg, setProjectNameMsg] = useState<string>("");
   const [isProjectNameEdited, setIsProjectNameEdited] = useState(false);
   const [sshInfoId, setSshInfoId] = useState<number | null>(null);
-  const [cloudOptions, setCloudOptions] = useState<string[]>(["연결하지 않음"]);
+  const [cloudInstances, setCloudInstances] = useState<CloudInstance[]>(
+    initialCloudInstances ? initialCloudInstances.cloudInstances : []
+  );
+  const [cloudOptions, setCloudOptions] = useState<string[]>(
+    initialCloudInstances
+      ? [
+          ...initialCloudInstances.cloudInstances.map(
+            (cloud) => cloud.cloudName
+          ),
+          "연결하지 않음",
+        ]
+      : ["연결하지 않음"]
+  );
   const [containerOptions, setContainerOptions] = useState<string[]>([
     "연결하지 않음",
   ]);
-  const [cloudInstances, setCloudInstances] = useState<CloudInstance[]>([]);
   const maxDescriptionLength = 300;
-
-  const setCloudData = (data: CloudInstanceList | null) => {
-    if (data) {
-      setCloudInstances(data.cloudInstances);
-      const cloudNames = data.cloudInstances.map((cloud) => cloud.cloudName);
-      setCloudOptions([...cloudNames, "연결하지 않음"]);
-    }
-  };
 
   const handleCloudSelect = (name: string) => {
     setCloudName(name);
@@ -134,6 +137,5 @@ export default function useProjectInfoInput(
     handleDescriptionChange,
     handleCloudSelect,
     handleContainerSelect,
-    setCloudData,
   };
 }

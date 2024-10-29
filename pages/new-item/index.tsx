@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Input from "@/components/commons/input";
 import InputWithDropdown from "@/components/commons/input-with-dropdown";
 import Layout from "@/components/commons/layout";
@@ -34,8 +34,9 @@ export default function NewItem({
     handleDescriptionChange,
     handleCloudSelect,
     handleContainerSelect,
-    setCloudData,
-  } = useProjectInfoInput();
+  } = useProjectInfoInput("", "", "", "", CloudInstanceListSSR);
+
+  console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
 
   const {
     isConfirmModalOpen,
@@ -46,11 +47,6 @@ export default function NewItem({
   } = useConfirmModal();
 
   const [disabled, setDisabled] = useState(true);
-
-  useEffect(() => {
-    setCloudData(CloudInstanceListSSR);
-    console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
-  }, [CloudInstanceListSSR, setCloudData]);
 
   useEffect(() => {
     setDisabled(
