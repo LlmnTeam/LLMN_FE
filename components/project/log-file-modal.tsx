@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonSmall from "../commons/button-small";
 import { LogFileList } from "@/types/project/project-type";
 import { cls } from "@/utils/class-utils";
@@ -27,8 +27,17 @@ export default function LogFileModal({
     useChatbotModal();
   const [selectedFile, setSelectedFile] = useState<string>("");
   const [selectedFileList, setSelectedFileList] = useState<string[]>([]);
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const disabledChatbot =
+      option === "chatbot" && selectedFileList.length === 0;
+    const disabledLog = option === "log" && selectedFile == "";
+    setDisabled(disabledChatbot || disabledLog);
+  }, [option, selectedFileList, selectedFile, setDisabled]);
 
   const handleFileSelect = (fileName: string) => {
+    console.log("selectedFileList: ", selectedFileList);
     setSelectedFileList((prevSelectedFiles) => {
       if (prevSelectedFiles.includes(fileName)) {
         return prevSelectedFiles.filter((file) => file !== fileName);
@@ -39,12 +48,12 @@ export default function LogFileModal({
   };
 
   const handleChatbotButton = () => {
-    if (!selectedFileList) return;
+    if (disabled) return;
     openChatbotModal();
   };
 
   const handleLogButton = () => {
-    if (!selectedFile) return;
+    if (disabled) return;
     router.push(`/project/${id}/${selectedFile}`);
   };
 
@@ -65,7 +74,12 @@ export default function LogFileModal({
         )}
         onClick={handleCloseButton}
       ></div>
-      <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">
+      <div
+        className={cls(
+          "w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10",
+          isChatbotModalOpen ? "hidden" : "inline"
+        )}
+      >
         <div className="flex flex-row justify-between items-center">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1">
             {option === "chatbot" ? "질문할 로그" : "확인할 로그"}
@@ -125,6 +139,7 @@ export default function LogFileModal({
               option === "chatbot" ? handleChatbotButton : handleLogButton
             }
             type="modal"
+            disabled={disabled}
           />
         </div>
       </div>
