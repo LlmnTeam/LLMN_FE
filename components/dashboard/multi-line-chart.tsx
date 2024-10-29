@@ -6,29 +6,12 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  // Legend,
   ResponsiveContainer,
 } from "recharts";
 
 interface HistoryData {
   time: string;
 }
-
-// interface CpuHistory extends HistoryData {
-//   cpuUsage: number;
-// }
-
-// interface MemoryHistory extends HistoryData {
-//   memoryUsage: number;
-// }
-
-// interface NetworkInHistory extends HistoryData {
-//   networkReceived: number;
-// }
-
-// interface NetworkOutHistory extends HistoryData {
-//   networkSent: number;
-// }
 
 interface MultiLineChartProps<T extends HistoryData> {
   data: T[];
@@ -84,7 +67,6 @@ export default function MultiLineChart<T extends HistoryData>({
           tick={{ fontSize, fill: "#374151", fontWeight: "bold" }}
         />
         <Tooltip />
-        {/* <Legend verticalAlign="top" height={36} /> */}
         {lines.map((line) => (
           <Line
             key={line.key}

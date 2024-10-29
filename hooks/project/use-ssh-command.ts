@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { AnsiUp } from "ansi_up";
 import { initSSHCommand, submitSSHCommand } from "@/api/project/project-api";
-
-interface TerminalInput {
-  type: string;
-  value: string;
-}
+import { TerminalInput } from "@/types/project/project-type";
 
 interface UseSSHCommandReturn {
   inputs: TerminalInput[];

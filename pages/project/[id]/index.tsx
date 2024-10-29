@@ -5,7 +5,7 @@ import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
 import ShellModal from "@/components/project/shell-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
-import { useSSHCommand } from "@/hooks/project/use-ssh-command";
+import useShellModal from "@/hooks/project/use-shell-modal";
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
@@ -29,28 +29,14 @@ export default function ProjectDetail({
   const router = useRouter();
   const { id } = router.query;
 
-  const [isShellModalOpen, setIsShellModalOpen] = useState(false);
   const {
+    isShellModalOpen,
+    openShellModal,
+    closeShellModal,
     inputs,
     setInputs,
     handleCommandSubmit,
-    connectSocket,
-    disconnectSocket,
-  } = useSSHCommand();
-
-  const openShellModal = async () => {
-    try {
-      await connectSocket();
-      setIsShellModalOpen(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const closeShellModal = () => {
-    setIsShellModalOpen(false);
-    disconnectSocket();
-  };
+  } = useShellModal();
 
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const projectDetailRef = useRef<ProjectDetail | null>(ProjectDetailSSR);
@@ -71,6 +57,7 @@ export default function ProjectDetail({
                 width={45}
                 height={45}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                priority
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
@@ -85,6 +72,7 @@ export default function ProjectDetail({
               height={24}
               className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px] cursor-pointer"
               onClick={openShellModal}
+              priority
             />
             <div>
               <Image
@@ -97,6 +85,7 @@ export default function ProjectDetail({
                   setSelectedOption("chatbot");
                   openLogFileModal();
                 }}
+                priority
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />

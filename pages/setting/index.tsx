@@ -85,7 +85,7 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
   }, [nickname, selectedSshId, isToggled, sshList, isValidNickname]);
 
   const handleEditButton = async () => {
-    // if (disabled) return;
+    if (disabled) return;
     const nickName = nickname;
     const receivingAlarm = isToggled;
     const sshInfos = sshList.map(
@@ -165,6 +165,7 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
                 height={22}
                 className="w-[19px] h-[16px] xs:w-[22px] xs:h-[19px] sm:w-[25px] sm:h-[22px] cursor-pointer"
                 onClick={() => openInstanceModal("add")}
+                priority
               />
             </div>
           </div>

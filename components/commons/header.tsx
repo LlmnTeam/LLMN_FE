@@ -28,6 +28,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             width={40}
             height={40}
             onClick={toggleSidebar}
+            priority
           />
         </div>
         <Image
@@ -37,6 +38,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
           height={30}
           className="ml-4 cursor-pointer"
           onClick={() => router.push("/dashboard")}
+          priority
         />
         <span
           className="text-2xl font-semibold cursor-pointer"
@@ -45,16 +47,6 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
           LLMN
         </span>
       </div>
-      {/* <div className="hidden xs:flex flex-row justify-center items-center relative w-[271px] h-[36px]">
-        <input
-          type="text"
-          placeholder="검색"
-          className="h-[36px] bg-gray-100 rounded-full focus:outline-none pl-7 ml-12"
-        />
-        <div className="absolute right-12">
-          <Image src="/images/search.svg" alt="search" width={20} height={20} />
-        </div>
-      </div> */}
       <div className="flex flex-row justify-center items-center gap-3 xs:gap-5 absolute right-3 xs:relative">
         <div className="flex flex-row justify-start items-center sm:pr-1">
           <Link href="/search">
@@ -64,6 +56,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
               width={25}
               height={25}
               className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] cursor-pointer"
+              priority
             />
           </Link>
         </div>
@@ -74,6 +67,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             width={25}
             height={28}
             className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px] cursor-pointer"
+            priority
           />
           <span className="text-[18px] font-medium hidden sm:inline">1</span>
         </div>
@@ -84,6 +78,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             width={30}
             height={30}
             className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] cursor-pointer"
+            priority
           />
           <span className="text-[18px] font-medium hidden sm:inline">
             {nickname}
@@ -94,6 +89,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             width={16}
             height={10}
             className="hidden sm:inline"
+            priority
           />
         </div>
         <div
@@ -106,6 +102,7 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             width={27}
             height={26}
             className="w-[22px] h-[21px] xs:w-[27px] xs:h-[26px] cursor-pointer"
+            priority
           />
           <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">
             로그아웃

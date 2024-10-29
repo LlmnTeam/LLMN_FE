@@ -69,3 +69,8 @@ export interface ProjectInfo {
   description: string;
   containers: Container[];
 }
+
+export interface TerminalInput {
+  type: string;
+  value: string;
+}

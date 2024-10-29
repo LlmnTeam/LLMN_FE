@@ -55,6 +55,7 @@ export default function InstanceList({
                   width={25}
                   height={27}
                   className="w-[18px] h-[20px] xs:w-[22px] xs:h-[24px] sm:w-[25px] sm:h-[27px]"
+                  priority
                 />
               )}
             </div>
@@ -80,6 +81,7 @@ export default function InstanceList({
                     openInstanceModal("reconnect");
                   }
                 }}
+                priority
               />
             </div>
           </div>

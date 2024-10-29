@@ -41,6 +41,7 @@ export default function Container({
               width={20}
               height={20}
               className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+              priority
             />
           </Link>
         ) : null}
@@ -52,6 +53,7 @@ export default function Container({
             height={20}
             className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px] cursor-pointer"
             onClick={action}
+            priority
           />
         ) : null}
         {update ? (

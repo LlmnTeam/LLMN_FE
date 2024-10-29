@@ -102,6 +102,7 @@ export default function ChatbotModal({
                       width={30}
                       height={30}
                       className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] sm:w-[30px] sm:h-[30px]"
+                      priority
                     />
                   </div>
                   <ReactMarkdown
@@ -123,6 +124,7 @@ export default function ChatbotModal({
                   width={30}
                   height={30}
                   className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] sm:w-[30px] sm:h-[30px]"
+                  priority
                 />
               </div>
               <ReactMarkdown
@@ -143,6 +145,7 @@ export default function ChatbotModal({
                 width={19}
                 height={13}
                 className="w-[15px] h-[9px] xs:w-[17px] xs:h-[11px] sm:w-[19px] sm:h-[13px]"
+                priority
               />
             </div>
           </div>

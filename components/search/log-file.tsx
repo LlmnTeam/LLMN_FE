@@ -19,6 +19,7 @@ export default function LogFile({ fileName, redirectURL }: LogFileProps) {
         height={64}
         className="w-[40px] h-[39px] xs:w-[52px] xs:h-[51px] sm:w-[65px] sm:h-[64px] cursor-pointer"
         onClick={handledLogFile}
+        priority
       />
       <span className="text-[10px] xs:text-[12px] sm:text-[14px] line-clamp-2 text-center px-4">
         {fileName}

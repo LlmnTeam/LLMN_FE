@@ -109,6 +109,7 @@ export default function LogFileModal({
                   width={65}
                   height={67}
                   className="w-[52px] h-[54px] xs:w-[59px] xs:h-[60px] sm:w-[65px] sm:h-[67px]"
+                  priority
                 />
               </div>
               <div className="w-full text-center text-[13px] xs:text-[14px] sm:text-[15px] mt-10">

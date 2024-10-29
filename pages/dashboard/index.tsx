@@ -15,6 +15,8 @@ import type {
   Dashboard,
 } from "@/types/dashboard/dashboard-type";
 import { Nickname } from "@/types/login/login-type";
+import useShellModal from "@/hooks/project/use-shell-modal";
+import ShellModal from "@/components/project/shell-modal";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;
@@ -24,6 +26,15 @@ export default function Dashboard({
   DashboardSSR,
   CloudInstanceListSSR,
 }: DashboardPageProps) {
+  const {
+    isShellModalOpen,
+    openShellModal,
+    closeShellModal,
+    inputs,
+    setInputs,
+    handleCommandSubmit,
+  } = useShellModal();
+
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const dashboardRef = useRef<Dashboard | null>(DashboardSSR);
   const cloudInstanceListRef = useRef<CloudInstanceList | null>(
@@ -49,6 +60,8 @@ export default function Dashboard({
               width={33}
               height={24}
               className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+              onClick={openShellModal}
+              priority
             />
             <DropdownMenu
               options={["change"]}
@@ -172,6 +185,13 @@ export default function Dashboard({
           </div>
         </div>
       </div>
+      <ShellModal
+        isOpen={isShellModalOpen}
+        onClose={closeShellModal}
+        inputs={inputs}
+        setInputs={setInputs}
+        handleCommandSubmit={handleCommandSubmit}
+      />
     </Layout>
   );
 }

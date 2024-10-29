@@ -3,7 +3,9 @@ import DropdownMenu from "@/components/commons/dropdown-menu";
 import EmptyBox from "@/components/commons/empty-box";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
+import ShellModal from "@/components/project/shell-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
+import useShellModal from "@/hooks/project/use-shell-modal";
 import {
   ProjectSummaryListPageProps,
   getProjectSummaryListSSR,
@@ -29,6 +31,16 @@ export default function ProjectSummaryList({
 }: ProjectSummaryListPageProps) {
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    isShellModalOpen,
+    openShellModal,
+    closeShellModal,
+    inputs,
+    setInputs,
+    handleCommandSubmit,
+  } = useShellModal();
+
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const projectSummaryListRef = useRef<ProjectSummaryList | null>(
     ProjectSummaryListSSR
@@ -49,23 +61,26 @@ export default function ProjectSummaryList({
                 width={45}
                 height={45}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                priority
               />
             </Link>
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
+            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold truncate">
               {projectSummaryListRef.current?.name + " - 요약"}
             </span>
           </div>
-          <div className="flex flex-row justify-start items-center gap-0.5">
-            <div>
+          <div className="flex flex-row justify-start items-center gap-0.5 flex-shrink-0">
+            <div className="hidden xs:inline">
               <Image
                 src="/images/shell.svg"
                 alt="shell"
                 width={33}
                 height={24}
                 className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+                onClick={openShellModal}
+                priority
               />
             </div>
-            <div>
+            <div className="hidden xs:inline">
               <Image
                 src="/images/chatbot.svg"
                 alt="chatbot"
@@ -73,12 +88,7 @@ export default function ProjectSummaryList({
                 height={44}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer"
                 onClick={openLogFileModal}
-              />
-              <LogFileModal
-                isOpen={isLogFileModalOpen}
-                onClose={closeLogFileModal}
-                logFileList={logFileListRef.current}
-                option="chatbot"
+                priority
               />
             </div>
             <DropdownMenu options={["edit", "restart", "stop", "delete"]} />
@@ -102,6 +112,19 @@ export default function ProjectSummaryList({
           <EmptyBox title="요약" content="요약 내역이 존재하지 않습니다." />
         )}
       </div>
+      <ShellModal
+        isOpen={isShellModalOpen}
+        onClose={closeShellModal}
+        inputs={inputs}
+        setInputs={setInputs}
+        handleCommandSubmit={handleCommandSubmit}
+      />
+      <LogFileModal
+        isOpen={isLogFileModalOpen}
+        onClose={closeLogFileModal}
+        logFileList={logFileListRef.current}
+        option="chatbot"
+      />
     </Layout>
   );
 }

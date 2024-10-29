@@ -61,6 +61,7 @@ export default function ProjectTable({ ProjectList }: ProjectTableProps) {
                           }`}
                           width={23}
                           height={24}
+                          priority
                         />
                       </div>
                     </td>
@@ -122,6 +123,7 @@ export default function ProjectTable({ ProjectList }: ProjectTableProps) {
                         width={23}
                         height={24}
                         className="w-[20px] h-[21px] xs:w-[23px] xs:h-[24px]"
+                        priority
                       />
                     </div>
                   </div>

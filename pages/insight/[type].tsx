@@ -44,6 +44,7 @@ export default function InsightSummary({
                 width={45}
                 height={45}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                priority
               />
             </Link>
             <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">

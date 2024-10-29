@@ -27,6 +27,7 @@ export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
           width={20}
           height={20}
           className="w-[16px] h-[16px] xs:w-[18px] xs:h-[18px] sm:w-[20px] sm:h-[20px]"
+          priority
         />
         <div className="absolute top-0.5 xs:top-0 right-[10%] text-[12px] xs:text-[14px] sm:text-[16px] text-[#979797] font-normal mt-1 xs:mt-2">
           업데이트 되지 않음
@@ -45,6 +46,7 @@ export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
             width={71}
             height={59}
             className="w-[57px] h-[47px] xs:w-[64px] xs:h-[53px] sm:w-[71px] sm:h-[59px]"
+            priority
           />
         ) : (
           <Image
@@ -53,6 +55,7 @@ export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
             width={65}
             height={67}
             className="w-[52px] h-[54px] xs:w-[59px] xs:h-[60px] sm:w-[65px] sm:h-[67px]"
+            priority
           />
         )}
         <span className="w-full text-center text-[13px] xs:text-[15px] sm:text-[17px] font-medium mt-3 xs:mt-4 sm:mt-5">

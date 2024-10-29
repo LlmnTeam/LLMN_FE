@@ -44,6 +44,7 @@ export default function Project({
               height={34}
               className="w-[25px] h-[27px] xs:w-[28px] xs:h-[31px] sm:w-[31px] sm:h-[34px] cursor-pointer"
               onClick={handleRefreshButton}
+              priority
             />
           </div>
         </div>

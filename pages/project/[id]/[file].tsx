@@ -1,7 +1,9 @@
 import Container from "@/components/commons/container";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
+import ShellModal from "@/components/project/shell-modal";
 import useLogFileModal from "@/hooks/project/use-log-file-modal";
+import useShellModal from "@/hooks/project/use-shell-modal";
 import {
   ProjectLogMessagePageProps,
   getProjectLogMessageSSR,
@@ -24,6 +26,16 @@ export default function LogMessage({
 }: ProjectLogMessagePageProps) {
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    isShellModalOpen,
+    openShellModal,
+    closeShellModal,
+    inputs,
+    setInputs,
+    handleCommandSubmit,
+  } = useShellModal();
+
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const logMessageRef = useRef<LogMessage | null>(LogMessageSSR);
   const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
@@ -41,23 +53,26 @@ export default function LogMessage({
                 width={45}
                 height={45}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[45px] sm:h-[45px]"
+                priority
               />
             </Link>
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold">
+            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold truncate">
               {logMessageRef.current?.name + " - 로그 메세지"}
             </span>
           </div>
-          <div className="flex flex-row justify-start items-center gap-0.5">
-            <div>
+          <div className="flex flex-row justify-start items-center gap-0.5 flex-shrink-0">
+            <div className="hidden xs:inline">
               <Image
                 src="/images/shell.svg"
                 alt="shell"
                 width={33}
                 height={24}
                 className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px]"
+                onClick={openShellModal}
+                priority
               />
             </div>
-            <div>
+            <div className="hidden xs:inline">
               <Image
                 src="/images/chatbot.svg"
                 alt="chatbot"
@@ -65,12 +80,7 @@ export default function LogMessage({
                 height={44}
                 className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4"
                 onClick={openLogFileModal}
-              />
-              <LogFileModal
-                isOpen={isLogFileModalOpen}
-                onClose={closeLogFileModal}
-                logFileList={logFileListRef.current}
-                option="chatbot"
+                priority
               />
             </div>
             <Image
@@ -79,6 +89,7 @@ export default function LogMessage({
               width={35}
               height={35}
               className="w-[28px] h-[28px] xs:w-[32px] xs:h-[32px] sm:w-[35px] sm:h-[35px] ml-2 sm:ml-3"
+              priority
             />
           </div>
         </div>
@@ -91,6 +102,19 @@ export default function LogMessage({
           </div>
         </Container>
       </div>
+      <ShellModal
+        isOpen={isShellModalOpen}
+        onClose={closeShellModal}
+        inputs={inputs}
+        setInputs={setInputs}
+        handleCommandSubmit={handleCommandSubmit}
+      />
+      <LogFileModal
+        isOpen={isLogFileModalOpen}
+        onClose={closeLogFileModal}
+        logFileList={logFileListRef.current}
+        option="chatbot"
+      />
     </Layout>
   );
 }

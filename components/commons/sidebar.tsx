@@ -54,7 +54,13 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         onClick={() => handleMenuClick("new-item", "/new-item")}
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
-          <Image src="/images/add.svg" alt="add" width={15} height={15} />
+          <Image
+            src="/images/add.svg"
+            alt="add"
+            width={15}
+            height={15}
+            priority
+          />
         </div>
         <span className="text-[20px] font-semibold">새로운 아이템</span>
       </div>
@@ -68,7 +74,13 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
         onClick={() => handleMenuClick("project", "/project")}
       >
         <div className="flex flex-row justify-center items-center w-[30px] h-[30px]">
-          <Image src="/images/log.svg" alt="log" width={25} height={28} />
+          <Image
+            src="/images/log.svg"
+            alt="log"
+            width={25}
+            height={28}
+            priority
+          />
         </div>
         <span className="text-[20px] font-semibold">로그 기록</span>
       </div>
@@ -87,6 +99,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
             alt="insight"
             width={31}
             height={30}
+            priority
           />
         </div>
         <span className="text-[20px] font-semibold">인사이트</span>
@@ -106,6 +119,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
             alt="setting"
             width={27}
             height={27}
+            priority
           />
         </div>
         <span className="text-[20px] font-semibold">설정</span>

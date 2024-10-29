@@ -9,6 +9,7 @@ export default function Logo() {
         width={46}
         height={54}
         className="w-[37px] xs:w-[41px] sm:w-[46px] h-[43px] xs:h-[49px] sm:h-[54px]"
+        priority
       />
       <span className="text-[26px] xs:text-[28px] sm:text-[30px] font-semibold">
         LLMN
