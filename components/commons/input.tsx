@@ -71,7 +71,8 @@ export default function Input({
             />
           )}
         </div>
-      ) : label === "Open AI Key" ? (
+      ) : null}
+      {/* label === "Open AI Key" ? (
         <div className="flex flex-row justify-center items-center absolute top-2 xs:top-2.5 sm:top-3 right-3 xs:right-3.5 sm:right-4 cursor-pointer">
           <Image
             src="/images/checkbox.svg"
@@ -81,7 +82,7 @@ export default function Input({
             className="w-[24px] h-[24px] xs:w-[31px] xs:h-[27px] sm:w-[34px] sm:h-[30px]"
           />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
