@@ -70,7 +70,8 @@ export default function SignupStep4() {
         password,
         passwordConfirm,
         sshInfos,
-        monitoringSshHost
+        monitoringSshHost,
+        openAIKey
       );
       setSuccess(result);
       openConfirmModal();

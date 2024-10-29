@@ -247,7 +247,8 @@ export const submitSignup = async (
   password: string,
   passwordConfirm: string,
   sshInfos: SSHInfo[],
-  monitoringSshHost: string
+  monitoringSshHost: string,
+  openAiKey: string
 ): Promise<boolean> => {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -264,6 +265,7 @@ export const submitSignup = async (
         passwordConfirm,
         sshInfos,
         monitoringSshHost,
+        openAiKey,
       }),
     });
 
