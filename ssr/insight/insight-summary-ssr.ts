@@ -4,10 +4,14 @@ import { fetchInsightSummary } from "@/api/insight/insight-api";
 import { InsightSummary } from "@/types/insight/insight-type";
 import { Nickname } from "@/types/login/login-type";
 import { verifyAccessToken } from "@/api/login/login-api";
+import { AlarmList } from "@/types/commons/header-type";
+import { fetchAlarmList } from "@/api/commons/header-api";
 
 export interface InsightSummaryPageProps {
   NicknameSSR: Nickname | null;
   InsightSummarySSR: InsightSummary | null;
+  AlarmListSSR: AlarmList | null;
+  unreadAlarmCount: number;
 }
 
 export async function getInsightSummarySSR(
@@ -16,9 +20,10 @@ export async function getInsightSummarySSR(
   const { type } = context.params as { type: string };
   const accessToken = context.req.cookies?.accessToken || "";
 
-  const [NicknameSSR, InsightSummarySSR] = await Promise.all([
+  const [NicknameSSR, InsightSummarySSR, AlarmListSSR] = await Promise.all([
     verifyAccessToken(accessToken),
     fetchInsightSummary(type, accessToken),
+    fetchAlarmList(accessToken),
   ]);
 
   if (!NicknameSSR) {
@@ -30,10 +35,15 @@ export async function getInsightSummarySSR(
     };
   }
 
+  const unreadAlarmCount =
+    AlarmListSSR?.alarms.filter((alarm) => !alarm.isRead).length || 0;
+
   return {
     props: {
       NicknameSSR,
       InsightSummarySSR,
+      AlarmListSSR,
+      unreadAlarmCount,
     },
   };
 }

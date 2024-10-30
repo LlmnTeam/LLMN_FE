@@ -2,20 +2,78 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cls } from "@/utils/class-utils";
+import { Alarm, AlarmList } from "@/types/commons/header-type";
+import { submitAlarmRead } from "@/api/commons/header-api";
 
 interface HeaderProps {
   nickname?: string | null;
+  AlarmListSSR?: AlarmList | null;
+  unreadAlarmCount?: number;
   toggleSidebar: () => void;
 }
 
-export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
+const PAGE_SIZE = 10;
+
+export default function Header({
+  nickname = "",
+  AlarmListSSR,
+  unreadAlarmCount = 0,
+  toggleSidebar,
+}: HeaderProps) {
   const router = useRouter();
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
+  const [alarmList, setAlarmList] = useState<AlarmList | null>(
+    AlarmListSSR || null
+  );
+  const [displayedAlarms, setDisplayedAlarms] = useState<Alarm[]>([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(unreadAlarmCount);
 
-  const handleAlarmButton = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const loadMoreAlarms = useCallback(() => {
+    if (!alarmList?.alarms) return;
+
+    const newAlarms = alarmList.alarms.slice(0, page * PAGE_SIZE);
+    setDisplayedAlarms(newAlarms);
+  }, [alarmList, page]);
+
+  const handleScroll = useCallback(() => {
+    if (containerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setTimeout(() => {
+          setPage((prevPage) => prevPage + 1);
+        }, 500);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    loadMoreAlarms();
+  }, [page, loadMoreAlarms]);
+
+  useEffect(() => {
+    console.log("displayedAlarms: ", displayedAlarms);
+  }, [displayedAlarms]);
+
+  const handleAlarmButton = async () => {
     setIsAlarmOpen((prev) => !prev);
+  };
+
+  const handleAlarmClick = async (id: number): Promise<boolean> => {
+    if (count <= 0) false;
+
+    const result = await submitAlarmRead(id);
+    if (result) {
+      const newCount = count - 1;
+      setCount(newCount);
+      return true;
+    }
+    return false;
   };
 
   const handleLogoutButton = () => {
@@ -77,17 +135,77 @@ export default function Header({ nickname = "", toggleSidebar }: HeaderProps) {
             onClick={handleAlarmButton}
             priority
           />
-          <span className="text-[18px] font-medium hidden sm:inline">1</span>
+          <span
+            className={cls(
+              "absolute bg-red-500 text-white font-medium rounded-full",
+              "w-[19px] aspect-square text-[8px] -top-[4px] left-[11px]",
+              "xs:w-[22px] aspect-square xs:text-[10px] xs:-top-[5.5px] xs:left-[12.5px]",
+              "sm:w-[25px] aspect-square sm:text-[12px] sm:-top-[7px] sm:left-[14px]",
+              count === 0 ? "hidden" : "flex justify-center items-center"
+            )}
+          >
+            {count > 99 ? "99+" : count}
+          </span>
           <div
             className={cls(
-              "flex flex-col justify-start items-center absolute top-[42.9px] xs:top-[45.5px] -left-[100px] xs:-left-[165px] sm:-left-[125px] w-[200px] xs:w-[300px] sm:w-[400px] h-[300px] xs:h-[450px] sm:h-[600px] border border-t-0 border-[#717478] bg-white overflow-hidden transition-all duration-500 ease-in-out overflow-y-auto overflow-x-hidden custom-scrollbar",
+              "flex flex-col justify-start items-center absolute top-[42.9px] xs:top-[45.5px] -left-[147.2px] xs:-left-[162px] sm:-left-[142px] w-[250px] xs:w-[300px] sm:w-[405px] h-[311px] xs:h-[441px] sm:h-[593px] border border-t-0 border-[#717478] bg-white overflow-hidden transition-all duration-500 ease-in-out",
               isAlarmOpen
-                ? "max-h-[300px] xs:max-h-[450px] sm:max-h-[600px] border-b-1"
+                ? "max-h-[311px] xs:max-h-[441px] sm:max-h-[593px] border-b-1"
                 : "max-h-0 border-b-0"
             )}
           >
-            <div className="flex flex-row justify-start items-center w-full text-[12px] xs:text-[14px] sm:text-[16px] font-bold px-5 xs:px-6 sm:px-7 py-3 xs:py-4 sm:py-5 border-b border-[#717478]">
+            <div className="flex flex-row justify-start items-center w-full text-[14px] xs:text-[16px] sm:text-[18px] font-bold px-5 xs:px-6 sm:px-7 py-3 xs:py-4 sm:py-5 border-b border-[#717478]">
               알림
+            </div>
+            <div
+              ref={containerRef}
+              onScroll={handleScroll}
+              className="flex flex-col justify-start items-center w-full overflow-y-auto overflow-x-hidden custom-scrollbar"
+            >
+              {displayedAlarms &&
+                displayedAlarms.map((alarm) => (
+                  <div
+                    className="flex flex-row justify-start items-center w-full border-b border-b-gray-200 hover:bg-[#F8F8F8] py-2 xs:py-3 sm:py-4 pl-4 xs:pl-5 sm:pl-6 gap-3 xs:gap-4 sm:gap-5 cursor-pointer"
+                    key={alarm.id}
+                    onClick={async () => {
+                      if (alarm.isRead) return;
+                      const result = await handleAlarmClick(alarm.id);
+                      if (result) alarm.isRead = true;
+                    }}
+                  >
+                    <div>
+                      <Image
+                        src={`/images/${
+                          alarm.type === "UPDATE" ? "alarm" : "alert"
+                        }-${alarm.isRead === true ? "active" : "inactive"}.svg`}
+                        alt="alarm"
+                        width={40}
+                        height={40}
+                        className="w-[30px] h-[30px] xs:w-[35px] xs:h-[35px] sm:w-[40px] sm:h-[40px] cursor-pointer"
+                        onClick={handleAlarmButton}
+                        priority
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center items-start w-full">
+                      <div className="flex flex-row justify-start items-center w-full">
+                        <div className="text-[13px] xs:text-[14px] sm:text-[15px] font-bold">
+                          {alarm.type === "UPDATE" ? "업데이트" : "심각"}
+                        </div>
+                        {/* <div className="inline sm:hidden text-[8px] xs:text-[9px] sm:text-[10px] text-gray-500">
+                          {alarm.generatedDate}
+                        </div> */}
+                      </div>
+                      <div className="text-[11px] xs:text-[12px] sm:text-[13px]">
+                        {alarm.content}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              {displayedAlarms ? (
+                <div className="py-3 xs:py-4 sm:py-5 flex flex-row justify-center items-center">
+                  <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

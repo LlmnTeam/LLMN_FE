@@ -20,6 +20,8 @@ export const getServerSideProps: GetServerSideProps<InsightSummaryPageProps> =
 export default function InsightSummary({
   NicknameSSR,
   InsightSummarySSR,
+  AlarmListSSR,
+  unreadAlarmCount,
 }: InsightSummaryPageProps) {
   const router = useRouter();
   const { type } = router.query;
@@ -33,7 +35,11 @@ export default function InsightSummary({
   const insightSummaryRef = useRef<InsightSummary | null>(InsightSummarySSR);
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">

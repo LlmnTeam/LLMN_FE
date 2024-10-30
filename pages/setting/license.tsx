@@ -13,10 +13,18 @@ import { useRef } from "react";
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
-export default function License({ NicknameSSR }: ValidateLoginProps) {
+export default function License({
+  NicknameSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
+}: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">

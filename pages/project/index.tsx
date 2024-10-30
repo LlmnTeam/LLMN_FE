@@ -14,6 +14,8 @@ export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
 export default function Project({
   NicknameSSR,
   ProjectListSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
 }: ProjectPageProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const projectListRef = useRef<ProjectList | null>(ProjectListSSR);
@@ -28,7 +30,11 @@ export default function Project({
   };
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="flex flex-row justify-start items-center">

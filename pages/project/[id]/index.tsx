@@ -25,6 +25,8 @@ export default function ProjectDetail({
   NicknameSSR,
   ProjectDetailSSR,
   LogFileListSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
 }: ProjectDetailPageProps) {
   const router = useRouter();
   const { id } = router.query;
@@ -46,7 +48,11 @@ export default function ProjectDetail({
     useLogFileModal();
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center">

@@ -17,12 +17,20 @@ import { useRef } from "react";
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
-export default function ApiKey({ NicknameSSR }: ValidateLoginProps) {
+export default function ApiKey({
+  NicknameSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
+}: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
     useOpenAIKeyCheck();
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center">

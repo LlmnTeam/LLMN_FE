@@ -18,6 +18,8 @@ export const getServerSideProps: GetServerSideProps<NewItemPageProps> =
 export default function NewItem({
   NicknameSSR,
   CloudInstanceListSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
 }: NewItemPageProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const {
@@ -74,7 +76,11 @@ export default function NewItem({
   };
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-1.5 sm:gap-2">

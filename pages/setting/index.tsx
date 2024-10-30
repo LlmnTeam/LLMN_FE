@@ -23,7 +23,12 @@ import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 export const getServerSideProps: GetServerSideProps<SettingPageProps> =
   getSettingSSR;
 
-export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
+export default function Setting({
+  NicknameSSR,
+  SettingSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
+}: SettingPageProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const settingRef = useRef<Setting | null>(SettingSSR);
   const [sshList, setSshList] = useState<SshInfo[]>(
@@ -115,7 +120,11 @@ export default function Setting({ NicknameSSR, SettingSSR }: SettingPageProps) {
   console.log("SettingSSR: ", SettingSSR);
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="h-[640px] xs:h-[670px] sm:h-[700px]">
           <div className="flex flex-row justify-between items-center w-full">

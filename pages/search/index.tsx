@@ -18,7 +18,11 @@ import { SearchResult } from "@/types/search/search-type";
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
 
-export default function Search({ NicknameSSR }: ValidateLoginProps) {
+export default function Search({
+  NicknameSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
+}: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [isSearched, setIsSearched] = useState(false);
@@ -49,7 +53,11 @@ export default function Search({ NicknameSSR }: ValidateLoginProps) {
   }, [searchResult]);
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">

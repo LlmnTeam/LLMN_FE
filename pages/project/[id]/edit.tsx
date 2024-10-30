@@ -25,6 +25,8 @@ export const getServerSideProps: GetServerSideProps<ProjectEditPageProps> =
 export default function ProjectEdit({
   NicknameSSR,
   ProjectInfoSSR,
+  AlarmListSSR,
+  unreadAlarmCount,
 }: ProjectEditPageProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const projectInfoRef = useRef<ProjectInfo | null>(ProjectInfoSSR);
@@ -89,7 +91,11 @@ export default function ProjectEdit({
   };
 
   return (
-    <Layout nickname={nicknameRef.current?.nickName || null}>
+    <Layout
+      nickname={nicknameRef.current?.nickName || null}
+      AlarmListSSR={AlarmListSSR}
+      unreadAlarmCount={unreadAlarmCount}
+    >
       <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col justify-start items-start gap-1 xs:gap-2">
