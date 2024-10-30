@@ -44,8 +44,8 @@ export default function FindAccountStep2() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[500px] xs:h-[553px] sm:h-[618px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-start items-center w-screen full-height">
+      <div className="flex flex-col justify-start items-center w-full max-w-[605px] mx-auto h-[500px] xs:h-[553px] sm:h-[618px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
         <div className="flex flex-col justify-start items-center relative w-full mt-8 xs:mt-9 sm:mt-10">
           <Input

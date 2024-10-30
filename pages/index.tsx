@@ -13,7 +13,7 @@ export default function Index() {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center w-screen h-screen overflow-hidden transition-all duration-1000 ${
+      className={`flex flex-col justify-center items-center w-screen full-height overflow-hidden transition-all duration-1000 ${
         isFocused ? "blur-0" : "blur-md"
       }`}
     >

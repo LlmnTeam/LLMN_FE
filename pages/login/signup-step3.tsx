@@ -60,8 +60,8 @@ export default function SignupStep3() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-start items-center w-screen max-w-[605px] mx-auto h-[680px] xs:h-[720px] sm:h-[760px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-start items-center w-screen full-height">
+      <div className="flex flex-col justify-start items-center w-full max-w-[605px] mx-auto h-[680px] xs:h-[720px] sm:h-[760px] gap-8 xs:gap-9 sm:gap-10 px-6 pt-[15vh] overflow-y-auto overflow-x-hidden">
         <Logo />
         <div className="flex flex-col justify-start items-center relative w-full mt-8 xs:mt-9 sm:mt-10">
           <Input
