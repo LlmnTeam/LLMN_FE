@@ -199,8 +199,8 @@ export default function Header({
                   </div>
                 ))}
               {displayedAlarms ? (
-                <div className="py-3 xs:py-4 sm:py-5 flex flex-row justify-center items-center">
-                  <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>
+                <div className="py-2 xs:py-3 sm:py-4 flex flex-row justify-center items-center">
+                  <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 border-[1.5px] xs:border-2 sm:border-[2.5px] border-gray-700 border-t-transparent rounded-full animate-spin"></div>
                 </div>
               ) : null}
             </div>
