@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.full-height {
+  height: calc(var(--vh, 1vh) * 100); /* 전체 화면 높이 */
+}
+
+.full-height-offset {
+  height: calc(var(--vh-offset, 1vh) * 1); /* 70px 뺀 높이 */
+}
+
 .log-table tr:hover td {
   border-color: rgba(156, 163, 175, 1);
 }

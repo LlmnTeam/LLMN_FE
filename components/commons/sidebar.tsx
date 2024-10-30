@@ -38,7 +38,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
   return (
     <div
       className={cls(
-        "flex flex-col justify-start items-start fixed left-0 gap-1 w-[290px] h-[calc(100%-69px)] mt-[69px] pt-[30px] px-3 bg-white border-r border-[#E5E7EB] z-10",
+        "flex flex-col justify-start items-start fixed left-0 gap-1 w-[290px] full-height-offset mt-[69px] pt-[30px] px-3 bg-white border-r border-[#E5E7EB] z-10",
         `xl:translate-x-0 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`

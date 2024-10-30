@@ -185,7 +185,7 @@ export default function ConfirmModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-40">
+    <div className="fixed full-height flex items-center justify-center z-40">
       <div
         className={cls(
           "fixed inset-0 bg-black",

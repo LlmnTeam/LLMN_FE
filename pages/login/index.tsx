@@ -26,7 +26,7 @@ export default function Login() {
   }, [isLoginFailed, openConfirmModal]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col justify-center items-center w-screen full-height gap-8 xs:gap-9 sm:gap-10 px-6 pb-[15vh] overflow-y-auto overflow-x-hidden">
       <Logo />
       <div className="w-full max-w-[605px] mx-auto mt-4 xs:mt-5 sm:mt-6">
         <Input
