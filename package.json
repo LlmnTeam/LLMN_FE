@@ -22,7 +22,8 @@
     "react-textarea-autosize": "^8.5.4",
     "recharts": "^2.13.0",
     "remark-breaks": "^4.0.0",
-    "remark-gfm": "^4.0.0"
+    "remark-gfm": "^4.0.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

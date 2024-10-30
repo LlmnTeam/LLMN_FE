@@ -15,9 +15,9 @@ export default function LogFile({ fileName, redirectURL }: LogFileProps) {
       <Image
         src="/images/log-file.svg"
         alt="log-file"
-        width={65}
-        height={64}
-        className="w-[40px] h-[39px] xs:w-[52px] xs:h-[51px] sm:w-[65px] sm:h-[64px] cursor-pointer"
+        width={60}
+        height={60}
+        className="w-[44px] h-[44px] xs:w-[52px] xs:h-[52px] sm:w-[60px] sm:h-[60px] cursor-pointer"
         onClick={handledLogFile}
         priority
       />

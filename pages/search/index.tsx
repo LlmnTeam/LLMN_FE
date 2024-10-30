@@ -94,7 +94,6 @@ export default function Search({
               )}{" "}
             </>
           ) : null}
-
           {isSearched ? (
             <>
               {searchResult && searchResult.insights.length > 0 ? (

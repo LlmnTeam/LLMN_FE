@@ -79,9 +79,9 @@ export default function ProjectDetail({
               <Image
                 src="/images/shell.svg"
                 alt="shell"
-                width={33}
-                height={24}
-                className="w-[26px] h-[19px] xs:w-[30px] xs:h-[22px] sm:w-[33px] sm:h-[24px] cursor-pointer"
+                width={32}
+                height={32}
+                className="w-[26px] h-[26px] xs:w-[29px] xs:h-[29px] sm:w-[32px] sm:h-[32px] cursor-pointer"
                 onClick={openShellModal}
                 priority
               />

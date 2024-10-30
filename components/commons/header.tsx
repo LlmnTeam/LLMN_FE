@@ -105,15 +105,15 @@ export default function Header({
           LLMN
         </span>
       </div>
-      <div className="flex flex-row justify-center items-center gap-3 xs:gap-5 absolute right-3 xs:relative">
-        <div className="flex flex-row justify-start items-center sm:pr-1">
+      <div className="flex flex-row justify-center items-center gap-2 xs:gap-3 sm:gap-4 absolute right-3 xs:relative">
+        <div className="flex flex-row justify-start items-center mt-1">
           <Link href="/search">
             <Image
               src="/images/search.svg"
               alt="search"
-              width={25}
-              height={25}
-              className="w-[20px] h-[20px] xs:w-[25px] xs:h-[25px] cursor-pointer"
+              width={24}
+              height={24}
+              className="w-[20px] h-[20px] xs:w-[24px] xs:h-[24px] cursor-pointer"
               priority
             />
           </Link>
@@ -122,9 +122,9 @@ export default function Header({
           <Image
             src="/images/alarm.svg"
             alt="alarm"
-            width={25}
-            height={28}
-            className="w-[20px] h-[23px] xs:w-[25px] xs:h-[28px] cursor-pointer"
+            width={32}
+            height={32}
+            className="w-[27px] h-[27px] xs:w-[32px] xs:h-[32px] cursor-pointer"
             onClick={handleAlarmButton}
             priority
           />
@@ -141,7 +141,7 @@ export default function Header({
           </span>
           <div
             className={cls(
-              "flex flex-col justify-start items-center absolute top-[42.9px] xs:top-[45.5px] -left-[147.2px] xs:-left-[162px] sm:-left-[142px] w-[250px] xs:w-[300px] sm:w-[405px] h-[311px] xs:h-[441px] sm:h-[593px] border border-t-0 border-[#717478] bg-white overflow-hidden transition-all duration-500 ease-in-out",
+              "flex flex-col justify-start items-center absolute top-[45.1px] xs:top-[47.6px] -left-[141px] xs:-left-[165px] sm:-left-[137px] w-[250px] xs:w-[300px] sm:w-[405px] h-[311px] xs:h-[441px] sm:h-[593px] border border-t-0 border-[#717478] bg-white overflow-hidden transition-all duration-500 ease-in-out",
               isAlarmOpen
                 ? "max-h-[311px] xs:max-h-[441px] sm:max-h-[593px] border-b-1"
                 : "max-h-0 border-b-0"
@@ -206,9 +206,9 @@ export default function Header({
           <Image
             src="/images/profile.svg"
             alt="profile"
-            width={30}
-            height={30}
-            className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] cursor-pointer"
+            width={35}
+            height={35}
+            className="w-[30px] h-[30px] xs:w-[35px] xs:h-[35px] cursor-pointer"
             priority
           />
           <span className="text-[18px] font-medium hidden sm:inline">
@@ -230,9 +230,9 @@ export default function Header({
           <Image
             src="/images/logout.svg"
             alt="logout"
-            width={27}
-            height={26}
-            className="w-[22px] h-[21px] xs:w-[27px] xs:h-[26px] cursor-pointer"
+            width={28}
+            height={28}
+            className="w-[24px] h-[24px] xs:w-[28px] xs:h-[28px] cursor-pointer"
             priority
           />
           <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">

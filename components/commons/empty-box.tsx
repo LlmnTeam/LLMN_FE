@@ -43,18 +43,18 @@ export default function EmptyBox({ title, content, type }: EmptyBoxProps) {
           <Image
             src="/images/empty-dashboard.svg"
             alt="empty-dashboard"
-            width={71}
-            height={59}
-            className="w-[57px] h-[47px] xs:w-[64px] xs:h-[53px] sm:w-[71px] sm:h-[59px]"
+            width={80}
+            height={80}
+            className="w-[50px] h-[50px] xs:w-[65px] xs:h-[65px] sm:w-[80px] sm:h-[80px]"
             priority
           />
         ) : (
           <Image
             src="/images/empty.svg"
             alt="empty"
-            width={65}
-            height={67}
-            className="w-[52px] h-[54px] xs:w-[59px] xs:h-[60px] sm:w-[65px] sm:h-[67px]"
+            width={90}
+            height={90}
+            className="w-[60px] h-[60px] xs:w-[75px] xs:h-[75px] sm:w-[90px] sm:h-[90px]"
             priority
           />
         )}

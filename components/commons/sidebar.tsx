@@ -77,7 +77,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
           <Image
             src="/images/log.svg"
             alt="log"
-            width={25}
+            width={28}
             height={28}
             className="blaock"
             priority
@@ -98,8 +98,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
           <Image
             src="/images/insight.svg"
             alt="insight"
-            width={31}
-            height={30}
+            width={28}
+            height={28}
             priority
           />
         </div>
@@ -118,8 +118,8 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
           <Image
             src="/images/setting.svg"
             alt="setting"
-            width={27}
-            height={27}
+            width={28}
+            height={28}
             priority
           />
         </div>
