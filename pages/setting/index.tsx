@@ -117,8 +117,6 @@ export default function Setting({
     }
   };
 
-  console.log("SettingSSR: ", SettingSSR);
-
   return (
     <Layout
       nickname={nicknameRef.current?.nickName || null}

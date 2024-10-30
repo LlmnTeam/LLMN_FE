@@ -40,7 +40,19 @@ export default function ChatbotModal({
     onClose();
   };
 
+  const [isMobile, setIsMobile] = useState(false);
   const logContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (logContainerRef.current) {
@@ -52,9 +64,14 @@ export default function ChatbotModal({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (isComposing) return;
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      startSSE();
+
+    if (isMobile) {
+      if (event.key === "Enter") return;
+    } else {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        startSSE();
+      }
     }
   };
 
@@ -116,8 +133,8 @@ export default function ChatbotModal({
             </div>
           ))}
           {logSummary && isConnected ? (
-            <div className="flex flex-row justify-start items-start w-full gap-1 xs:gap-2 sm:gap-3 pr-2 xs:pr-3 sm:pr-4">
-              <div className="-mt-3 w-[30px] h-[30px] flex-shrink-0">
+            <div className="flex flex-row justify-start items-start w-full gap-0.5 xs:gap-1 sm:gap-3 pr-2 xs:pr-3 sm:pr-4">
+              <div className="w-[30px] h-[30px] flex-shrink-0">
                 <Image
                   src="/images/logo.svg"
                   alt="logo"
@@ -137,8 +154,8 @@ export default function ChatbotModal({
           ) : null}
         </div>
         <div className="flex flex-row justify-center items-center relative w-full bg-gray-100 border border-gray-300 rounded-3xl">
-          <div className="flex flex-row justify-start items-center w-[50px]">
-            <div className="flex flex-row justify-center items-center absolute sm:bottom-4 left-3">
+          <div className="flex flex-row justify-start items-center w-[41px] xs:w-[43px] sm:w-[45px]">
+            <div className="flex flex-row justify-center items-center absolute bottom-3 xs:bottom-3.5 sm:bottom-4 left-3">
               <Image
                 src="/images/arrow-right.svg"
                 alt="arrow-right"
@@ -154,7 +171,7 @@ export default function ChatbotModal({
               minRows={1}
               maxRows={3}
               placeholder="여기에 텍스트를 입력하세요..."
-              className="block w-full text-[12px] xs:text-[14px] sm:text-[16px] p-2 my-0 xs:my-[1px] sm:my-0.5 resize-none border-none bg-gray-100 text-gray-700 placeholder-gray-400 focus:outline-none overflow-y-auto custom-scrollbar"
+              className="block w-full text-[13px] xs:text-[14px] sm:text-[16px] p-2 pl-0 my-0 xs:my-[1px] sm:my-0.5 resize-none border-none bg-gray-100 text-gray-700 placeholder-gray-400 focus:outline-none overflow-y-auto custom-scrollbar"
               value={question}
               onChange={handleQuestionChange}
               onKeyDown={handleKeyDown}
