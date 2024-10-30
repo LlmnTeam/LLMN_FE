@@ -2,9 +2,11 @@ import "@/styles/globals.css";
 import "@/styles/custom-calendar.css";
 import "@/styles/custom-react-terminal-ui.css";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
     const updateVH = () => {
       const vh = window.innerHeight * 0.01;
@@ -18,14 +20,10 @@ export default function App({ Component, pageProps }: AppProps) {
         `${vh * 100 - 70}px`,
         "important"
       );
-      // console.log("vh: ", vh);
-      // console.log(document.documentElement.style.getPropertyValue("--vh"));
-      // console.log(
-      //   document.documentElement.style.getPropertyValue("--vh-offset")
-      // );
     };
 
     updateVH();
+    setIsMounted(true);
 
     window.addEventListener("resize", updateVH);
 
@@ -33,6 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
       window.removeEventListener("resize", updateVH);
     };
   }, []);
+
+  if (!isMounted) return <div style={{ visibility: "hidden" }} />;
 
   return <Component {...pageProps} />;
 }

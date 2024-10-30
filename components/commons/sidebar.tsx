@@ -79,6 +79,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
             alt="log"
             width={25}
             height={28}
+            className="blaock"
             priority
           />
         </div>

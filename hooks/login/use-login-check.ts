@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { requestLoginToken } from "@/api/login/login-api";
 import { AccessToken } from "@/types/login/login-type";
+import useConfirmModal from "../commons/use-confirm-modal";
 
 interface UseLoginCheckReturn {
   email: string;
@@ -13,10 +14,15 @@ interface UseLoginCheckReturn {
   isLoginFailed: boolean;
   setIsLoginFailed: (value: boolean) => void;
   LoginFailedMsg: string;
+  isConfirmModalOpen: boolean;
+  closeConfirmModal: () => void;
 }
 
 export const useLoginCheck = (): UseLoginCheckReturn => {
   const router = useRouter();
+  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
+    useConfirmModal();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoginFailed, setIsLoginFailed] = useState<boolean>(false);
@@ -49,6 +55,7 @@ export const useLoginCheck = (): UseLoginCheckReturn => {
     if (!success) {
       setIsLoginFailed(true);
       setLoginFailedMsg(message);
+      openConfirmModal();
       console.log("Login failed: ", message);
       return;
     }
@@ -75,5 +82,7 @@ export const useLoginCheck = (): UseLoginCheckReturn => {
     isLoginFailed,
     setIsLoginFailed,
     LoginFailedMsg,
+    isConfirmModalOpen,
+    closeConfirmModal,
   };
 };

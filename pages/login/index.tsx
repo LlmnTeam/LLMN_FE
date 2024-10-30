@@ -2,12 +2,10 @@ import ButtonLarge from "@/components/commons/button-large";
 import ConfirmModal from "@/components/commons/confirm-modal";
 import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import { useLoginCheck } from "@/hooks/login/use-login-check";
 import { LoginSSRProps, getLoginSSR } from "@/ssr/login/login-ssr";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
 
 export const getServerSideProps: GetServerSideProps<LoginSSRProps> =
   getLoginSSR;
@@ -19,17 +17,11 @@ export default function Login() {
     handleEmailChange,
     handlePasswordChange,
     verifyLogin,
-    isLoginFailed,
     setIsLoginFailed,
     LoginFailedMsg,
+    isConfirmModalOpen,
+    closeConfirmModal,
   } = useLoginCheck();
-
-  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
-    useConfirmModal();
-
-  useEffect(() => {
-    if (isLoginFailed) openConfirmModal();
-  }, [isLoginFailed, openConfirmModal]);
 
   return (
     <>
