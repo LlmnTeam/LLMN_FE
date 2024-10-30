@@ -1,4 +1,5 @@
 import Logo from "@/components/commons/logo";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -12,12 +13,17 @@ export default function Index() {
   }, [router]);
 
   return (
-    <div
-      className={`flex flex-col justify-center items-center w-screen full-height overflow-hidden transition-all duration-1000 ${
-        isFocused ? "blur-0" : "blur-md"
-      }`}
-    >
-      <Logo />
-    </div>
+    <>
+      <Head>
+        <title>LLMN</title>
+      </Head>
+      <div
+        className={`flex flex-col justify-center items-center w-screen full-height overflow-hidden transition-all duration-1000 ${
+          isFocused ? "blur-0" : "blur-md"
+        }`}
+      >
+        <Logo />
+      </div>
+    </>
   );
 }

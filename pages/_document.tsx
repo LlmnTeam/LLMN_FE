@@ -4,9 +4,6 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
-        {/* 페이지 제목 */}
-        <title>LLMN</title>
-
         {/* 메타 설명 */}
         <meta
           name="description"
@@ -26,7 +23,7 @@ export default function Document() {
         <meta property="og:url" content="http://54.180.252.169:3000" />
 
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/logo.svg" />
       </Head>
       <body className="antialiased">
         <Main />

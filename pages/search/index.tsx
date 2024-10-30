@@ -14,6 +14,7 @@ import useSearchInput from "@/hooks/search/use-search-input";
 import { formatToLocalISOString } from "@/utils/date-utils";
 import { fetchSearchResult } from "@/api/search/search-api";
 import { SearchResult } from "@/types/search/search-type";
+import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
@@ -53,56 +54,61 @@ export default function Search({
   }, [searchResult]);
 
   return (
-    <Layout
-      nickname={nicknameRef.current?.nickName || null}
-      AlarmListSSR={AlarmListSSR}
-      unreadAlarmCount={unreadAlarmCount}
-    >
-      <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
-        <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
-            <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
-              검색
-            </span>
+    <>
+      <Head>
+        <title>LLMN - Search</title>
+      </Head>
+      <Layout
+        nickname={nicknameRef.current?.nickName || null}
+        AlarmListSSR={AlarmListSSR}
+        unreadAlarmCount={unreadAlarmCount}
+      >
+        <div className="px-5 xs:px-7 sm:px-10 max-w-[1200px]">
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-start items-center gap-2 xs:gap-5">
+              <span className="text-[24px] xs:text-[30px] sm:text-[36px] text-black font-bold pl-1">
+                검색
+              </span>
+            </div>
           </div>
-        </div>
-        <SearchInput
-          startDate={startDate}
-          endDate={endDate}
-          keyword={keyword}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          setKeyword={setKeyword}
-          disabled={disabled}
-          handleSearchButton={handleSearchButton}
-        />
-        {isSearched ? (
-          <>
-            {searchResult && searchResult.logfiles.length > 0 ? (
-              <LogFileContainer files={searchResult.logfiles} />
-            ) : (
-              <EmptyBox
-                title="로그 파일"
-                content="파일이 존재하지 않습니다"
-                type="log"
-              />
-            )}{" "}
-          </>
-        ) : null}
+          <SearchInput
+            startDate={startDate}
+            endDate={endDate}
+            keyword={keyword}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setKeyword={setKeyword}
+            disabled={disabled}
+            handleSearchButton={handleSearchButton}
+          />
+          {isSearched ? (
+            <>
+              {searchResult && searchResult.logfiles.length > 0 ? (
+                <LogFileContainer files={searchResult.logfiles} />
+              ) : (
+                <EmptyBox
+                  title="로그 파일"
+                  content="파일이 존재하지 않습니다"
+                  type="log"
+                />
+              )}{" "}
+            </>
+          ) : null}
 
-        {isSearched ? (
-          <>
-            {searchResult && searchResult.insights.length > 0 ? (
-              <InsightRecordContainer files={searchResult.insights} />
-            ) : (
-              <EmptyBox
-                title="인사이트 기록"
-                content="기록이 존재하지 않습니다"
-              />
-            )}
-          </>
-        ) : null}
-      </div>
-    </Layout>
+          {isSearched ? (
+            <>
+              {searchResult && searchResult.insights.length > 0 ? (
+                <InsightRecordContainer files={searchResult.insights} />
+              ) : (
+                <EmptyBox
+                  title="인사이트 기록"
+                  content="기록이 존재하지 않습니다"
+                />
+              )}
+            </>
+          ) : null}
+        </div>
+      </Layout>
+    </>
   );
 }
