@@ -4,7 +4,12 @@ import Input from "@/components/commons/input";
 import Logo from "@/components/commons/logo";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import { useLoginCheck } from "@/hooks/login/use-login-check";
+import { LoginSSRProps, getLoginSSR } from "@/ssr/login/login-ssr";
+import { GetServerSideProps } from "next";
 import { useEffect } from "react";
+
+export const getServerSideProps: GetServerSideProps<LoginSSRProps> =
+  getLoginSSR;
 
 export default function Login() {
   const {
