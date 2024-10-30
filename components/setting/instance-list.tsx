@@ -69,8 +69,8 @@ export default function InstanceList({
                 src="/images/info.svg"
                 alt="info"
                 width={26}
-                height={27}
-                className="w-[20px] h-[21px] xs:w-[23px] xs:h-[24px] sm:w-[26px] sm:h-[27px]"
+                height={26}
+                className="w-[20px] h-[21px] xs:w-[23px] xs:h-[24px] sm:w-[26px] sm:h-[26px]"
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelectedSSH(ssh);
