@@ -135,7 +135,7 @@ export default function SignupStep4() {
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         onClose={closeConfirmModal}
-        option="resetNewPassword"
+        option="signupResult"
         success={success}
       />
     </div>
