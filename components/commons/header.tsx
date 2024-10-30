@@ -53,10 +53,6 @@ export default function Header({
     loadMoreAlarms();
   }, [page, loadMoreAlarms]);
 
-  useEffect(() => {
-    console.log("displayedAlarms: ", displayedAlarms);
-  }, [displayedAlarms]);
-
   const handleAlarmButton = async () => {
     setIsAlarmOpen((prev) => !prev);
   };

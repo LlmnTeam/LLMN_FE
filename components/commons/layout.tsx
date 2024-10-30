@@ -31,7 +31,7 @@ export default function Layout({
         unreadAlarmCount={unreadAlarmCount}
       />
       <Sidebar isSidebarOpen={isSidebarOpen} />
-      <div className="w-full full-height-offset mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <div className="w-full h-[calc(100%-70px)] mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] overflow-y-auto overflow-x-hidden custom-scrollbar">
         {children}
       </div>
     </div>

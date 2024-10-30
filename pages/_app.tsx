@@ -9,10 +9,20 @@ export default function App({ Component, pageProps }: AppProps) {
     // 화면 높이 계산 로직
     const updateVH = () => {
       const vh = window.innerHeight * 0.01; // 1vh 계산
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${vh}px`,
+        "important"
+      );
       document.documentElement.style.setProperty(
         "--vh-offset",
-        `${vh * 100 - 70}px`
+        `${vh * 100 - 70}px`,
+        "important"
+      );
+      console.log("vh: ", vh);
+      console.log(document.documentElement.style.getPropertyValue("--vh"));
+      console.log(
+        document.documentElement.style.getPropertyValue("--vh-offset")
       );
     };
 

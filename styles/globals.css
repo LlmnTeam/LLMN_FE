@@ -2,54 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-.full-height {
-  height: calc(var(--vh, 1vh) * 100); /* 전체 화면 높이 */
-}
+/* 사용자 정의 클래스 */
+@layer utilities {
+  .full-height {
+    height: calc(var(--vh) * 100); /* 전체 화면 높이 */
+  }
 
-.full-height-offset {
-  height: calc(var(--vh-offset, 1vh) * 1); /* 70px 뺀 높이 */
-}
+  .full-height-offset {
+    height: calc(var(--vh-offset) * 1); /* 70px 뺀 높이 */
+  }
 
-.log-table tr:hover td {
-  border-color: rgba(156, 163, 175, 1);
-}
-
-/* 전역 또는 해당 컴포넌트의 CSS 파일에서 추가 */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px; /* 스크롤바 너비 */
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent; /* 스크롤 트랙 색상 */
-  padding-right: 10px; /* 스크롤바의 트랙을 이동시키는 방법 */
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #ddd; /* 스크롤바 색상 */
-  border-radius: 10px;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* 화면이 640px 이하일 때 */
-@media (max-width: 640px) {
-  /* 전역 또는 해당 컴포넌트의 CSS 파일에서 추가 */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px; /* 스크롤바 너비 */
+    width: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 10px;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
-/* 화면이 450px 이하일 때 */
+/* 미디어 쿼리 */
+@media (max-width: 640px) {
+  @layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+  }
+}
+
 @media (max-width: 450px) {
-  /* 전역 또는 해당 컴포넌트의 CSS 파일에서 추가 */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 3px; /* 스크롤바 너비 */
+  @layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 3px;
+    }
   }
 }

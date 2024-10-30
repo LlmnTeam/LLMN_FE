@@ -185,10 +185,10 @@ export default function ConfirmModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed full-height flex items-center justify-center z-40">
+    <div className="fixed inset-0 w-screen full-height flex items-center justify-center z-40">
       <div
         className={cls(
-          "fixed inset-0 bg-black",
+          "fixed inset-0 w-full h-full bg-black",
           overlay ? "opacity-70" : "opacity-20"
         )}
         onClick={modalContent.closeAction}

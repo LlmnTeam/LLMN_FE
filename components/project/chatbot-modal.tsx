@@ -64,9 +64,9 @@ export default function ChatbotModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed full-height flex flex-col justify-end sm:justify-center items-center z-50">
-      <div className="fixed full-height bg-black opacity-0 sm:opacity-70"></div>
-      <div className="flex flex-col justify-center items-center relative w-screen sm:w-[80%] sm:min-w-[548px] sm:max-w-[1000px] full-height-offset sm:h-[80%] bg-white p-4 xs:p-5 sm:p-6 rounded-none sm:rounded-xl shadow-lg z-10">
+    <div className="fixed inset-0 w-screen full-height flex flex-col justify-end sm:justify-center items-center z-50">
+      <div className="fixed inset-0 w-full h-full bg-black opacity-0 sm:opacity-70"></div>
+      <div className="flex flex-col justify-center items-center relative w-full sm:w-[80%] sm:min-w-[548px] sm:max-w-[1000px] h-[calc(100%-70px)] sm:h-[80%] bg-white p-4 xs:p-5 sm:p-6 rounded-none sm:rounded-xl shadow-lg z-10">
         <div className="flex flex-row justify-between items-center w-full">
           <div className="text-[22px] xs:text-[24px] sm:text-[26px] font-bold ml-1 pr-5 truncate">
             질문하기

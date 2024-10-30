@@ -34,9 +34,9 @@ export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed full-height flex items-center justify-center z-50">
+    <div className="fixed inset-0 w-screen full-height flex items-center justify-center z-50">
       <div
-        className="fixed full-height bg-black opacity-70"
+        className="fixed inset-0 w-full h-full bg-black opacity-70"
         onClick={onClose}
       ></div>
       <div className="w-[90%] xs:w-[80%] sm:w-[548px] bg-white px-6 xs:px-8 sm:px-10 pt-4 xs:pt-5 sm:pt-6 pb-6 xs:pb-7 sm:pb-8 rounded-xl shadow-lg z-10">

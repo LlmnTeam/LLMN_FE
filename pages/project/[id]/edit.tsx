@@ -65,7 +65,7 @@ export default function ProjectEdit({
     : [];
   containerNames.push("연결하지 않음");
 
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     if (

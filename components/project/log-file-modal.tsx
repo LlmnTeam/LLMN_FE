@@ -66,10 +66,10 @@ export default function LogFileModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed full-height w-screen flex items-center justify-center z-50">
+    <div className="fixed inset-0 w-screen full-height flex items-center justify-center z-50">
       <div
         className={cls(
-          "fixed full-height w-screen bg-black",
+          "fixed inset-0 w-full h-full bg-black",
           isChatbotModalOpen ? "opacity-0" : "opacity-70"
         )}
         onClick={handleCloseButton}
