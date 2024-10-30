@@ -24,9 +24,6 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
-  const [alarmList, setAlarmList] = useState<AlarmList | null>(
-    AlarmListSSR || null
-  );
   const [displayedAlarms, setDisplayedAlarms] = useState<Alarm[]>([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(unreadAlarmCount);
@@ -34,11 +31,11 @@ export default function Header({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const loadMoreAlarms = useCallback(() => {
-    if (!alarmList?.alarms) return;
+    if (!AlarmListSSR?.alarms) return;
 
-    const newAlarms = alarmList.alarms.slice(0, page * PAGE_SIZE);
+    const newAlarms = AlarmListSSR.alarms.slice(0, page * PAGE_SIZE);
     setDisplayedAlarms(newAlarms);
-  }, [alarmList, page]);
+  }, [AlarmListSSR, page]);
 
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
@@ -65,7 +62,7 @@ export default function Header({
   };
 
   const handleAlarmClick = async (id: number): Promise<boolean> => {
-    if (count <= 0) false;
+    if (count <= 0) return false;
 
     const result = await submitAlarmRead(id);
     if (result) {
