@@ -166,7 +166,7 @@ export default function ActionConfirmModal({
         <div className="text-[14px] xs:text-[16px] sm:text-[18px] mt-2 xs:mt-3 sm:mt-4">
           {modalContent.message}
         </div>
-        <div className="flex flex-row justify-center items-center w-full mt-6 xs:mt-7 sm:mt-8">
+        <div className="flex flex-row justify-center items-center w-full mt-3 xs:mt-4 sm:mt-5">
           <ButtonSmall
             label={modalContent.buttonText}
             onClick={modalContent.confirmAction}

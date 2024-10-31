@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { cls } from "@/utils/class-utils";
 import { Alarm, AlarmList } from "@/types/commons/header-type";
 import { submitAlarmRead } from "@/api/commons/header-api";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
+import ConfirmModal from "./confirm-modal";
 
 interface HeaderProps {
   nickname?: string | null;
@@ -23,8 +25,12 @@ export default function Header({
   toggleSidebar,
 }: HeaderProps) {
   const router = useRouter();
+  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
+    useConfirmModal();
+
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
   const [displayedAlarms, setDisplayedAlarms] = useState<Alarm[]>([]);
+  const [isAllAlarmsLoaded, setIsAllAlarmsLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(unreadAlarmCount);
 
@@ -35,10 +41,14 @@ export default function Header({
 
     const newAlarms = AlarmListSSR.alarms.slice(0, page * PAGE_SIZE);
     setDisplayedAlarms(newAlarms);
+
+    if (newAlarms.length >= AlarmListSSR.alarms.length) {
+      setIsAllAlarmsLoaded(true);
+    }
   }, [AlarmListSSR, page]);
 
   const handleScroll = useCallback(() => {
-    if (containerRef.current) {
+    if (containerRef.current && !isAllAlarmsLoaded) {
       const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
 
       if (scrollTop + clientHeight >= scrollHeight - 10) {
@@ -47,7 +57,7 @@ export default function Header({
         }, 500);
       }
     }
-  }, []);
+  }, [isAllAlarmsLoaded]);
 
   useEffect(() => {
     loadMoreAlarms();
@@ -130,12 +140,13 @@ export default function Header({
           />
           <span
             className={cls(
-              "absolute bg-red-500 text-white font-medium rounded-full",
+              "absolute bg-red-500 text-white font-normal rounded-full corsor-pointer",
               "w-[19px] aspect-square text-[8px] -top-[4px] left-[11px]",
               "xs:w-[22px] aspect-square xs:text-[10px] xs:-top-[5.5px] xs:left-[12.5px]",
               "sm:w-[25px] aspect-square sm:text-[12px] sm:-top-[7px] sm:left-[14px]",
               count === 0 ? "hidden" : "flex justify-center items-center"
             )}
+            onClick={handleAlarmButton}
           >
             {count > 99 ? "99+" : count}
           </span>
@@ -194,7 +205,7 @@ export default function Header({
                     </div>
                   </div>
                 ))}
-              {displayedAlarms ? (
+              {displayedAlarms && !isAllAlarmsLoaded ? (
                 <div className="py-2 xs:py-3 sm:py-4 flex flex-row justify-center items-center">
                   <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 border-[1.5px] xs:border-2 sm:border-[2.5px] border-gray-700 border-t-transparent rounded-full animate-spin"></div>
                 </div>
@@ -225,7 +236,7 @@ export default function Header({
         </div>
         <div
           className="flex flex-row justify-start items-center gap-2"
-          onClick={handleLogoutButton}
+          onClick={openConfirmModal}
         >
           <Image
             src="/images/logout.svg"
@@ -240,6 +251,12 @@ export default function Header({
           </span>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        option={"logout"}
+        action={handleLogoutButton}
+      />
     </div>
   );
 }
