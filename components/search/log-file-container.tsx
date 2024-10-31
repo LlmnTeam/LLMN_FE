@@ -67,7 +67,6 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className="px-[6px] py-[2px] xs:px-[9px] xs:py-[3px] sm:px-[12px] sm:py-[4px] border-[0.5px] xs:border border-black rounded-md disabled:opacity-50"
-          // className="px-[6px] py-[2px] xs:px-[9px] xs:py-[3px] sm:px-[12px] sm:py-[4px] disabled:opacity-50"
         >
           이전
         </button>
@@ -82,12 +81,6 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
                 ? "bg-black text-white"
                 : "bg-white hover:bg-gray-300"
             )}
-            // className={cls(
-            //   "px-[6px] py-[2px] xs:px-[9px] xs:py-[3px] sm:px-[12px] sm:py-[4px] text-[12px] xs:text-[14px] sm:text-[16px]",
-            //   currentPage === page
-            //     ? "text-black font-bold"
-            //     : "text-gray-500 hover:text-black"
-            // )}
           >
             {page}
           </button>
@@ -97,7 +90,6 @@ export default function LogFileContainer({ files }: LogFileContainerProps) {
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="px-[6px] py-[2px] xs:px-[9px] xs:py-[3px] sm:px-[12px] sm:py-[4px] border-[0.5px] xs:border border-black rounded-md disabled:opacity-50"
-          // className="px-[6px] py-[2px] xs:px-[9px] xs:py-[3px] sm:px-[12px] sm:py-[4px] disabled:opacity-50"
         >
           다음
         </button>

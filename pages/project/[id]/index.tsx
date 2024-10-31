@@ -108,7 +108,7 @@ export default function ProjectDetail({
           {projectDetailRef.current?.summaryContent ? (
             <Container
               title="요약"
-              link={`/project/${id}/summary`}
+              link={`/project/${id}/summaries?page=0`}
               update={`${
                 projectDetailRef.current?.summaryUpdateDate?.split(" ")[0]
               } 업데이트`}

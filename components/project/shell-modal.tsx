@@ -65,10 +65,6 @@ export default function ShellModal({
     }
   };
 
-  useEffect(() => {
-    console.log("inputs: ", inputs);
-  }, [inputs]);
-
   if (!isOpen) return null;
 
   return (

@@ -10,7 +10,7 @@ import { LogFileList, ProjectSummaryList } from "@/types/project/project-type";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-export interface ProjectSummaryListPageProps {
+export interface ProjectSummariesPageProps {
   NicknameSSR: Nickname | null;
   ProjectSummaryListSSR: ProjectSummaryList | null;
   LogFileListSSR: LogFileList | null;
@@ -22,20 +22,23 @@ export interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-export async function getProjectSummaryListSSR(
+export async function getProjectSummariesSSR(
   context: GetServerSidePropsContext<ParsedUrlQuery>
-): Promise<GetServerSidePropsResult<ProjectSummaryListPageProps>> {
+): Promise<GetServerSidePropsResult<ProjectSummariesPageProps>> {
   const { id } = context.params as Params;
+  const page = context.query.page as string;
 
   if (!id) {
     throw new Error("Missing project ID");
   }
   const accessToken = context.req.cookies?.accessToken || "";
 
+  const pageNumber = page ? Number(page) - 1 : 0;
+
   const [NicknameSSR, ProjectSummaryListSSR, LogFileListSSR, AlarmListSSR] =
     await Promise.all([
       verifyAccessToken(accessToken),
-      fetchProjectSummaryList(Number(id), 0, accessToken),
+      fetchProjectSummaryList(Number(id), pageNumber, accessToken),
       fetchLogFileList(Number(id), accessToken),
       fetchAlarmList(accessToken),
     ]);

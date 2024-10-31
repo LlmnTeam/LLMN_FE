@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { AlarmList } from "@/types/commons/header-type";
@@ -8,6 +8,7 @@ interface LayoutProps {
   AlarmListSSR?: AlarmList | null;
   unreadAlarmCount?: number;
   children: React.ReactNode;
+  scrollContainerRef?: React.RefObject<HTMLDivElement>;
 }
 
 export default function Layout({
@@ -15,6 +16,7 @@ export default function Layout({
   AlarmListSSR,
   unreadAlarmCount,
   children,
+  scrollContainerRef,
 }: LayoutProps) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -31,7 +33,10 @@ export default function Layout({
         unreadAlarmCount={unreadAlarmCount}
       />
       <Sidebar isSidebarOpen={isSidebarOpen} />
-      <div className="w-full h-[calc(100%-70px)] mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <div
+        ref={scrollContainerRef}
+        className="w-full h-[calc(100%-70px)] mt-[70px] pt-[20px] pb-[40px] xl:ml-[290px] xl:w-[calc(100%-290px)] overflow-y-auto overflow-x-hidden custom-scrollbar"
+      >
         {children}
       </div>
     </div>
