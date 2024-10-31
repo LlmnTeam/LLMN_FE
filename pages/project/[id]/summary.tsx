@@ -86,7 +86,7 @@ export default function ProjectSummaryList({
                   alt="shell"
                   width={32}
                   height={32}
-                  className="w-[26px] h-[26px] xs:w-[29px] xs:h-[29px] sm:w-[32px] sm:h-[32px] cursor-pointer"
+                  className="w-[26px] h-[26px] xs:w-[29px] xs:h-[29px] sm:w-[32px] sm:h-[32px] cursor-pointer transition-transform transform sm:hover:scale-125"
                   onClick={openShellModal}
                   priority
                 />
@@ -97,7 +97,7 @@ export default function ProjectSummaryList({
                   alt="chatbot"
                   width={44}
                   height={44}
-                  className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer"
+                  className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] ml-3 xs:ml-4 cursor-pointer transition-transform transform sm:hover:scale-125"
                   onClick={openLogFileModal}
                   priority
                 />

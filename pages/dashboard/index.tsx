@@ -70,7 +70,7 @@ export default function Dashboard({
                 alt="shell"
                 width={32}
                 height={32}
-                className="w-[26px] h-[26px] xs:w-[29px] xs:h-[29px] sm:w-[32px] sm:h-[32px] cursor-pointer"
+                className="w-[26px] h-[26px] xs:w-[29px] xs:h-[29px] sm:w-[32px] sm:h-[32px] cursor-pointer transition-transform transform sm:hover:scale-125"
                 onClick={openShellModal}
                 priority
               />

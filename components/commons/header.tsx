@@ -102,14 +102,14 @@ export default function Header({
         <Image
           src="/images/logo.svg"
           alt="logo"
-          width={30}
-          height={30}
+          width={33}
+          height={33}
           className="ml-4 cursor-pointer"
           onClick={() => router.push("/dashboard")}
           priority
         />
         <span
-          className="text-2xl font-semibold cursor-pointer"
+          className="text-[26px] font-semibold cursor-pointer"
           onClick={() => router.push("/dashboard")}
         >
           LLMN
@@ -123,7 +123,7 @@ export default function Header({
               alt="search"
               width={24}
               height={24}
-              className="w-[20px] h-[20px] xs:w-[24px] xs:h-[24px] cursor-pointer"
+              className="w-[20px] h-[20px] xs:w-[24px] xs:h-[24px] cursor-pointer transition-transform transform sm:hover:scale-125"
               priority
             />
           </Link>
@@ -134,7 +134,7 @@ export default function Header({
             alt="alarm"
             width={32}
             height={32}
-            className="w-[27px] h-[27px] xs:w-[32px] xs:h-[32px] cursor-pointer"
+            className="w-[27px] h-[27px] xs:w-[32px] xs:h-[32px] cursor-pointer transition-transform transform sm:hover:scale-125"
             onClick={handleAlarmButton}
             priority
           />
@@ -219,7 +219,7 @@ export default function Header({
             alt="profile"
             width={35}
             height={35}
-            className="w-[30px] h-[30px] xs:w-[35px] xs:h-[35px] cursor-pointer"
+            className="w-[30px] h-[30px] xs:w-[35px] xs:h-[35px] cursor-pointer transition-transform transform sm:hover:scale-125"
             priority
           />
           <span className="text-[18px] font-medium hidden sm:inline">
@@ -243,7 +243,7 @@ export default function Header({
             alt="logout"
             width={28}
             height={28}
-            className="w-[24px] h-[24px] xs:w-[28px] xs:h-[28px] cursor-pointer"
+            className="w-[24px] h-[24px] xs:w-[28px] xs:h-[28px] cursor-pointer transition-transform transform sm:hover:scale-125"
             priority
           />
           <span className="text-[18px] font-medium hidden sm:inline cursor-pointer">

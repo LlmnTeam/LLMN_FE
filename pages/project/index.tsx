@@ -47,13 +47,13 @@ export default function Project({
                 프로젝트
               </span>
             </div>
-            <div className="flex flex-row justify-start items-center gap-0.5 pr-1">
+            <div className="flex flex-row justify-start items-center gap-0.5 pr-1 mt-1">
               <Image
                 src="/images/rotate-right.svg"
                 alt="rotate-right"
-                width={31}
-                height={34}
-                className="w-[25px] h-[27px] xs:w-[28px] xs:h-[31px] sm:w-[31px] sm:h-[34px] cursor-pointer"
+                width={35}
+                height={35}
+                className="w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] sm:w-[35px] sm:h-[35px] cursor-pointer"
                 onClick={handleRefreshButton}
                 priority
               />

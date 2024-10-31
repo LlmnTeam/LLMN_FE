@@ -131,7 +131,7 @@ export default function DropdownMenu({
           alt="ellipsis-vertical"
           width={44}
           height={44}
-          className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5 cursor-pointer"
+          className="w-[35px] h-[35px] xs:w-[40px] xs:h-[40px] sm:w-[44px] sm:h-[44px] mt-1.5 cursor-pointer transition-transform transform sm:hover:scale-125"
           priority
         />
       </button>
