@@ -9,9 +9,11 @@ import useSSHInfos from "@/hooks/commons/use-ssh-infos";
 import { SSHInfo } from "@/types/login/login-type";
 import { cls } from "@/utils/class-utils";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function SignupStep4() {
+  const router = useRouter();
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
     useOpenAIKeyCheck();
 
@@ -130,7 +132,10 @@ export default function SignupStep4() {
           </div>
         </div>
         <div className="flex flex-row justify-end items-center gap-1 xs:gap-2 sm:gap-3 w-full max-w-[605px] mx-auto px-6">
-          <button className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]">
+          <button
+            className="h-[45px] xs:h-[50px] sm:h-[55px] text-[16px] xs:text-[18px] sm:text-[20px] rounded-md bg-white text-black font-semibold px-[20px] xs:px-[22px] sm:px-[24px]"
+            onClick={() => router.push("/login/signup-step3")}
+          >
             취소
           </button>
           <ButtonSmall
