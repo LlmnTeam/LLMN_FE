@@ -30,10 +30,16 @@ export default function LogFileModal({
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
+    if (!isOpen) return;
     const disabledChatbot =
       option === "chatbot" && selectedFileList.length === 0;
-    const disabledLog = option === "log" && selectedFile == "";
+    const disabledLog = option === "log" && selectedFile === "";
+
     setDisabled(disabledChatbot || disabledLog);
+    console.log(
+      "disabledChatbot || disabledLog: ",
+      disabledChatbot || disabledLog
+    );
   }, [option, selectedFileList, selectedFile, setDisabled]);
 
   const handleFileSelect = (fileName: string) => {
@@ -58,6 +64,7 @@ export default function LogFileModal({
   };
 
   const handleCloseButton = () => {
+    setDisabled(true);
     setSelectedFile("");
     setSelectedFileList([]);
     onClose();

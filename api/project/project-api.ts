@@ -386,3 +386,43 @@ export async function initSSHCommand(): Promise<boolean> {
     return false;
   }
 }
+
+export async function downloadLogFile(logFileName: string): Promise<void> {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("Access token is missing");
+    }
+
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response = await fetch(`${baseURL}/logs/${logFileName}/download`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to download the file");
+    }
+
+    const contentDisposition = response.headers.get("content-disposition");
+    const filename = contentDisposition
+      ? contentDisposition.split("filename=")[1]?.replace(/"/g, "")
+      : logFileName;
+
+    const blob = await response.blob();
+
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = filename || logFileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    window.URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error("Failed to download log file:", error);
+  }
+}

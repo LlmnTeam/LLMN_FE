@@ -191,7 +191,7 @@ export const validateInstance = async (
     return data.result.isValid;
   } catch (error) {
     console.error("Error validating SSH:", error);
-    throw error;
+    return false;
   }
 };
 

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.log-table tr:hover td {
+  border-color: rgba(156, 163, 175, 1);
+}
+
 /* 사용자 정의 클래스 */
 @layer utilities {
   .full-height {

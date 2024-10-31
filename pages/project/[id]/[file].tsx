@@ -1,3 +1,4 @@
+import { downloadLogFile } from "@/api/project/project-api";
 import Container from "@/components/commons/container";
 import Layout from "@/components/commons/layout";
 import LogFileModal from "@/components/project/log-file-modal";
@@ -28,7 +29,8 @@ export default function LogMessage({
   unreadAlarmCount,
 }: ProjectLogMessagePageProps) {
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query.id;
+  const file = router.query.file as string;
 
   const {
     isShellModalOpen,
@@ -44,6 +46,11 @@ export default function LogMessage({
   const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
+
+  const handleDownloadButton = async () => {
+    if (!file) return;
+    await downloadLogFile(file);
+  };
   return (
     <>
       <Head>
@@ -100,6 +107,7 @@ export default function LogMessage({
                 width={35}
                 height={35}
                 className="w-[28px] h-[28px] xs:w-[32px] xs:h-[32px] sm:w-[35px] sm:h-[35px] ml-2 sm:ml-3 cursor-pointer"
+                onClick={handleDownloadButton}
                 priority
               />
             </div>
