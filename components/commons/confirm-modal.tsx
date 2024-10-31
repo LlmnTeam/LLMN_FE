@@ -181,6 +181,19 @@ export default function ConfirmModal({
       closeAction: onClose,
       confirmAction: action,
     },
+    editOpenAIKey: {
+      title: "API 키 수정",
+      message: success
+        ? "API 키 수정이 완료되었습니다."
+        : "API 키 수정에 실패하였습니다.",
+      buttonText: ["확인"],
+      closeAction: onClose,
+      confirmAction: success
+        ? () => {
+            window.location.reload();
+          }
+        : onClose,
+    },
   };
 
   const modalContent = modalContents[option] || {

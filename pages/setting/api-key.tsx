@@ -1,7 +1,10 @@
+import { editOpenAIKey } from "@/api/setting/setting-api";
 import ButtonSmall from "@/components/commons/button-small";
+import ConfirmModal from "@/components/commons/confirm-modal";
 import DropdownMenu from "@/components/commons/dropdown-menu";
 import Input from "@/components/commons/input";
 import Layout from "@/components/commons/layout";
+import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
 import {
   ValidateLoginProps,
@@ -13,7 +16,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
@@ -26,6 +29,27 @@ export default function ApiKey({
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
     useOpenAIKeyCheck();
+  const {
+    isConfirmModalOpen,
+    success,
+    openConfirmModal,
+    closeConfirmModal,
+    setSuccess,
+  } = useConfirmModal();
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(!isVaildOpenAIKey);
+  }, [setDisabled, isVaildOpenAIKey]);
+
+  const handleEditButton = async () => {
+    if (disabled) return;
+    const result = await editOpenAIKey(openAIKey);
+    setSuccess(result);
+    openConfirmModal();
+  };
+
   return (
     <>
       <Head>
@@ -92,9 +116,15 @@ export default function ApiKey({
             </div>
           </div>
           <div className="flex flex-row justify-end items-center w-full">
-            <ButtonSmall label="수정" />
+            <ButtonSmall label="수정" disabled={disabled} />
           </div>
         </div>
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={closeConfirmModal}
+          option="editOpenAIKey"
+          success={success}
+        />
       </Layout>
     </>
   );
