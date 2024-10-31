@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import ConfirmModal from "../commons/confirm-modal";
 import Terminal from "react-terminal-ui";

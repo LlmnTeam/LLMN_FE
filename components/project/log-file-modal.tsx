@@ -36,14 +36,9 @@ export default function LogFileModal({
     const disabledLog = option === "log" && selectedFile === "";
 
     setDisabled(disabledChatbot || disabledLog);
-    console.log(
-      "disabledChatbot || disabledLog: ",
-      disabledChatbot || disabledLog
-    );
-  }, [option, selectedFileList, selectedFile, setDisabled]);
+  }, [isOpen, option, selectedFileList, selectedFile, setDisabled]);
 
   const handleFileSelect = (fileName: string) => {
-    console.log("selectedFileList: ", selectedFileList);
     setSelectedFileList((prevSelectedFiles) => {
       if (prevSelectedFiles.includes(fileName)) {
         return prevSelectedFiles.filter((file) => file !== fileName);

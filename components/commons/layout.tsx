@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { AlarmList } from "@/types/commons/header-type";

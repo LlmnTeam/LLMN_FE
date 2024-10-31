@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" id="progress">
+  <path 
+    fill-rule="evenodd" 
+    d="M29.728 3.713a21.015 21.015 0 0 0-22.094 7.5 21.015 21.015 0 0 0-1.528 23.282 21.023 21.023 0 0 0 20.928 10.328A21.028 21.028 0 0 0 44.58 29.43a3 3 0 1 0-5.795-1.55 14.989 14.989 0 0 1-12.534 10.992 14.984 14.984 0 0 1-14.948-7.375 14.983 14.983 0 0 1 1.092-16.631 14.983 14.983 0 0 1 15.783-5.36 3 3 0 1 0 1.55-5.794z" 
+    color="#000"
+    font-family="sans-serif" 
+    overflow="visible" 
+    style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal">
+    <animateTransform 
+      attributeName="transform" 
+      attributeType="XML" 
+      type="rotate" 
+      from="0 24 24" 
+      to="360 24 24" 
+      dur="1s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+</svg>

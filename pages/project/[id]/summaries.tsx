@@ -84,7 +84,7 @@ export default function ProjectSummaries({
     const maxPageButtons = 5;
     const halfMaxButtons = Math.floor(maxPageButtons / 2);
     let startPage = Math.max(1, currentPage - halfMaxButtons);
-    let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+    const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
 
     if (endPage - startPage + 1 < maxPageButtons) {
       startPage = Math.max(1, endPage - maxPageButtons + 1);
