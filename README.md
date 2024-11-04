@@ -25,7 +25,7 @@
 ### 2. 상세설계
 #### 2.1. 시스템 구성도
 #### □ 전체 구성도</br>
-<img width="850" alt="시스템 구성도" src="./images/architecture.png">
+<img width="850" alt="시스템 구성도" src="/docs/images/architecture.png">
 </br></br>
 
   > - 각 클라우드 인스턴스는 도커 컨테이너로 애플리케이션을 구동하며, 컨테이너에서 생성된 로그는 Filebeat가 수집해 Logstash로 전송 후 전처리.
@@ -36,7 +36,7 @@
 </br>
 
 #### □ 로그 데이터 관리 </br>
-<img width="750" alt="로그 데이터 관리" src="./images/log_file_manage.png">
+<img width="750" alt="로그 데이터 관리" src="/docs/images/log_file_manage.png">
 </br>
 
   > - 모든 로그 데이터를 그대로 저장하는 대신, 시간대별로 요약하여 주요 이벤트만 축적하는 방식으로 관리.
@@ -44,7 +44,7 @@
 </br>
 
 #### □ 토큰 한계를 해결하는 대화 맥락 유지 </br>
-<img width="600" alt="대화 맥락 유지" src="./images/token_management.png">
+<img width="600" alt="대화 맥락 유지" src="/docs/images/token_management.png">
 </br>
 
   > - 대화가 일정량 이상 누적될 때마다 시스템이 이전 대화를 요약하여 프롬프트에 포함.
@@ -101,27 +101,27 @@ docker compose up -d
 #### □ 소개 </br>
 |로그인|회원가입(3단계 중 2단계, 클라우드 등록)|
 |:--:|:--:|
-|<img width="500" alt="로그인" src="/docs/images/로그인.png">|<img width="500" alt="회원가입" src="/docs/images/회원가입.png">|
+|<img width="500" alt="로그인" src="/docs/images/login.png">|<img width="500" alt="회원가입" src="/docs/images/signup-step3.png">|
 
 |대시보드|검색|
 |:--:|:--:|
-|<img width="500" alt="대시보드" src="/docs/images/대시보드.png">|<img width="500" alt="검색" src="/docs/images/검색.png">|
+|<img width="500" alt="대시보드" src="/docs/images/dashboard.png">|<img width="500" alt="검색" src="/docs/images/search.png">|
 
 |프로젝트 목록|프로젝트 상세조회|
 |:--:|:--:|
-|<img width="500" alt="프로젝트 목록" src="/docs/images/프로젝트.png">|<img width="500" alt="프로젝트 상세조회" src="/docs/images/로그 개요.png">|
+|<img width="500" alt="프로젝트 목록" src="/docs/images/project_list.png">|<img width="500" alt="프로젝트 상세조회" src="/docs/images/project_detail.png">|
 
 |로그 조회|로그 요약|
 |:--:|:--:|
-|<img width="500" alt="로그 조회" src="/docs/images/로그 조회.png">|<img width="500" alt="로그 요약" src="/docs/images/로그 요약.png">|
+|<img width="500" alt="로그 조회" src="/docs/images/log_message.png">|<img width="500" alt="로그 요약" src="/docs/images/log_summary.png">|
 
 |질문하기|원격 SSH 명령|
 |:--:|:--:|
-|<img width="500" alt="질문하기" src="/docs/images/질문.png">|<img width="500" alt="원격 SSH 명령" src="/docs/images/커맨드.png">|
+|<img width="500" alt="질문하기" src="/docs/images/chatbot.png">|<img width="500" alt="원격 SSH 명령" src="/docs/images/llmn_terminal-dark.png">|
 
 |인사이트(성능요약, 일일요약) |인사이트(주간 요약, 추천)|
 |:--:|:--:|
-|<img width="500" alt="인사이트 1" src="/docs/images/인사이트 1.png">|<img width="500" alt="인사이트 2" src="/docs/images/인사이트 2.png">|
+|<img width="500" alt="인사이트 1" src="/docs/images/insight_1.png">|<img width="500" alt="인사이트 2" src="/docs/images/insight_2.png">|
 
 #### □ 시연 영상 </br>
 - **회원가입 (정보 입력 => 모니터링 할 클라우드의 SSH 정보 검증 및 추가 => OpenAI 키 검증 및 추가)**
