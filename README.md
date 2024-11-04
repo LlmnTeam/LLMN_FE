@@ -123,6 +123,14 @@ docker compose up -d
 |:--:|:--:|
 |<img width="500" alt="인사이트 1" src="/docs/images/insight_1.png">|<img width="500" alt="인사이트 2" src="/docs/images/insight_2.png">|
 
+|대시보드(모바일) ||프로젝트(모바일)||
+|:--:|:--:|:--:|:--:|
+|<img width="250" alt="대시보드(모바일)_1" src="/docs/images/dashboard_1-mobile.png">|<img width="250" alt="대시보드(모바일)_2" src="/docs/images/dashboard_2-mobile.png">|<img width="250" alt="프로젝트 목록(모바일)" src="/docs/images/project_list-mobile.png">|<img width="250" alt="프로젝트 상세조회(모바일)" src="/docs/images/project_detail-mobile.png">|
+
+|인사이트(모바일) |질문하기(모바일)|원격 SSH 명령(모바일)|검색(모바일)|
+|:--:|:--:|:--:|:--:|
+|<img width="250" alt="인사이트(모바일)" src="/docs/images/dashboard_1-mobile.png">|<img width="250" alt="질문하기(모바일)" src="/docs/images/chatbot-mobile.png">|<img width="250" alt="원격 SSH 명령(모바일)" src="/docs/images/llmn_terminal-dark-mobile.png">|<img width="250" alt="검색(모바일)" src="/docs/images/search-mobile.png">|
+
 #### □ 시연 영상 </br>
 - **회원가입 (정보 입력 => 모니터링 할 클라우드의 SSH 정보 검증 및 추가 => OpenAI 키 검증 및 추가)**
 
