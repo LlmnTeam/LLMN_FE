@@ -1,13 +1,13 @@
-import Container from "@/components/commons/container";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import EmptyBox from "@/components/commons/empty-box";
-import Layout from "@/components/commons/layout";
+import Container from "@/src/components/commons/container";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import EmptyBox from "@/src/components/commons/empty-box";
+import Layout from "@/src/components/commons/layout";
 import {
   InsightSummaryPageProps,
   getInsightSummarySSR,
-} from "@/ssr/insight/insight-summary-ssr";
-import type { InsightSummary } from "@/types/insight/insight-type";
-import { Nickname } from "@/types/login/login-type";
+} from "@/src/ssr/insight/insight-summary-ssr";
+import { InsightSummary } from "@/src/types/insight/insight-type";
+import { Nickname } from "@/src/types/login/login-type";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";

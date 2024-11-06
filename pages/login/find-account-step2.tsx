@@ -1,9 +1,9 @@
-import ButtonLarge from "@/components/commons/button-large";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import Input from "@/components/commons/input";
-import Logo from "@/components/commons/logo";
-import usePasswordCheck from "@/hooks/login/use-password-check";
-import { cls } from "@/utils/class-utils";
+import ButtonLarge from "@/src/components/commons/button-large";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
+import Input from "@/src/components/commons/input";
+import Logo from "@/src/components/commons/logo";
+import usePasswordCheck from "@/src/hooks/login/use-password-check";
+import { cls } from "@/src/utils/class-utils";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 

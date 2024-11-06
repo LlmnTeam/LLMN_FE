@@ -1,16 +1,7 @@
-import { downloadLogFile } from "@/api/project/project-api";
-import Container from "@/components/commons/container";
-import Layout from "@/components/commons/layout";
-import LogFileModal from "@/components/project/log-file-modal";
-import ShellModal from "@/components/project/shell-modal";
-import useLogFileModal from "@/hooks/project/use-log-file-modal";
-import useShellModal from "@/hooks/project/use-shell-modal";
 import {
   ProjectLogMessagePageProps,
   getProjectLogMessageSSR,
-} from "@/ssr/project/project-log-ssr";
-import { Nickname } from "@/types/login/login-type";
-import type { LogFileList, LogMessage } from "@/types/project/project-type";
+} from "@/src/ssr/project/project-log-ssr";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";

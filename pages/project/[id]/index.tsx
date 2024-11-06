@@ -1,17 +1,17 @@
-import Container from "@/components/commons/container";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import EmptyBox from "@/components/commons/empty-box";
-import Layout from "@/components/commons/layout";
-import LogFileModal from "@/components/project/log-file-modal";
-import ShellModal from "@/components/project/shell-modal";
-import useLogFileModal from "@/hooks/project/use-log-file-modal";
-import useShellModal from "@/hooks/project/use-shell-modal";
+import Container from "@/src/components/commons/container";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import EmptyBox from "@/src/components/commons/empty-box";
+import Layout from "@/src/components/commons/layout";
+import LogFileModal from "@/src/components/project/log-file-modal";
+import ShellModal from "@/src/components/project/shell-modal";
+import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
+import useShellModal from "@/src/hooks/project/use-shell-modal";
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
-} from "@/ssr/project/project-detail-ssr";
-import { Nickname } from "@/types/login/login-type";
-import type { LogFileList, ProjectDetail } from "@/types/project/project-type";
+} from "@/src/ssr/project/project-detail-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { LogFileList, ProjectDetail } from "@/src/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";

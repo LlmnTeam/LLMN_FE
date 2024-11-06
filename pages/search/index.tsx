@@ -1,20 +1,20 @@
-import EmptyBox from "@/components/commons/empty-box";
-import InsightRecordContainer from "@/components/search/insight-record-container";
-import Layout from "@/components/commons/layout";
-import LogFileContainer from "@/components/search/log-file-container";
-import SearchInput from "@/components/search/search-input";
 import { useEffect, useRef, useState } from "react";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
-} from "@/ssr/commons/validate-login-ssr";
-import { GetServerSideProps } from "next";
-import { Nickname } from "@/types/login/login-type";
-import useSearchInput from "@/hooks/search/use-search-input";
-import { formatToLocalISOString } from "@/utils/date-utils";
-import { fetchSearchResult } from "@/api/search/search-api";
-import { SearchResult } from "@/types/search/search-type";
-import Head from "next/head";
+} from "@/src/ssr/commons/validate-login-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { SearchResult } from "@/src/types/search/search-type";
+import useSearchInput from "@/src/hooks/search/use-search-input";
+import { fetchSearchResult } from "@/src/api/search/search-api";
+import { formatToLocalISOString } from "@/src/utils/date-utils";
+import Layout from "@/src/components/commons/layout";
+import SearchInput from "@/src/components/search/search-input";
+import LogFileContainer from "@/src/components/search/log-file-container";
+import EmptyBox from "@/src/components/commons/empty-box";
+import InsightRecordContainer from "@/src/components/search/insight-record-container";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;

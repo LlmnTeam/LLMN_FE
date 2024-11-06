@@ -1,4 +1,4 @@
-import Logo from "@/components/commons/logo";
+import Logo from "@/src/components/commons/logo";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

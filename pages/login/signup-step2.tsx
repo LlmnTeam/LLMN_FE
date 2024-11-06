@@ -1,9 +1,9 @@
-import ButtonSmall from "@/components/commons/button-small";
-import Input from "@/components/commons/input";
-import Logo from "@/components/commons/logo";
-import useNicknameCheck from "@/hooks/commons/use-nickname-check";
-import usePasswordCheck from "@/hooks/login/use-password-check";
-import { cls } from "@/utils/class-utils";
+import ButtonSmall from "@/src/components/commons/button-small";
+import Input from "@/src/components/commons/input";
+import Logo from "@/src/components/commons/logo";
+import useNicknameCheck from "@/src/hooks/commons/use-nickname-check";
+import usePasswordCheck from "@/src/hooks/login/use-password-check";
+import { cls } from "@/src/utils/class-utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

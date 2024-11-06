@@ -1,13 +1,14 @@
-import ButtonSmall from "@/components/commons/button-small";
-import Input from "@/components/commons/input";
-import Logo from "@/components/commons/logo";
-import useInstanceCheck from "@/hooks/commons/use-instance-check";
-import { cls } from "@/utils/class-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import InstanceValidationModal from "@/components/commons/instance-validation-modal";
-import useSSHInfos from "@/hooks/commons/use-ssh-infos";
+
 import Head from "next/head";
+import useInstanceCheck from "@/src/hooks/commons/use-instance-check";
+import useSSHInfos from "@/src/hooks/commons/use-ssh-infos";
+import Logo from "@/src/components/commons/logo";
+import Input from "@/src/components/commons/input";
+import { cls } from "@/src/utils/class-utils";
+import ButtonSmall from "@/src/components/commons/button-small";
+import InstanceValidationModal from "@/src/components/commons/instance-validation-modal";
 
 export default function SignupStep3() {
   const router = useRouter();
@@ -28,7 +29,11 @@ export default function SignupStep3() {
     handleRemoteKeyPathChange,
     checkInstanceValidity,
     resetRemoteValues,
-  } = useInstanceCheck();
+  } = useInstanceCheck({
+    initialRemoteName: "",
+    initialRemoteHost: "",
+    initialRemoteKeyPath: "",
+  });
 
   const { addSSHInfo } = useSSHInfos();
 

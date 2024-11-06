@@ -1,9 +1,12 @@
-import { refreshProjectList } from "@/api/project/project-api";
-import Layout from "@/components/commons/layout";
-import ProjectTable from "@/components/project/project-table";
-import { ProjectPageProps, getProjectListSSR } from "@/ssr/project/project-ssr";
-import { Nickname } from "@/types/login/login-type";
-import { ProjectList } from "@/types/project/project-type";
+import { refreshProjectList } from "@/src/api/project/project-api";
+import Layout from "@/src/components/commons/layout";
+import ProjectTable from "@/src/components/project/project-table";
+import {
+  ProjectPageProps,
+  getProjectListSSR,
+} from "@/src/ssr/project/project-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { ProjectList } from "@/src/types/project/project-type";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";

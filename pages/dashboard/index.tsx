@@ -1,23 +1,24 @@
-import Container from "@/components/commons/container";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import EmptyBox from "@/components/commons/empty-box";
-import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
-import MultiLineChart from "@/components/dashboard/multi-line-chart";
+
+import { useRef } from "react";
+import Head from "next/head";
 import {
   DashboardPageProps,
   getDashboardSSR,
-} from "@/ssr/dashboard/dashboard-ssr";
-import { useRef } from "react";
-import type {
+} from "@/src/ssr/dashboard/dashboard-ssr";
+import useShellModal from "@/src/hooks/project/use-shell-modal";
+import { Nickname } from "@/src/types/login/login-type";
+import {
   CloudInstanceList,
   Dashboard,
-} from "@/types/dashboard/dashboard-type";
-import { Nickname } from "@/types/login/login-type";
-import useShellModal from "@/hooks/project/use-shell-modal";
-import ShellModal from "@/components/project/shell-modal";
-import Head from "next/head";
+} from "@/src/types/dashboard/dashboard-type";
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import Container from "@/src/components/commons/container";
+import EmptyBox from "@/src/components/commons/empty-box";
+import MultiLineChart from "@/src/components/dashboard/multi-line-chart";
+import ShellModal from "@/src/components/project/shell-modal";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;

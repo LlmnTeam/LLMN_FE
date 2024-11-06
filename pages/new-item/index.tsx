@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import Input from "@/components/commons/input";
-import InputWithDropdown from "@/components/commons/input-with-dropdown";
-import Layout from "@/components/commons/layout";
-import ButtonSmall from "@/components/commons/button-small";
 import { GetServerSideProps } from "next";
-import { CreateNewProject } from "@/api/new-item/new-item-api";
-import { cls } from "@/utils/class-utils";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import { NewItemPageProps, getNewItemSSR } from "@/ssr/new-item/new-item-ssr";
-import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
-import { Nickname } from "@/types/login/login-type";
 import Head from "next/head";
+import {
+  NewItemPageProps,
+  getNewItemSSR,
+} from "@/src/ssr/new-item/new-item-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import useProjectInfoInput from "@/src/hooks/commons/use-project-info-input";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import { CreateNewProject } from "@/src/api/new-item/new-item-api";
+import Layout from "@/src/components/commons/layout";
+import Input from "@/src/components/commons/input";
+import { cls } from "@/src/utils/class-utils";
+import InputWithDropdown from "@/src/components/commons/input-with-dropdown";
+import ButtonSmall from "@/src/components/commons/button-small";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<NewItemPageProps> =
   getNewItemSSR;
@@ -37,9 +40,13 @@ export default function NewItem({
     handleDescriptionChange,
     handleCloudSelect,
     handleContainerSelect,
-  } = useProjectInfoInput("", "", "", "", CloudInstanceListSSR);
-
-  console.log("CloudInstanceListSSR: ", CloudInstanceListSSR);
+  } = useProjectInfoInput({
+    initialProjectName: "",
+    initialDescription: "",
+    initialCloudName: "",
+    initialContainerName: "",
+    initialCloudInstances: CloudInstanceListSSR,
+  });
 
   const {
     isConfirmModalOpen,

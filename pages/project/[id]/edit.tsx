@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import Input from "@/components/commons/input";
-import InputWithDropdown from "@/components/commons/input-with-dropdown";
-import Layout from "@/components/commons/layout";
 import Image from "next/image";
 import Link from "next/link";
-import ButtonSmall from "@/components/commons/button-small";
 import { useRouter } from "next/router";
-import useProjectInfoInput from "@/hooks/commons/use-project-info-input";
-import { cls } from "@/utils/class-utils";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
 import {
   ProjectEditPageProps,
   getProjectEditSSR,
-} from "@/ssr/project/project-edit-ssr";
-import { GetServerSideProps } from "next";
-import { Nickname } from "@/types/login/login-type";
-import { ProjectInfo } from "@/types/project/project-type";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
-import { editProjectInfo } from "@/api/project/project-api";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import Head from "next/head";
+} from "@/src/ssr/project/project-edit-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { ProjectInfo } from "@/src/types/project/project-type";
+import useProjectInfoInput from "@/src/hooks/commons/use-project-info-input";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import { editProjectInfo } from "@/src/api/project/project-api";
+import Layout from "@/src/components/commons/layout";
+import Input from "@/src/components/commons/input";
+import { cls } from "@/src/utils/class-utils";
+import InputWithDropdown from "@/src/components/commons/input-with-dropdown";
+import ButtonSmall from "@/src/components/commons/button-small";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<ProjectEditPageProps> =
   getProjectEditSSR;
@@ -44,12 +44,13 @@ export default function ProjectEdit({
     handleProjectNameChange,
     handleDescriptionChange,
     handleContainerSelect,
-  } = useProjectInfoInput(
-    projectInfoRef.current?.projectName,
-    projectInfoRef.current?.description,
-    "",
-    projectInfoRef.current?.usingContainerName
-  );
+  } = useProjectInfoInput({
+    initialProjectName: projectInfoRef.current?.projectName,
+    initialDescription: projectInfoRef.current?.description,
+    initialCloudName: "",
+    initialContainerName: projectInfoRef.current?.usingContainerName,
+    initialCloudInstances: null,
+  });
 
   const {
     isConfirmModalOpen,

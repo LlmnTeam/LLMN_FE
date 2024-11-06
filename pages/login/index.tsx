@@ -1,9 +1,9 @@
-import ButtonLarge from "@/components/commons/button-large";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import Input from "@/components/commons/input";
-import Logo from "@/components/commons/logo";
-import { useLoginCheck } from "@/hooks/login/use-login-check";
-import { LoginSSRProps, getLoginSSR } from "@/ssr/login/login-ssr";
+import ButtonLarge from "@/src/components/commons/button-large";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
+import Input from "@/src/components/commons/input";
+import Logo from "@/src/components/commons/logo";
+import useLoginCheck from "@/src/hooks/login/use-login-check";
+import { LoginSSRProps, getLoginSSR } from "@/src/ssr/login/login-ssr";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 

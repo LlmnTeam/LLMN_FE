@@ -1,8 +1,8 @@
-import ButtonLarge from "@/components/commons/button-large";
-import Input from "@/components/commons/input";
-import Logo from "@/components/commons/logo";
-import useEmailCheck from "@/hooks/login/use-email-check";
-import { cls } from "@/utils/class-utils";
+import ButtonLarge from "@/src/components/commons/button-large";
+import Input from "@/src/components/commons/input";
+import Logo from "@/src/components/commons/logo";
+import useEmailCheck from "@/src/hooks/login/use-email-check";
+import { cls } from "@/src/utils/class-utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

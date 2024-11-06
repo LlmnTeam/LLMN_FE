@@ -1,19 +1,18 @@
-import Container from "@/components/commons/container";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import EmptyBox from "@/components/commons/empty-box";
-import Layout from "@/components/commons/layout";
-import LogFileModal from "@/components/project/log-file-modal";
-import ShellModal from "@/components/project/shell-modal";
-import useLogFileModal from "@/hooks/project/use-log-file-modal";
-import useShellModal from "@/hooks/project/use-shell-modal";
+import Container from "@/src/components/commons/container";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import EmptyBox from "@/src/components/commons/empty-box";
+import Layout from "@/src/components/commons/layout";
+import LogFileModal from "@/src/components/project/log-file-modal";
+import ShellModal from "@/src/components/project/shell-modal";
+import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
+import useShellModal from "@/src/hooks/project/use-shell-modal";
 import {
   ProjectSummariesPageProps,
   getProjectSummariesSSR,
-} from "@/ssr/project/project-summaries-ssr";
-
-import { Nickname } from "@/types/login/login-type";
-import type { LogFileList } from "@/types/project/project-type";
-import { cls } from "@/utils/class-utils";
+} from "@/src/ssr/project/project-summaries-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { LogFileList } from "@/src/types/project/project-type";
+import { cls } from "@/src/utils/class-utils";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -35,8 +34,6 @@ export default function ProjectSummaries({
   const { id, page: pageQuery } = router.query;
   const currentPage = parseInt(pageQuery as string, 10) || 1;
   const totalPages = ProjectSummaryListSSR?.pageNum || 1;
-
-  console.log("ProjectSummaryListSSR: ", ProjectSummaryListSSR);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +59,6 @@ export default function ProjectSummaries({
   } = useShellModal();
 
   useEffect(() => {
-    // ref로 스크롤 조정하기
     const layoutContainer = document.querySelector(".custom-scrollbar");
     if (layoutContainer) {
       layoutContainer.scrollTop = 0;
