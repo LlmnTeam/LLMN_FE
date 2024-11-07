@@ -1,5 +1,8 @@
-import { SSHInfo } from "@/src/types/login/login-type";
+// 외부 라이브러리
 import { useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
+import { SSHInfo } from "@/src/types/login/login-type";
 
 interface UseSSHInfosReturn {
   sshInfos: SSHInfo[];

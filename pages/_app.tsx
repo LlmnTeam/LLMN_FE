@@ -1,11 +1,16 @@
-import "@/styles/globals.css";
-import "@/styles/custom-calendar.css";
-import "@/styles/custom-react-terminal-ui.css";
-import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
-import NProgress from "nprogress";
+// 글로벌 스타일
+import "@/src/styles/globals.css";
+import "@/src/styles/custom-calendar.css";
+import "@/src/styles/custom-react-terminal-ui.css";
+import "nprogress/nprogress.css";
+
+// 외부 라이브러리
 import Router from "next/router";
-import "nprogress/nprogress.css"; // 기본 nprogress 스타일
+import NProgress from "nprogress";
+import { useEffect, useState } from "react";
+
+// 타입 정의
+import type { AppProps } from "next/app";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());

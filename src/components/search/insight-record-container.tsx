@@ -1,8 +1,15 @@
+// 외부 라이브러리
 import { useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
+import { Insights } from "@/src/types/search/search-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
 import Container from "../commons/container";
 import InsightRecord from "./insight-record";
-import { Insights } from "@/src/types/search/search-type";
-import { cls } from "@/src/utils/class-utils";
 
 interface InsightRecordContainerProps {
   files: Insights[];

@@ -1,15 +1,22 @@
+// 외부 라이브러리
 import React, { useState } from "react";
-import ButtonSmall from "./button-small";
 import { useRouter } from "next/router";
+
+// 서버 사이드 데이터, 타입 및 API
 import {
+  stopContainer,
   deleteContainer,
   restartContainer,
-  stopContainer,
 } from "@/src/api/project/project-api";
 import { withdrawAccount } from "@/src/api/setting/setting-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import { cls } from "@/src/utils/class-utils";
 
-interface ModalProps {
+// 프로젝트 내부 컴포넌트
+import ButtonSmall from "./button-small";
+
+interface ActionConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
@@ -24,7 +31,7 @@ export default function ActionConfirmModal({
   option,
   overlay = true,
   name = "",
-}: ModalProps) {
+}: ActionConfirmModalProps) {
   const router = useRouter();
   const { id } = router.query;
 

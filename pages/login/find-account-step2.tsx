@@ -1,11 +1,16 @@
-import ButtonLarge from "@/src/components/commons/button-large";
-import ConfirmModal from "@/src/components/commons/confirm-modal";
-import Input from "@/src/components/commons/input";
-import Logo from "@/src/components/commons/logo";
+// 외부 라이브러리
+import { useEffect, useState } from "react";
+import Head from "next/head";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import usePasswordCheck from "@/src/hooks/login/use-password-check";
 import { cls } from "@/src/utils/class-utils";
-import Head from "next/head";
-import { useEffect, useState } from "react";
+
+// 프로젝트 내부 컴포넌트
+import Logo from "@/src/components/commons/logo";
+import Input from "@/src/components/commons/input";
+import ButtonLarge from "@/src/components/commons/button-large";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export default function FindAccountStep2() {
   const {

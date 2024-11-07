@@ -1,16 +1,23 @@
-import { submitSignup } from "@/src/api/login/signup-api";
-import ButtonSmall from "@/src/components/commons/button-small";
-import ConfirmModal from "@/src/components/commons/confirm-modal";
-import Input from "@/src/components/commons/input";
-import Logo from "@/src/components/commons/logo";
-import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
-import useOpenAIKeyCheck from "@/src/hooks/commons/use-open-ai-key-check";
-import useSSHInfos from "@/src/hooks/commons/use-ssh-infos";
-import { SSHInfo } from "@/src/types/login/login-type";
-import { cls } from "@/src/utils/class-utils";
-import Head from "next/head";
+// 외부 라이브러리
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Head from "next/head";
+
+// 서버사이드 데이터, 타입 및 API
+import { submitSignup } from "@/src/api/login/signup-api";
+import { SSHInfo } from "@/src/types/login/login-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useOpenAIKeyCheck from "@/src/hooks/commons/use-open-ai-key-check";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import useSSHInfos from "@/src/hooks/commons/use-ssh-infos";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import Logo from "@/src/components/commons/logo";
+import Input from "@/src/components/commons/input";
+import ButtonSmall from "@/src/components/commons/button-small";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export default function SignupStep4() {
   const router = useRouter();
@@ -56,14 +63,6 @@ export default function SignupStep4() {
       console.error("필수 입력 값이 누락되었습니다.");
       return;
     }
-
-    console.log("receivingAlarm: ", receivingAlarm);
-    console.log("email: ", email);
-    console.log("nickName: ", nickName);
-    console.log("password: ", password);
-    console.log("passwordConfirm: ", passwordConfirm);
-    console.log("sshInfos: ", sshInfos);
-    console.log("monitoringSshHost: ", monitoringSshHost);
 
     try {
       const result = await submitSignup(

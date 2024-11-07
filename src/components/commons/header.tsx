@@ -1,12 +1,19 @@
-import Image from "next/image";
-import Link from "next/link";
+// 외부 라이브러리
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import ConfirmModal from "./confirm-modal";
-import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
-import useAlarm from "@/src/hooks/commons/use-alarm";
-import { cls } from "@/src/utils/class-utils";
+import Image from "next/image";
+import Link from "next/link";
+
+// 서버 사이드 데이터, 타입 및 API
 import { AlarmList } from "@/src/types/commons/header-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useAlarm from "@/src/hooks/commons/use-alarm";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import ConfirmModal from "./confirm-modal";
 
 interface HeaderProps {
   nickname?: string | null;
@@ -24,8 +31,6 @@ export default function Header({
   toggleSidebar,
 }: HeaderProps) {
   const router = useRouter();
-  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
-    useConfirmModal();
 
   const {
     isAlarmOpen,
@@ -37,6 +42,9 @@ export default function Header({
     handleAlarmClick,
     handleScroll,
   } = useAlarm({ AlarmListSSR: AlarmListSSR, initialCount: unreadAlarmCount });
+
+  const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
+    useConfirmModal();
 
   const handleLogoutButton = () => {
     sessionStorage.clear();

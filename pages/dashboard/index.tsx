@@ -1,24 +1,30 @@
-import Image from "next/image";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
-
 import { useRef } from "react";
 import Head from "next/head";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   DashboardPageProps,
   getDashboardSSR,
 } from "@/src/ssr/dashboard/dashboard-ssr";
-import useShellModal from "@/src/hooks/project/use-shell-modal";
 import { Nickname } from "@/src/types/login/login-type";
 import {
-  CloudInstanceList,
   Dashboard,
+  CloudInstanceList,
 } from "@/src/types/dashboard/dashboard-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useShellModal from "@/src/hooks/project/use-shell-modal";
+
+// 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";
 import DropdownMenu from "@/src/components/commons/dropdown-menu";
 import Container from "@/src/components/commons/container";
 import EmptyBox from "@/src/components/commons/empty-box";
 import MultiLineChart from "@/src/components/dashboard/multi-line-chart";
-import ShellModal from "@/src/components/project/shell-modal";
+import TerminalModal from "@/src/components/project/terminal-modal";
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> =
   getDashboardSSR;
@@ -197,7 +203,7 @@ export default function Dashboard({
             </div>
           </div>
         </div>
-        <ShellModal
+        <TerminalModal
           isOpen={isShellModalOpen}
           onClose={closeShellModal}
           inputs={inputs}

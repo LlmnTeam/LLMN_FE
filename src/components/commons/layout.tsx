@@ -1,4 +1,10 @@
+// 외부 라이브러리
 import React, { useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
+import { AlarmList } from "@/src/types/commons/header-type";
+
+// 프로젝트 내부 컴포넌트
 import Header from "./header";
 import Sidebar from "./sidebar";
 

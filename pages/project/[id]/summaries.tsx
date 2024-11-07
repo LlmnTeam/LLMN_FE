@@ -1,24 +1,31 @@
-import Container from "@/src/components/commons/container";
-import DropdownMenu from "@/src/components/commons/dropdown-menu";
-import EmptyBox from "@/src/components/commons/empty-box";
-import Layout from "@/src/components/commons/layout";
-import LogFileModal from "@/src/components/project/log-file-modal";
-import ShellModal from "@/src/components/project/shell-modal";
-import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
-import useShellModal from "@/src/hooks/project/use-shell-modal";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ProjectSummariesPageProps,
   getProjectSummariesSSR,
 } from "@/src/ssr/project/project-summaries-ssr";
 import { Nickname } from "@/src/types/login/login-type";
 import { LogFileList } from "@/src/types/project/project-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useShellModal from "@/src/hooks/project/use-shell-modal";
+import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
 import { cls } from "@/src/utils/class-utils";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import Container from "@/src/components/commons/container";
+import EmptyBox from "@/src/components/commons/empty-box";
+import TerminalModal from "@/src/components/project/terminal-modal";
+import LogFileModal from "@/src/components/project/log-file-modal";
 
 export const getServerSideProps: GetServerSideProps<ProjectSummariesPageProps> =
   getProjectSummariesSSR;
@@ -32,9 +39,24 @@ export default function ProjectSummaries({
 }: ProjectSummariesPageProps) {
   const router = useRouter();
   const { id, page: pageQuery } = router.query;
+
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
+
+  const {
+    isShellModalOpen,
+    openShellModal,
+    closeShellModal,
+    inputs,
+    setInputs,
+    handleCommandSubmit,
+  } = useShellModal();
+
+  const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
+    useLogFileModal();
+
   const currentPage = parseInt(pageQuery as string, 10) || 1;
   const totalPages = ProjectSummaryListSSR?.pageNum || 1;
-
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,27 +71,12 @@ export default function ProjectSummaries({
     }
   }, [currentPage]);
 
-  const {
-    isShellModalOpen,
-    openShellModal,
-    closeShellModal,
-    inputs,
-    setInputs,
-    handleCommandSubmit,
-  } = useShellModal();
-
   useEffect(() => {
     const layoutContainer = document.querySelector(".custom-scrollbar");
     if (layoutContainer) {
       layoutContainer.scrollTop = 0;
     }
   }, [currentPage]);
-
-  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
-
-  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
-  const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
-    useLogFileModal();
 
   const handlePageChange = async (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -195,7 +202,7 @@ export default function ProjectSummaries({
             </button>
           </div>
         </div>
-        <ShellModal
+        <TerminalModal
           isOpen={isShellModalOpen}
           onClose={closeShellModal}
           inputs={inputs}

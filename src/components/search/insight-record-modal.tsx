@@ -1,4 +1,4 @@
-import React from "react";
+// 프로젝트 내부 컴포넌트
 import ButtonSmall from "../commons/button-small";
 
 interface ModalProps {

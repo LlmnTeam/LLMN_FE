@@ -1,16 +1,21 @@
-import { refreshProjectList } from "@/src/api/project/project-api";
-import Layout from "@/src/components/commons/layout";
-import ProjectTable from "@/src/components/project/project-table";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRef, useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ProjectPageProps,
   getProjectListSSR,
 } from "@/src/ssr/project/project-ssr";
 import { Nickname } from "@/src/types/login/login-type";
 import { ProjectList } from "@/src/types/project/project-type";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { useRef, useState } from "react";
+import { refreshProjectList } from "@/src/api/project/project-api";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import ProjectTable from "@/src/components/project/project-table";
 
 export const getServerSideProps: GetServerSideProps<ProjectPageProps> =
   getProjectListSSR;

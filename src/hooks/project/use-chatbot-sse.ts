@@ -1,3 +1,4 @@
+// 외부 라이브러리
 import { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 
@@ -24,9 +25,9 @@ interface ChatbotMessage {
   content: string;
 }
 
-export const useChatbotSSE = ({
+export default function useChatbotSSE({
   logFiles,
-}: UseChatbotSSEProps): UseChatbotSSEReturn => {
+}: UseChatbotSSEProps): UseChatbotSSEReturn {
   const [question, setQuestion] = useState<string>("");
   const [logSummary, setLogSummary] = useState<string>("");
   const [isConnected, setIsConnected] = useState(false);
@@ -148,4 +149,4 @@ export const useChatbotSSE = ({
     startSSE,
     stopSSE,
   };
-};
+}

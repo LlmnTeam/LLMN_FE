@@ -1,12 +1,16 @@
+// 외부 라이브러리
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
 import Head from "next/head";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useInstanceCheck from "@/src/hooks/commons/use-instance-check";
 import useSSHInfos from "@/src/hooks/commons/use-ssh-infos";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
 import Logo from "@/src/components/commons/logo";
 import Input from "@/src/components/commons/input";
-import { cls } from "@/src/utils/class-utils";
 import ButtonSmall from "@/src/components/commons/button-small";
 import InstanceValidationModal from "@/src/components/commons/instance-validation-modal";
 

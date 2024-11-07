@@ -1,9 +1,14 @@
+// 외부 라이브러리
+import { useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
 import {
   CloudInstance,
   CloudInstanceList,
 } from "@/src/types/new-item/new-item-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import { validateProjectName } from "@/src/utils/validation-utils";
-import { useState } from "react";
 
 interface UseProjectInfoInputProps {
   initialProjectName?: string;

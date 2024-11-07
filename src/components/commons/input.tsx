@@ -1,5 +1,11 @@
-import Image from "next/image";
+// 외부 라이브러리
 import { useRef } from "react";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import Image from "next/image";
 
 interface InputProps {
   type: string;
@@ -10,6 +16,8 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
   disabled?: boolean;
+  size?: "large" | "small";
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export default function Input({
@@ -21,6 +29,8 @@ export default function Input({
   onChange,
   readOnly = false,
   disabled = false,
+  size = "large",
+  onClick,
 }: InputProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -50,7 +60,13 @@ export default function Input({
         onChange={onChange}
         placeholder={value === "" ? placeholder : ""}
         readOnly={readOnly}
-        className="appearance-none w-full h-[45px] xs:h-[50px] sm:h-[55px] text-[15px] xs:text-[16px] sm:text-[17px] text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1"
+        onClick={onClick}
+        className={cls(
+          "appearance-none w-full text-gray-600 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:ring-offset-0 focus:ring-1",
+          size === "large"
+            ? "h-[45px] xs:h-[50px] sm:h-[55px] text-[15px] xs:text-[16px] sm:text-[17px]"
+            : "h-[30px] xs:h-[40px] sm:h-[50px] text-[12px] xs:text-[14px] sm:text-[16px]"
+        )}
       />
       {label === "프라이빗 키" ? (
         <div className="flex flex-row justify-center items-center absolute top-2 xs:top-2.5 sm:top-3 right-3 xs:right-3.5 sm:right-4 cursor-pointer">

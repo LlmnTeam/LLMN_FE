@@ -1,7 +1,10 @@
-import { ProjectList } from "@/src/types/project/project-type";
-import Image from "next/image";
+// 외부 라이브러리
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
+// 서버 사이드 데이터, 타입 및 API
+import { ProjectList } from "@/src/types/project/project-type";
 
 export interface ProjectTableProps {
   ProjectList: ProjectList | null;

@@ -1,25 +1,32 @@
-import ButtonSmall from "@/components/commons/button-small";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import Input from "@/components/commons/input";
-import InstanceModal from "@/components/commons/instance-modal";
-import Layout from "@/components/commons/layout";
-import ToggleButton from "@/components/commons/toggle-button";
-import InstanceList from "@/components/setting/instance-list";
-import useInstanceModal from "@/hooks/commons/use-instance-modal";
-import useNicknameCheck from "@/hooks/commons/use-nickname-check";
-import useToggleButton from "@/hooks/commons/use-toggle-button";
-import { SettingPageProps, getSettingSSR } from "@/ssr/setting/setting-ssr";
-import { Nickname } from "@/types/login/login-type";
-import type { Setting, SshInfo } from "@/types/setting/setting-type";
-import { cls } from "@/utils/class-utils";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import isEqual from "lodash/isEqual";
-import { editSetting } from "@/api/setting/setting-api";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
 import Head from "next/head";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
+import { SettingPageProps, getSettingSSR } from "@/src/ssr/setting/setting-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { Setting, SshInfo } from "@/src/types/setting/setting-type";
+import { editSetting } from "@/src/api/setting/setting-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useToggleButton from "@/src/hooks/commons/use-toggle-button";
+import useNicknameCheck from "@/src/hooks/commons/use-nickname-check";
+import useInstanceModal from "@/src/hooks/commons/use-instance-modal";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import ToggleButton from "@/src/components/commons/toggle-button";
+import Input from "@/src/components/commons/input";
+import InstanceList from "@/src/components/setting/instance-list";
+import ButtonSmall from "@/src/components/commons/button-small";
+import InstanceModal from "@/src/components/commons/instance-modal";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<SettingPageProps> =
   getSettingSSR;
@@ -44,6 +51,10 @@ export default function Setting({
       : null
   );
 
+  const { isToggled, handleToggle } = useToggleButton(
+    settingRef.current?.receivingAlarm ? true : false
+  );
+
   const {
     nickname,
     isValidNickname,
@@ -66,10 +77,6 @@ export default function Setting({
     closeConfirmModal,
     setSuccess,
   } = useConfirmModal();
-
-  const { isToggled, handleToggle } = useToggleButton(
-    settingRef.current?.receivingAlarm ? true : false
-  );
 
   const [disabled, setDisabled] = useState(true);
 
@@ -101,10 +108,6 @@ export default function Setting({
         remoteKeyPath,
       })
     );
-    console.log("nickName: " + nickName);
-    console.log("receivingAlarm: ", receivingAlarm);
-    console.log("monitoringSshHost: ", monitoringSshHost);
-    console.log("sshInfos: ", sshInfos);
 
     if (monitoringSshHost) {
       const result = await editSetting(

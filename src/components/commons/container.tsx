@@ -1,9 +1,11 @@
-import React from "react";
+// 외부 라이브러리
 import Link from "next/link";
 import Image from "next/image";
-import { cls } from "@/utils/class-utils";
 
-interface LayoutProps {
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+interface ContainerProps {
   title: string;
   link?: string;
   update?: string;
@@ -19,7 +21,7 @@ export default function Container({
   type = "others",
   action,
   children,
-}: LayoutProps) {
+}: ContainerProps) {
   return (
     <div
       className={cls(

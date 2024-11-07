@@ -1,3 +1,4 @@
+// 외부 라이브러리
 import { useState } from "react";
 
 export default function useInsightRecordModal() {

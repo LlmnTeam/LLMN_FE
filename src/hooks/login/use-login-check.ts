@@ -1,9 +1,14 @@
+// 외부 라이브러리
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import { useState } from "react";
-import useConfirmModal from "../commons/use-confirm-modal";
-import { requestLoginToken } from "@/src/api/login/login-api";
+import Cookies from "js-cookie";
+
+// 서버 사이드 데이터, 타입 및 API
 import { AccessToken } from "@/src/types/login/login-type";
+import { requestLoginToken } from "@/src/api/login/login-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useConfirmModal from "../commons/use-confirm-modal";
 
 interface UseLoginCheckReturn {
   email: string;

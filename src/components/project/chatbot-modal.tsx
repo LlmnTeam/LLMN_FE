@@ -1,14 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactTextareaAutosize from "react-textarea-autosize";
-import ReactMarkdown from "react-markdown";
+// 외부 라이브러리
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
-import ConfirmModal from "../commons/confirm-modal";
-import { useChatbotSSE } from "@/src/hooks/project/use-chatbot-sse";
+import ReactTextareaAutosize from "react-textarea-autosize";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useChatbotSSE from "@/src/hooks/project/use-chatbot-sse";
 import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
 
-interface ModalProps {
+// 프로젝트 내부 컴포넌트
+import ConfirmModal from "../commons/confirm-modal";
+
+interface ChatbotModalProps {
   isOpen: boolean;
   onClose: () => void;
   logFileList: string[];
@@ -18,7 +23,7 @@ export default function ChatbotModal({
   isOpen,
   onClose,
   logFileList,
-}: ModalProps) {
+}: ChatbotModalProps) {
   const {
     question,
     logSummary,

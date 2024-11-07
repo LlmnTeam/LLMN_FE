@@ -1,5 +1,5 @@
+// 프로젝트 내부 훅과 유틸리티 함수
 import { cls } from "@/src/utils/class-utils";
-import React from "react";
 
 interface ToggleButtonProps {
   isToggled: boolean;

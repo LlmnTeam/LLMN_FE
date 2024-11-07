@@ -1,11 +1,18 @@
-import ButtonLarge from "@/src/components/commons/button-large";
-import ConfirmModal from "@/src/components/commons/confirm-modal";
-import Input from "@/src/components/commons/input";
-import Logo from "@/src/components/commons/logo";
-import useLoginCheck from "@/src/hooks/login/use-login-check";
-import { LoginSSRProps, getLoginSSR } from "@/src/ssr/login/login-ssr";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+
+// 서버사이드 데이터, 타입 및 API
+import { LoginSSRProps, getLoginSSR } from "@/src/ssr/login/login-ssr";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useLoginCheck from "@/src/hooks/login/use-login-check";
+
+// 프로젝트 내부 컴포넌트
+import Logo from "@/src/components/commons/logo";
+import Input from "@/src/components/commons/input";
+import ButtonLarge from "@/src/components/commons/button-large";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<LoginSSRProps> =
   getLoginSSR;

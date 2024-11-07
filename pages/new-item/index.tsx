@@ -1,17 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   NewItemPageProps,
   getNewItemSSR,
 } from "@/src/ssr/new-item/new-item-ssr";
 import { Nickname } from "@/src/types/login/login-type";
+import { CreateNewProject } from "@/src/api/new-item/new-item-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useProjectInfoInput from "@/src/hooks/commons/use-project-info-input";
 import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
-import { CreateNewProject } from "@/src/api/new-item/new-item-api";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";
 import Input from "@/src/components/commons/input";
-import { cls } from "@/src/utils/class-utils";
 import InputWithDropdown from "@/src/components/commons/input-with-dropdown";
 import ButtonSmall from "@/src/components/commons/button-small";
 import ConfirmModal from "@/src/components/commons/confirm-modal";

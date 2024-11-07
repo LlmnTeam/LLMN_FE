@@ -1,11 +1,16 @@
+// 외부 라이브러리
 import { useState, useEffect } from "react";
-import useIsMobile from "./use-is-mobile";
+
+// 서버 사이드 데이터, 타입 및 API
 import {
   validateHost,
   validateName,
 } from "@/src/utils/instance-validation-utils";
-import { filterInput } from "@/src/utils/ip-utils";
 import { SSHPemKeyUpload, validateInstance } from "@/src/api/login/signup-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useIsMobile from "./use-is-mobile";
+import { filterInput } from "@/src/utils/ip-utils";
 
 interface UseInstanceCheckProps {
   initialRemoteName?: string;

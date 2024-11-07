@@ -1,15 +1,19 @@
-// import ButtonSmall from "@/components/commons/button-small";
-import Layout from "@/components/commons/layout";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRef } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
-} from "@/ssr/commons/validate-login-ssr";
-import { Nickname } from "@/types/login/login-type";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useRef } from "react";
+} from "@/src/ssr/commons/validate-login-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
@@ -20,6 +24,7 @@ export default function License({
   unreadAlarmCount,
 }: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+
   return (
     <>
       <Head>
@@ -79,9 +84,6 @@ export default function License({
               DEALINGS IN THE SOFTWARE.
             </div>
           </div>
-          {/* <div className="flex flex-row justify-center items-center w-full mt-12 xs:mt-14 sm:mt-16">
-            <ButtonSmall label="수정" />
-          </div> */}
         </div>
       </Layout>
     </>

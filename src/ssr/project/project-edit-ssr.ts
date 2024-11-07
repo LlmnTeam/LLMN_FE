@@ -1,11 +1,14 @@
-import { fetchAlarmList } from "@/src/api/commons/header-api";
-import { verifyAccessToken } from "@/src/api/login/login-api";
-import { fetchProjectInfo } from "@/src/api/project/project-api";
-import { Alarm, AlarmList } from "@/src/types/commons/header-type";
-import { Nickname } from "@/src/types/login/login-type";
-import { ProjectInfo } from "@/src/types/project/project-type";
+// 외부 라이브러리
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
+
+// 서버 사이드 데이터, 타입 및 API
+import { Nickname } from "@/src/types/login/login-type";
+import { ProjectInfo } from "@/src/types/project/project-type";
+import { AlarmList, Alarm } from "@/src/types/commons/header-type";
+import { verifyAccessToken } from "@/src/api/login/login-api";
+import { fetchProjectInfo } from "@/src/api/project/project-api";
+import { fetchAlarmList } from "@/src/api/commons/header-api";
 
 export interface ProjectEditPageProps {
   NicknameSSR: Nickname | null;

@@ -15,7 +15,7 @@ interface TerminalInput {
   value: string;
 }
 
-interface ModalProps {
+interface TerminalModalProps {
   isOpen: boolean;
   onClose: () => void;
   inputs: TerminalInput[];
@@ -23,13 +23,13 @@ interface ModalProps {
   handleCommandSubmit: (command: string) => Promise<void>;
 }
 
-export default function ShellModal({
+export default function TerminalModal({
   isOpen,
   onClose,
   inputs,
   setInputs,
   handleCommandSubmit,
-}: ModalProps) {
+}: TerminalModalProps) {
   const { isConfirmModalOpen, openConfirmModal, closeConfirmModal } =
     useConfirmModal();
   const { isToggled, handleToggle } = useToggleButton();

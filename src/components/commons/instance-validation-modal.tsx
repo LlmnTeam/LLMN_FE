@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ButtonSmall from "./button-small";
-import { cls } from "@/utils/class-utils";
+// 외부 라이브러리
+import { useState, useEffect } from "react";
 
-interface ModalProps {
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import ButtonSmall from "./button-small";
+
+interface InstanceValidationModalProps {
   isOpen: boolean;
   onValidClose: () => void;
   onInvalidClose: () => void;
@@ -18,7 +23,7 @@ export default function InstanceValidationModal({
   isValid = null,
   ip = "",
   overlay = false,
-}: ModalProps) {
+}: InstanceValidationModalProps) {
   const [validationResult, setValidationResult] = useState<string>("");
 
   useEffect(() => {

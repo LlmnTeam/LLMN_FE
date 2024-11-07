@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
-import ButtonSmall from "../commons/button-small";
-import Image from "next/image";
+// 외부 라이브러리
 import { useRouter } from "next/router";
-import ChatbotModal from "./chatbot-modal";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+
+// 서버 사이드 데이터, 타입 및 API
 import { LogFileList } from "@/src/types/project/project-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useChatbotModal from "@/src/hooks/project/use-chatbot-modal";
 import { cls } from "@/src/utils/class-utils";
 
-interface ModalProps {
+// 프로젝트 내부 컴포넌트
+import ButtonSmall from "../commons/button-small";
+import ChatbotModal from "./chatbot-modal";
+
+interface LogFileModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
@@ -19,7 +26,7 @@ export default function LogFileModal({
   onClose,
   option,
   logFileList,
-}: ModalProps) {
+}: LogFileModalProps) {
   const router = useRouter();
   const { id } = router.query;
 

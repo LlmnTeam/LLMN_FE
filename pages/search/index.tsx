@@ -1,15 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/src/ssr/commons/validate-login-ssr";
 import { Nickname } from "@/src/types/login/login-type";
 import { SearchResult } from "@/src/types/search/search-type";
-import useSearchInput from "@/src/hooks/search/use-search-input";
 import { fetchSearchResult } from "@/src/api/search/search-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useSearchInput from "@/src/hooks/search/use-search-input";
 import { formatToLocalISOString } from "@/src/utils/date-utils";
+
+// 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";
 import SearchInput from "@/src/components/search/search-input";
 import LogFileContainer from "@/src/components/search/log-file-container";
@@ -25,11 +32,12 @@ export default function Search({
   unreadAlarmCount,
 }: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
-  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
-  const [isSearched, setIsSearched] = useState(false);
+
   const { startDate, endDate, keyword, setStartDate, setEndDate, setKeyword } =
     useSearchInput();
 
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
+  const [isSearched, setIsSearched] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
@@ -48,10 +56,6 @@ export default function Search({
     setSearchResult(result);
     setIsSearched(true);
   };
-
-  useEffect(() => {
-    console.log("searchResult: ", searchResult);
-  }, [searchResult]);
 
   return (
     <>

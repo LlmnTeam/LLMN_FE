@@ -1,13 +1,29 @@
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ProjectLogMessagePageProps,
   getProjectLogMessageSSR,
 } from "@/src/ssr/project/project-log-ssr";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useRef } from "react";
+import { Nickname } from "@/src/types/login/login-type";
+import { LogFileList, LogMessage } from "@/src/types/project/project-type";
+import { downloadLogFile } from "@/src/api/project/project-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useShellModal from "@/src/hooks/project/use-shell-modal";
+import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import Container from "@/src/components/commons/container";
+import TerminalModal from "@/src/components/project/terminal-modal";
+import LogFileModal from "@/src/components/project/log-file-modal";
 
 export const getServerSideProps: GetServerSideProps<ProjectLogMessagePageProps> =
   getProjectLogMessageSSR;
@@ -23,6 +39,10 @@ export default function LogMessage({
   const id = router.query.id;
   const file = router.query.file as string;
 
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const logMessageRef = useRef<LogMessage | null>(LogMessageSSR);
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
+
   const {
     isShellModalOpen,
     openShellModal,
@@ -32,9 +52,6 @@ export default function LogMessage({
     handleCommandSubmit,
   } = useShellModal();
 
-  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
-  const logMessageRef = useRef<LogMessage | null>(LogMessageSSR);
-  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
 
@@ -112,7 +129,7 @@ export default function LogMessage({
             </div>
           </Container>
         </div>
-        <ShellModal
+        <TerminalModal
           isOpen={isShellModalOpen}
           onClose={closeShellModal}
           inputs={inputs}

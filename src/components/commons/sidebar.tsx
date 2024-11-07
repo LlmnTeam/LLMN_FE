@@ -1,7 +1,10 @@
-import { useState } from "react";
+// 외부 라이브러리
 import { useRouter } from "next/router";
-import { cls } from "@/utils/class-utils";
+import { useState } from "react";
 import Image from "next/image";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
 
 interface SidebarProps {
   isSidebarOpen: boolean;

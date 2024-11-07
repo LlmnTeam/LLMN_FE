@@ -1,6 +1,10 @@
+// 외부 라이브러리
 import Link from "next/link";
 
-interface ButtonProps {
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+interface ButtonLargeProps {
   label: string;
   kind: string;
   disabled?: boolean;
@@ -12,7 +16,7 @@ export default function ButtonLarge({
   kind = "login",
   disabled = false,
   onClick,
-}: ButtonProps) {
+}: ButtonLargeProps) {
   return (
     <div
       className={`flex flex-row justify-center items-center relative w-full max-w-[605px]`}

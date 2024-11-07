@@ -1,8 +1,15 @@
-import Image from "next/image";
-import InstanceModal from "../commons/instance-modal";
+// 외부 라이브러리
 import { useState } from "react";
+import Image from "next/image";
+
+// 서버 사이드 데이터, 타입 및 API
 import { SshInfo } from "@/src/types/setting/setting-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useInstanceModal from "@/src/hooks/commons/use-instance-modal";
+
+// 프로젝트 내부 컴포넌트
+import InstanceModal from "../commons/instance-modal";
 
 interface InstaceListProps {
   monitoringSshId: number | null;

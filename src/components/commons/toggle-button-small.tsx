@@ -1,7 +1,7 @@
+// 프로젝트 내부 훅과 유틸리티 함수
 import { cls } from "@/src/utils/class-utils";
-import React from "react";
 
-interface ToggleButtonProps {
+interface ToggleButtonSmallProps {
   isToggled: boolean;
   onToggle: () => void;
 }
@@ -9,7 +9,7 @@ interface ToggleButtonProps {
 export default function ToggleButtonSmall({
   isToggled,
   onToggle,
-}: ToggleButtonProps) {
+}: ToggleButtonSmallProps) {
   return (
     <div
       className={cls(

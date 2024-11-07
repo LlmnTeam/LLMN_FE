@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+// 외부 라이브러리
+import { useState } from "react";
 
 interface UseNicknameCheckReturn {
   startDate: Date | null;

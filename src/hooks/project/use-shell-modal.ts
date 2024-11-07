@@ -1,6 +1,11 @@
+// 외부 라이브러리
 import { useState } from "react";
-import useSSHCommand from "./use-ssh-command";
+
+// 서버 사이드 데이터, 타입 및 API
 import { TerminalInput } from "@/src/types/project/project-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useSSHCommand from "./use-ssh-command";
 
 interface UseShellModalReturn {
   isShellModalOpen: boolean;

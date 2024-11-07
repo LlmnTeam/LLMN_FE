@@ -1,19 +1,24 @@
-import Container from "@/src/components/commons/container";
-import DropdownMenu from "@/src/components/commons/dropdown-menu";
-import EmptyBox from "@/src/components/commons/empty-box";
-import Layout from "@/src/components/commons/layout";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   InsightSummaryPageProps,
   getInsightSummarySSR,
 } from "@/src/ssr/insight/insight-summary-ssr";
-import { InsightSummary } from "@/src/types/insight/insight-type";
 import { Nickname } from "@/src/types/login/login-type";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useRef } from "react";
+import { InsightSummary } from "@/src/types/insight/insight-type";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import Container from "@/src/components/commons/container";
+import EmptyBox from "@/src/components/commons/empty-box";
 
 export const getServerSideProps: GetServerSideProps<InsightSummaryPageProps> =
   getInsightSummarySSR;

@@ -1,22 +1,28 @@
+// 외부 라이브러리
 import React, { useEffect, useState } from "react";
-import Input from "./input";
-import ButtonSmall from "./button-small";
-import InstanceValidationModal from "./instance-validation-modal";
-import ConfirmModal from "./confirm-modal";
+
+// 서버 사이드 데이터, 타입 및 API
 import { SshInfo } from "@/src/types/setting/setting-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useInstanceCheck from "@/src/hooks/commons/use-instance-check";
 import useInstanceValidationModal from "@/src/hooks/commons/use-instance-validation-modal";
 import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
 import { cls } from "@/src/utils/class-utils";
 
-interface ModalProps {
+// 프로젝트 내부 컴포넌트
+import Input from "./input";
+import ButtonSmall from "./button-small";
+import InstanceValidationModal from "./instance-validation-modal";
+import ConfirmModal from "./confirm-modal";
+
+interface InstanceModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
   sshInfos: SshInfo[];
   setSshInfos: React.Dispatch<React.SetStateAction<SshInfo[]>>;
   ssh?: SshInfo;
-  reconnect?: boolean;
 }
 
 export default function InstanceModal({
@@ -32,8 +38,7 @@ export default function InstanceModal({
     remoteKeyPath: "",
     isWorking: false,
   },
-}: // reconnect = false,
-ModalProps) {
+}: InstanceModalProps) {
   const {
     remoteName,
     remoteHost,

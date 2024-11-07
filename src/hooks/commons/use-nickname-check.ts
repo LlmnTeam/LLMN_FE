@@ -1,6 +1,11 @@
-import { checkNicknameDuplication } from "@/src/api/login/signup-api";
-import { validateNickname } from "@/src/utils/validation-utils";
+// 외부 라이브러리
 import { useEffect, useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
+import { checkNicknameDuplication } from "@/src/api/login/signup-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import { validateNickname } from "@/src/utils/validation-utils";
 
 interface UseNicknameCheckReturn {
   nickname: string;

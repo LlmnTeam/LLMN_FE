@@ -1,4 +1,5 @@
-import { cls } from "@/utils/class-utils";
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
 
 interface ButtonProps {
   label: string;

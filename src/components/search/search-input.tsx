@@ -1,8 +1,11 @@
+// 외부 라이브러리
 import { useState } from "react";
-import InputSmall from "../commons/input-small";
 import Calendar, { CalendarProps } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+
+// 프로젝트 내부 컴포넌트
 import ButtonSmall from "../commons/button-small";
+import Input from "../commons/input";
 
 interface SearchInputProps {
   startDate: Date | null;
@@ -62,7 +65,7 @@ export default function SearchInput({
         </div>
         {/* <div className="flex flex-row justify-start items-center w-full gap-1 xs:gap-2 sm:gap-3 pr-[65px] xs:pr-[83px] sm:pr-[102px] max-w-[800px]"> */}
         <div className="flex flex-row justify-start items-center w-full gap-1 xs:gap-2 sm:gap-3 max-w-[800px]">
-          <InputSmall
+          <Input
             type="text"
             label=""
             placeholder="시작일"
@@ -70,9 +73,10 @@ export default function SearchInput({
             maxWidth="282px"
             onClick={openModal}
             readOnly
+            size="small"
           />
           <span className="text-[16px] xs:text-[18px] sm:text-[20px]">~</span>
-          <InputSmall
+          <Input
             type="text"
             label=""
             placeholder="종료일"
@@ -80,6 +84,7 @@ export default function SearchInput({
             maxWidth="282px"
             onClick={openModal}
             readOnly
+            size="small"
           />
         </div>
         <div className="flex flex-row justify-center items-center relative flex-shrink-0 w-[80px] h-[50px]"></div>
@@ -89,13 +94,14 @@ export default function SearchInput({
           키워드
         </div>
         <div className="flex flex-row justify-start items-center w-full gap-3 xs:gap-4 sm:gap-5 max-w-[600px]">
-          <InputSmall
+          <Input
             type="text"
             label=""
             placeholder="검색할 단어를 입력하세요."
             maxWidth="600px"
             value={keyword}
             onChange={handleKeywordChange}
+            size="small"
           />
         </div>
         <div className="flex flex-row justify-start items-center relative flex-shrink-0 pl-3 xs:pl-4 sm:pl-5 w-[80px]">

@@ -1,18 +1,23 @@
+// 외부 라이브러리
 import { useState, useEffect } from "react";
-import useTimer from "./use-timer";
-import {
-  validateEmailDomainPart,
-  validateEmailLocalPart,
-} from "@/src/utils/validation-utils";
+
+// 서버 사이드 데이터, 타입 및 API
 import {
   CheckEmailDuplication,
   CheckRegisteredEmail,
   ResendCode,
   VerifyEmailCode,
 } from "@/src/api/login/signup-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useTimer from "./use-timer";
 import {
-  calculateRemainingTime,
+  validateEmailLocalPart,
+  validateEmailDomainPart,
+} from "@/src/utils/validation-utils";
+import {
   getSessionStorageKey,
+  calculateRemainingTime,
 } from "@/src/utils/timer-utils";
 
 interface UseEmailCheckReturn {

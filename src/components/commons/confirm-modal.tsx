@@ -1,9 +1,13 @@
-import React from "react";
-import ButtonSmall from "./button-small";
+// 외부 라이브러리
 import { useRouter } from "next/router";
-import { cls } from "@/utils/class-utils";
 
-interface ModalProps {
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import ButtonSmall from "./button-small";
+
+interface ConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
   option: string;
@@ -23,10 +27,8 @@ export default function ConfirmModal({
   message = "",
   id = 0,
   action = () => {},
-}: ModalProps) {
+}: ConfirmModalProps) {
   const router = useRouter();
-
-  // const [isSuccessful, setIsSuccessful] = useState(success);
 
   const modalContents: {
     [key: string]: {

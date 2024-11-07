@@ -1,3 +1,4 @@
+// 외부 라이브러리
 import { useState, useEffect } from "react";
 
 export default function useIsMobile(breakpoint: number): boolean {

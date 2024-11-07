@@ -1,17 +1,20 @@
-import { fetchAlarmList } from "@/src/api/commons/header-api";
+// 외부 라이브러리
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { ParsedUrlQuery } from "querystring";
+
+// 서버 사이드 데이터, 타입 및 API
+import { Nickname } from "@/src/types/login/login-type";
+import {
+  Dashboard,
+  CloudInstanceList,
+} from "@/src/types/dashboard/dashboard-type";
+import { AlarmList, Alarm } from "@/src/types/commons/header-type";
+import { verifyAccessToken } from "@/src/api/login/login-api";
 import {
   fetchCloudInstanceList,
   fetchDashboard,
 } from "@/src/api/dashboard/dashboard-api";
-import { verifyAccessToken } from "@/src/api/login/login-api";
-import { Alarm, AlarmList } from "@/src/types/commons/header-type";
-import {
-  CloudInstanceList,
-  Dashboard,
-} from "@/src/types/dashboard/dashboard-type";
-import { Nickname } from "@/src/types/login/login-type";
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import { ParsedUrlQuery } from "querystring";
+import { fetchAlarmList } from "@/src/api/commons/header-api";
 
 export interface DashboardPageProps {
   NicknameSSR: Nickname | null;

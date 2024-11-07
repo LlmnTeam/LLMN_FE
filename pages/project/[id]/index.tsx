@@ -1,23 +1,30 @@
-import Container from "@/src/components/commons/container";
-import DropdownMenu from "@/src/components/commons/dropdown-menu";
-import EmptyBox from "@/src/components/commons/empty-box";
-import Layout from "@/src/components/commons/layout";
-import LogFileModal from "@/src/components/project/log-file-modal";
-import ShellModal from "@/src/components/project/shell-modal";
-import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
-import useShellModal from "@/src/hooks/project/use-shell-modal";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ProjectDetailPageProps,
   getProjectDetailSSR,
 } from "@/src/ssr/project/project-detail-ssr";
 import { Nickname } from "@/src/types/login/login-type";
-import { LogFileList, ProjectDetail } from "@/src/types/project/project-type";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { ProjectDetail, LogFileList } from "@/src/types/project/project-type";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useShellModal from "@/src/hooks/project/use-shell-modal";
+import useLogFileModal from "@/src/hooks/project/use-log-file-modal";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import Container from "@/src/components/commons/container";
+import EmptyBox from "@/src/components/commons/empty-box";
+import TerminalModal from "@/src/components/project/terminal-modal";
+import LogFileModal from "@/src/components/project/log-file-modal";
 
 export const getServerSideProps: GetServerSideProps<ProjectDetailPageProps> =
   getProjectDetailSSR;
@@ -32,6 +39,10 @@ export default function ProjectDetail({
   const router = useRouter();
   const { id } = router.query;
 
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectDetailRef = useRef<ProjectDetail | null>(ProjectDetailSSR);
+  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
+
   const {
     isShellModalOpen,
     openShellModal,
@@ -41,12 +52,10 @@ export default function ProjectDetail({
     handleCommandSubmit,
   } = useShellModal();
 
-  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
-  const projectDetailRef = useRef<ProjectDetail | null>(ProjectDetailSSR);
-  const logFileListRef = useRef<LogFileList | null>(LogFileListSSR);
-  const [selectedOption, setSelectedOption] = useState<string>("");
   const { isLogFileModalOpen, openLogFileModal, closeLogFileModal } =
     useLogFileModal();
+
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
   return (
     <>
@@ -144,7 +153,7 @@ export default function ProjectDetail({
             />
           )}
         </div>
-        <ShellModal
+        <TerminalModal
           isOpen={isShellModalOpen}
           onClose={closeShellModal}
           inputs={inputs}

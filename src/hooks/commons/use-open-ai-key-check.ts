@@ -1,5 +1,8 @@
-import { verifyOpenAIKey } from "@/src/api/login/signup-api";
+// 외부 라이브러리
 import { useEffect, useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
+import { verifyOpenAIKey } from "@/src/api/login/signup-api";
 
 interface useOpenAIKeyCheckReturn {
   openAIKey: string;

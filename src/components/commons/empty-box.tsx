@@ -1,4 +1,8 @@
+// 외부 라이브러리
 import Image from "next/image";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import { cls } from "@/src/utils/class-utils";
 
 interface EmptyBoxProps {
   title: string;

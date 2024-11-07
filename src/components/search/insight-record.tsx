@@ -1,4 +1,7 @@
+// 프로젝트 내부 훅과 유틸리티 함수
 import useInsightRecordModal from "@/src/hooks/search/use-insight-record-modal";
+
+// 프로젝트 내부 컴포넌트
 import InsightRecordModal from "./insight-record-modal";
 
 interface InsightRecordProps {

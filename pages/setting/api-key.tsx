@@ -1,22 +1,29 @@
-import { editOpenAIKey } from "@/api/setting/setting-api";
-import ButtonSmall from "@/components/commons/button-small";
-import ConfirmModal from "@/components/commons/confirm-modal";
-import DropdownMenu from "@/components/commons/dropdown-menu";
-import Input from "@/components/commons/input";
-import Layout from "@/components/commons/layout";
-import useConfirmModal from "@/hooks/commons/use-confirm-modal";
-import useOpenAIKeyCheck from "@/hooks/commons/use-open-ai-key-check";
+// 외부 라이브러리
+import { GetServerSideProps } from "next";
+import { useEffect, useRef, useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ValidateLoginProps,
   getValidateLoginSSR,
-} from "@/ssr/commons/validate-login-ssr";
-import { Nickname } from "@/types/login/login-type";
-import { cls } from "@/utils/class-utils";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+} from "@/src/ssr/commons/validate-login-ssr";
+import { Nickname } from "@/src/types/login/login-type";
+import { editOpenAIKey } from "@/src/api/setting/setting-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useOpenAIKeyCheck from "@/src/hooks/commons/use-open-ai-key-check";
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
+import Layout from "@/src/components/commons/layout";
+import DropdownMenu from "@/src/components/commons/dropdown-menu";
+import Input from "@/src/components/commons/input";
+import ButtonSmall from "@/src/components/commons/button-small";
+import ConfirmModal from "@/src/components/commons/confirm-modal";
 
 export const getServerSideProps: GetServerSideProps<ValidateLoginProps> =
   getValidateLoginSSR;
@@ -27,8 +34,10 @@ export default function ApiKey({
   unreadAlarmCount,
 }: ValidateLoginProps) {
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+
   const { openAIKey, isVaildOpenAIKey, openAIKeyMsg, handleOpenAIKeyChange } =
     useOpenAIKeyCheck();
+
   const {
     isConfirmModalOpen,
     success,

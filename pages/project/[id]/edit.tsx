@@ -1,21 +1,28 @@
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+// 외부 라이브러리
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+
+// 서버사이드 데이터, 타입 및 API
 import {
   ProjectEditPageProps,
   getProjectEditSSR,
 } from "@/src/ssr/project/project-edit-ssr";
 import { Nickname } from "@/src/types/login/login-type";
 import { ProjectInfo } from "@/src/types/project/project-type";
+import { editProjectInfo } from "@/src/api/project/project-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
 import useProjectInfoInput from "@/src/hooks/commons/use-project-info-input";
 import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
-import { editProjectInfo } from "@/src/api/project/project-api";
+import { cls } from "@/src/utils/class-utils";
+
+// 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";
 import Input from "@/src/components/commons/input";
-import { cls } from "@/src/utils/class-utils";
 import InputWithDropdown from "@/src/components/commons/input-with-dropdown";
 import ButtonSmall from "@/src/components/commons/button-small";
 import ConfirmModal from "@/src/components/commons/confirm-modal";
@@ -29,10 +36,12 @@ export default function ProjectEdit({
   AlarmListSSR,
   unreadAlarmCount,
 }: ProjectEditPageProps) {
-  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
-  const projectInfoRef = useRef<ProjectInfo | null>(ProjectInfoSSR);
   const router = useRouter();
   const { id } = router.query;
+
+  const nicknameRef = useRef<Nickname | null>(NicknameSSR);
+  const projectInfoRef = useRef<ProjectInfo | null>(ProjectInfoSSR);
+
   const {
     projectName,
     description,

@@ -1,4 +1,7 @@
+// 외부 라이브러리
 import { useState, useRef, useEffect } from "react";
+
+// 프로젝트 내부 컴포넌트
 import Input from "./input";
 
 interface InputWithDropdownProps {

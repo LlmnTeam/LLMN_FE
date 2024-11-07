@@ -1,18 +1,29 @@
-import React, { useState } from "react";
-import ButtonSmall from "../commons/button-small";
-import ConfirmModal from "../commons/confirm-modal";
+// 외부 라이브러리
+import { useState } from "react";
+
+// 서버 사이드 데이터, 타입 및 API
 import { CloudInstanceList } from "@/src/types/dashboard/dashboard-type";
-import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
 import { ChangeMonitoringCloud } from "@/src/api/dashboard/dashboard-api";
+
+// 프로젝트 내부 훅과 유틸리티 함수
+import useConfirmModal from "@/src/hooks/commons/use-confirm-modal";
 import { cls } from "@/src/utils/class-utils";
 
-interface ModalProps {
+// 프로젝트 내부 컴포넌트
+import ButtonSmall from "../commons/button-small";
+import ConfirmModal from "../commons/confirm-modal";
+
+interface CloudListModalProps {
   isOpen: boolean;
   onClose: () => void;
   data: CloudInstanceList | null;
 }
 
-export default function CloudListModal({ isOpen, onClose, data }: ModalProps) {
+export default function CloudListModal({
+  isOpen,
+  onClose,
+  data,
+}: CloudListModalProps) {
   const {
     isConfirmModalOpen,
     success,
