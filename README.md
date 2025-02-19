@@ -67,20 +67,19 @@
 <img width="850" alt="시스템 구성도" src="docs/images/architecture.png">
 </br></br>
 
-  > - 각 클라우드 인스턴스의 도커 컨테이너가 생성한 로그를 Filebeat가 **수집**하고, Logstash로 전달된 후 **전처리**된다.
-  > - 전처리된 로그는 ElasticSearch에 **저장**되고, Spring Boot가 이를 조회하여 활용하거나 FastAPI에 분석을 요청한다.
-  > - FastAPI는 OpenAI API를 활용해 로그 데이터를 **분석**하고 **요약**하며, 최종적으로 MySQL에 저장된다.
-  > - 사용자의 **원격 명령** 요청이 Apache MINA SSHD를 통해 실행되면, Redis가 Pub/Sub을 이용해 실행 결과를 **실시간**으로 사용자에게 전달한다.
-  > - 사용자가 특정 로그에 대한 **질문**을 하면 FastAPI가 대화 컨텍스트와 로그 데이터를 기반으로 OpenAI API를 호출하고, SSE를 통해 실시간으로 응답을 전송한다.
-  > - MySQL은 로그 데이터의 **요약 결과**와 **분석 내용**을 시간대별, 일일, 주간 단위로 저장하여 체계적인 관리를 지원한다.
+  > - 각 클라우드 인스턴스의 도커 컨테이너에서 생성된 로그를 Filebeat가 **수집**한 뒤, Logstash로 전달하여 **전처리**한다.
+  > - 전처리된 로그는 ElasticSearch에 **저장**되고, Spring Boot가 이를 활용하거나 FastAPI에 분석을 요청한다.
+  > - FastAPI는 OpenAI API를 활용해 로그 데이터를 **분석**하고 **요약**한 뒤, MySQL에 **저장**한다.
+  > - 사용자가 특정 로그에 대한 **질문**하면, FastAPI가 로그 데이터와 대화 컨텍스트를 기반으로 OpenAI API를 호출한 뒤, **분석 결과**를 SSE 스트리밍 방식으로 사용자에게 **전달**한다.
+  > - 사용자가 클라우드 서버를 원격 제어하기 위해 **명령**을 내리면, Apache MINA SSHD가 SSH를 통해 **실행**하고, Redis Pub/Sub을 통해 실행 결과를 사용자에게 **전달**한다.
 </br>
 
 #### 2.1.2. 로그 데이터 관리 </br>
 <img width="750" alt="로그 데이터 관리" src="docs/images/log_file_manage.png">
 </br>
 
-  > - 모든 로그 데이터를 그대로 저장하는 대신, 시간대별로 **요약**하여 주요 이벤트만 축적하는 방식으로 관리.
-  > - 시간대별 요약 데이터를 바탕으로 '일일 요약'을 생성하고, 이를 다시 종합해 '주간 요약'을 생성하는 **다단계 분석** 방식 채택.
+  > - 모든 로그 데이터를 그대로 저장하는 대신, 시간대별로 **요약**하여 주요 이벤트만 축적하는 방식으로 관리한다.
+  > - 시간대별 요약 데이터를 바탕으로 '**일일 요약**'을 생성하고, 이를 다시 종합해 '**주간 요약**'을 생성하는 **다단계 분석** 방식 채택.
 </br>
 
 #### 2.1.3. 토큰 한계를 해결하는 대화 맥락 유지 </br>
@@ -88,7 +87,7 @@
 </br>
 
   > - 대화가 일정량 이상 누적될 때마다 시스템이 이전 대화를 **요약**하여 프롬프트에 포함.
-  > - 요약된 대화는 새로운 질문과 함께 시스템 프롬프트에 추가되어, LLM이 이전 대화 **맥락**을 유지한 상태에서 답변할 수 있도록 지원한다.
+  > - 요약된 대화는 새로운 질문과 함께 시스템 프롬프트에 **추가**되어, LLM이 이전 대화 **맥락**을 유지하면서 답변할 수 있도록 지원한다.
 </br>
 
 ### 2.2. 사용 기술
@@ -110,58 +109,59 @@
 ### 3.1. 소개 </br>
 |로그인|회원가입(3단계 중 2단계, 클라우드 등록)|
 |:--:|:--:|
-|<img width="500" alt="로그인" src="/docs/images/login.png">|<img width="500" alt="회원가입" src="/docs/images/signup-step3.png">|
+|<img width="500" alt="로그인" src="docs/images/로그인.png">|<img width="500" alt="회원가입" src="docs/images/회원가입.png">|
 
 |대시보드|검색|
 |:--:|:--:|
-|<img width="500" alt="대시보드" src="/docs/images/dashboard.png">|<img width="500" alt="검색" src="/docs/images/search.png">|
+|<img width="500" alt="대시보드" src="docs/images/대시보드.png">|<img width="500" alt="검색" src="docs/images/검색.png">|
 
 |프로젝트 목록|프로젝트 상세조회|
 |:--:|:--:|
-|<img width="500" alt="프로젝트 목록" src="/docs/images/project_list.png">|<img width="500" alt="프로젝트 상세조회" src="/docs/images/project_detail.png">|
+|<img width="500" alt="프로젝트 목록" src="docs/images/프로젝트.png">|<img width="500" alt="프로젝트 상세조회" src="docs/images/로그 개요.png">|
 
 |로그 조회|로그 요약|
 |:--:|:--:|
-|<img width="500" alt="로그 조회" src="/docs/images/log_message.png">|<img width="500" alt="로그 요약" src="/docs/images/log_summary.png">|
+|<img width="500" alt="로그 조회" src="docs/images/로그 조회.png">|<img width="500" alt="로그 요약" src="docs/images/로그 요약.png">|
 
 |질문하기|원격 SSH 명령|
 |:--:|:--:|
-|<img width="500" alt="질문하기" src="/docs/images/chatbot.png">|<img width="500" alt="원격 SSH 명령" src="/docs/images/llmn_terminal-dark.png">|
+|<img width="500" alt="질문하기" src="docs/images/질문.png">|<img width="500" alt="원격 SSH 명령" src="docs/images/커맨드.png">|
 
 |인사이트(성능요약, 일일요약) |인사이트(주간 요약, 추천)|
 |:--:|:--:|
-|<img width="500" alt="인사이트 1" src="/docs/images/insight_1.png">|<img width="500" alt="인사이트 2" src="/docs/images/insight_2.png">|
+|<img width="500" alt="인사이트 1" src="docs/images/인사이트 1.png">|<img width="500" alt="인사이트 2" src="docs/images/인사이트 2.png">|
 
 |대시보드(모바일) ||프로젝트(모바일)||
 |:--:|:--:|:--:|:--:|
-|<img width="250" alt="대시보드(모바일)_1" src="/docs/images/dashboard_1-mobile.png">|<img width="250" alt="대시보드(모바일)_2" src="/docs/images/dashboard_2-mobile.png">|<img width="250" alt="프로젝트 목록(모바일)" src="/docs/images/project_list-mobile.png">|<img width="250" alt="프로젝트 상세조회(모바일)" src="/docs/images/project_detail-mobile.png">|
+|<img width="250" alt="대시보드(모바일)_1" src="docs/images/dashboard_1-mobile.png">|<img width="250" alt="대시보드(모바일)_2" src="docs/images/dashboard_2-mobile.png">|<img width="250" alt="프로젝트 목록(모바일)" src="docs/images/project_list-mobile.png">|<img width="250" alt="프로젝트 상세조회(모바일)" src="docs/images/project_detail-mobile.png">|
 
 |인사이트(모바일) |질문하기(모바일)|원격 SSH 명령(모바일)|검색(모바일)|
 |:--:|:--:|:--:|:--:|
-|<img width="250" alt="인사이트(모바일)" src="/docs/images/insight-mobile.png">|<img width="250" alt="질문하기(모바일)" src="/docs/images/chatbot-mobile.png">|<img width="250" alt="원격 SSH 명령(모바일)" src="/docs/images/llmn_terminal-dark-mobile.png">|<img width="250" alt="검색(모바일)" src="/docs/images/search-mobile.png">|
+|<img width="250" alt="인사이트(모바일)" src="docs/images/insight-mobile.png">|<img width="250" alt="질문하기(모바일)" src="docs/images/chatbot-mobile.png">|<img width="250" alt="원격 SSH 명령(모바일)" src="docs/images/llmn_terminal-dark-mobile.png">|<img width="250" alt="검색(모바일)" src="docs/images/search-mobile.png">|
+</br>
 
 ### 3.2. 시연 영상 </br>
-- **회원가입 (정보 입력 => 모니터링 할 클라우드의 SSH 정보 검증 및 추가 => OpenAI 키 검증 및 추가)**
+- **회원가입 (정보 입력 → 모니터링할 클라우드의 SSH 정보 검증 및 등록 → OpenAI 키 검증 및 추가)**
 
 https://github.com/user-attachments/assets/b7565570-59dd-4459-b86e-dc59c5bd0f54
 
 </br>
 
-- **로그 요약, 인사이트, 검색** 
+- **로그 요약 및 인사이트 조회, 로그 검색** 
 
 https://github.com/user-attachments/assets/9c2ae38d-41b0-4252-9841-b8a054e96235
 
 </br>
 
-- **클라우드에 SSH 원격으로 명령 내리기**
+- **특정 로그에 대해 질문하기**
 
-https://github.com/user-attachments/assets/1df00660-5230-4598-88d3-076efc01772e
+https://github.com/user-attachments/assets/b23fdeee-924a-478a-9b58-0596aaa2e955
 
 </br>
 
-- **특정 로그에 대해 챗봇에 질문하기**
+- **클라우드 서버 원격 제어를 위해 명령 내리기 (SSH)**
 
-https://github.com/user-attachments/assets/b23fdeee-924a-478a-9b58-0596aaa2e955
+https://github.com/user-attachments/assets/1df00660-5230-4598-88d3-076efc01772e
 
 </br>
 
