@@ -1,4 +1,7 @@
-import { Dashboard, CloudInstanceList } from "@/types/dashboard/dashboard-type";
+import type {
+  Dashboard,
+  CloudInstanceDataList,
+} from "@/src/types/dashboard/dashboard-type";
 import Cookies from "js-cookie";
 
 export async function fetchDashboard(
@@ -27,9 +30,9 @@ export async function fetchDashboard(
   }
 }
 
-export async function fetchCloudInstanceList(
+export async function fetchCloudInstanceDataList(
   accessToken: string
-): Promise<CloudInstanceList | null> {
+): Promise<CloudInstanceDataList | null> {
   try {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
     const response = await fetch(`${baseURL}/cloud`, {
@@ -45,7 +48,7 @@ export async function fetchCloudInstanceList(
       throw new Error(`API call failed with status: ${response.status}`);
     }
 
-    const { result }: { result: CloudInstanceList | null } =
+    const { result }: { result: CloudInstanceDataList | null } =
       await response.json();
 
     return result;

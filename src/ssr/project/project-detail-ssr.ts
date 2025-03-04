@@ -3,9 +3,12 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 // 서버 사이드 데이터, 타입 및 API
-import { Nickname } from "@/src/types/login/login-type";
-import { ProjectDetail, LogFileList } from "@/src/types/project/project-type";
-import { Alarm, AlarmList } from "@/src/types/commons/header-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type {
+  ProjectDetail,
+  LogFileList,
+} from "@/src/types/project/project-type";
+import type { Alarm, AlarmList } from "@/src/types/commons/header-type";
 import { verifyAccessToken } from "@/src/api/login/login-api";
 import {
   fetchProjectDetail,

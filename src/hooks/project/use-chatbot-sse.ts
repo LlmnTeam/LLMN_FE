@@ -54,7 +54,7 @@ export default function useChatbotSSE({
         throw new Error("Access token is missing");
       }
 
-      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+      // const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
       const response = await fetch(
         `http://54.180.252.169:8000/api/logs/question`,
         {

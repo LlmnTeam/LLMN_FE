@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // 서버 사이드 데이터, 타입 및 API
-import { AlarmList } from "@/src/types/commons/header-type";
+import type { AlarmList } from "@/src/types/commons/header-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import useAlarm from "@/src/hooks/commons/use-alarm";
@@ -22,7 +22,7 @@ interface HeaderProps {
   toggleSidebar: () => void;
 }
 
-const PAGE_SIZE = 10;
+// const PAGE_SIZE = 10;
 
 export default function Header({
   nickname = "",

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import { AlarmList, Alarm } from "@/src/types/commons/header-type";
+import type { AlarmList, Alarm } from "@/src/types/commons/header-type";
 import { submitAlarmRead } from "@/src/api/commons/header-api";
 
 const PAGE_SIZE = 10;

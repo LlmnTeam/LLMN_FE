@@ -1,12 +1,12 @@
-import {
+import type {
   LogFileList,
-  LogFiles,
+  // LogFiles,
   LogMessage,
   ProjectDetail,
   ProjectInfo,
   ProjectList,
   ProjectSummaryList,
-} from "@/types/project/project-type";
+} from "@/src/types/project/project-type";
 import Cookies from "js-cookie";
 
 export async function fetchProjectList(
@@ -142,8 +142,9 @@ export async function fetchProjectSummaryList(
       throw new Error(`API call failed with status: ${response.status}`);
     }
 
-    // const { result }: { result: ProjectSummaryList | null } =
-    const { result }: { result: any } = await response.json();
+    const { result }: { result: ProjectSummaryList | null } =
+      await response.json();
+    // const { result }: { result: any } = await response.json();
     return result;
   } catch (error) {
     console.error("Failed to fetch project summary list:", error);
@@ -358,6 +359,7 @@ export async function submitSSHCommand(command: string): Promise<void> {
       },
       body: JSON.stringify({ command }),
     });
+    console.log("reponse: ", response);
   } catch (error) {
     console.error("Failed to fetch project summary list:", error);
   }

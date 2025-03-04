@@ -8,8 +8,8 @@ import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/src/ssr/commons/validate-login-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { SearchResult } from "@/src/types/search/search-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { SearchResult } from "@/src/types/search/search-type";
 import { fetchSearchResult } from "@/src/api/search/search-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

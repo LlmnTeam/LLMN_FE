@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import { CloudInstanceList } from "@/src/types/dashboard/dashboard-type";
+import type { CloudInstanceDataList } from "@/src/types/dashboard/dashboard-type";
 import { ChangeMonitoringCloud } from "@/src/api/dashboard/dashboard-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수
@@ -16,7 +16,7 @@ import ConfirmModal from "../commons/confirm-modal";
 interface CloudListModalProps {
   isOpen: boolean;
   onClose: () => void;
-  data: CloudInstanceList | null;
+  data: CloudInstanceDataList | null;
 }
 
 export default function CloudListModal({

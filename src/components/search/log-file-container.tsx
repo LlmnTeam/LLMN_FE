@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import { LogFiles } from "@/src/types/search/search-type";
+import type { LogFiles } from "@/src/types/search/search-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import { cls } from "@/src/utils/class-utils";

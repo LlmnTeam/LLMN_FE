@@ -9,10 +9,10 @@ import {
   DashboardPageProps,
   getDashboardSSR,
 } from "@/src/ssr/dashboard/dashboard-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import {
+import type { Nickname } from "@/src/types/login/login-type";
+import type {
   Dashboard,
-  CloudInstanceList,
+  CloudInstanceDataList,
 } from "@/src/types/dashboard/dashboard-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
@@ -47,7 +47,7 @@ export default function Dashboard({
 
   const nicknameRef = useRef<Nickname | null>(NicknameSSR);
   const dashboardRef = useRef<Dashboard | null>(DashboardSSR);
-  const cloudInstanceListRef = useRef<CloudInstanceList | null>(
+  const cloudInstanceListRef = useRef<CloudInstanceDataList | null>(
     CloudInstanceListSSR
   );
 

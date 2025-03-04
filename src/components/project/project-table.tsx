@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // 서버 사이드 데이터, 타입 및 API
-import { ProjectList } from "@/src/types/project/project-type";
+import type { ProjectList } from "@/src/types/project/project-type";
 
 export interface ProjectTableProps {
   ProjectList: ProjectList | null;

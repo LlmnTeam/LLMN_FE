@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 // 서버 사이드 데이터, 타입 및 API
-import { CloudInstanceList } from "@/src/types/dashboard/dashboard-type";
+import { CloudInstanceDataList } from "@/src/types/dashboard/dashboard-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import useActionConfirmModal from "@/src/hooks/commons/use-action-confirm-modal";
@@ -16,7 +16,7 @@ import CloudListModal from "../dashboard/cloud-list-modal";
 
 interface DropdownMenuProps {
   options: string[];
-  cloudInstanceList?: CloudInstanceList | null;
+  cloudInstanceList?: CloudInstanceDataList | null;
   name?: string;
 }
 

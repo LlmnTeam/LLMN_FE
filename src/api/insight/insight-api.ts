@@ -1,5 +1,5 @@
-import { Insight, InsightSummary } from "@/types/insight/insight-type";
-import Cookies from "js-cookie";
+import type { Insight, InsightSummary } from "@/src/types/insight/insight-type";
+// import Cookies from "js-cookie";
 
 export async function fetchInsight(
   accessToken: string

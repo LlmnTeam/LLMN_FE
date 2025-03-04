@@ -35,7 +35,7 @@ export interface CloudInstanceData {
   remoteHost: string;
 }
 
-export interface CloudInstanceList {
+export interface CloudInstanceDataList {
   clouds: CloudInstanceData[];
   selectedCloud: CloudInstanceData;
 }

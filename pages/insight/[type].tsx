@@ -11,8 +11,8 @@ import {
   InsightSummaryPageProps,
   getInsightSummarySSR,
 } from "@/src/ssr/insight/insight-summary-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { InsightSummary } from "@/src/types/insight/insight-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { InsightSummary } from "@/src/types/insight/insight-type";
 
 // 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";

@@ -11,8 +11,8 @@ import {
   ProjectLogMessagePageProps,
   getProjectLogMessageSSR,
 } from "@/src/ssr/project/project-log-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { LogFileList, LogMessage } from "@/src/types/project/project-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { LogFileList, LogMessage } from "@/src/types/project/project-type";
 import { downloadLogFile } from "@/src/api/project/project-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

@@ -3,9 +3,9 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 // 서버 사이드 데이터, 타입 및 API
-import { Nickname } from "@/src/types/login/login-type";
-import { Setting } from "@/src/types/setting/setting-type";
-import { AlarmList, Alarm } from "@/src/types/commons/header-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { Setting } from "@/src/types/setting/setting-type";
+import type { AlarmList, Alarm } from "@/src/types/commons/header-type";
 import { verifyAccessToken } from "@/src/api/login/login-api";
 import { fetchSetting } from "@/src/api/setting/setting-api";
 import { fetchAlarmList } from "@/src/api/commons/header-api";

@@ -1,4 +1,4 @@
-import { SearchResult } from "@/types/search/search-type";
+import type { SearchResult } from "@/src/types/search/search-type";
 import Cookies from "js-cookie";
 
 export async function fetchSearchResult(

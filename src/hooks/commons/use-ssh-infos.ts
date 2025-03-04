@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import { SSHInfo } from "@/src/types/login/login-type";
+import type { SSHInfo } from "@/src/types/login/login-type";
 
 interface UseSSHInfosReturn {
   sshInfos: SSHInfo[];
