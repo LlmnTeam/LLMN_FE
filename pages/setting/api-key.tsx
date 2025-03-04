@@ -10,7 +10,7 @@ import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/src/ssr/commons/validate-login-ssr";
-import { Nickname } from "@/src/types/login/login-type";
+import type { Nickname } from "@/src/types/login/login-type";
 import { editOpenAIKey } from "@/src/api/setting/setting-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수
@@ -125,7 +125,11 @@ export default function ApiKey({
             </div>
           </div>
           <div className="flex flex-row justify-end items-center w-full">
-            <ButtonSmall label="수정" disabled={disabled} />
+            <ButtonSmall
+              label="수정"
+              disabled={disabled}
+              onClick={handleEditButton}
+            />
           </div>
         </div>
         <ConfirmModal

@@ -8,7 +8,7 @@ import {
   NewItemPageProps,
   getNewItemSSR,
 } from "@/src/ssr/new-item/new-item-ssr";
-import { Nickname } from "@/src/types/login/login-type";
+import type { Nickname } from "@/src/types/login/login-type";
 import { CreateNewProject } from "@/src/api/new-item/new-item-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

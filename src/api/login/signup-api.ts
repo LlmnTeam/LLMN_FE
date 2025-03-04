@@ -1,4 +1,4 @@
-import { SSHInfo } from "@/types/login/login-type";
+import type { SSHInfo } from "@/src/types/login/login-type";
 
 export const CheckEmailDuplication = async (
   email: string

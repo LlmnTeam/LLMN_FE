@@ -1,4 +1,8 @@
-import { AccessToken, LoginResponse, Nickname } from "@/types/login/login-type";
+import type {
+  AccessToken,
+  LoginResponse,
+  Nickname,
+} from "@/src/types/login/login-type";
 
 export const requestLoginToken = async (
   email: string,

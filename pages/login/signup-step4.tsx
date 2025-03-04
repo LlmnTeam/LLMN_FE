@@ -5,7 +5,7 @@ import Head from "next/head";
 
 // 서버사이드 데이터, 타입 및 API
 import { submitSignup } from "@/src/api/login/signup-api";
-import { SSHInfo } from "@/src/types/login/login-type";
+import type { SSHInfo } from "@/src/types/login/login-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import useOpenAIKeyCheck from "@/src/hooks/commons/use-open-ai-key-check";

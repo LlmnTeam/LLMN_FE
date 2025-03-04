@@ -10,7 +10,7 @@ import {
   ValidateLoginProps,
   getValidateLoginSSR,
 } from "@/src/ssr/commons/validate-login-ssr";
-import { Nickname } from "@/src/types/login/login-type";
+import type { Nickname } from "@/src/types/login/login-type";
 
 // 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";

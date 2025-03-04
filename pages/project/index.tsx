@@ -9,8 +9,8 @@ import {
   ProjectPageProps,
   getProjectListSSR,
 } from "@/src/ssr/project/project-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { ProjectList } from "@/src/types/project/project-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { ProjectList } from "@/src/types/project/project-type";
 import { refreshProjectList } from "@/src/api/project/project-api";
 
 // 프로젝트 내부 컴포넌트

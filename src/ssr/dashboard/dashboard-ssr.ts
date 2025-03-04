@@ -3,15 +3,15 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 // 서버 사이드 데이터, 타입 및 API
-import { Nickname } from "@/src/types/login/login-type";
-import {
+import type { Nickname } from "@/src/types/login/login-type";
+import type {
   Dashboard,
-  CloudInstanceList,
+  CloudInstanceDataList,
 } from "@/src/types/dashboard/dashboard-type";
-import { AlarmList, Alarm } from "@/src/types/commons/header-type";
+import type { AlarmList, Alarm } from "@/src/types/commons/header-type";
 import { verifyAccessToken } from "@/src/api/login/login-api";
 import {
-  fetchCloudInstanceList,
+  fetchCloudInstanceDataList,
   fetchDashboard,
 } from "@/src/api/dashboard/dashboard-api";
 import { fetchAlarmList } from "@/src/api/commons/header-api";
@@ -19,7 +19,7 @@ import { fetchAlarmList } from "@/src/api/commons/header-api";
 export interface DashboardPageProps {
   NicknameSSR: Nickname | null;
   DashboardSSR: Dashboard | null;
-  CloudInstanceListSSR: CloudInstanceList | null;
+  CloudInstanceListSSR: CloudInstanceDataList | null;
   AlarmListSSR: AlarmList | null;
   unreadAlarmCount: number;
 }
@@ -33,7 +33,7 @@ export async function getDashboardSSR(
     await Promise.all([
       verifyAccessToken(accessToken),
       fetchDashboard(accessToken),
-      fetchCloudInstanceList(accessToken),
+      fetchCloudInstanceDataList(accessToken),
       fetchAlarmList(accessToken),
     ]);
 

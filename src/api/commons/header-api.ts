@@ -1,4 +1,4 @@
-import { AlarmList } from "@/types/commons/header-type";
+import type { AlarmList } from "@/src/types/commons/header-type";
 import Cookies from "js-cookie";
 
 export async function fetchAlarmList(

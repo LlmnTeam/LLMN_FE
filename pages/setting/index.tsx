@@ -7,8 +7,8 @@ import Image from "next/image";
 
 // 서버사이드 데이터, 타입 및 API
 import { SettingPageProps, getSettingSSR } from "@/src/ssr/setting/setting-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { Setting, SshInfo } from "@/src/types/setting/setting-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { Setting, SshInfo } from "@/src/types/setting/setting-type";
 import { editSetting } from "@/src/api/setting/setting-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

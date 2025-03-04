@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import { SshInfo } from "@/src/types/setting/setting-type";
+import type { SshInfo } from "@/src/types/setting/setting-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import useInstanceCheck from "@/src/hooks/commons/use-instance-check";

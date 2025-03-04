@@ -11,8 +11,8 @@ import {
   ProjectEditPageProps,
   getProjectEditSSR,
 } from "@/src/ssr/project/project-edit-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { ProjectInfo } from "@/src/types/project/project-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { ProjectInfo } from "@/src/types/project/project-type";
 import { editProjectInfo } from "@/src/api/project/project-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

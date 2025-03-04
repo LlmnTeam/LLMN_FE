@@ -4,7 +4,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 
 // 서버 사이드 데이터, 타입 및 API
-import { AccessToken } from "@/src/types/login/login-type";
+import type { AccessToken } from "@/src/types/login/login-type";
 import { requestLoginToken } from "@/src/api/login/login-api";
 
 // 프로젝트 내부 훅과 유틸리티 함수

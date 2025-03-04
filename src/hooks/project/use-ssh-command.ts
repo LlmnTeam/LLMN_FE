@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AnsiUp } from "ansi_up";
 
 // 서버 사이드 데이터, 타입 및 API
-import { TerminalInput } from "@/src/types/project/project-type";
+import type { TerminalInput } from "@/src/types/project/project-type";
 import {
   initSSHCommand,
   submitSSHCommand,

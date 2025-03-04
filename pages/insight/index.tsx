@@ -5,8 +5,8 @@ import Head from "next/head";
 
 // 서버사이드 데이터 및 타입
 import { InsightPageProps, getInsightSSR } from "@/src/ssr/insight/insight-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { Insight } from "@/src/types/insight/insight-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { Insight } from "@/src/types/insight/insight-type";
 
 // 프로젝트 내부 컴포넌트
 import Layout from "@/src/components/commons/layout";

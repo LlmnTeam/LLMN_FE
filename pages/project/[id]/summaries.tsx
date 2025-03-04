@@ -11,8 +11,8 @@ import {
   ProjectSummariesPageProps,
   getProjectSummariesSSR,
 } from "@/src/ssr/project/project-summaries-ssr";
-import { Nickname } from "@/src/types/login/login-type";
-import { LogFileList } from "@/src/types/project/project-type";
+import type { Nickname } from "@/src/types/login/login-type";
+import type { LogFileList } from "@/src/types/project/project-type";
 
 // 프로젝트 내부 훅과 유틸리티 함수
 import useShellModal from "@/src/hooks/project/use-shell-modal";

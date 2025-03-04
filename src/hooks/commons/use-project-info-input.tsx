@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // 서버 사이드 데이터, 타입 및 API
-import {
+import type {
   CloudInstance,
   CloudInstanceList,
 } from "@/src/types/new-item/new-item-type";
@@ -51,19 +51,28 @@ export default function useProjectInfoInput({
   const [projectNameMsg, setProjectNameMsg] = useState<string>("");
   const [isProjectNameEdited, setIsProjectNameEdited] = useState(false);
   const [sshInfoId, setSshInfoId] = useState<number | null>(null);
-  const [cloudInstances, setCloudInstances] = useState<CloudInstance[]>(
+  const [cloudInstances] = useState<CloudInstance[]>(
     initialCloudInstances ? initialCloudInstances.cloudInstances : []
   );
-  const [cloudOptions, setCloudOptions] = useState<string[]>(
-    initialCloudInstances
-      ? [
-          ...initialCloudInstances.cloudInstances.map(
-            (cloud) => cloud.cloudName
-          ),
-          "연결하지 않음",
-        ]
-      : ["연결하지 않음"]
-  );
+  const cloudOptions = initialCloudInstances
+    ? [
+        ...initialCloudInstances.cloudInstances.map((cloud) => cloud.cloudName),
+        "연결하지 않음",
+      ]
+    : ["연결하지 않음"];
+  // const [cloudInstances, setCloudInstances] = useState<CloudInstance[]>(
+  //   initialCloudInstances ? initialCloudInstances.cloudInstances : []
+  // );
+  // const [cloudOptions, setCloudOptions] = useState<string[]>(
+  //   initialCloudInstances
+  //     ? [
+  //         ...initialCloudInstances.cloudInstances.map(
+  //           (cloud) => cloud.cloudName
+  //         ),
+  //         "연결하지 않음",
+  //       ]
+  //     : ["연결하지 않음"]
+  // );
   const [containerOptions, setContainerOptions] = useState<string[]>([
     "연결하지 않음",
   ]);

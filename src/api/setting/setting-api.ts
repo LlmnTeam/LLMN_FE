@@ -1,4 +1,4 @@
-import { Setting, SshInfoEdit } from "@/types/setting/setting-type";
+import type { Setting, SshInfoEdit } from "@/src/types/setting/setting-type";
 import Cookies from "js-cookie";
 
 export async function fetchSetting(
