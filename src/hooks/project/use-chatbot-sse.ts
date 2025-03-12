@@ -54,18 +54,21 @@ export default function useChatbotSSE({
         throw new Error("Access token is missing");
       }
 
-      // const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-      const response = await fetch(
-        `http://54.180.252.169:8000/api/logs/question`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({ logFiles, question, isFirstQuestion }),
-        }
-      );
+      const sseURL = process.env.NEXT_PUBLIC_SSE_URL;
+
+      if (!sseURL) {
+        console.error("SSE URL is not defined in environment variables.");
+        return;
+      }
+
+      const response = await fetch(sseURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ logFiles, question, isFirstQuestion }),
+      });
 
       if (!response.body) {
         throw new Error("Streaming not supported");
