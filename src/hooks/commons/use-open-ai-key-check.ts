@@ -30,23 +30,23 @@ export default function useOpenAIKeyCheck(): useOpenAIKeyCheckReturn {
       return;
     }
 
-    if (/\s/.test(inputOpenAIKey)) {
-      setIsPossibleOpenAIKey(false);
-      setOpenAIKeyMsg("API 키에 공백이 포함될 수 없습니다.");
-      return;
-    }
+    // if (/\s/.test(inputOpenAIKey)) {
+    //   setIsPossibleOpenAIKey(false);
+    //   setOpenAIKeyMsg("API 키에 공백이 포함될 수 없습니다.");
+    //   return;
+    // }
 
-    if (inputOpenAIKey.length < 20 || inputOpenAIKey.length > 60) {
-      setIsPossibleOpenAIKey(false);
-      setOpenAIKeyMsg("API 키의 길이가 유효하지 않습니다.");
-      return;
-    }
+    // if (inputOpenAIKey.length < 20 || inputOpenAIKey.length > 60) {
+    //   setIsPossibleOpenAIKey(false);
+    //   setOpenAIKeyMsg("API 키의 길이가 유효하지 않습니다.");
+    //   return;
+    // }
 
-    if (!inputOpenAIKey.startsWith("sk-")) {
-      setIsPossibleOpenAIKey(false);
-      setOpenAIKeyMsg("API 키는 'sk-'로 시작해야 합니다.");
-      return;
-    }
+    // if (!inputOpenAIKey.startsWith("sk-")) {
+    //   setIsPossibleOpenAIKey(false);
+    //   setOpenAIKeyMsg("API 키는 'sk-'로 시작해야 합니다.");
+    //   return;
+    // }
 
     setIsPossibleOpenAIKey(true);
     setOpenAIKeyMsg("유효한 형식의 API 키입니다. 검증 중...");
