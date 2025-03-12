@@ -79,7 +79,7 @@ export default function ConfirmModal({
       closeAction: onClose,
       confirmAction: success
         ? () => {
-            router.push("/log");
+            router.push("/project");
           }
         : () => {
             window.location.reload();
