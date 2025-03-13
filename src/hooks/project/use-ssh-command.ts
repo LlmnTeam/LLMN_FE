@@ -27,7 +27,14 @@ export default function useSSHCommand(): UseSSHCommandReturn {
 
   const connectSocket = (): Promise<void> => {
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket("ws://54.180.252.169:8080/ws");
+      const sshURL = process.env.NEXT_PUBLIC_SSH_URL;
+
+      if (!sshURL) {
+        console.error("SSH URL is not defined in environment variables.");
+        return;
+      }
+
+      const ws = new WebSocket(sshURL);
       setSocket(ws);
 
       ws.onopen = async () => {
