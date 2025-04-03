@@ -212,12 +212,14 @@ export const checkNicknameDuplication = async (
       throw new Error("Network response was not ok");
     }
 
-    const data: { isDuplicate: boolean } = await response.json();
+    // 전체 응답을 받아서 result만 추출
+    const data = await response.json();
     console.log("nick data", data);
-    return data; // 서버 응답 반환
+
+    return { isDuplicate: data.result.isDuplicate }; // ✅ 원하는 값만 반환
   } catch (error) {
     console.error("닉네임 체크 중 오류 발생:", error);
-    throw error; // 에러 처리를 호출한 곳으로 전파
+    throw error;
   }
 };
 

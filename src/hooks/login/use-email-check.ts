@@ -126,9 +126,6 @@ export default function useEmailCheck(type: string): UseEmailCheckReturn {
           } else {
             sessionStorage.setItem(sessionStorageKey, Date.now().toString());
             setIsValidEmail(true);
-            // type === "join"
-            //   ? setEmailMsg("사용 가능한 이메일입니다.")
-            //   : setEmailMsg("가입된 이메일입니다.");
             if (type === "join") {
               setEmailMsg("사용 가능한 이메일입니다.");
             } else {
@@ -140,9 +137,6 @@ export default function useEmailCheck(type: string): UseEmailCheckReturn {
         } else {
           sessionStorage.setItem(sessionStorageKey, Date.now().toString());
           setIsValidEmail(true);
-          // type === "join"
-          //   ? setEmailMsg("사용 가능한 이메일입니다.")
-          //   : setEmailMsg("가입된 이메일입니다.");
           if (type === "join") {
             setEmailMsg("사용 가능한 이메일입니다.");
           } else {
@@ -153,9 +147,6 @@ export default function useEmailCheck(type: string): UseEmailCheckReturn {
         }
       } else {
         setIsValidEmail(false);
-        // type === "join"
-        //   ? setEmailMsg("이미 존재하는 이메일입니다.")
-        //   : setEmailMsg("가입되지 않은 이메일입니다.");
         if (type === "join") {
           setEmailMsg("이미 존재하는 이메일입니다.");
         } else {
