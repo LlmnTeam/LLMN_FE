@@ -13,7 +13,7 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      screens: { xs: "450px", xxs: "400px" },
+      screens: { xsm: "500px", xs: "450px", xxs: "400px" },
     },
   },
   plugins: [require("@tailwindcss/typography")],

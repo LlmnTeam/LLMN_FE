@@ -23,6 +23,7 @@ export async function fetchDashboard(
     }
 
     const { result }: { result: Dashboard | null } = await response.json();
+    console.log("result : ", result);
     return result;
   } catch (error) {
     console.error("Failed to fetch pets data with auth:", error);
